@@ -20,7 +20,8 @@ GiCoreView::~GiCoreView()
 
 void GiCoreView::draw(GiCanvas& canvas)
 {
-    TestCanvas::test(canvas, 0x08, 1000, true);
+    int n = TestCanvas::randInt(900, 1000);
+    TestCanvas::test(canvas, 0x08, n, true);
 }
 
 void GiCoreView::dyndraw(GiCanvas& canvas)

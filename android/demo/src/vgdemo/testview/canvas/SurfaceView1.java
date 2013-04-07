@@ -15,6 +15,7 @@ import android.graphics.PixelFormat;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.drawable.BitmapDrawable;
 import touchvg.jni.TestCanvas;
+import android.os.SystemClock;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -75,7 +76,7 @@ public class SurfaceView1 extends SurfaceView {
     }
 
     protected void doDraw(SurfaceHolder holder) {
-        long ms = System.currentTimeMillis();
+        long ms = SystemClock.currentThreadTimeMillis();
         Canvas canvas = holder.lockCanvas();
 
         if (canvas != null) {

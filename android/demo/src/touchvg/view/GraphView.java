@@ -31,7 +31,10 @@ public class GraphView extends View {
         
         this.setOnTouchListener(new OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
-            	if (mDynDrawView != null && event.getEventTime() > mDynDrawView.getEndPaintTime()) {
+            	if (event.getAction() == MotionEvent.ACTION_UP) {
+            		mViewAdapter.regen();
+            	}
+            	else if (mDynDrawView != null && event.getEventTime() > mDynDrawView.getEndPaintTime()) {
             		mCoreView.onTouch(mViewAdapter, event.getX(), event.getY());
             	}
                 return true;

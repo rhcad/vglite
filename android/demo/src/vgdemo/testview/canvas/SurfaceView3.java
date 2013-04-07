@@ -15,6 +15,7 @@ import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff.Mode;
 import touchvg.jni.TestCanvas;
+import android.os.SystemClock;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -88,14 +89,14 @@ public class SurfaceView3 extends SurfaceView {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        long ms = System.currentTimeMillis();
+        long ms = SystemClock.currentThreadTimeMillis();
         if (mCanvas.beginPaint(canvas)) {
             canvas.drawColor(Color.TRANSPARENT, Mode.CLEAR);
             TestCanvas.test(mCanvas, mCreateFlags);
             dynDraw(mCanvas);
             mCanvas.endPaint();
         }
-        mDrawnTime = System.currentTimeMillis() - ms;
+        mDrawnTime = SystemClock.currentThreadTimeMillis() - ms;
     }
 
     private void dynDraw(CanvasAdapter canvas) {

@@ -10,6 +10,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff.Mode;
+import android.os.SystemClock;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -82,7 +83,7 @@ public class DynDrawSurfaceView extends SurfaceView {
     
     private class DrawThread implements Runnable {
         public void run() {
-        	long ms = System.currentTimeMillis();
+        	long ms = SystemClock.currentThreadTimeMillis();
             Canvas canvas = null;
             try {
                 canvas = getHolder().lockCanvas();
@@ -96,7 +97,7 @@ public class DynDrawSurfaceView extends SurfaceView {
                     getHolder().unlockCanvasAndPost(canvas);
                 }
             }
-            mDrawnTime = System.currentTimeMillis() - ms;
+            mDrawnTime = SystemClock.currentThreadTimeMillis() - ms;
             mEndPaintTime = android.os.SystemClock.uptimeMillis();
         }
     }
