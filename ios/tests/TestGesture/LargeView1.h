@@ -1,0 +1,14 @@
+// LargeView1.h
+// Copyright (c) 2012-2013, https://github.com/rhcad/vglite
+
+#import <UIKit/UIKit.h>
+
+@class GraphView1;
+
+@interface LargeView1 : UIScrollView<UIScrollViewDelegate> {
+    GraphView1 *_subview;
+}
+
+- (id)initWithFrame:(CGRect)frame withTests:(int)t;
+
+@end

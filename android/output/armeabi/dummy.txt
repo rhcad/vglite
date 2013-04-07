@@ -1,0 +1,1 @@
+Type 'sh toapp.sh' to make touchvg.jar and libtouchvg.so .
