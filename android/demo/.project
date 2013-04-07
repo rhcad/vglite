@@ -98,4 +98,11 @@
 		<nature>org.eclipse.cdt.managedbuilder.core.managedBuildNature</nature>
 		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>core</name>
+			<type>2</type>
+			<locationURI>PARENT-2-PROJECT_LOC/core</locationURI>
+		</link>
+	</linkedResources>
 </projectDescription>

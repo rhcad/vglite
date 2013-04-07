@@ -15,7 +15,7 @@ struct TestCanvas {
     static int randInt(int minv, int maxv);
     static float randFloat(float minv, float maxv);
     
-    static void test(GiCanvas& canvas, int bits, int n = 100, bool randStyle = false);
+    static void test(GiCanvas& canvas, int bits, int n = 100, bool randStyle = true);
     
     static void testRect(GiCanvas& canvas, int n);
     static void testLine(GiCanvas& canvas, int n);

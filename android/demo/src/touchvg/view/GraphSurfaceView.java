@@ -21,11 +21,12 @@ import android.view.View;
 /*! \ingroup GROUP_ANDROID
  */
 public class GraphSurfaceView extends SurfaceView {
-	private CanvasAdapter mCanvasAdapter;
-	private ViewAdapter mViewAdapter;
+    private CanvasAdapter mCanvasAdapter;
+    private ViewAdapter mViewAdapter;
     private GiCoreView mCoreView;
-    private DynDrawSurfaceView mDynDrawView;
+    private DynDrawView mDynDrawView;
     private long mDrawnTime;
+    private long mEndPaintTime;
 
     public GraphSurfaceView(Context context) {
         super(context);
@@ -35,69 +36,87 @@ public class GraphSurfaceView extends SurfaceView {
         
         getHolder().addCallback(new SurfaceCallback());
         setZOrderOnTop(true);
-        getHolder().setFormat(PixelFormat.TRANSLUCENT);
+        getHolder().setFormat(PixelFormat.TRANSPARENT);
         
         this.setOnTouchListener(new OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
-            	if (event.getAction() == MotionEvent.ACTION_UP) {
-            		mViewAdapter.regen();
-            	}
-            	else if (mDynDrawView != null && event.getEventTime() > mDynDrawView.getEndPaintTime()) {
-            		mCoreView.onTouch(mViewAdapter, event.getX(), event.getY());
-            	}
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    mViewAdapter.regen();
+                }
+                else if ((mDynDrawView != null && !mDynDrawView.isDrawing()
+                        && event.getEventTime() > mDynDrawView.getEndPaintTime())
+                        || (mDynDrawView == null && !isDrawing()
+                        && event.getEventTime() > mEndPaintTime)) {
+                    mCoreView.onTouch(mViewAdapter, event.getX(), event.getY());
+                }
                 return true;
             }
         });
     }
     
-    public View getDynDrawView() {
-    	if (mDynDrawView == null) {
-    		mDynDrawView = new DynDrawSurfaceView(getContext());
-    		mDynDrawView.setCoreView(mCoreView);
-    	}
-    	return mDynDrawView;
+    public GiCoreView getCoreView() {
+        return mCoreView;
+    }
+    
+    public void setDynDrawView(DynDrawView view) {
+        mDynDrawView = view;
+        if (mDynDrawView != null) {
+            mDynDrawView.setCoreView(mCoreView);
+        }
     }
     
     public long getDrawnTime() {
-    	return mDrawnTime;
+        return mDrawnTime;
+    }
+    
+    public boolean isDrawing() {
+        return mCanvasAdapter != null && mCanvasAdapter.isDrawing();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         if (mCanvasAdapter.beginPaint(canvas)) {
-        	canvas.drawColor(Color.TRANSPARENT, Mode.CLEAR);
-        	mCoreView.draw(mCanvasAdapter);
+            if (this.getBackground() == null) {
+                canvas.drawColor(Color.TRANSPARENT, Mode.CLEAR);
+            }
+            mCoreView.draw(mCanvasAdapter);
+            if (mDynDrawView == null) {
+                mCoreView.dyndraw(mCanvasAdapter);
+            }
             mCanvasAdapter.endPaint();
         }
     }
 
     @Override
     protected void onDetachedFromWindow() {
-    	if (mViewAdapter != null) {
-        	mViewAdapter.delete();
-        	mViewAdapter = null;
+        if (mDynDrawView != null) {
+            mDynDrawView.setCoreView(null);
+            mDynDrawView = null;
         }
-    	if (mCoreView != null) {
-        	mCoreView.delete();
-        	mCoreView = null;
+        if (mViewAdapter != null) {
+            mViewAdapter.delete();
+            mViewAdapter = null;
+        }
+        if (mCoreView != null) {
+            mCoreView.delete();
+            mCoreView = null;
         }
         if (mCanvasAdapter != null) {
             mCanvasAdapter.delete();
             mCanvasAdapter = null;
         }
-        mDynDrawView = null;
         super.onDetachedFromWindow();
     }
     
     private void doDraw() {
-    	if (!mCanvasAdapter.isDrawing()) {
+        if (!mCanvasAdapter.isDrawing()) {
             new Thread(new DrawThread()).start();
         }
     }
     
     private class SurfaceCallback implements SurfaceHolder.Callback {
         public void surfaceCreated(SurfaceHolder holder) {
-        	doDraw();
+            doDraw();
         }
 
         public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
@@ -109,7 +128,7 @@ public class GraphSurfaceView extends SurfaceView {
     
     private class DrawThread implements Runnable {
         public void run() {
-        	long ms = SystemClock.currentThreadTimeMillis();
+            long ms = SystemClock.currentThreadTimeMillis();
             Canvas canvas = null;
             try {
                 canvas = getHolder().lockCanvas();
@@ -124,23 +143,27 @@ public class GraphSurfaceView extends SurfaceView {
                 }
             }
             mDrawnTime = SystemClock.currentThreadTimeMillis() - ms;
+            mEndPaintTime = android.os.SystemClock.uptimeMillis();
         }
     }
     
     private class ViewAdapter extends GiView {
-    	@Override
-    	public void regen() {
-    		doDraw();
-    		if (mDynDrawView != null) {
-    			mDynDrawView.doDraw();
-    		}
-    	}
-    	
-    	@Override
-    	public void redraw() {
-    		if (mDynDrawView != null) {
-    			mDynDrawView.doDraw();
-    		}
-    	}
+        @Override
+        public void regen() {
+            doDraw();
+            if (mDynDrawView != null) {
+                mDynDrawView.doDraw();
+            }
+        }
+        
+        @Override
+        public void redraw() {
+            if (mDynDrawView != null) {
+                mDynDrawView.doDraw();
+            }
+            else {
+                doDraw();
+            }
+        }
     }
 }

@@ -13,6 +13,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.os.SystemClock;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -74,7 +75,7 @@ public class GraphView1 extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        long ms = System.currentTimeMillis();
+        long ms = SystemClock.currentThreadTimeMillis();
         if (mCanvas.beginPaint(canvas)) {
             canvas.drawColor(Color.TRANSPARENT);
             if ((mCreateFlags & 0xF0000) != 0) {  // in scroll view
@@ -86,7 +87,7 @@ public class GraphView1 extends View {
             dynDraw(mCanvas);
             mCanvas.endPaint();
         }
-        mDrawnTime = System.currentTimeMillis() - ms;
+        mDrawnTime = SystemClock.currentThreadTimeMillis() - ms;
         showTime(mDrawnTime);
     }
 

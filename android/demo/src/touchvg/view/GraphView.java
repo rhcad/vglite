@@ -9,6 +9,7 @@ import touchvg.jni.GiView;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.os.SystemClock;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -16,8 +17,8 @@ import android.view.View;
 /*! \ingroup GROUP_ANDROID
  */
 public class GraphView extends View {
-	private CanvasAdapter mCanvasAdapter;
-	private ViewAdapter mViewAdapter;
+    private CanvasAdapter mCanvasAdapter;
+    private ViewAdapter mViewAdapter;
     private GiCoreView mCoreView;
     private DynDrawView mDynDrawView;
     private long mDrawnTime;
@@ -31,105 +32,88 @@ public class GraphView extends View {
         
         this.setOnTouchListener(new OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
-            	if (event.getAction() == MotionEvent.ACTION_UP) {
-            		mViewAdapter.regen();
-            	}
-            	else if (mDynDrawView != null && event.getEventTime() > mDynDrawView.getEndPaintTime()) {
-            		mCoreView.onTouch(mViewAdapter, event.getX(), event.getY());
-            	}
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    mViewAdapter.regen();
+                }
+                else if ((mDynDrawView != null
+                        && event.getEventTime() > mDynDrawView.getEndPaintTime())
+                        || (mDynDrawView == null
+                        && event.getEventTime() > mEndPaintTime)) {
+                    mCoreView.onTouch(mViewAdapter, event.getX(), event.getY());
+                }
                 return true;
             }
         });
     }
     
-    public View getDynDrawView() {
-    	if (mDynDrawView == null) {
-    		mDynDrawView = new DynDrawView(getContext());
-    	}
-    	return mDynDrawView;
+    public GiCoreView getCoreView() {
+        return mCoreView;
+    }
+    
+    public void setDynDrawView(DynDrawView view) {
+        mDynDrawView = view;
+        if (mDynDrawView != null) {
+            mDynDrawView.setCoreView(mCoreView);
+        }
     }
     
     public long getDrawnTime() {
-    	return mDrawnTime;
+        return mDrawnTime;
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-    	long ms = System.currentTimeMillis();
-    	if (mCanvasAdapter.beginPaint(canvas)) {
-    		canvas.drawColor(Color.TRANSPARENT);
-			mCoreView.draw(mCanvasAdapter);
-			mCanvasAdapter.endPaint();
-		}
-        mDrawnTime = System.currentTimeMillis() - ms;
+        long ms = SystemClock.currentThreadTimeMillis();
+        if (mCanvasAdapter.beginPaint(canvas)) {
+            canvas.drawColor(Color.TRANSPARENT);
+            mCoreView.draw(mCanvasAdapter);
+            if (mDynDrawView == null) {
+                mCoreView.dyndraw(mCanvasAdapter);
+            }
+            mCanvasAdapter.endPaint();
+        }
+        mDrawnTime = SystemClock.currentThreadTimeMillis() - ms;
+        mEndPaintTime = android.os.SystemClock.uptimeMillis();
     }
 
     @Override
     protected void onDetachedFromWindow() {
-    	if (mViewAdapter != null) {
-        	mViewAdapter.delete();
-        	mViewAdapter = null;
+        if (mDynDrawView != null) {
+            mDynDrawView.setCoreView(null);
+            mDynDrawView = null;
         }
-    	if (mCoreView != null) {
-        	mCoreView.delete();
-        	mCoreView = null;
+        if (mViewAdapter != null) {
+            mViewAdapter.delete();
+            mViewAdapter = null;
+        }
+        if (mCoreView != null) {
+            mCoreView.delete();
+            mCoreView = null;
         }
         if (mCanvasAdapter != null) {
             mCanvasAdapter.delete();
             mCanvasAdapter = null;
         }
-        mDynDrawView = null;
         super.onDetachedFromWindow();
     }
     
-    private class DynDrawView extends View {
-        private CanvasAdapter mCanvasAdapter;
-
-        public DynDrawView(Context context) {
-            super(context);
-            mCanvasAdapter = new CanvasAdapter(this);
+    private class ViewAdapter extends GiView {
+        @Override
+        public void regen() {
+            GraphView.this.invalidate();
+            if (mDynDrawView != null) {
+                mDynDrawView.doDraw();
+            }
         }
         
-        public long getEndPaintTime() {
-        	return mEndPaintTime;
-        }
-
         @Override
-        protected void onDraw(Canvas canvas) {
-        	long ms = System.currentTimeMillis();
-            if (mCanvasAdapter.beginPaint(canvas)) {
-            	canvas.drawColor(Color.TRANSPARENT);
-            	mCoreView.dyndraw(mCanvasAdapter);
-                mCanvasAdapter.endPaint();
+        public void redraw() {
+            if (mDynDrawView != null) {
+                mDynDrawView.doDraw();
             }
-            mDrawnTime = System.currentTimeMillis() - ms;
-            mEndPaintTime = android.os.SystemClock.uptimeMillis();
-        }
-
-        @Override
-        protected void onDetachedFromWindow() {
-            if (mCanvasAdapter != null) {
-                mCanvasAdapter.delete();
-                mCanvasAdapter = null;
+            else {
+                GraphView.this.invalidate();
             }
-            super.onDetachedFromWindow();
         }
-    }
-    
-    private class ViewAdapter extends GiView {
-    	@Override
-    	public void regen() {
-    		GraphView.this.invalidate();
-    		if (mDynDrawView != null) {
-    			mDynDrawView.invalidate();
-    		}
-    	}
-    	
-    	@Override
-    	public void redraw() {
-    		if (mDynDrawView != null) {
-    			mDynDrawView.invalidate();
-    		}
-    	}
     }
 }

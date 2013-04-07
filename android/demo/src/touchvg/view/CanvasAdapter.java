@@ -39,13 +39,13 @@ public class CanvasAdapter extends GiCanvas {
     }
 
     public CanvasAdapter(View view) {
-    	this.mView = view;
+        this.mView = view;
     }
     
     @Override
     public synchronized void delete() {
-    	mView = null;
-    	super.delete();
+        mView = null;
+        super.delete();
     }
 
     public void setBackgroundColor(int color) {
@@ -140,7 +140,7 @@ public class CanvasAdapter extends GiCanvas {
     public void clearRect(float x, float y, float w, float h) {
         mCanvas.save(Canvas.CLIP_SAVE_FLAG);
         mCanvas.clipRect(x, y, x + w, y + h);
-        mCanvas.drawColor(mBkColor, Mode.CLEAR);
+        mCanvas.drawColor(mBkColor, Mode.CLEAR);    // punch a whole in the view-hierarchy below the view
         mCanvas.restore();
     }
 
@@ -234,7 +234,7 @@ public class CanvasAdapter extends GiCanvas {
         } catch (UnsupportedOperationException e) { // GLES20Canvas, >=api11
             e.printStackTrace();
             if (mView != null) {                    // 改为软实现后下次绘制才生效
-                mView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);	// need API11 or above
+                mView.setLayerType(View.LAYER_TYPE_SOFTWARE, null); // need API11 or above
             }
         }
 
@@ -252,7 +252,7 @@ public class CanvasAdapter extends GiCanvas {
 
     @Override
     public void drawHandle(float x, float y, int type) {
-        Bitmap bmp = getHandleBitmap(type);
+        final Bitmap bmp = getHandleBitmap(type);
         if (bmp != null) {
             mCanvas.drawBitmap(bmp, x - bmp.getWidth() / 2,
                     y - bmp.getHeight() / 2, null);
@@ -262,7 +262,7 @@ public class CanvasAdapter extends GiCanvas {
     @Override
     public void drawBitmap(String name, float xc, float yc, float w, float h,
             float angle) {
-        Bitmap bmp = getHandleBitmap(4);
+        final Bitmap bmp = getHandleBitmap(4);
         if (bmp != null && bmp.getWidth() > 0) {
             Matrix mat = new Matrix();
             mat.postTranslate(-0.5f * bmp.getWidth(), -0.5f * bmp.getHeight());
@@ -276,7 +276,7 @@ public class CanvasAdapter extends GiCanvas {
 
     @Override
     public float drawTextAt(String text, float x, float y, float h, int align) {
-        Paint.FontMetrics fm = mBrush.getFontMetrics();
+        final Paint.FontMetrics fm = mBrush.getFontMetrics();
         float lineHeight = Math.abs(fm.descent) + Math.abs(fm.ascent);
 
         if (Math.abs(lineHeight - h) < 1e2f) {

@@ -92,7 +92,7 @@ public class SurfaceView1 extends SurfaceView {
             }
             holder.unlockCanvasAndPost(canvas);
         }
-        mDrawnTime = System.currentTimeMillis() - ms;
+        mDrawnTime = SystemClock.currentThreadTimeMillis() - ms;
     }
 
     @Override

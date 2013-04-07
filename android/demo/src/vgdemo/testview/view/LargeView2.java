@@ -18,8 +18,8 @@ public class LargeView2 extends ScrollView {
     }
 
     private void createContentView(Context context) {
-    	View view = new TestDoubleViews(context);
-    	FrameLayout layout = new FrameLayout(context);
+        final View view = new TestDoubleViews(context);
+        final FrameLayout layout = new FrameLayout(context);
         layout.addView(view, new LayoutParams(LayoutParams.MATCH_PARENT, 2048));
         this.addView(layout);
     }

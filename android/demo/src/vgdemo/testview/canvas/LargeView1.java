@@ -52,7 +52,7 @@ public class LargeView1 extends ScrollView {
         }
 
         if (view != null) {
-            FrameLayout layout = new FrameLayout(context);
+            final FrameLayout layout = new FrameLayout(context);
             layout.addView(view, new LayoutParams(LayoutParams.MATCH_PARENT, 2048));
             this.addView(layout);
         }

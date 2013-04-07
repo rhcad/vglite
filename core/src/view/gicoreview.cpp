@@ -29,10 +29,8 @@ void GiCoreView::dyndraw(GiCanvas& canvas)
     static float phase = 0;
     phase += 1;
     canvas.setPen(0, 0, 1, phase);
-    canvas.setBrush(0x10005500, 0);
-    for (int i = 0; i < 300; i++) {
-        canvas.drawEllipse(_lastx - 50, _lasty - 50, 100, 100, true, true);
-    }
+    canvas.setBrush(0x80005500, 0);
+    canvas.drawEllipse(_lastx - 50, _lasty - 50, 100, 100, true, true);
 }
 
 void GiCoreView::onTouch(GiView& view, float x, float y)
