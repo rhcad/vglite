@@ -7,7 +7,6 @@ package touchvg.view;
 import touchvg.jni.GiCoreView;
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.os.SystemClock;
 import android.view.View;
 
@@ -49,7 +48,6 @@ public class DynDrawStdView extends View implements DynDrawView {
     protected void onDraw(Canvas canvas) {
         long ms = SystemClock.currentThreadTimeMillis();
         if (mCanvasAdapter.beginPaint(canvas)) {
-            canvas.drawColor(Color.TRANSPARENT);
             mCoreView.dynDraw(mCanvasAdapter);
             mCanvasAdapter.endPaint();
         }

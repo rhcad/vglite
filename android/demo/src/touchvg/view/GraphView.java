@@ -8,7 +8,6 @@ import touchvg.jni.GiCoreView;
 import touchvg.jni.GiView;
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.os.SystemClock;
 import android.view.MotionEvent;
 import android.view.View;
@@ -65,9 +64,6 @@ public class GraphView extends View {
     protected void onDraw(Canvas canvas) {
         long ms = SystemClock.currentThreadTimeMillis();
         if (mCanvasAdapter.beginPaint(canvas)) {
-        	if (getBackground() == null) {
-        		canvas.drawColor(Color.TRANSPARENT);
-        	}
             mCoreView.drawAll(mCanvasAdapter);
             if (mDynDrawView == null) {
                 mCoreView.dynDraw(mCanvasAdapter);
@@ -110,7 +106,7 @@ public class GraphView extends View {
         
         @Override
         public void regenAfterAddShape() {
-        	regenAll();
+            regenAll();
         }
         
         @Override

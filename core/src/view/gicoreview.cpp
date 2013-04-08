@@ -24,10 +24,11 @@ void GiCoreView::drawAll(GiCanvas& canvas)
     TestCanvas::test(canvas, 0x08, n, true);
 }
 
-void GiCoreView::drawNewShape(GiCanvas& canvas)
+bool GiCoreView::drawNewShape(GiCanvas& canvas)
 {
 	canvas.setBrush(0x80005500, 0);
 	canvas.drawEllipse(_lastx - 50, _lasty - 50, 100, 100, true, true);
+	return true;
 }
 
 void GiCoreView::dynDraw(GiCanvas& canvas)

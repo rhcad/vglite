@@ -31,19 +31,25 @@ public class ViewFactory {
     public static List<DummyItem> ITEMS = new ArrayList<DummyItem>();
 
     static {
-    	addItem("touchvg.view.GraphView", 0, "TestOneView");
-        addItem("touchvg.view.GraphSurfaceView", 0, "GraphSurfaceView");
+        addItem("touchvg.view.GraphView", 0, "TestOneView");
+        addItem("vgdemo.testview.view.TestDoubleViews", 1|0, "TestOneSurfaceView");
+        addItem("vgdemo.testview.view.TestDoubleViews", 1|0|0x100000, "TestOneSurfaceView, back");
         
-        addItem("vgdemo.testview.view.TestDoubleViews", 0, "TestDoubleViews, view+view");
-        addItem("vgdemo.testview.view.TestDoubleViews", 1, "TestDoubleViews, surface+view");
-        addItem("vgdemo.testview.view.TestDoubleViews", 2, "TestDoubleViews, view+surface");
-        addItem("vgdemo.testview.view.TestDoubleViews", 3, "TestDoubleViews, surface+surface");
-        addItem("vgdemo.testview.view.TestDoubleViews", 1|4, "TestDoubleViews, back surface+view");
+        addItem("vgdemo.testview.view.TestDoubleViews", 0|2, "TestDoubleViews, view+view");
+        addItem("vgdemo.testview.view.TestDoubleViews", 1|2, "TestDoubleViews, surface+view");
+        addItem("vgdemo.testview.view.TestDoubleViews", 0|4, "TestDoubleViews, view+surface");
+        addItem("vgdemo.testview.view.TestDoubleViews", 1|4, "TestDoubleViews, surface+surface");
+        addItem("vgdemo.testview.view.TestDoubleViews", 1|2|0x100000, "TestDoubleViews, back surface+view");
+        addItem("vgdemo.testview.view.TestDoubleViews", 1|4|0x100000, "TestDoubleViews, back surface+surface");
         
-        addItem("vgdemo.testview.view.LargeView2", 0, "TestDoubleViews, scroll view+view");
-        addItem("vgdemo.testview.view.LargeView2", 1, "TestDoubleViews, scroll surface+view");
-        addItem("vgdemo.testview.view.LargeView2", 2, "TestDoubleViews, scroll view+surface");
-        addItem("vgdemo.testview.view.LargeView2", 3, "TestDoubleViews, scroll surface+surface");
+        addItem("vgdemo.testview.view.LargeView2", 0|2, "TestDoubleViews, scroll view+view");
+        addItem("vgdemo.testview.view.LargeView2", 1|2, "TestDoubleViews, scroll surface+view");
+        addItem("vgdemo.testview.view.LargeView2", 0|4, "TestDoubleViews, scroll view+surface");
+        addItem("vgdemo.testview.view.LargeView2", 1|4, "TestDoubleViews, scroll surface+surface");
+        addItem("vgdemo.testview.view.LargeView2", 0|0, "TestOneView, scroll");
+        addItem("vgdemo.testview.view.LargeView2", 1|0, "TestOneSurfaceView, scroll");
+        addItem("vgdemo.testview.view.TestDoubleViews", 1|2|0x100000, "TestDoubleViews, scroll back surface+view");
+        addItem("vgdemo.testview.view.TestDoubleViews", 1|4|0x100000, "TestDoubleViews, scroll back surface+surface");
         
         addItem("vgdemo.testview.canvas.GraphView1", 0x01, "testRect");
         addItem("vgdemo.testview.canvas.GraphView1", 0x02, "testLine");

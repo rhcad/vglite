@@ -22,7 +22,7 @@ public:
     void drawAll(GiCanvas& canvas);
 
     //! 显示新图形，在 GiView.regenAfterAddShape() 后调用
-    void drawNewShape(GiCanvas& canvas);
+    bool drawNewShape(GiCanvas& canvas);
     
     //! 显示动态图形
     void dynDraw(GiCanvas& canvas);
