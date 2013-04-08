@@ -18,13 +18,19 @@ GiCoreView::~GiCoreView()
 {
 }
 
-void GiCoreView::draw(GiCanvas& canvas)
+void GiCoreView::drawAll(GiCanvas& canvas)
 {
     int n = TestCanvas::randInt(900, 1000);
     TestCanvas::test(canvas, 0x08, n, true);
 }
 
-void GiCoreView::dyndraw(GiCanvas& canvas)
+void GiCoreView::drawNewShape(GiCanvas& canvas)
+{
+	canvas.setBrush(0x80005500, 0);
+	canvas.drawEllipse(_lastx - 50, _lasty - 50, 100, 100, true, true);
+}
+
+void GiCoreView::dynDraw(GiCanvas& canvas)
 {
     static float phase = 0;
     phase += 1;

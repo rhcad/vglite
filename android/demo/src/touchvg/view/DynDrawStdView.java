@@ -50,7 +50,7 @@ public class DynDrawStdView extends View implements DynDrawView {
         long ms = SystemClock.currentThreadTimeMillis();
         if (mCanvasAdapter.beginPaint(canvas)) {
             canvas.drawColor(Color.TRANSPARENT);
-            mCoreView.dyndraw(mCanvasAdapter);
+            mCoreView.dynDraw(mCanvasAdapter);
             mCanvasAdapter.endPaint();
         }
         mDrawnTime = SystemClock.currentThreadTimeMillis() - ms;

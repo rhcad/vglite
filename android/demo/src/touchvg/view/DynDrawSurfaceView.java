@@ -52,7 +52,7 @@ public class DynDrawSurfaceView extends SurfaceView implements DynDrawView {
     protected void onDraw(Canvas canvas) {
         if (mCanvasAdapter.beginPaint(canvas)) {
             canvas.drawColor(Color.TRANSPARENT, Mode.CLEAR);
-            mCoreView.dyndraw(mCanvasAdapter);
+            mCoreView.dynDraw(mCanvasAdapter);
             mCanvasAdapter.endPaint();
         }
     }

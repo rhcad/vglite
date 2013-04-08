@@ -33,7 +33,7 @@ public class GraphView extends View {
         this.setOnTouchListener(new OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_UP) {
-                    mViewAdapter.regen();
+                    mViewAdapter.regenAfterAddShape();
                 }
                 else if ((mDynDrawView != null
                         && event.getEventTime() > mDynDrawView.getEndPaintTime())
@@ -65,10 +65,12 @@ public class GraphView extends View {
     protected void onDraw(Canvas canvas) {
         long ms = SystemClock.currentThreadTimeMillis();
         if (mCanvasAdapter.beginPaint(canvas)) {
-            canvas.drawColor(Color.TRANSPARENT);
-            mCoreView.draw(mCanvasAdapter);
+        	if (getBackground() == null) {
+        		canvas.drawColor(Color.TRANSPARENT);
+        	}
+            mCoreView.drawAll(mCanvasAdapter);
             if (mDynDrawView == null) {
-                mCoreView.dyndraw(mCanvasAdapter);
+                mCoreView.dynDraw(mCanvasAdapter);
             }
             mCanvasAdapter.endPaint();
         }
@@ -99,11 +101,16 @@ public class GraphView extends View {
     
     private class ViewAdapter extends GiView {
         @Override
-        public void regen() {
+        public void regenAll() {
             GraphView.this.invalidate();
             if (mDynDrawView != null) {
                 mDynDrawView.doDraw();
             }
+        }
+        
+        @Override
+        public void regenAfterAddShape() {
+        	regenAll();
         }
         
         @Override

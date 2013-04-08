@@ -7,6 +7,7 @@ package touchvg.view;
 import touchvg.jni.GiCoreView;
 import touchvg.jni.GiView;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
@@ -41,7 +42,7 @@ public class GraphSurfaceView extends SurfaceView {
         this.setOnTouchListener(new OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_UP) {
-                    mViewAdapter.regen();
+                    mViewAdapter.regenAfterAddShape();
                 }
                 else if ((mDynDrawView != null && !mDynDrawView.isDrawing()
                         && event.getEventTime() > mDynDrawView.getEndPaintTime())
@@ -73,15 +74,20 @@ public class GraphSurfaceView extends SurfaceView {
         return mCanvasAdapter != null && mCanvasAdapter.isDrawing();
     }
 
-    @Override
-    protected void onDraw(Canvas canvas) {
+    private void drawShapes(Canvas canvas, Bitmap bitmap) {
         if (mCanvasAdapter.beginPaint(canvas)) {
-            if (this.getBackground() == null) {
-                canvas.drawColor(Color.TRANSPARENT, Mode.CLEAR);
-            }
-            mCoreView.draw(mCanvasAdapter);
+        	if (bitmap != null) {
+        		canvas.drawBitmap(bitmap, getMatrix(), null);
+        		mCoreView.drawNewShape(mCanvasAdapter);
+        	}
+        	else {
+        		if (getBackground() == null) {
+        			canvas.drawColor(Color.TRANSPARENT, Mode.CLEAR);
+        		}
+        		mCoreView.drawAll(mCanvasAdapter);
+    		}
             if (mDynDrawView == null) {
-                mCoreView.dyndraw(mCanvasAdapter);
+                mCoreView.dynDraw(mCanvasAdapter);
             }
             mCanvasAdapter.endPaint();
         }
@@ -108,15 +114,13 @@ public class GraphSurfaceView extends SurfaceView {
         super.onDetachedFromWindow();
     }
     
-    private void doDraw() {
-        if (!mCanvasAdapter.isDrawing()) {
-            new Thread(new DrawThread()).start();
-        }
+    private void doDraw(boolean afterAddShape) {
+    	new Thread(new DrawThread(afterAddShape)).start();
     }
     
     private class SurfaceCallback implements SurfaceHolder.Callback {
         public void surfaceCreated(SurfaceHolder holder) {
-            doDraw();
+            doDraw(false);
         }
 
         public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
@@ -127,19 +131,36 @@ public class GraphSurfaceView extends SurfaceView {
     }
     
     private class DrawThread implements Runnable {
+    	private boolean afterAddShape;
+    	
+    	DrawThread(boolean afterAddShape) {
+    		this.afterAddShape = afterAddShape;
+    	}
+    	
         public void run() {
             long ms = SystemClock.currentThreadTimeMillis();
             Canvas canvas = null;
+            Bitmap bitmap = null;
+            
             try {
+            	if (afterAddShape) {
+            		bitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
+            		canvas = new Canvas(bitmap);
+            		drawShapes(canvas, null);
+            	}
                 canvas = getHolder().lockCanvas();
                 if (canvas != null) {
-                    draw(canvas);
+                	drawShapes(canvas, bitmap);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
                 if (canvas != null) {
                     getHolder().unlockCanvasAndPost(canvas);
+                }
+                if (bitmap != null) {
+                	bitmap.recycle();
+                	bitmap = null;
                 }
             }
             mDrawnTime = SystemClock.currentThreadTimeMillis() - ms;
@@ -149,8 +170,16 @@ public class GraphSurfaceView extends SurfaceView {
     
     private class ViewAdapter extends GiView {
         @Override
-        public void regen() {
-            doDraw();
+        public void regenAll() {
+            doDraw(false);
+            if (mDynDrawView != null) {
+                mDynDrawView.doDraw();
+            }
+        }
+        
+        @Override
+        public void regenAfterAddShape() {
+        	doDraw(true);
             if (mDynDrawView != null) {
                 mDynDrawView.doDraw();
             }
@@ -162,7 +191,7 @@ public class GraphSurfaceView extends SurfaceView {
                 mDynDrawView.doDraw();
             }
             else {
-                doDraw();
+                doDraw(false);
             }
         }
     }

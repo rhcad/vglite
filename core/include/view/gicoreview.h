@@ -19,10 +19,13 @@ public:
     ~GiCoreView();
     
     //! 显示所有图形
-    void draw(GiCanvas& canvas);
+    void drawAll(GiCanvas& canvas);
+
+    //! 显示新图形，在 GiView.regenAfterAddShape() 后调用
+    void drawNewShape(GiCanvas& canvas);
     
     //! 显示动态图形
-    void dyndraw(GiCanvas& canvas);
+    void dynDraw(GiCanvas& canvas);
     
     void onTouch(GiView& view, float x, float y);
 };
