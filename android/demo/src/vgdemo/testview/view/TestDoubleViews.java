@@ -11,7 +11,7 @@ import touchvg.view.GraphView;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
-import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 
 //! 测试双视图布局的测试视图类
@@ -58,9 +58,10 @@ public class TestDoubleViews extends FrameLayout {
             }
         }
         
-        final View midview = new View(context);
-        midview.setBackgroundColor(Color.YELLOW);
-        addView(midview, new LayoutParams(40, 40));
+        final Button midview = new Button(context);
+        midview.setText("This is a button in the FrameLayout.");
+        midview.setBackgroundColor(Color.GRAY);
+        addView(midview, new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
     }
 
 }

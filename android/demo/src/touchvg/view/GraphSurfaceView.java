@@ -79,8 +79,7 @@ public class GraphSurfaceView extends SurfaceView {
     public boolean isDrawing() {
         return mCanvasAdapter != null && mCanvasAdapter.isDrawing();
     }
-
-    //protected void onDraw(Canvas canvas) {
+    
     public void drawShapes(Canvas canvas) {
         if (mCanvasAdapter.beginPaint(canvas)) {
             if (getBackground() == null) {
