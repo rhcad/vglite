@@ -27,7 +27,7 @@ void GiCoreView::drawAll(GiCanvas& canvas)
 
 bool GiCoreView::drawNewShape(GiCanvas& canvas)
 {
-	canvas.setBrush(0x80005500, 0);
+    canvas.setBrush(TestCanvas::randInt(10, 0xFF) << 24 | TestCanvas::randInt(0, 0xFFFFFF), 0);
 	canvas.drawEllipse(_lastx - 50, _lasty - 50, 100, 100, true, true);
 	return true;
 }

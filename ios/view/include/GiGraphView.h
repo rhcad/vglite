@@ -4,16 +4,18 @@
 
 #import <UIKit/UIKit.h>
 
-class GiQuartzCanvas;
+class GiViewAdapter;
+class GiCoreView;
 
 //! iOS绘图视图类
 /*! \ingroup GROUP_IOS
  */
 @interface GiGraphView : UIView {
-    GiQuartzCanvas  *_canvas;
-    UIView          *_dynview;
+    GiViewAdapter   *_viewAdapter;
 }
 
+- (GiCoreView *)coreView;
+- (UIImage *)snapshot;
 - (BOOL)savePng:(NSString *)filename;
 
 @end

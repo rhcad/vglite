@@ -2,7 +2,7 @@
 //! \brief 定义画布适配器类 GiQuartzCanvas
 // Copyright (c) 2012-2013, https://github.com/rhcad/vglite
 
-#import <CoreGraphics/CoreGraphics.h>
+#include <CoreGraphics/CoreGraphics.h>
 #include <gicanvas.h>
 
 //! 使用 Quartz 2D 实现的画布适配器类

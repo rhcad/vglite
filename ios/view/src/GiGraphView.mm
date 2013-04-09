@@ -3,20 +3,107 @@
 // Copyright (c) 2012-2013, https://github.com/rhcad/vglite
 
 #import "GiGraphView.h"
+#import <QuartzCore/CALayer.h>
 #include "GiQuartzCanvas.h"
+#include "giview.h"
+#include "gicoreview.h"
 
 //! 动态图形的绘图视图类
-@interface DynGiGraphView : UIView
+@interface DynDrawView : UIView {
+    GiGraphView  *_mainView;
+}
 @end
 
-@implementation DynGiGraphView
+@implementation DynDrawView
+
+- (id)initWithFrame:(CGRect)frame :(GiGraphView *)mainView
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        _mainView = mainView;
+        self.contentMode = UIViewContentModeRedraw; // 每次重画
+        self.opaque = NO;                           // 透明背景
+    }
+    return self;
+}
+
+- (void)drawRect:(CGRect)rect
+{
+    GiQuartzCanvas canvas;
+    
+    if (canvas.beginPaint(UIGraphicsGetCurrentContext())) {
+        [_mainView coreView]->dynDraw(canvas);
+        canvas.endPaint();
+    }
+}
+
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [_mainView touchesMoved:touches withEvent:event];
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [_mainView touchesEnded:touches withEvent:event];
+}
+
+@end
+
+//! 绘图视图适配器
+class GiViewAdapter : public GiView
+{
+    GiGraphView *view;
+public:
+    UIView      *dynview;
+    GiCoreView  *coreView;
+    UIImage     *tmpshot;
+    
+    GiViewAdapter(GiGraphView *mainView)
+        : view(mainView), dynview(nil), tmpshot(nil) {
+        coreView = new GiCoreView();
+    }
+    
+    ~GiViewAdapter() {
+        delete coreView;
+        [tmpshot release];
+    }
+    
+    virtual void regenAll() {
+        [view setNeedsDisplay];
+    }
+    
+    virtual void regenAfterAddShape() {
+        [tmpshot release];
+        tmpshot = [view snapshot];
+        [tmpshot retain];
+        [view setNeedsDisplay];
+    }
+    
+    virtual void redraw() {
+        if (!dynview && view) {
+            dynview = [[DynDrawView alloc]initWithFrame:view.frame :view];
+            [view.superview addSubview:dynview];
+            [dynview release];
+        }
+        [dynview setNeedsDisplay];
+    }
+};
+
+@implementation GiGraphView
+
+- (void)dealloc
+{
+    delete _viewAdapter;
+    [super dealloc];
+}
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.contentMode = UIViewContentModeRedraw; // 不缓存图像，每次重画
+        self.contentMode = UIViewContentModeRedraw; // 每次重画
         self.opaque = NO;                           // 透明背景
+        _viewAdapter = new GiViewAdapter(self);
     }
     return self;
 }
@@ -27,77 +114,70 @@
     GiQuartzCanvas canvas;
     
     if (canvas.beginPaint(context)) {
+        if (_viewAdapter->tmpshot) {
+            [_viewAdapter->tmpshot drawAtPoint:CGPointZero];
+            [_viewAdapter->tmpshot release];
+            _viewAdapter->tmpshot = nil;
+            
+            [self coreView]->drawNewShape(canvas);
+        }
+        else {
+            [self coreView]->drawAll(canvas);
+        }
         canvas.endPaint();
     }
 }
 
-@end
-
-@implementation GiGraphView
-
-- (void)dealloc
+- (GiCoreView *)coreView
 {
-    if (_dynview && _dynview != self) {
-        [_dynview release];
-        _dynview = nil;
-    }
-    delete _canvas;
-    [super dealloc];
+    return _viewAdapter->coreView;
 }
 
-- (id)initWithFrame:(CGRect)frame
+- (UIImage *)snapshot
 {
-    self = [super initWithFrame:frame];
-    if (self) {
-        self.contentMode = UIViewContentModeRedraw; // 不缓存图像，每次重画
-        self.opaque = NO;                           // 透明背景
-        _canvas = new GiQuartzCanvas();
-        _dynview = self;
-    }
-    return self;
-}
-
-- (void)didMoveToSuperview
-{
-    [super didMoveToSuperview];
-    if (_dynview == self) {
-        _dynview = [[DynGiGraphView alloc]initWithFrame:self.bounds];
-        [self addSubview:_dynview];
-    }
-}
-
-- (void)drawRect:(CGRect)rect
-{
-    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGSize size = self.bounds.size;
     
-    if (_canvas->beginPaint(context)) {         // 开始在画布上绘制
-        _canvas->endPaint();                    // 结束绘制
+    if (UIGraphicsBeginImageContextWithOptions) {
+        UIGraphicsBeginImageContextWithOptions(size, self.opaque, [UIScreen mainScreen].scale);
+    } else {
+        UIGraphicsBeginImageContext(size);
     }
-}
-
-- (BOOL)savePng:(NSString *)filename
-{
-    UIGraphicsBeginImageContext(self.bounds.size);
     
-    CGContextRef ctx = UIGraphicsGetCurrentContext();
-    CGContextSetTextMatrix(ctx, CGAffineTransformMake(1, 0, 0, -1, 0, self.bounds.size.height));
-    
-    BOOL ret = NO;
-    GiQuartzCanvas canvas;
-    
-    if (canvas.beginPaint(ctx)) {
-        canvas.endPaint();
-    }
+    [self.layer renderInContext:UIGraphicsGetCurrentContext()];
     
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
+    return image;
+}
+
+- (BOOL)savePng:(NSString *)filename
+{
+    BOOL ret = NO;
+    UIImage *image = [self snapshot];
     NSData* imageData = UIImagePNGRepresentation(image);
+    
     if (imageData) {
         ret = [imageData writeToFile:filename atomically:NO];                 
     }
     
     return ret;
+}
+
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [super touchesMoved:touches withEvent:event];
+    
+    UITouch *touch = [touches anyObject];
+    CGPoint pt = [touch locationInView:touch.view];
+    
+    [self coreView]->onTouch(*_viewAdapter, pt.x, pt.y);
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [super touchesEnded:touches withEvent:event];
+    _viewAdapter->regenAfterAddShape();
 }
 
 @end
