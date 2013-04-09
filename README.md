@@ -2,7 +2,7 @@ vglite
 ======
 A lightweight 2D vector drawing framework using C++ for iOS and Android.
 
-Author: Zhang Yungui <rhcad@hotmail.com>
+License: GNU GPL v3. Author: Zhang Yungui <rhcad@hotmail.com>
 
 Build
 ------

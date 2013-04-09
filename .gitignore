@@ -9,8 +9,6 @@ build
 *.o
 *.a
 *.d
-*_wrap.c*
-*_wrap.h
 *.tmp
 *~
 *.DS_Store
