@@ -11,7 +11,7 @@
 static float _lastx = 0;
 static float _lasty = 0;
 
-GiCoreView::GiCoreView()
+GiCoreView::GiCoreView() : _gestureState(kGiGestureCancel)
 {
 }
 
@@ -34,24 +34,27 @@ bool GiCoreView::drawNewShape(GiCanvas& canvas)
 
 void GiCoreView::dynDraw(GiCanvas& canvas)
 {
-    static float phase = 0;
-    phase += 1;
-    canvas.setPen(0, 0, 1, phase);
-    canvas.setBrush(0x80005500, 0);
-    canvas.drawEllipse(_lastx - 50, _lasty - 50, 100, 100, true, true);
+	if (_gestureState == kGiGestureBegan || _gestureState == kGiGestureMoved) {
+		static float phase = 0;
+		phase += 1;
+		canvas.setPen(0, 0, 1, phase);
+		canvas.setBrush(0x80005500, 0);
+		canvas.drawEllipse(_lastx - 50, _lasty - 50, 100, 100, true, true);
 
-    char text[40] = "";
-    sprintf(text, "%.1f, %.1f", _lastx, _lasty);
-    canvas.drawTextAt(text, _lastx < 80 ? 80 : _lastx,
-            _lasty < 80 ? 80 : _lasty - 70, 20, 1);
+		char text[40] = "";
+		sprintf(text, "%.1f, %.1f", _lastx, _lasty);
+		canvas.drawTextAt(text, _lastx < 80 ? 80 : _lastx,
+				_lasty < 80 ? 80 : _lasty - 70, 20, 1);
+	}
 }
 
-bool GiCoreView::onGesture(GiView& view, GiGestureType type,
-        GiGestureState state, float x, float y)
+bool GiCoreView::onGesture(GiView& view, GiGestureType gestureType,
+        GiGestureState gestureState, float x, float y)
 {
+	_gestureState = gestureState;
     _lastx = x;
     _lasty = y;
-    if (type == kGiGesturePan && state == kGiGestureEnded) {
+    if (gestureType == kGiGesturePan && gestureState == kGiGestureEnded) {
         view.regenAfterAddShape();
     }
     else {
@@ -61,9 +64,10 @@ bool GiCoreView::onGesture(GiView& view, GiGestureType type,
 }
 
 bool GiCoreView::twoFingersMove(GiView& view,
-        GiGestureState state, float x1, float y1, float x2, float y2)
+        GiGestureState gestureState, float x1, float y1, float x2, float y2)
 {
-    if (state == kGiGestureMoved) {
+	_gestureState = gestureState;
+    if (gestureState == kGiGestureMoved) {
         _lastx = x1;
         _lasty = y1;
         _lastx = x2;

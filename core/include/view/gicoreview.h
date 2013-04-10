@@ -45,12 +45,15 @@ public:
     void dynDraw(GiCanvas& canvas);
     
     //! 传递单指触摸手势消息
-    bool onGesture(GiView& view, GiGestureType type,
-            GiGestureState state, float x, float y);
+    bool onGesture(GiView& view, GiGestureType gestureType,
+            GiGestureState gestureState, float x, float y);
 
     //! 传递双指移动手势(可放缩旋转)
-    bool twoFingersMove(GiView& view, GiGestureState state,
+    bool twoFingersMove(GiView& view, GiGestureState gestureState,
             float x1, float y1, float x2, float y2);
+
+private:
+    GiGestureState  _gestureState;
 };
 
 #endif // VGLITE_CORE_VIEWDISPATCHER_H

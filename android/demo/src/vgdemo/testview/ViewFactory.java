@@ -34,6 +34,7 @@ public class ViewFactory {
         addItem("vgdemo.testview.view.GraphView", 0, "TestOneView");
         addItem("vgdemo.testview.view.TestDoubleViews", 1|0, "TestOneSurfaceView");
         addItem("vgdemo.testview.view.TestDoubleViews", 1|0|0x100000, "TestOneSurfaceView, back");
+        addItem("vgdemo.testview.view.GraphViewDualBuffer", 0, "GraphViewDualBuffer");
         
         addItem("vgdemo.testview.view.TestDoubleViews", 0|2, "TestDoubleViews, view+view");
         addItem("vgdemo.testview.view.TestDoubleViews", 1|2, "TestDoubleViews, surface+view");
