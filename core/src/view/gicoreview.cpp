@@ -28,8 +28,8 @@ void GiCoreView::drawAll(GiCanvas& canvas)
 bool GiCoreView::drawNewShape(GiCanvas& canvas)
 {
     canvas.setBrush(TestCanvas::randInt(10, 0xFF) << 24 | TestCanvas::randInt(0, 0xFFFFFF), 0);
-	canvas.drawEllipse(_lastx - 50, _lasty - 50, 100, 100, true, true);
-	return true;
+    canvas.drawEllipse(_lastx - 50, _lasty - 50, 100, 100, true, true);
+    return true;
 }
 
 void GiCoreView::dynDraw(GiCanvas& canvas)
@@ -43,12 +43,32 @@ void GiCoreView::dynDraw(GiCanvas& canvas)
     char text[40] = "";
     sprintf(text, "%.1f, %.1f", _lastx, _lasty);
     canvas.drawTextAt(text, _lastx < 80 ? 80 : _lastx,
-    		_lasty < 80 ? 80 : _lasty - 70, 20, 1);
+            _lasty < 80 ? 80 : _lasty - 70, 20, 1);
 }
 
-void GiCoreView::onTouch(GiView& view, float x, float y)
+bool GiCoreView::onGesture(GiView& view, GiGestureType type,
+        GiGestureState state, float x, float y)
 {
     _lastx = x;
     _lasty = y;
-    view.redraw();
+    if (type == kGiGesturePan && state == kGiGestureEnded) {
+        view.regenAfterAddShape();
+    }
+    else {
+        view.redraw();
+    }
+    return true;
+}
+
+bool GiCoreView::twoFingersMove(GiView& view,
+        GiGestureState state, float x1, float y1, float x2, float y2)
+{
+    if (state == kGiGestureMoved) {
+        _lastx = x1;
+        _lasty = y1;
+        _lastx = x2;
+        _lasty = y2;
+        view.redraw();
+    }
+    return true;
 }

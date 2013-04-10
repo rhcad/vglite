@@ -6,6 +6,8 @@ package touchvg.view;
 
 import touchvg.jni.GiCoreView;
 import touchvg.jni.GiView;
+import touchvg.jni.GiGestureType;
+import touchvg.jni.GiGestureState;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -40,13 +42,15 @@ public class GraphSurfaceView extends SurfaceView {
         this.setOnTouchListener(new OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_UP) {
-                    mViewAdapter.regenAfterAddShape();
+                    mCoreView.onGesture(mViewAdapter, GiGestureType.kGiGesturePan, 
+                            GiGestureState.kGiGestureEnded, event.getX(), event.getY());
                 }
                 else if ((mDynDrawView != null && !mDynDrawView.isDrawing()
                         && event.getEventTime() > mDynDrawView.getEndPaintTime())
                         || (mDynDrawView == null && !isDrawing()
                         && event.getEventTime() > mEndPaintTime)) {
-                    mCoreView.onTouch(mViewAdapter, event.getX(), event.getY());
+                    mCoreView.onGesture(mViewAdapter, GiGestureType.kGiGesturePan, 
+                            GiGestureState.kGiGestureMoved, event.getX(), event.getY());
                 }
                 return true;
             }

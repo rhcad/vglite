@@ -171,13 +171,19 @@ public:
     UITouch *touch = [touches anyObject];
     CGPoint pt = [touch locationInView:touch.view];
     
-    [self coreView]->onTouch(*_viewAdapter, pt.x, pt.y);
+    [self coreView]->onGesture(*_viewAdapter, kGiGesturePan,
+                               kGiGestureMoved, pt.x, pt.y);
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    [super touchesEnded:touches withEvent:event];
-    _viewAdapter->regenAfterAddShape();
+    [super touchesMoved:touches withEvent:event];
+    
+    UITouch *touch = [touches anyObject];
+    CGPoint pt = [touch locationInView:touch.view];
+    
+    [self coreView]->onGesture(*_viewAdapter, kGiGesturePan,
+                               kGiGestureEnded, pt.x, pt.y);
 }
 
 @end
