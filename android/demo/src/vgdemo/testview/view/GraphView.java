@@ -2,12 +2,13 @@
 //! \brief Android绘图视图类
 // Copyright (c) 2012-2013, https://github.com/rhcad/vglite
 
-package touchvg.view;
+package vgdemo.testview.view;
 
 import touchvg.jni.GiCoreView;
 import touchvg.jni.GiView;
 import touchvg.jni.GiGestureType;
 import touchvg.jni.GiGestureState;
+import touchvg.view.CanvasAdapter;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.os.SystemClock;

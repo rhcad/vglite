@@ -2,9 +2,10 @@
 //! \brief 基于SurfaceView的动态绘图视图类
 // Copyright (c) 2012-2013, https://github.com/rhcad/vglite
 
-package touchvg.view;
+package vgdemo.testview.view;
 
 import touchvg.jni.GiCoreView;
+import touchvg.view.CanvasAdapter;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;

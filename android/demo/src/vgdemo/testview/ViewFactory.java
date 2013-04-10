@@ -31,7 +31,7 @@ public class ViewFactory {
     public static List<DummyItem> ITEMS = new ArrayList<DummyItem>();
 
     static {
-        addItem("touchvg.view.GraphView", 0, "TestOneView");
+        addItem("vgdemo.testview.view.GraphView", 0, "TestOneView");
         addItem("vgdemo.testview.view.TestDoubleViews", 1|0, "TestOneSurfaceView");
         addItem("vgdemo.testview.view.TestDoubleViews", 1|0|0x100000, "TestOneSurfaceView, back");
         

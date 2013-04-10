@@ -4,10 +4,6 @@
 
 package vgdemo.testview.view;
 
-import touchvg.view.DynDrawStdView;
-import touchvg.view.DynDrawSurfaceView;
-import touchvg.view.GraphSurfaceView;
-import touchvg.view.GraphView;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;

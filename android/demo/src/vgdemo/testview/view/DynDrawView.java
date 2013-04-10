@@ -2,7 +2,7 @@
 //! \brief 动态绘图视图接口
 // Copyright (c) 2012-2013, https://github.com/rhcad/vglite
 
-package touchvg.view;
+package vgdemo.testview.view;
 
 import touchvg.jni.GiCoreView;
 
