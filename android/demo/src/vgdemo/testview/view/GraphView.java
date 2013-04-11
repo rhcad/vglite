@@ -34,7 +34,11 @@ public class GraphView extends View {
         
         this.setOnTouchListener(new OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_UP) {
+            	if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    mCoreView.onGesture(mViewAdapter, GiGestureType.kGiGesturePan, 
+                            GiGestureState.kGiGestureBegan, event.getX(), event.getY());
+                }
+            	else if (event.getAction() == MotionEvent.ACTION_UP) {
                     mCoreView.onGesture(mViewAdapter, GiGestureType.kGiGesturePan, 
                             GiGestureState.kGiGestureEnded, event.getX(), event.getY());
                 }

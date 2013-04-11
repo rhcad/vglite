@@ -37,6 +37,11 @@
     }
 }
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [_mainView touchesBegan:touches withEvent:event];
+}
+
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [_mainView touchesMoved:touches withEvent:event];
@@ -162,6 +167,17 @@ public:
     }
     
     return ret;
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [super touchesMoved:touches withEvent:event];
+    
+    UITouch *touch = [touches anyObject];
+    CGPoint pt = [touch locationInView:touch.view];
+    
+    [self coreView]->onGesture(*_viewAdapter, kGiGesturePan,
+                               kGiGestureBegan, pt.x, pt.y);
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
