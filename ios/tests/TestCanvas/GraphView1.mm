@@ -188,7 +188,7 @@ static int machToMs(uint64_t start)
     CGSize size = self.bounds.size;
     
     if (UIGraphicsBeginImageContextWithOptions) {
-        UIGraphicsBeginImageContextWithOptions(size, self.opaque, [UIScreen mainScreen].scale);
+        UIGraphicsBeginImageContextWithOptions(size, self.opaque, 0);
     } else {
         UIGraphicsBeginImageContext(size);
     }

@@ -12,6 +12,8 @@
 		AE4E6F0616129337006CAA5C /* ViewFactory.mm in Sources */ = {isa = PBXBuildFile; fileRef = AE4E6F0416129337006CAA5C /* ViewFactory.mm */; };
 		AE5BF68716E45BCE005CA76D /* translucent.png in Resources */ = {isa = PBXBuildFile; fileRef = AE5BF68516E45BCE005CA76D /* translucent.png */; };
 		AE5BF68816E45BCE005CA76D /* translucent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AE5BF68616E45BCE005CA76D /* translucent@2x.png */; };
+		AE815F331718EA71006BC607 /* BasicAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE815F321718EA71006BC607 /* BasicAnimationView.m */; };
+		AE815F351718EDCB006BC607 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE815F341718EDCB006BC607 /* QuartzCore.framework */; };
 		AE856D5D16E0B4D2000527B3 /* testcanvas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE856D5C16E0B4D1000527B3 /* testcanvas.cpp */; };
 		AE86279A1713FA7E003E1614 /* GiGraphView.mm in Sources */ = {isa = PBXBuildFile; fileRef = AE8627991713FA7E003E1614 /* GiGraphView.mm */; };
 		AE86279E1713FC80003E1614 /* gicoreview.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE86279D1713FC80003E1614 /* gicoreview.cpp */; };
@@ -41,6 +43,9 @@
 		AE5BF68516E45BCE005CA76D /* translucent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = translucent.png; sourceTree = "<group>"; };
 		AE5BF68616E45BCE005CA76D /* translucent@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "translucent@2x.png"; sourceTree = "<group>"; };
 		AE65AD661711132300EB30AA /* gicanvas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = gicanvas.h; path = ../../../core/include/callback/gicanvas.h; sourceTree = "<group>"; };
+		AE815F301718E759006BC607 /* BasicAnimationView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BasicAnimationView.h; sourceTree = "<group>"; };
+		AE815F321718EA71006BC607 /* BasicAnimationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasicAnimationView.m; sourceTree = "<group>"; };
+		AE815F341718EDCB006BC607 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		AE856D5C16E0B4D1000527B3 /* testcanvas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testcanvas.cpp; path = ../../../core/src/test/testcanvas.cpp; sourceTree = "<group>"; };
 		AE8627981713FA70003E1614 /* GiGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GiGraphView.h; path = ../../view/include/GiGraphView.h; sourceTree = "<group>"; };
 		AE8627991713FA7E003E1614 /* GiGraphView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = GiGraphView.mm; path = ../../view/src/GiGraphView.mm; sourceTree = "<group>"; };
@@ -78,6 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE815F351718EDCB006BC607 /* QuartzCore.framework in Frameworks */,
 				AEF2D52B160964BA00DDB7F2 /* UIKit.framework in Frameworks */,
 				AEF2D52D160964BA00DDB7F2 /* Foundation.framework in Frameworks */,
 				AEF2D52F160964BA00DDB7F2 /* CoreGraphics.framework in Frameworks */,
@@ -102,6 +108,8 @@
 		AE0762FD160AAE3A00518207 /* Test */ = {
 			isa = PBXGroup;
 			children = (
+				AE815F321718EA71006BC607 /* BasicAnimationView.m */,
+				AE815F301718E759006BC607 /* BasicAnimationView.h */,
 				AEADC21D16EB570800484962 /* LargeView1.h */,
 				AEADC21E16EB570800484962 /* LargeView1.mm */,
 				AE4E6F0216129337006CAA5C /* GraphView1.h */,
@@ -147,6 +155,7 @@
 		AEF2D529160964BA00DDB7F2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AE815F341718EDCB006BC607 /* QuartzCore.framework */,
 				AEF2D52A160964BA00DDB7F2 /* UIKit.framework */,
 				AEF2D52C160964BA00DDB7F2 /* Foundation.framework */,
 				AEF2D52E160964BA00DDB7F2 /* CoreGraphics.framework */,
@@ -278,6 +287,7 @@
 				AE3341B516ECBDBE00F0E517 /* CalloutView.m in Sources */,
 				AE86279A1713FA7E003E1614 /* GiGraphView.mm in Sources */,
 				AE86279E1713FC80003E1614 /* gicoreview.cpp in Sources */,
+				AE815F331718EA71006BC607 /* BasicAnimationView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

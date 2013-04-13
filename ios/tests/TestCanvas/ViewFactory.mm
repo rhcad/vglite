@@ -4,6 +4,7 @@
 #import "GiGraphView.h"
 #import "GraphView1.h"
 #import "LargeView1.h"
+#import "BasicAnimationView.h"
 
 static UIViewController *_tmpController = nil;
 
@@ -97,6 +98,12 @@ static void gatherTestView(NSMutableArray *arr, NSUInteger index, CGRect frame)
     addLargeView1(arr, i, index, @"testCubicBezier in large view", 0x20|0x20000, frame);
     addLargeView1(arr, i, index, @"testHandle in large view", 0x200|0x20000, frame);
     addLargeView1(arr, i, index, @"testDynCurves in large view", 0x400|0x20000, frame);
+    
+    BasicAnimationView *baview = nil;
+    if (!arr && index == i++) {
+        baview = [[BasicAnimationView alloc]initWithFrame:frame];
+    }
+    addView(arr, @"CABasicAnimation", baview);
 }
 
 void getTestViewTitles(NSMutableArray *arr)
