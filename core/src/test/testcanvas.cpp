@@ -111,7 +111,7 @@ void TestCanvas::testQuadBezier(GiCanvas& canvas, int n)
         canvas.moveTo(x1, y1);
         canvas.lineTo((x1 + x2) / 2, (y1 + y2) / 2);
         
-        for (int j = randInt(1, 20); j > 0; j--) {
+        for (int j = randInt(5, 20); j > 0; j--) {
             canvas.quadTo(x2, y2, (x3 + x2) / 2, (y3 + y2) / 2);
             
             x1 = x2; x2 = x3;

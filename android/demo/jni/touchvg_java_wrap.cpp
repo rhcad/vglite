@@ -1097,13 +1097,13 @@ void SwigDirector_GiView::regenAll() {
   if (swigjobj) jenv->DeleteLocalRef(swigjobj);
 }
 
-void SwigDirector_GiView::regenAfterAddShape() {
+void SwigDirector_GiView::regenAppend() {
   JNIEnvWrapper swigjnienv(this) ;
   JNIEnv * jenv = swigjnienv.getJNIEnv() ;
   jobject swigjobj = (jobject) NULL ;
   
   if (!swig_override[1]) {
-    SWIG_JavaThrowException(JNIEnvWrapper(this).getJNIEnv(), SWIG_JavaDirectorPureVirtual, "Attempted to invoke pure virtual method GiView::regenAfterAddShape.");
+    SWIG_JavaThrowException(JNIEnvWrapper(this).getJNIEnv(), SWIG_JavaDirectorPureVirtual, "Attempted to invoke pure virtual method GiView::regenAppend.");
     return;
   }
   swigjobj = swig_get_self(jenv);
@@ -1145,7 +1145,7 @@ void SwigDirector_GiView::swig_connect_director(JNIEnv *jenv, jobject jself, jcl
       "regenAll", "()V", NULL 
     },
     {
-      "regenAfterAddShape", "()V", NULL 
+      "regenAppend", "()V", NULL 
     },
     {
       "redraw", "()V", NULL 
@@ -1607,14 +1607,14 @@ SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiView_1regenAll(JNIEnv *jen
 }
 
 
-SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiView_1regenAfterAddShape(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiView_1regenAppend(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   GiView *arg1 = (GiView *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(GiView **)&jarg1; 
-  (arg1)->regenAfterAddShape();
+  (arg1)->regenAppend();
 }
 
 
@@ -1701,7 +1701,7 @@ SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1drawAll(JNIEnv *
 }
 
 
-SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1drawNewShape(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1drawAppend(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
   jboolean jresult = 0 ;
   GiCoreView *arg1 = (GiCoreView *) 0 ;
   GiCanvas *arg2 = 0 ;
@@ -1717,7 +1717,7 @@ SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1drawNewShape
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "GiCanvas & reference is null");
     return 0;
   } 
-  result = (bool)(arg1)->drawNewShape(*arg2);
+  result = (bool)(arg1)->drawAppend(*arg2);
   jresult = (jboolean)result; 
   return jresult;
 }
@@ -2160,7 +2160,7 @@ SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_swig_1module_1init(JNIEnv *j
       "SwigDirector_GiView_regenAll", "(Ltouchvg/jni/GiView;)V" 
     },
     {
-      "SwigDirector_GiView_regenAfterAddShape", "(Ltouchvg/jni/GiView;)V" 
+      "SwigDirector_GiView_regenAppend", "(Ltouchvg/jni/GiView;)V" 
     },
     {
       "SwigDirector_GiView_redraw", "(Ltouchvg/jni/GiView;)V" 

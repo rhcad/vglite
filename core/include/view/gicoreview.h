@@ -38,8 +38,8 @@ public:
     //! 显示所有图形
     void drawAll(GiCanvas& canvas);
 
-    //! 显示新图形，在 GiView.regenAfterAddShape() 后调用
-    bool drawNewShape(GiCanvas& canvas);
+    //! 显示新图形，在 GiView.regenAppend() 后调用
+    bool drawAppend(GiCanvas& canvas);
     
     //! 显示动态图形
     void dynDraw(GiCanvas& canvas);

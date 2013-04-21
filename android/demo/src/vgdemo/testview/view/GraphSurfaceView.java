@@ -178,7 +178,7 @@ public class GraphSurfaceView extends SurfaceView {
         }
         
         @Override
-        public void regenAfterAddShape() {
+        public void regenAppend() {
             regenAll();
         }
         

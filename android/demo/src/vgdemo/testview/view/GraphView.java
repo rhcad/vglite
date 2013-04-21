@@ -114,7 +114,7 @@ public class GraphView extends View {
         }
         
         @Override
-        public void regenAfterAddShape() {
+        public void regenAppend() {
             regenAll();
         }
         

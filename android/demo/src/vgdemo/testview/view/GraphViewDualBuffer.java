@@ -133,11 +133,11 @@ public class GraphViewDualBuffer extends View {
         }
         
         @Override
-        public void regenAfterAddShape() {
+        public void regenAppend() {
         	if (mCacheBitmap != null) {
         		Canvas canvas = new Canvas(mCacheBitmap);
         		if (mCanvasAdapter.beginPaint(canvas)) {
-        			mCoreView.drawNewShape(mCanvasAdapter);
+        			mCoreView.drawAppend(mCanvasAdapter);
         			mCanvasAdapter.endPaint();
         		}
         	}

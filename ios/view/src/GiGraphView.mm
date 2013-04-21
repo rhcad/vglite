@@ -77,7 +77,7 @@ public:
         [view setNeedsDisplay];
     }
     
-    virtual void regenAfterAddShape() {
+    virtual void regenAppend() {
         [tmpshot release];
         tmpshot = [view snapshot];
         [tmpshot retain];
@@ -124,7 +124,7 @@ public:
             [_viewAdapter->tmpshot release];
             _viewAdapter->tmpshot = nil;
             
-            [self coreView]->drawNewShape(canvas);
+            [self coreView]->drawAppend(canvas);
         }
         else {
             [self coreView]->drawAll(canvas);

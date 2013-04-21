@@ -43,8 +43,8 @@ public class GiCoreView {
     touchvgJNI.GiCoreView_drawAll(swigCPtr, this, GiCanvas.getCPtr(canvas), canvas);
   }
 
-  public boolean drawNewShape(GiCanvas canvas) {
-    return touchvgJNI.GiCoreView_drawNewShape(swigCPtr, this, GiCanvas.getCPtr(canvas), canvas);
+  public boolean drawAppend(GiCanvas canvas) {
+    return touchvgJNI.GiCoreView_drawAppend(swigCPtr, this, GiCanvas.getCPtr(canvas), canvas);
   }
 
   public void dynDraw(GiCanvas canvas) {

@@ -43,7 +43,7 @@ static void drawPoints(GiCanvas& canvas)
     }
 }
 
-bool GiCoreView::drawNewShape(GiCanvas& canvas)
+bool GiCoreView::drawAppend(GiCanvas& canvas)
 {
     canvas.setPen(TestCanvas::randInt(20, 0xFF) << 24 | TestCanvas::randInt(0, 0xFFFFFF), 
                   TestCanvas::randFloat(1, 10), -1, 0);
@@ -80,7 +80,7 @@ bool GiCoreView::onGesture(GiView& view, GiGestureType gestureType,
     _pts.push_back(y);
     
     if (gestureType == kGiGesturePan && gestureState == kGiGestureEnded) {
-        view.regenAfterAddShape();
+        view.regenAppend();
     }
     else {
         view.redraw();

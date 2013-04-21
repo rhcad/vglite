@@ -54,8 +54,8 @@ public class GiView {
     touchvgJNI.GiView_regenAll(swigCPtr, this);
   }
 
-  public void regenAfterAddShape() {
-    touchvgJNI.GiView_regenAfterAddShape(swigCPtr, this);
+  public void regenAppend() {
+    touchvgJNI.GiView_regenAppend(swigCPtr, this);
   }
 
   public void redraw() {

@@ -18,7 +18,7 @@ public:
     virtual void regenAll() = 0;
 
     //! 标记视图待追加显示新图形
-    virtual void regenAfterAddShape() = 0;
+    virtual void regenAppend() = 0;
 
     //! 标记视图待更新显示
     virtual void redraw() = 0;

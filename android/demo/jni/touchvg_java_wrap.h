@@ -52,7 +52,7 @@ public:
     SwigDirector_GiView(JNIEnv *jenv);
     virtual ~SwigDirector_GiView();
     virtual void regenAll();
-    virtual void regenAfterAddShape();
+    virtual void regenAppend();
     virtual void redraw();
 public:
     bool swig_overrides(int n) {
