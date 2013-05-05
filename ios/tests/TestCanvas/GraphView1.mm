@@ -130,7 +130,10 @@ static int machToMs(uint64_t start)
     bool inthread = ((_tests & 0x40000) != 0);
     
     [self showDrawnTime:drawTime logging:!inthread];
-    if (inthread && _testOrder >= 0) {
+    if (_drawTimes > 0) {
+        _drawTimes++;
+    }
+    if (inthread && _testOrder >= 0 && (_tests & 0x400) == 0) {
         if (_testOrder == 0) {
             NSLog(@"\torder\tantiAlias\tfill\tstyle\tflatness\twidth\ttime(ms)");
         }
@@ -171,6 +174,10 @@ static int machToMs(uint64_t start)
     }
     if (_testOrder > 0) {
         detailc.title = [[NSString stringWithFormat:@"%d:%d ms - ", _testOrder, ms]
+                         stringByAppendingString:title];
+    }
+    else if (_drawTimes > 0) {
+        detailc.title = [[NSString stringWithFormat:@"%d:%d ms - ", _drawTimes, ms]
                          stringByAppendingString:title];
     }
     else {
@@ -375,6 +382,7 @@ static int machToMs(uint64_t start)
     if (!_thread) {
         _thread = [[NSThread alloc] initWithTarget:self selector:@selector(run) object:nil];
         [_thread start];
+        _drawTimes++;
     }
 }
 

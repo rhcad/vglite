@@ -29,13 +29,13 @@ public class TestDoubleViews extends FrameLayout {
                 addView(dynview, params);
             }
             if ((flags & 0x04) != 0) {  // 动态视图使用SurfaceView
-                final DynDrawSurfaceView dynview = new DynDrawSurfaceView(context);
+                final DynDrawSfView dynview = new DynDrawSfView(context);
                 view.setDynDrawView(dynview);
                 addView(dynview, params);
             }
         }
         else {                          // 主视图使用SurfaceView
-            final GraphSurfaceView view = new GraphSurfaceView(context);
+            final GraphSfView view = new GraphSfView(context);
             
             if ((flags & 0x100000) == 0) {  // 不是底部视图
                 view.setBackgroundColor(Color.TRANSPARENT);
@@ -48,7 +48,7 @@ public class TestDoubleViews extends FrameLayout {
                 addView(dynview, params);
             }
             if ((flags & 0x04) != 0) {  // 动态视图使用SurfaceView
-                final DynDrawSurfaceView dynview = new DynDrawSurfaceView(context);
+                final DynDrawSfView dynview = new DynDrawSfView(context);
                 view.setDynDrawView(dynview);
                 addView(dynview, params);
             }

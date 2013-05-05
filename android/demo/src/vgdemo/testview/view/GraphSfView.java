@@ -1,4 +1,4 @@
-//! \file PaintView.java
+//! \file GraphSfView.java
 //! \brief Android绘图视图类
 // Copyright (c) 2012-2013, https://github.com/rhcad/vglite
 
@@ -23,7 +23,7 @@ import android.view.View;
 //! Android绘图视图类
 /*! \ingroup GROUP_ANDROID
  */
-public class GraphSurfaceView extends SurfaceView {
+public class GraphSfView extends SurfaceView {
     private CanvasAdapter mCanvasAdapter;
     private ViewAdapter mViewAdapter;
     private GiCoreView mCoreView;
@@ -32,7 +32,7 @@ public class GraphSurfaceView extends SurfaceView {
     private long mEndPaintTime;
     private int mBkColor = Color.WHITE;
 
-    public GraphSurfaceView(Context context) {
+    public GraphSfView(Context context) {
         super(context);
         mCanvasAdapter = new CanvasAdapter(this);
         mViewAdapter = new ViewAdapter();

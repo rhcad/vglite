@@ -1,5 +1,5 @@
-//! \file GraphViewDualBuffer.java
-//! \brief Android绘图视图类
+//! \file GraphViewCached.java
+//! \brief Android绘图视图类，使用缓存位图
 // Copyright (c) 2012-2013, https://github.com/rhcad/vglite
 
 package vgdemo.testview.view;
@@ -16,10 +16,10 @@ import android.os.SystemClock;
 import android.view.MotionEvent;
 import android.view.View;
 
-//! Android绘图视图类，使用双缓存位图
+//! Android绘图视图类，使用缓存位图
 /*! \ingroup GROUP_ANDROID
  */
-public class GraphViewDualBuffer extends View {
+public class GraphViewCached extends View {
     private CanvasAdapter mCanvasAdapter;
     private ViewAdapter mViewAdapter;
     private GiCoreView mCoreView;
@@ -27,7 +27,7 @@ public class GraphViewDualBuffer extends View {
     private long mDrawnTime;
     private long mEndPaintTime;
 
-    public GraphViewDualBuffer(Context context) {
+    public GraphViewCached(Context context) {
         super(context);
         mCanvasAdapter = new CanvasAdapter(this);
         mViewAdapter = new ViewAdapter();

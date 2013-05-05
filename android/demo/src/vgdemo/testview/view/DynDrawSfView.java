@@ -1,4 +1,4 @@
-//! \file DynDrawSurfaceView.java
+//! \file DynDrawSfView.java
 //! \brief 基于SurfaceView的动态绘图视图类
 // Copyright (c) 2012-2013, https://github.com/rhcad/vglite
 
@@ -18,13 +18,13 @@ import android.view.SurfaceView;
 //! 基于SurfaceView的动态绘图视图类
 /*! \ingroup GROUP_ANDROID
  */
-public class DynDrawSurfaceView extends SurfaceView implements DynDrawView {
+public class DynDrawSfView extends SurfaceView implements DynDrawView {
     private CanvasAdapter mCanvasAdapter;
     private GiCoreView mCoreView;
     private long mDrawnTime;
     private long mEndPaintTime;
 
-    public DynDrawSurfaceView(Context context) {
+    public DynDrawSfView(Context context) {
         super(context);
         mCanvasAdapter = new CanvasAdapter(this);
         

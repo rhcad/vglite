@@ -11,6 +11,7 @@ class GiQuartzCanvas;
     CGPoint         _lastpt;
     UIView          *_dynview;
     int             _tests;
+    int             _drawTimes;
     
     float           _lineWidth;
     int             _lineStyle;

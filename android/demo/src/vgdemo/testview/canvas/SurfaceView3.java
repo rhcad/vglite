@@ -26,6 +26,7 @@ public class SurfaceView3 extends SurfaceView {
     protected CanvasAdapter mCanvas;
     protected int mCreateFlags;
     private long mDrawnTime;
+    private long mDrawTimes = 0;
     private float lastX = 50;
     private float lastY = 50;
     private float mPhase = 0;
@@ -38,7 +39,9 @@ public class SurfaceView3 extends SurfaceView {
         getHolder().addCallback(new SurfaceCallback());
 
         setZOrderOnTop(true);
-        getHolder().setFormat(PixelFormat.TRANSLUCENT);
+        if ((mCreateFlags & 0x1000) == 0) {
+        	getHolder().setFormat(PixelFormat.TRANSLUCENT);
+        }
 
         this.setOnTouchListener(new OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
@@ -75,7 +78,7 @@ public class SurfaceView3 extends SurfaceView {
         if (pos >= 0) {
             title = title.substring(0, pos);
         }
-        activity.setTitle(title + " - " + Long.toString(ms) + " ms");
+        activity.setTitle(title + " - " + Long.toString(ms) + " ms, " + Long.toString(mDrawTimes));
     }
 
     @Override
@@ -91,12 +94,18 @@ public class SurfaceView3 extends SurfaceView {
     protected void onDraw(Canvas canvas) {
         long ms = SystemClock.currentThreadTimeMillis();
         if (mCanvas.beginPaint(canvas)) {
-            canvas.drawColor(Color.TRANSPARENT, Mode.CLEAR);
+        	if ((mCreateFlags & 0x1000) == 0) {
+        		canvas.drawColor(Color.TRANSPARENT, Mode.CLEAR);
+        	}
+        	else {
+        		canvas.drawColor(Color.WHITE);
+        	}
             TestCanvas.test(mCanvas, mCreateFlags);
             dynDraw(mCanvas);
             mCanvas.endPaint();
         }
         mDrawnTime = SystemClock.currentThreadTimeMillis() - ms;
+        mDrawTimes++;
     }
 
     private void dynDraw(CanvasAdapter canvas) {
