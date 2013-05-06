@@ -5,14 +5,15 @@
 package vgdemo.testview.view;
 
 import touchvg.jni.GiCoreView;
-import touchvg.jni.GiView;
-import touchvg.jni.GiGestureType;
 import touchvg.jni.GiGestureState;
+import touchvg.jni.GiGestureType;
+import touchvg.jni.GiView;
 import touchvg.view.CanvasAdapter;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.os.SystemClock;
+import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -32,6 +33,9 @@ public class GraphViewCached extends View {
         mCanvasAdapter = new CanvasAdapter(this);
         mViewAdapter = new ViewAdapter();
         mCoreView = new GiCoreView();
+        
+        DisplayMetrics dm = context.getApplicationContext().getResources().getDisplayMetrics();
+        GiCoreView.setScreenDpi(dm.densityDpi);
         
         this.setOnTouchListener(new OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
@@ -65,6 +69,8 @@ public class GraphViewCached extends View {
         long ms = SystemClock.currentThreadTimeMillis();
         
         autoBuildCache();
+        mCoreView.onSize(mViewAdapter, this.getWidth(), this.getHeight());
+        
         if (mCanvasAdapter.beginPaint(canvas)) {
         	if (mCacheBitmap != null) {
         		canvas.drawBitmap(mCacheBitmap, 0, 0, null);

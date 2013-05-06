@@ -51,6 +51,14 @@ public class GiCoreView {
     touchvgJNI.GiCoreView_dynDraw(swigCPtr, this, GiCanvas.getCPtr(canvas), canvas);
   }
 
+  public static void setScreenDpi(int dpi) {
+    touchvgJNI.GiCoreView_setScreenDpi(dpi);
+  }
+
+  public void onSize(GiView view, int w, int h) {
+    touchvgJNI.GiCoreView_onSize(swigCPtr, this, GiView.getCPtr(view), view, w, h);
+  }
+
   public boolean onGesture(GiView view, GiGestureType gestureType, GiGestureState gestureState, float x, float y) {
     return touchvgJNI.GiCoreView_onGesture(swigCPtr, this, GiView.getCPtr(view), view, gestureType.swigValue(), gestureState.swigValue(), x, y);
   }

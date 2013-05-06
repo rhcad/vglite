@@ -69,6 +69,14 @@ void GiCoreView::dynDraw(GiCanvas& canvas)
 	}
 }
 
+void GiCoreView::setScreenDpi(int)
+{
+}
+
+void GiCoreView::onSize(GiView&, int, int)
+{
+}
+
 bool GiCoreView::onGesture(GiView& view, GiGestureType gestureType,
         GiGestureState gestureState, float x, float y)
 {
@@ -94,6 +102,7 @@ bool GiCoreView::twoFingersMove(GiView& view,
 	_gestureState = gestureState;
     if (gestureState == kGiGestureMoved) {
         x2 = x1; y2 = y1;
+        x2 = y2; y2 = x2;
         view.redraw();
     }
     return true;

@@ -5,13 +5,14 @@
 package vgdemo.testview.view;
 
 import touchvg.jni.GiCoreView;
-import touchvg.jni.GiView;
-import touchvg.jni.GiGestureType;
 import touchvg.jni.GiGestureState;
+import touchvg.jni.GiGestureType;
+import touchvg.jni.GiView;
 import touchvg.view.CanvasAdapter;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.os.SystemClock;
+import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -31,6 +32,9 @@ public class GraphView extends View {
         mCanvasAdapter = new CanvasAdapter(this);
         mViewAdapter = new ViewAdapter();
         mCoreView = new GiCoreView();
+        
+        DisplayMetrics dm = context.getApplicationContext().getResources().getDisplayMetrics();
+        GiCoreView.setScreenDpi(dm.densityDpi);
         
         this.setOnTouchListener(new OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
@@ -71,6 +75,8 @@ public class GraphView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
+    	mCoreView.onSize(mViewAdapter, this.getWidth(), this.getHeight());
+    	
         long ms = SystemClock.currentThreadTimeMillis();
         if (mCanvasAdapter.beginPaint(canvas)) {
             mCoreView.drawAll(mCanvasAdapter);

@@ -5,9 +5,9 @@
 package vgdemo.testview.view;
 
 import touchvg.jni.GiCoreView;
-import touchvg.jni.GiView;
-import touchvg.jni.GiGestureType;
 import touchvg.jni.GiGestureState;
+import touchvg.jni.GiGestureType;
+import touchvg.jni.GiView;
 import touchvg.view.CanvasAdapter;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -15,6 +15,7 @@ import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff.Mode;
 import android.os.SystemClock;
+import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -37,6 +38,9 @@ public class GraphSfView extends SurfaceView {
         mCanvasAdapter = new CanvasAdapter(this);
         mViewAdapter = new ViewAdapter();
         mCoreView = new GiCoreView();
+        
+        DisplayMetrics dm = context.getApplicationContext().getResources().getDisplayMetrics();
+        GiCoreView.setScreenDpi(dm.densityDpi);
         
         getHolder().addCallback(new SurfaceCallback());
         
@@ -139,6 +143,7 @@ public class GraphSfView extends SurfaceView {
         }
 
         public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+        	mCoreView.onSize(mViewAdapter, width, height);
         }
 
         public void surfaceDestroyed(SurfaceHolder holder) {

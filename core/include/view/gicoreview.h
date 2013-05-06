@@ -43,6 +43,12 @@ public:
     
     //! 显示动态图形
     void dynDraw(GiCanvas& canvas);
+
+    //! 设置屏幕的点密度
+    static void setScreenDpi(int dpi);
+
+    //! 设置视图的宽高
+    void onSize(GiView& view, int w, int h);
     
     //! 传递单指触摸手势消息
     bool onGesture(GiView& view, GiGestureType gestureType,

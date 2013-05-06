@@ -246,9 +246,9 @@ namespace Swig {
 
     bool set(JNIEnv *jenv, jobject jobj, bool mem_own, bool weak_global) {
       if (!jthis_) {
-        weak_global_ = weak_global || !mem_own; // hold as weak global if explicitly requested or not owned
+        weak_global_ = weak_global;
         if (jobj)
-          jthis_ = weak_global_ ? jenv->NewWeakGlobalRef(jobj) : jenv->NewGlobalRef(jobj);
+          jthis_ = ((weak_global_ || !mem_own) ? jenv->NewWeakGlobalRef(jobj) : jenv->NewGlobalRef(jobj));
 #if defined(DEBUG_DIRECTOR_OWNED)
         std::cout << "JObjectWrapper::set(" << jobj << ", " << (weak_global ? "weak_global" : "global_ref") << ") -> " << jthis_ << std::endl;
 #endif
@@ -289,7 +289,6 @@ namespace Swig {
       weak_global_ = true;
     }
 
-    /* Only call peek if you know what you are doing wrt to weak/global references */
     jobject peek() {
       return jthis_;
     }
@@ -371,7 +370,7 @@ namespace Swig {
     void swig_disconnect_director_self(const char *disconn_method) {
       JNIEnvWrapper jnienv(this) ;
       JNIEnv *jenv = jnienv.getJNIEnv() ;
-      jobject jobj = swig_self_.get(jenv);
+      jobject jobj = swig_self_.peek();
 #if defined(DEBUG_DIRECTOR_OWNED)
       std::cout << "Swig::Director::disconnect_director_self(" << jobj << ")" << std::endl;
 #endif
@@ -384,7 +383,6 @@ namespace Swig {
           jenv->CallVoidMethod(jobj, disconn_meth);
         }
       }
-      jenv->DeleteLocalRef(jobj);
     }
 
   public:
@@ -1738,6 +1736,38 @@ SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1dynDraw(JNIEnv *
     return ;
   } 
   (arg1)->dynDraw(*arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1setScreenDpi(JNIEnv *jenv, jclass jcls, jint jarg1) {
+  int arg1 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (int)jarg1; 
+  GiCoreView::setScreenDpi(arg1);
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1onSize(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jint jarg3, jint jarg4) {
+  GiCoreView *arg1 = (GiCoreView *) 0 ;
+  GiView *arg2 = 0 ;
+  int arg3 ;
+  int arg4 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(GiCoreView **)&jarg1; 
+  arg2 = *(GiView **)&jarg2;
+  if (!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "GiView & reference is null");
+    return ;
+  } 
+  arg3 = (int)jarg3; 
+  arg4 = (int)jarg4; 
+  (arg1)->onSize(*arg2,arg3,arg4);
 }
 
 

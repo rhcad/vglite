@@ -45,6 +45,8 @@ public class touchvgJNI {
   public final static native void GiCoreView_drawAll(long jarg1, GiCoreView jarg1_, long jarg2, GiCanvas jarg2_);
   public final static native boolean GiCoreView_drawAppend(long jarg1, GiCoreView jarg1_, long jarg2, GiCanvas jarg2_);
   public final static native void GiCoreView_dynDraw(long jarg1, GiCoreView jarg1_, long jarg2, GiCanvas jarg2_);
+  public final static native void GiCoreView_setScreenDpi(int jarg1);
+  public final static native void GiCoreView_onSize(long jarg1, GiCoreView jarg1_, long jarg2, GiView jarg2_, int jarg3, int jarg4);
   public final static native boolean GiCoreView_onGesture(long jarg1, GiCoreView jarg1_, long jarg2, GiView jarg2_, int jarg3, int jarg4, float jarg5, float jarg6);
   public final static native boolean GiCoreView_twoFingersMove(long jarg1, GiCoreView jarg1_, long jarg2, GiView jarg2_, int jarg3, float jarg4, float jarg5, float jarg6, float jarg7);
   public final static native void TestCanvas_initRand();
