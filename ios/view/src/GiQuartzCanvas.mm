@@ -3,6 +3,22 @@
 // Copyright (c) 2012-2013, https://github.com/rhcad/vglite
 
 #include "GiQuartzCanvas.h"
+#include <sys/sysctl.h>
+
+int GiQuartzCanvas::getScreenDpi()
+{
+    size_t size = 15;
+    char machine[15 + 1] = "";
+    
+    sysctlbyname("hw.machine", machine, &size, NULL, 0);
+    
+    bool iPadMini = (strcmp(machine, "iPad2,5") == 0 ||
+                     strcmp(machine, "iPad2,6") == 0 ||
+                     strcmp(machine, "iPad2,7") == 0);
+    BOOL iPad = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad);
+    
+    return (iPad && !iPadMini) ? 132 : 163;
+}
 
 GiQuartzCanvas::GiQuartzCanvas() : _ctx(NULL)
 {

@@ -23,6 +23,9 @@ public:
     //! 返回绘图上下文
     CGContextRef context();
     
+    //! 返回屏幕点密度
+    static int getScreenDpi();
+    
 public:
     void setPen(int argb, float width, int style, float phase);
     void setBrush(int argb, int style);

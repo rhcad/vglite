@@ -21,8 +21,9 @@
     self = [super initWithFrame:frame];
     if (self) {
         _mainView = mainView;
-        self.contentMode = UIViewContentModeRedraw; // 每次重画
+        self.contentMode = UIViewContentModeRedraw; // 每次重画，适应屏幕旋转
         self.opaque = NO;                           // 透明背景
+        self.autoresizingMask = 0xFF;               // 自动适应大小
     }
     return self;
 }
@@ -75,13 +76,16 @@ public:
     
     virtual void regenAll() {
         [view setNeedsDisplay];
+        [dynview setNeedsDisplay];
     }
     
     virtual void regenAppend() {
         [tmpshot release];
+        tmpshot = nil;      // renderInContext可能会调用drawRect
         tmpshot = [view snapshot];
         [tmpshot retain];
         [view setNeedsDisplay];
+        [dynview setNeedsDisplay];
     }
     
     virtual void redraw() {
@@ -106,9 +110,13 @@ public:
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.contentMode = UIViewContentModeRedraw; // 每次重画
+        self.contentMode = UIViewContentModeRedraw; // 每次重画，适应屏幕旋转
         self.opaque = NO;                           // 透明背景
+        self.autoresizingMask = 0xFF;               // 自动适应大小
         _viewAdapter = new GiViewAdapter(self);
+        
+        GiCoreView::setScreenDpi(GiQuartzCanvas::getScreenDpi());
+        [self coreView]->onSize(*_viewAdapter, frame.size.width, frame.size.height);
     }
     return self;
 }
@@ -117,6 +125,8 @@ public:
 {
     CGContextRef context = UIGraphicsGetCurrentContext();
     GiQuartzCanvas canvas;
+    
+    [self coreView]->onSize(*_viewAdapter, self.bounds.size.width, self.bounds.size.height);
     
     if (canvas.beginPaint(context)) {
         if (_viewAdapter->tmpshot) {

@@ -49,6 +49,7 @@ bool GiCoreView::drawAppend(GiCanvas& canvas)
                   TestCanvas::randFloat(1, 10), -1, 0);
     canvas.setBrush(TestCanvas::randInt(10, 0xFF) << 24 | TestCanvas::randInt(0, 0xFFFFFF), 0);
     drawPoints(canvas);
+    _pts.clear();
     return true;
 }
 
@@ -69,12 +70,14 @@ void GiCoreView::dynDraw(GiCanvas& canvas)
 	}
 }
 
-void GiCoreView::setScreenDpi(int)
+void GiCoreView::setScreenDpi(int dpi)
 {
+    if (dpi) {}
 }
 
-void GiCoreView::onSize(GiView&, int, int)
+void GiCoreView::onSize(GiView&, int w, int h)
 {
+    if (w && h) {}
 }
 
 bool GiCoreView::onGesture(GiView& view, GiGestureType gestureType,
