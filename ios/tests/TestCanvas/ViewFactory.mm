@@ -87,7 +87,7 @@ static void gatherTestView(NSMutableArray *arr, NSUInteger index, CGRect frame)
     addView1(arr, i, index, @"testClearRect", 0x80|0x40|0x02, frame);
     addView1(arr, i, index, @"testClipPath", 0x100, frame);
     addView1(arr, i, index, @"testHandle", 0x200, frame);
-    addView1(arr, i, index, @"testDynamicCurves", 0x400, frame);
+    addView1(arr, i, index, @"testDynCurves", 0x400, frame);
     addView1(arr, i, index, @"testBeziers with dynview", 0x20|0x10000, frame);
     
     addView2(arr, i, index, @"testDynCurves with thread", 0x400|0x40000, frame);

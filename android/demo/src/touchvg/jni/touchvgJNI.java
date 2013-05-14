@@ -63,7 +63,7 @@ public class touchvgJNI {
   public final static native void TestCanvas_testPolygon(long jarg1, GiCanvas jarg1_, int jarg2);
   public final static native void TestCanvas_testClipPath(long jarg1, GiCanvas jarg1_, int jarg2);
   public final static native void TestCanvas_testHandle(long jarg1, GiCanvas jarg1_, int jarg2);
-  public final static native void TestCanvas_testDynamicCurves(long jarg1, GiCanvas jarg1_);
+  public final static native void TestCanvas_testDynCurves(long jarg1, GiCanvas jarg1_);
   public final static native void TestCanvas_testTextAt(long jarg1, GiCanvas jarg1_, int jarg2);
   public final static native long new_TestCanvas();
   public final static native void delete_TestCanvas(long jarg1);

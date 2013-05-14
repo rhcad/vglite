@@ -34,7 +34,7 @@ public class LargeView1 extends ScrollView {
         View view = null;
 
         if ((flags & 0x10000) != 0) {       // in scroll view
-            if ((flags & 0x400) != 0) {     // testDynamicCurves
+            if ((flags & 0x400) != 0) {     // testDynCurves
                 view = new GraphView2(context);
             }
             else {
@@ -42,7 +42,7 @@ public class LargeView1 extends ScrollView {
             }
         }
         else if ((flags & 0x20000) != 0) {  // uses surface view
-            if ((flags & 0x400) != 0) {     // testDynamicCurves
+            if ((flags & 0x400) != 0) {     // testDynCurves
                 view = new SurfaceView3(context);
             }
             else {

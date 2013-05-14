@@ -62,15 +62,15 @@ public class ViewFactory {
         addItem("vgdemo.testview.canvas.GraphView1", 0x80|0x40|0x02, "testClearRect");
         addItem("vgdemo.testview.canvas.GraphView1", 0x100, "testClipPath");
         addItem("vgdemo.testview.canvas.GraphView1", 0x200, "testHandle");
-        addItem("vgdemo.testview.canvas.GraphView2", 0x400, "testDynamicCurves");
+        addItem("vgdemo.testview.canvas.GraphView2", 0x400, "testDynCurves");
         
         addItem("vgdemo.testview.canvas.SurfaceView1", 0x20, "testCubicBezier in SurfaceView");
         addItem("vgdemo.testview.canvas.SurfaceView1", 0x80|0x40|0x02, "testClearRect in SurfaceView");
         addItem("vgdemo.testview.canvas.SurfaceView2", 0x20, "testCubicBezier in SurfaceView with thread");
         addItem("vgdemo.testview.canvas.SurfaceView2", 0x02, "testLine in SurfaceView with thread");
-        addItem("vgdemo.testview.canvas.SurfaceView2", 0x400, "testDynamicCurves in SurfaceView with touch");
-        addItem("vgdemo.testview.canvas.SurfaceView3", 0x400, "testDynamicCurves in SurfaceView with thread");
-        addItem("vgdemo.testview.canvas.SurfaceView3", 0x400|0x1000, "testDynamicCurves(OPAQUE) with thread");
+        addItem("vgdemo.testview.canvas.SurfaceView2", 0x400, "testDynCurves in SurfaceView with touch");
+        addItem("vgdemo.testview.canvas.SurfaceView3", 0x400, "testDynCurves in SurfaceView with thread");
+        addItem("vgdemo.testview.canvas.SurfaceView3", 0x400|0x1000, "testDynCurves(OPAQUE) with thread");
         
         addItem("vgdemo.testview.canvas.LargeView1", 0x04|0x10000, "testTextAt in large view");
         addItem("vgdemo.testview.canvas.LargeView1", 0x04|0x20000, "testTextAt in large surface view");
@@ -78,8 +78,8 @@ public class ViewFactory {
         addItem("vgdemo.testview.canvas.LargeView1", 0x20|0x20000, "testCubicBezier in large surface view");
         addItem("vgdemo.testview.canvas.LargeView1", 0x200|0x10000, "testHandle in large view");
         addItem("vgdemo.testview.canvas.LargeView1", 0x200|0x20000, "testHandle in large surface view");
-        addItem("vgdemo.testview.canvas.LargeView1", 0x400|0x10000, "testDynamicCurves in large view");
-        addItem("vgdemo.testview.canvas.LargeView1", 0x400|0x20000, "testDynamicCurves in large surface view");
+        addItem("vgdemo.testview.canvas.LargeView1", 0x400|0x10000, "testDynCurves in large view");
+        addItem("vgdemo.testview.canvas.LargeView1", 0x400|0x20000, "testDynCurves in large surface view");
     }
     
     private static void addItem(String id, int flags, String title) {

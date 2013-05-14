@@ -25,7 +25,7 @@ struct TestCanvas {
     static void testPolygon(GiCanvas& canvas, int n);
     static void testClipPath(GiCanvas& canvas, int n);
     static void testHandle(GiCanvas& canvas, int n);
-    static void testDynamicCurves(GiCanvas& canvas);
+    static void testDynCurves(GiCanvas& canvas);
     static void testTextAt(GiCanvas& canvas, int n);
 };
 

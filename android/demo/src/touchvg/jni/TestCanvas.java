@@ -91,8 +91,8 @@ public class TestCanvas {
     touchvgJNI.TestCanvas_testHandle(GiCanvas.getCPtr(canvas), canvas, n);
   }
 
-  public static void testDynamicCurves(GiCanvas canvas) {
-    touchvgJNI.TestCanvas_testDynamicCurves(GiCanvas.getCPtr(canvas), canvas);
+  public static void testDynCurves(GiCanvas canvas) {
+    touchvgJNI.TestCanvas_testDynCurves(GiCanvas.getCPtr(canvas), canvas);
   }
 
   public static void testTextAt(GiCanvas canvas, int n) {

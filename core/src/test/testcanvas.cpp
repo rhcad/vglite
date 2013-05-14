@@ -55,7 +55,7 @@ void TestCanvas::test(GiCanvas& canvas, int bits, int n, bool randStyle)
     if (bits & 0x200)
         testHandle(canvas, n);
     if (bits & 0x400)
-        testDynamicCurves(canvas);
+        testDynCurves(canvas);
 }
 
 void TestCanvas::testRect(GiCanvas& canvas, int n)
@@ -164,7 +164,7 @@ void TestCanvas::testCubicBezier(GiCanvas& canvas, int n)
     }
 }
 
-void TestCanvas::testDynamicCurves(GiCanvas& canvas)
+void TestCanvas::testDynCurves(GiCanvas& canvas)
 {
     static float x1, y1, x2, y2, x3, y3, x4, y4;
     static float xy[2 * (3 * 100 + 1)];
