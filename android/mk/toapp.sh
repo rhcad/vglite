@@ -20,13 +20,6 @@ if [ -f ../output/android.jar ]; then
     if [ -n "$VGLITE_ANDROID_APP" ]; then
     	cp -v ../output/touchvg.jar $VGLITE_ANDROID_APP/libs;
     	cp -v ../output/armeabi/libtouchvg.so $VGLITE_ANDROID_APP/libs/armeabi;
-    	else
-    	echo "you have not the environment variable VGLITE_ANDROID_APP."
     fi
     python restore_utf8.py
-else
-    echo "Warning: Need to copy android.jar from ANDROID_SDK_HOME/platforms to android/output/ ."
-    if [ -n "$VGLITE_ANDROID_APP" ]; then
-    	cp -v ../output/armeabi/libtouchvg.so $VGLITE_ANDROID_APP/libs/armeabi
-    fi
 fi
