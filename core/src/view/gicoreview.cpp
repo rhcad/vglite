@@ -4,8 +4,8 @@
 
 #include "gicoreview.h"
 #include "giview.h"
-#include <gicanvas.h>
-#include <testcanvas.h>
+#include "gicanvas.h"
+#include "testcanvas.h"
 #include <stdio.h>
 #include <vector>
 
@@ -28,7 +28,7 @@ void GiCoreView::drawAll(GiCanvas& canvas)
 static void drawPoints(GiCanvas& canvas)
 {
     if (!_pts.empty()) {
-        canvas.drawEllipse(_pts[_pts.size() - 2] - 50, 
+        canvas.drawEllipse(_pts[_pts.size() - 2] - 50,
                            _pts.back() - 50, 100, 100, true, true);
         canvas.beginPath();
         for (size_t i = 0; i + 1 < _pts.size(); i += 2) {
@@ -45,7 +45,7 @@ static void drawPoints(GiCanvas& canvas)
 
 bool GiCoreView::drawAppend(GiCanvas& canvas)
 {
-    canvas.setPen(TestCanvas::randInt(20, 0xFF) << 24 | TestCanvas::randInt(0, 0xFFFFFF), 
+    canvas.setPen(TestCanvas::randInt(20, 0xFF) << 24 | TestCanvas::randInt(0, 0xFFFFFF),
                   TestCanvas::randFloat(1, 10), -1, 0);
     canvas.setBrush(TestCanvas::randInt(10, 0xFF) << 24 | TestCanvas::randInt(0, 0xFFFFFF), 0);
     drawPoints(canvas);
