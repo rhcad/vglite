@@ -65,7 +65,11 @@ void GiCoreView::dynDraw(GiCanvas& canvas)
         float x = _pts[_pts.size() - 2];
         float y = _pts.back();
 		char text[40] = "";
-		sprintf(text, "%.1f, %.1f", x, y);
+#if defined(_MSC_VER) && _MSC_VER >= 1400 // VC8
+		sprintf_s(text, sizeof(text), "%.1f, %.1f", x, y);
+#else
+        sprintf(text, "%.1f, %.1f", x, y);
+#endif
 		canvas.drawTextAt(text, x < 80 ? 80 : x, y < 80 ? 80 : y - 70, 20, 1);
 	}
 }
