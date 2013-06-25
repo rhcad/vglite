@@ -108,8 +108,7 @@ bool GiCoreView::twoFingersMove(GiView& view,
 {
 	_gestureState = gestureState;
     if (gestureState == kGiGestureMoved) {
-        x2 = x1; y2 = y1;
-        x2 = y2; y2 = x2;
+        x2 = x1; y2 = y1; if (x2 > y2) x2 = x2; // avoid not used
         view.redraw();
     }
     return true;
