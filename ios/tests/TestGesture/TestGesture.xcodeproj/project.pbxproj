@@ -179,7 +179,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0460;
-				ORGANIZATIONNAME = Founder;
+				ORGANIZATIONNAME = github.rhcad;
 			};
 			buildConfigurationList = AEF2D520160964BA00DDB7F2 /* Build configuration list for PBXProject "TestGesture" */;
 			compatibilityVersion = "Xcode 3.2";

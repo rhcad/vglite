@@ -231,7 +231,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0430;
-				ORGANIZATIONNAME = Founder;
+				ORGANIZATIONNAME = github.rhcad;
 			};
 			buildConfigurationList = AEDBA7D3177959FC00A1E05F /* Build configuration list for PBXProject "TouchVG" */;
 			compatibilityVersion = "Xcode 3.2";
