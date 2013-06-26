@@ -64,17 +64,17 @@ static int machToMs(uint64_t start)
     [super dealloc];
 }
 
-- (id)initWithFrame:(CGRect)frame withTests:(int)t
+- (id)initWithFrame:(CGRect)frame withFlags:(int)t
 {
     self = [super initWithFrame:frame];
     if (self) {
         self.contentMode = UIViewContentModeRedraw; // 不缓存图像，每次重画
         self.opaque = NO;                           // 透明背景
         
-        _tests = t;
+        _flags = t;
         _canvas = new GiQuartzCanvas();
         _dynview = self;
-        if (_tests & 0x10000) {                     // 使用内嵌视图来绘制动态图形
+        if (_flags & 0x10000) {                     // 使用内嵌视图来绘制动态图形
             _dynview = [[DynGraphView1 alloc]initWithFrame:self.bounds];
             [self addSubview:_dynview];             // 添加到本静态图形视图中
         }
@@ -106,11 +106,11 @@ static int machToMs(uint64_t start)
     canvas->setPen(0, _lineWidth, _lineStyle, 0);
     canvas->setBrush(_useFill ? 0x4400ff00 : 0, 0);
     
-    if (_tests & 0x20000) {     // in scroll view
-        TestCanvas::test(*canvas, _tests, 200);
+    if (_flags & 0x20000) {     // in scroll view
+        TestCanvas::test(*canvas, _flags, 200);
     }
     else {
-        TestCanvas::test(*canvas, _tests, 100);
+        TestCanvas::test(*canvas, _flags, 100);
     }
 }
 
@@ -127,13 +127,13 @@ static int machToMs(uint64_t start)
     }
     
     int drawTime = machToMs(start);
-    bool inthread = ((_tests & 0x40000) != 0);
+    bool inthread = ((_flags & 0x40000) != 0);
     
     [self showDrawnTime:drawTime logging:!inthread];
     if (_drawTimes > 0) {
         _drawTimes++;
     }
-    if (inthread && _testOrder >= 0 && (_tests & 0x400) == 0) {
+    if (inthread && _testOrder >= 0 && (_flags & 0x400) == 0) {
         if (_testOrder == 0) {
             NSLog(@"\torder\tantiAlias\tfill\tstyle\tflatness\twidth\ttime(ms)");
         }

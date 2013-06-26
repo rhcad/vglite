@@ -6,16 +6,16 @@
 
 @implementation LargeView1
 
-- (id)initWithFrame:(CGRect)frame withTests:(int)t
+- (id)initWithFrame:(CGRect)frame withFlags:(int)t
 {
     self = [super initWithFrame:frame];
     if (self) {
         float w = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) ? 1024 : 2048;
         if (t & 0x400) {    // testDynCurves
-            _subview = [[GraphView2 alloc]initWithFrame:CGRectMake(0, 0, w, w) withTests:t];
+            _subview = [[GraphView2 alloc]initWithFrame:CGRectMake(0, 0, w, w) withFlags:t];
         }
         else {
-            _subview = [[GraphView1 alloc]initWithFrame:CGRectMake(0, 0, w, w) withTests:t];
+            _subview = [[GraphView1 alloc]initWithFrame:CGRectMake(0, 0, w, w) withFlags:t];
         }
         [self addSubview:_subview];
         [_subview release];

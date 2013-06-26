@@ -20,23 +20,23 @@ static void addView(NSMutableArray *arr, NSString* title, UIView* view)
 }
 
 static void addView1(NSMutableArray *arr, NSUInteger &i, NSUInteger index, 
-                     NSString* title, int tests, CGRect frame)
+                     NSString* title, int flags, CGRect frame)
 {
     GraphView1 *view = nil;
     
     if (!arr && index == i++) {
-        view = [[GraphView1 alloc]initWithFrame:frame withTests:tests];
+        view = [[GraphView1 alloc]initWithFrame:frame withFlags:flags];
     }
     addView(arr, title, view);
 }
 
 static void addLargeView1(NSMutableArray *arr, NSUInteger &i, NSUInteger index, 
-                          NSString* title, int tests, CGRect frame)
+                          NSString* title, int flags, CGRect frame)
 {
     LargeView1 *view = nil;
     
     if (!arr && index == i++) {
-        view = [[LargeView1 alloc]initWithFrame:frame withTests:tests];
+        view = [[LargeView1 alloc]initWithFrame:frame withFlags:flags];
     }
     addView(arr, title, view);
 }

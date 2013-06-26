@@ -10,7 +10,7 @@ class GiQuartzCanvas;
     GiQuartzCanvas  *_canvas;
     CGPoint         _lastpt;
     UIView          *_dynview;
-    int             _tests;
+    int             _flags;
     int             _drawTimes;
     
     float           _lineWidth;
@@ -21,7 +21,7 @@ class GiQuartzCanvas;
     int             _testOrder;
 }
 
-- (id)initWithFrame:(CGRect)frame withTests:(int)t;
+- (id)initWithFrame:(CGRect)frame withFlags:(int)t;
 - (void)save;
 - (void)edit;
 - (void)draw:(GiQuartzCanvas*)canvas;

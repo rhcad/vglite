@@ -10,20 +10,20 @@
 
 //! 动态图形的绘图视图类
 @interface DynDrawView : UIView {
-    GiGraphView  *_mainView;
+    GiCoreView  *_coreView;
 }
 @end
 
 @implementation DynDrawView
 
-- (id)initWithFrame:(CGRect)frame :(GiGraphView *)mainView
+- (id)initWithFrame:(CGRect)frame :(GiCoreView *)coreView
 {
     self = [super initWithFrame:frame];
     if (self) {
-        _mainView = mainView;
-        self.contentMode = UIViewContentModeRedraw; // 每次重画，适应屏幕旋转
+        _coreView = coreView;
         self.opaque = NO;                           // 透明背景
         self.autoresizingMask = 0xFF;               // 自动适应大小
+        self.userInteractionEnabled = NO;           // 禁止交互，避免影响主视图显示
     }
     return self;
 }
@@ -33,24 +33,9 @@
     GiQuartzCanvas canvas;
     
     if (canvas.beginPaint(UIGraphicsGetCurrentContext())) {
-        [_mainView coreView]->dynDraw(canvas);
+        _coreView->dynDraw(canvas);
         canvas.endPaint();
     }
-}
-
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    [_mainView touchesBegan:touches withEvent:event];
-}
-
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    [_mainView touchesMoved:touches withEvent:event];
-}
-
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    [_mainView touchesEnded:touches withEvent:event];
 }
 
 @end
@@ -58,43 +43,58 @@
 //! 绘图视图适配器
 class GiViewAdapter : public GiView
 {
-    GiGraphView *view;
+private:
+    UIView      *_view;
+    UIView      *_dynview;
+    GiCoreView  *_coreView;
+    
 public:
-    UIView      *dynview;
-    GiCoreView  *coreView;
     UIImage     *tmpshot;
     
-    GiViewAdapter(GiGraphView *mainView)
-        : view(mainView), dynview(nil), tmpshot(nil) {
-        coreView = new GiCoreView();
+    GiViewAdapter(UIView *mainView)
+        : _view(mainView), _dynview(nil), tmpshot(nil) {
+        _coreView = new GiCoreView();
     }
     
-    ~GiViewAdapter() {
-        delete coreView;
+    virtual ~GiViewAdapter() {
+        delete _coreView;
         [tmpshot release];
     }
     
+    GiCoreView *coreView() {
+        return _coreView;
+    }
+    
+    UIImage *snapshot() {
+        UIGraphicsBeginImageContextWithOptions(_view.bounds.size, _view.opaque, 0);
+        [_view.layer renderInContext:UIGraphicsGetCurrentContext()];
+        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        return image;
+    }
+    
     virtual void regenAll() {
-        [view setNeedsDisplay];
-        [dynview setNeedsDisplay];
+        [_view setNeedsDisplay];
+        [_dynview setNeedsDisplay];
     }
     
     virtual void regenAppend() {
         [tmpshot release];
-        tmpshot = nil;      // renderInContext可能会调用drawRect
-        tmpshot = [view snapshot];
+        tmpshot = nil;              // renderInContext可能会调用drawRect
+        tmpshot = snapshot();
         [tmpshot retain];
-        [view setNeedsDisplay];
-        [dynview setNeedsDisplay];
+        
+        [_view setNeedsDisplay];
+        [_dynview setNeedsDisplay];
     }
     
     virtual void redraw() {
-        if (!dynview && view) {
-            dynview = [[DynDrawView alloc]initWithFrame:view.frame :view];
-            [view.superview addSubview:dynview];
-            [dynview release];
+        if (!_dynview && _view) {   // 自动创建动态图形视图
+            _dynview = [[DynDrawView alloc]initWithFrame:_view.frame :_coreView];
+            [_view.superview addSubview:_dynview];
+            [_dynview release];
         }
-        [dynview setNeedsDisplay];
+        [_dynview setNeedsDisplay];
     }
 };
 
@@ -110,7 +110,6 @@ public:
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.contentMode = UIViewContentModeRedraw; // 每次重画，适应屏幕旋转
         self.opaque = NO;                           // 透明背景
         self.autoresizingMask = 0xFF;               // 自动适应大小
         _viewAdapter = new GiViewAdapter(self);
@@ -145,25 +144,12 @@ public:
 
 - (GiCoreView *)coreView
 {
-    return _viewAdapter->coreView;
+    return _viewAdapter->coreView();
 }
 
 - (UIImage *)snapshot
 {
-    CGSize size = self.bounds.size;
-    
-    if (UIGraphicsBeginImageContextWithOptions) {
-        UIGraphicsBeginImageContextWithOptions(size, self.opaque, 0);
-    } else {
-        UIGraphicsBeginImageContext(size);
-    }
-    
-    [self.layer renderInContext:UIGraphicsGetCurrentContext()];
-    
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return image;
+    return _viewAdapter->snapshot();
 }
 
 - (BOOL)savePng:(NSString *)filename

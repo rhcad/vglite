@@ -9,6 +9,6 @@
     GraphView1 *_subview;
 }
 
-- (id)initWithFrame:(CGRect)frame withTests:(int)t;
+- (id)initWithFrame:(CGRect)frame withFlags:(int)t;
 
 @end

@@ -5,11 +5,11 @@
 
 @interface GraphView1 : UIView {
     CGPoint         _lastpt;
-    int             _tests;
+    int             _flags;
 }
 
 @property(nonatomic, readonly) UIPanGestureRecognizer *panGestureRecognizer;
 
-- (id)initWithFrame:(CGRect)frame withTests:(int)t;
+- (id)initWithFrame:(CGRect)frame withFlags:(int)t;
 
 @end

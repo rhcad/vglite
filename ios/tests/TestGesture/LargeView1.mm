@@ -6,12 +6,12 @@
 
 @implementation LargeView1
 
-- (id)initWithFrame:(CGRect)frame withTests:(int)t
+- (id)initWithFrame:(CGRect)frame withFlags:(int)t
 {
     self = [super initWithFrame:frame];
     if (self) {
         _subview = [[GraphView1 alloc]initWithFrame:CGRectMake(0, 0, 2048, 2048)
-                                          withTests:t];
+                                          withFlags:t];
         [self addSubview:_subview];
         [_subview release];
         

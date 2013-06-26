@@ -15,16 +15,16 @@
 @implementation GraphView1
 @synthesize panGestureRecognizer;
 
-- (id)initWithFrame:(CGRect)frame withTests:(int)t
+- (id)initWithFrame:(CGRect)frame withFlags:(int)t
 {
     self = [super initWithFrame:frame];
     if (self) {
         self.contentMode = UIViewContentModeRedraw; // 不缓存图像，每次重画
         self.backgroundColor = [UIColor whiteColor];
-        _tests = t;
+        _flags = t;
         _points.clear();
     }
-    if (self && _tests != 0) {
+    if (self && _flags != 0) {
         panGestureRecognizer =
         [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(oneFingerPan:)];
         panGestureRecognizer.maximumNumberOfTouches = 1;
@@ -69,7 +69,7 @@
 {
     [super touchesBegan:touches withEvent:event];
     
-    if (_tests < 2) {
+    if (_flags < 2) {
         UITouch *touch = [touches anyObject];
         _lastpt = [touch locationInView:touch.view];
         _points.push_back(CGPointMake(-1000, -1000));
@@ -82,7 +82,7 @@
 {
     [super touchesMoved:touches withEvent:event];
     
-    if (_tests < 2) {
+    if (_flags < 2) {
         UITouch *touch = [touches anyObject];
         _lastpt = [touch locationInView:touch.view];
         _points.push_back(_lastpt);
@@ -92,7 +92,7 @@
 
 - (void)oneFingerPan:(UIPanGestureRecognizer *)sender
 {
-    if (sender.state == UIGestureRecognizerStateBegan && _tests == 1) {
+    if (sender.state == UIGestureRecognizerStateBegan && _flags == 1) {
         _lastpt = [sender locationInView:sender.view];
         _points.push_back(CGPointMake(-1000, -1000));
         _points.push_back(_lastpt);
