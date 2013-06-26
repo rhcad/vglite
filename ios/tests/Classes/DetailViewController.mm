@@ -70,6 +70,21 @@
 
 - (void)clearCachedData
 {
+    static int bkmode = 0;
+    
+    bkmode = ++bkmode % 3;
+    switch (bkmode) {
+        case 0:
+            self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"translucent.png"]];
+            break;
+        case 1:
+            self.view.backgroundColor = [UIColor whiteColor];
+            break;
+        case 2:
+            self.view.backgroundColor = [UIColor blackColor];
+            break;
+    }
+
     [self.navigationItem setLeftBarButtonItem:nil animated:YES];
     self.masterPopoverController = nil;
     if ([_content.view respondsToSelector:@selector(clearCachedData)]) {

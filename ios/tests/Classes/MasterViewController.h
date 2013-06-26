@@ -9,4 +9,6 @@
 
 @property (nonatomic, assign) DetailViewController *detailViewController;
 
+- (void)clearCachedData;
+
 @end

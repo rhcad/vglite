@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		AE3341B516ECBDBE00F0E517 /* CalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE3341B416ECBDBE00F0E517 /* CalloutView.m */; };
+		AE4D531E177AD9F200B766B6 /* vgdot3.png in Resources */ = {isa = PBXBuildFile; fileRef = AE4D531C177AD9F200B766B6 /* vgdot3.png */; };
+		AE4D531F177AD9F200B766B6 /* vgdot3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AE4D531D177AD9F200B766B6 /* vgdot3@2x.png */; };
 		AE4E6F0516129337006CAA5C /* GraphView1.mm in Sources */ = {isa = PBXBuildFile; fileRef = AE4E6F0316129337006CAA5C /* GraphView1.mm */; };
 		AE4E6F0616129337006CAA5C /* ViewFactory.mm in Sources */ = {isa = PBXBuildFile; fileRef = AE4E6F0416129337006CAA5C /* ViewFactory.mm */; };
 		AE5BF68716E45BCE005CA76D /* translucent.png in Resources */ = {isa = PBXBuildFile; fileRef = AE5BF68516E45BCE005CA76D /* translucent.png */; };
@@ -37,6 +39,8 @@
 /* Begin PBXFileReference section */
 		AE3341B316ECBDBE00F0E517 /* CalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalloutView.h; sourceTree = "<group>"; };
 		AE3341B416ECBDBE00F0E517 /* CalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalloutView.m; sourceTree = "<group>"; };
+		AE4D531C177AD9F200B766B6 /* vgdot3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vgdot3.png; sourceTree = "<group>"; };
+		AE4D531D177AD9F200B766B6 /* vgdot3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vgdot3@2x.png"; sourceTree = "<group>"; };
 		AE4E6F0216129337006CAA5C /* GraphView1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphView1.h; sourceTree = "<group>"; };
 		AE4E6F0316129337006CAA5C /* GraphView1.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GraphView1.mm; sourceTree = "<group>"; };
 		AE4E6F0416129337006CAA5C /* ViewFactory.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewFactory.mm; sourceTree = "<group>"; };
@@ -199,6 +203,8 @@
 				C9A6534616E058BA00343CA3 /* vgdot1@2x.png */,
 				C9A6534716E058BA00343CA3 /* vgdot2.png */,
 				C9A6534816E058BA00343CA3 /* vgdot2@2x.png */,
+				AE4D531C177AD9F200B766B6 /* vgdot3.png */,
+				AE4D531D177AD9F200B766B6 /* vgdot3@2x.png */,
 				AEF2D56D1609B67200DDB7F2 /* app57.png */,
 				AEF2D56E1609B67200DDB7F2 /* app72.png */,
 			);
@@ -265,6 +271,8 @@
 				C9A6534C16E058BA00343CA3 /* vgdot2@2x.png in Resources */,
 				AE5BF68716E45BCE005CA76D /* translucent.png in Resources */,
 				AE5BF68816E45BCE005CA76D /* translucent@2x.png in Resources */,
+				AE4D531E177AD9F200B766B6 /* vgdot3.png in Resources */,
+				AE4D531F177AD9F200B766B6 /* vgdot3@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

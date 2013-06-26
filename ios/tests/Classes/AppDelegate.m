@@ -9,6 +9,7 @@
     UIWindow *_window;
     UINavigationController *_navigationController;
     UISplitViewController *_splitViewController;
+    MasterViewController *_masterController;
 }
 @end
 
@@ -27,21 +28,21 @@
     _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        MasterViewController *controller = [[MasterViewController alloc] init];
-        _navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
-        [controller release];
+        _masterController = [[MasterViewController alloc] init];
+        _navigationController = [[UINavigationController alloc] initWithRootViewController:_masterController];
+        [_masterController release];
         _window.rootViewController = _navigationController;
     }
     else {
-        MasterViewController *controller = [[MasterViewController alloc] init];
-        _navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
-        [controller release];
+        _masterController = [[MasterViewController alloc] init];
+        _navigationController = [[UINavigationController alloc] initWithRootViewController:_masterController];
+        [_masterController release];
         
         DetailViewController *detailController = [[DetailViewController alloc] init];
         UINavigationController *detailNavigationController = [[UINavigationController alloc] initWithRootViewController:detailController];
         [detailController release];
     	
-    	controller.detailViewController = detailController;
+    	_masterController.detailViewController = detailController;
     	
         _splitViewController = [[UISplitViewController alloc] init];
         _splitViewController.delegate = detailController;
@@ -57,10 +58,16 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
+    [_masterController clearCachedData];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
+}
+
+- (void)applicationDidReceiveMemoryWarning:(UIApplication *)application
+{
+    [_masterController clearCachedData];
 }
 
 @end

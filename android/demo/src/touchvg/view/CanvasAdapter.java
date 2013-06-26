@@ -279,7 +279,7 @@ public class CanvasAdapter extends GiCanvas {
         final Paint.FontMetrics fm = mBrush.getFontMetrics();
         float lineHeight = Math.abs(fm.descent) + Math.abs(fm.ascent);
 
-        if (Math.abs(lineHeight - h) < 1e2f) {
+        if (Math.abs(lineHeight - h) > 1e-2f) {
             mBrush.setTextSize(h * mBrush.getTextSize() / lineHeight);
         }
 

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AE4D5322177ADA0200B766B6 /* vgdot3.png in Resources */ = {isa = PBXBuildFile; fileRef = AE4D5320177ADA0200B766B6 /* vgdot3.png */; };
+		AE4D5323177ADA0200B766B6 /* vgdot3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AE4D5321177ADA0200B766B6 /* vgdot3@2x.png */; };
 		AE4E6F0616129337006CAA5C /* ViewFactory.mm in Sources */ = {isa = PBXBuildFile; fileRef = AE4E6F0416129337006CAA5C /* ViewFactory.mm */; };
 		AE5BF68716E45BCE005CA76D /* translucent.png in Resources */ = {isa = PBXBuildFile; fileRef = AE5BF68516E45BCE005CA76D /* translucent.png */; };
 		AE5BF68816E45BCE005CA76D /* translucent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AE5BF68616E45BCE005CA76D /* translucent@2x.png */; };
@@ -28,6 +30,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AE4D5320177ADA0200B766B6 /* vgdot3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vgdot3.png; sourceTree = "<group>"; };
+		AE4D5321177ADA0200B766B6 /* vgdot3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vgdot3@2x.png"; sourceTree = "<group>"; };
 		AE4E6F0416129337006CAA5C /* ViewFactory.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewFactory.mm; sourceTree = "<group>"; };
 		AE5BF68516E45BCE005CA76D /* translucent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = translucent.png; sourceTree = "<group>"; };
 		AE5BF68616E45BCE005CA76D /* translucent@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "translucent@2x.png"; sourceTree = "<group>"; };
@@ -145,6 +149,8 @@
 				C9A6534616E058BA00343CA3 /* vgdot1@2x.png */,
 				C9A6534716E058BA00343CA3 /* vgdot2.png */,
 				C9A6534816E058BA00343CA3 /* vgdot2@2x.png */,
+				AE4D5320177ADA0200B766B6 /* vgdot3.png */,
+				AE4D5321177ADA0200B766B6 /* vgdot3@2x.png */,
 				AEF2D56D1609B67200DDB7F2 /* app57.png */,
 				AEF2D56E1609B67200DDB7F2 /* app72.png */,
 			);
@@ -211,6 +217,8 @@
 				C9A6534C16E058BA00343CA3 /* vgdot2@2x.png in Resources */,
 				AE5BF68716E45BCE005CA76D /* translucent.png in Resources */,
 				AE5BF68816E45BCE005CA76D /* translucent@2x.png in Resources */,
+				AE4D5322177ADA0200B766B6 /* vgdot3.png in Resources */,
+				AE4D5323177ADA0200B766B6 /* vgdot3@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

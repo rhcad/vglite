@@ -202,7 +202,7 @@ bool GiQuartzCanvas::clipPath()
 void GiQuartzCanvas::drawHandle(float x, float y, int type)
 {
     if (type >= 0 && type < 4) {
-        NSString *names[] = { @"vgdot1.png", @"vgdot2.png", @"vgdot1.png", @"app57.png" };
+        NSString *names[] = { @"vgdot1.png", @"vgdot2.png", @"vgdot3.png", @"app57.png" };
         UIImage *image = [UIImage imageNamed:names[type]];
         if (image) {
             CGImageRef img = [image CGImage];
@@ -236,19 +236,19 @@ void GiQuartzCanvas::drawBitmap(const char* name, float xc, float yc,
 
 float GiQuartzCanvas::drawTextAt(const char* text, float x, float y, float h, int align)
 {
-    UIGraphicsPushContext(_ctx);
+    UIGraphicsPushContext(_ctx);        // 设置为当前上下文，供UIKit显示使用
     
     NSString *str = [[NSString alloc] initWithUTF8String:text];
-    CGSize actsize = [str sizeWithFont:[UIFont systemFontOfSize:h]
-                     constrainedToSize:CGSizeMake(1e4f, h)];
-    UIFont *font = [UIFont systemFontOfSize: h * h / actsize.height];
     
-    actsize = [str sizeWithFont:font];
-    if (align == 2)
-        x -= actsize.width;
-    else if (align == 1)
-        x -= actsize.width / 2;
-    [str drawAtPoint:CGPointMake(x, y) withFont:font];
+    // 实际字体大小 = 目标高度 h * 临时字体大小 h / 临时字体行高 actsize.height
+    UIFont *font = [UIFont systemFontOfSize:h]; // 以像素点高度作为字体大小得到临时字体
+    CGSize actsize = [str sizeWithFont:font     // 使用临时字体计算文字显示宽高
+                     constrainedToSize:CGSizeMake(1e4f, h)];    // 限制单行高度
+    font = [UIFont systemFontOfSize: h * h / actsize.height];
+    actsize = [str sizeWithFont:font];          // 文字实际显示的宽高
+    
+    x -= (align == 2) ? actsize.width : ((align == 1) ? actsize.width / 2 : 0);
+    [str drawAtPoint:CGPointMake(x, y) withFont:font];  // 显示文字
     [str release];
     
     UIGraphicsPopContext();

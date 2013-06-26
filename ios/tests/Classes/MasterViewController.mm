@@ -119,4 +119,9 @@ UIViewController *createTestView(NSUInteger index, CGRect frame);
     [controller release];
 }
 
+- (void)clearCachedData
+{
+    [_detailController clearCachedData];
+}
+
 @end
