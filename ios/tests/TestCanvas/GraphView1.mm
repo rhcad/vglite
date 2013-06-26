@@ -267,8 +267,8 @@ static int machToMs(uint64_t start)
     
 #if 1
     CGImageRef cgimage = CGBitmapContextCreateImage(ctx);
-    UIImage *image = [[UIImage alloc]initWithCGImage:cgimage scale:scale
-                                         orientation:UIImageOrientationUp];
+    UIImage *image = [[[UIImage alloc]initWithCGImage:cgimage scale:scale
+                                         orientation:UIImageOrientationUp] autorelease];
     CGImageRelease(cgimage);
     CGContextRelease(ctx);
 #else   // 下面取图像会失败
@@ -319,9 +319,7 @@ static int machToMs(uint64_t start)
 #if 0
     [self saveImage:[self snapshot] start:start];   // 生成图像最快
 #else
-    UIImage *image = [self shotCG];
-    [self saveImage:image start:start];
-    [image release];
+    [self saveImage:[self shotCG] start:start];
 #endif
 }
 

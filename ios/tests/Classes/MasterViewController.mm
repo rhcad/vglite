@@ -101,19 +101,22 @@ UIViewController *createTestView(NSUInteger index, CGRect frame);
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    UIViewController *controller;
+    
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
 	    if (!_detailController) {
 	        _detailController = [[DetailViewController alloc] init];
             [self setNavigationButtons];
 	    }
-	    _detailController.content = createTestView(indexPath.row, _detailController.view.bounds);
+	    controller = createTestView(indexPath.row, _detailController.view.bounds);
         [self.navigationController pushViewController:_detailController animated:YES];
     }
     else {
-        _detailController.content = createTestView(indexPath.row, _detailController.view.bounds);
+        controller = createTestView(indexPath.row, _detailController.view.bounds);
     }
     
-    [_detailController.content release];
+    _detailController.content = controller;
+    [controller release];
 }
 
 @end

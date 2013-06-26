@@ -38,6 +38,7 @@
         CGRect newBounds = CGRectMake(0, 0, 2 * newRadius, 2 * newRadius);
         CGPathRef newPath = NULL;
         CGColorRef fillColor = nil;
+        BOOL needReleasePath = NO;
         
         if ((++step) % 3 == 1) {
             newPath = [UIBezierPath bezierPathWithOvalInRect:newBounds].CGPath;
@@ -57,11 +58,16 @@
             CGPathAddLineToPoint(path, NULL, 0, 100);
             CGPathCloseSubpath(path);
             newPath = path;
+            needReleasePath = YES;
             fillColor = [UIColor greenColor].CGColor;
         }
         
         CABasicAnimation* pathAnim = [CABasicAnimation animationWithKeyPath: @"path"];
         pathAnim.toValue = (id)newPath;
+        if (needReleasePath) {
+            CGPathRelease(newPath);
+            newPath = nil;
+        }
         
         CABasicAnimation* boundsAnim = [CABasicAnimation animationWithKeyPath: @"bounds"];
         boundsAnim.toValue = [NSValue valueWithCGRect:newBounds];
