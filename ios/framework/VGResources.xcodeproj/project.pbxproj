@@ -22,9 +22,9 @@
 /* Begin PBXFileReference section */
 		AEDBA8C417796FDB00A1E05F /* TouchVG.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TouchVG.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEDBA8C717796FDB00A1E05F /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
-		AEDBA8CB17796FDB00A1E05F /* TouchVGResources-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TouchVGResources-Info.plist"; sourceTree = "<group>"; };
+		AEDBA8CB17796FDB00A1E05F /* VGResources-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "VGResources-Info.plist"; sourceTree = "<group>"; };
 		AEDBA8CD17796FDB00A1E05F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		AEDBA8CF17796FDB00A1E05F /* TouchVGResources-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TouchVGResources-Prefix.pch"; sourceTree = "<group>"; };
+		AEDBA8CF17796FDB00A1E05F /* VGResources-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VGResources-Prefix.pch"; sourceTree = "<group>"; };
 		AEDBA9191779795E00A1E05F /* translucent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = translucent.png; path = ../../tests/Resources/translucent.png; sourceTree = "<group>"; };
 		AEDBA91A1779795E00A1E05F /* translucent@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "translucent@2x.png"; path = "../../tests/Resources/translucent@2x.png"; sourceTree = "<group>"; };
 		AEDBA91B1779795E00A1E05F /* vgdot1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = vgdot1.png; path = ../../tests/Resources/vgdot1.png; sourceTree = "<group>"; };
@@ -50,7 +50,7 @@
 		AEDBA8B917796FDB00A1E05F = {
 			isa = PBXGroup;
 			children = (
-				AEDBA8C917796FDB00A1E05F /* TouchVGResources */,
+				AEDBA8C917796FDB00A1E05F /* VGResources */,
 				AEDBA8C617796FDB00A1E05F /* Frameworks */,
 				AEDBA8C517796FDB00A1E05F /* Products */,
 			);
@@ -72,7 +72,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		AEDBA8C917796FDB00A1E05F /* TouchVGResources */ = {
+		AEDBA8C917796FDB00A1E05F /* VGResources */ = {
 			isa = PBXGroup;
 			children = (
 				AEDBA9191779795E00A1E05F /* translucent.png */,
@@ -85,15 +85,15 @@
 				AEDBA9201779795E00A1E05F /* vgdot3@2x.png */,
 				AEDBA8CA17796FDB00A1E05F /* Supporting Files */,
 			);
-			path = TouchVGResources;
+			path = VGResources;
 			sourceTree = "<group>";
 		};
 		AEDBA8CA17796FDB00A1E05F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				AEDBA8CB17796FDB00A1E05F /* TouchVGResources-Info.plist */,
+				AEDBA8CB17796FDB00A1E05F /* VGResources-Info.plist */,
 				AEDBA8CC17796FDB00A1E05F /* InfoPlist.strings */,
-				AEDBA8CF17796FDB00A1E05F /* TouchVGResources-Prefix.pch */,
+				AEDBA8CF17796FDB00A1E05F /* VGResources-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -101,9 +101,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		AEDBA8C317796FDB00A1E05F /* TouchVGResources */ = {
+		AEDBA8C317796FDB00A1E05F /* VGResources */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AEDBA8D217796FDB00A1E05F /* Build configuration list for PBXNativeTarget "TouchVGResources" */;
+			buildConfigurationList = AEDBA8D217796FDB00A1E05F /* Build configuration list for PBXNativeTarget "VGResources" */;
 			buildPhases = (
 				AEDBA8C017796FDB00A1E05F /* Sources */,
 				AEDBA8C117796FDB00A1E05F /* Frameworks */,
@@ -113,8 +113,8 @@
 			);
 			dependencies = (
 			);
-			name = TouchVGResources;
-			productName = TouchVGResources;
+			name = VGResources;
+			productName = VGResources;
 			productReference = AEDBA8C417796FDB00A1E05F /* TouchVG.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
@@ -127,7 +127,7 @@
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = github.rhcad;
 			};
-			buildConfigurationList = AEDBA8BE17796FDB00A1E05F /* Build configuration list for PBXProject "TouchVGResources" */;
+			buildConfigurationList = AEDBA8BE17796FDB00A1E05F /* Build configuration list for PBXProject "VGResources" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -139,7 +139,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				AEDBA8C317796FDB00A1E05F /* TouchVGResources */,
+				AEDBA8C317796FDB00A1E05F /* VGResources */,
 			);
 		};
 /* End PBXProject section */
@@ -244,8 +244,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "TouchVGResources/TouchVGResources-Prefix.pch";
-				INFOPLIST_FILE = "TouchVGResources/TouchVGResources-Info.plist";
+				GCC_PREFIX_HEADER = "VGResources/VGResources-Prefix.pch";
+				INFOPLIST_FILE = "VGResources/VGResources-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				PRODUCT_NAME = TouchVG;
 				WRAPPER_EXTENSION = bundle;
@@ -256,8 +256,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "TouchVGResources/TouchVGResources-Prefix.pch";
-				INFOPLIST_FILE = "TouchVGResources/TouchVGResources-Info.plist";
+				GCC_PREFIX_HEADER = "VGResources/VGResources-Prefix.pch";
+				INFOPLIST_FILE = "VGResources/VGResources-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				PRODUCT_NAME = TouchVG;
 				WRAPPER_EXTENSION = bundle;
@@ -267,7 +267,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		AEDBA8BE17796FDB00A1E05F /* Build configuration list for PBXProject "TouchVGResources" */ = {
+		AEDBA8BE17796FDB00A1E05F /* Build configuration list for PBXProject "VGResources" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AEDBA8D017796FDB00A1E05F /* Debug */,
@@ -276,7 +276,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AEDBA8D217796FDB00A1E05F /* Build configuration list for PBXNativeTarget "TouchVGResources" */ = {
+		AEDBA8D217796FDB00A1E05F /* Build configuration list for PBXNativeTarget "VGResources" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AEDBA8D317796FDB00A1E05F /* Debug */,

@@ -27,17 +27,17 @@
 /* Begin PBXContainerItemProxy section */
 		AEDBA930177979A800A1E05F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = AEDBA929177979A700A1E05F /* TouchVGResources.xcodeproj */;
+			containerPortal = AEDBA929177979A700A1E05F /* VGResources.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = AEDBA8C417796FDB00A1E05F;
-			remoteInfo = TouchVGResources;
+			remoteInfo = VGResources;
 		};
 		AEDBA9351779827200A1E05F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = AEDBA929177979A700A1E05F /* TouchVGResources.xcodeproj */;
+			containerPortal = AEDBA929177979A700A1E05F /* VGResources.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = AEDBA8C317796FDB00A1E05F;
-			remoteInfo = TouchVGResources;
+			remoteInfo = VGResources;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -60,7 +60,7 @@
 		AEDBA8461779603500A1E05F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		AEDBA8481779606500A1E05F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		AEDBA84A1779606D00A1E05F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		AEDBA929177979A700A1E05F /* TouchVGResources.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = TouchVGResources.xcodeproj; sourceTree = "<group>"; };
+		AEDBA929177979A700A1E05F /* VGResources.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = VGResources.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,7 +81,7 @@
 		AEDBA7CE177959FC00A1E05F = {
 			isa = PBXGroup;
 			children = (
-				AEDBA929177979A700A1E05F /* TouchVGResources.xcodeproj */,
+				AEDBA929177979A700A1E05F /* VGResources.xcodeproj */,
 				AEDBA7E2177959FC00A1E05F /* TouchVG */,
 				AEDBA7DF177959FC00A1E05F /* Frameworks */,
 				AEDBA7DE177959FC00A1E05F /* Products */,
@@ -246,7 +246,7 @@
 			projectReferences = (
 				{
 					ProductGroup = AEDBA92A177979A700A1E05F /* Products */;
-					ProjectRef = AEDBA929177979A700A1E05F /* TouchVGResources.xcodeproj */;
+					ProjectRef = AEDBA929177979A700A1E05F /* VGResources.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -336,7 +336,7 @@
 /* Begin PBXTargetDependency section */
 		AEDBA9361779827200A1E05F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = TouchVGResources;
+			name = VGResources;
 			targetProxy = AEDBA9351779827200A1E05F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
