@@ -6,7 +6,16 @@ mkdir build
 mkdir build/iphoneos
 mkdir build/iphonesimulator
 
-xcodebuild -project framework/TouchVG.xcodeproj -sdk iphoneos5.1 -configuration Release
+iphoneos61=`xcodebuild -showsdks | grep -i iphoneos6.1`
+iphoneos51=`xcodebuild -showsdks | grep -i iphoneos5.1`
+
+if [ -n "$iphoneos61" ]; then
+    xcodebuild -project framework/TouchVG.xcodeproj -sdk iphoneos6.1 -configuration Release
+else
+if [ -n "$iphoneos51" ]; then
+    xcodebuild -project framework/TouchVG.xcodeproj -sdk iphoneos5.1 -configuration Release
+fi
+fi
 
 cp -R framework/build/Release-iphoneos/TouchVG.framework build/iphoneos
 cp -R framework/build/Release-iphoneos/TouchVG.bundle build/iphoneos
