@@ -8,7 +8,6 @@ import touchvg.jni.GiCoreView;
 import touchvg.jni.GiGestureState;
 import touchvg.jni.GiGestureType;
 import touchvg.jni.GiView;
-import touchvg.jni.GiViewFactory;
 import touchvg.view.CanvasAdapter;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -32,10 +31,11 @@ public class GraphView extends View {
         super(context);
         mCanvasAdapter = new CanvasAdapter(this);
         mViewAdapter = new ViewAdapter();
-        mCoreView = GiViewFactory.createView(0);
+        mCoreView = new GiCoreView();
+        mCoreView.createView(mViewAdapter, 0);
         
         DisplayMetrics dm = context.getApplicationContext().getResources().getDisplayMetrics();
-        GiViewFactory.setScreenDpi(dm.densityDpi);
+        GiCoreView.setScreenDpi(dm.densityDpi);
         
         this.setOnTouchListener(new OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
@@ -80,9 +80,9 @@ public class GraphView extends View {
     	
         long ms = SystemClock.currentThreadTimeMillis();
         if (mCanvasAdapter.beginPaint(canvas)) {
-            mCoreView.drawAll(mCanvasAdapter);
+            mCoreView.drawAll(mViewAdapter, mCanvasAdapter);
             if (mDynDrawView == null) {
-                mCoreView.dynDraw(mCanvasAdapter);
+                mCoreView.dynDraw(mViewAdapter, mCanvasAdapter);
             }
             mCanvasAdapter.endPaint();
         }

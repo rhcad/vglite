@@ -247,6 +247,18 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath="..\..\core\src\view\GcMagnifierView.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\src\view\GcMainView.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\src\view\GcShapeDoc.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\core\src\view\gicoreview.cpp"
 				>
 			</File>

@@ -35,16 +35,28 @@ public class GiCoreView {
     }
   }
 
-  public void drawAll(GiCanvas canvas) {
-    touchvgJNI.GiCoreView_drawAll(swigCPtr, this, GiCanvas.getCPtr(canvas), canvas);
+  public GiCoreView() {
+    this(touchvgJNI.new_GiCoreView(), true);
   }
 
-  public boolean drawAppend(GiCanvas canvas) {
-    return touchvgJNI.GiCoreView_drawAppend(swigCPtr, this, GiCanvas.getCPtr(canvas), canvas);
+  public void createView(GiView view, int type) {
+    touchvgJNI.GiCoreView_createView(swigCPtr, this, GiView.getCPtr(view), view, type);
   }
 
-  public void dynDraw(GiCanvas canvas) {
-    touchvgJNI.GiCoreView_dynDraw(swigCPtr, this, GiCanvas.getCPtr(canvas), canvas);
+  public void drawAll(GiView view, GiCanvas canvas) {
+    touchvgJNI.GiCoreView_drawAll(swigCPtr, this, GiView.getCPtr(view), view, GiCanvas.getCPtr(canvas), canvas);
+  }
+
+  public boolean drawAppend(GiView view, GiCanvas canvas) {
+    return touchvgJNI.GiCoreView_drawAppend(swigCPtr, this, GiView.getCPtr(view), view, GiCanvas.getCPtr(canvas), canvas);
+  }
+
+  public void dynDraw(GiView view, GiCanvas canvas) {
+    touchvgJNI.GiCoreView_dynDraw(swigCPtr, this, GiView.getCPtr(view), view, GiCanvas.getCPtr(canvas), canvas);
+  }
+
+  public static void setScreenDpi(int dpi) {
+    touchvgJNI.GiCoreView_setScreenDpi(dpi);
   }
 
   public void onSize(GiView view, int w, int h) {

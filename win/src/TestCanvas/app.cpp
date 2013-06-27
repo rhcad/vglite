@@ -108,7 +108,7 @@ void ondraw(HWND hwnd)
     if (_canvas.beginPaint(hwnd, hdc)) {        // 开始在画布上绘制
         if (!_canvas.drawCachedBitmap()) {      // 显示上次保存的内容
             _canvas.clearWindow();              // 使用背景色清除显示
-            TestCanvas::test(_canvas, _tests);  // 绘制测试图形
+            TestCanvas::test(&_canvas, _tests); // 绘制测试图形
             if ((_tests & 0x400) == 0)          // not testDynCurves
                 _canvas.saveCachedBitmap();     // 缓存显示的内容
         }
@@ -148,7 +148,7 @@ void switchTest(HWND hwnd)
     GiGdipCanvas canvas;
 
     if (canvas.beginPaintBuffered(1024, 768)) {
-        TestCanvas::test(canvas, _tests);
+        TestCanvas::test(&canvas, _tests);
 
         WCHAR filename[MAX_PATH];
         GetModuleFileNameW(NULL, filename, MAX_PATH);

@@ -5,6 +5,7 @@
 package vgdemo.testview.view;
 
 import touchvg.jni.GiCoreView;
+import touchvg.jni.GiView;
 import touchvg.view.CanvasAdapter;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -20,6 +21,7 @@ import android.view.SurfaceView;
  */
 public class DynDrawSfView extends SurfaceView implements DynDrawView {
     private CanvasAdapter mCanvasAdapter;
+    private GiView mViewAdapter;
     private GiCoreView mCoreView;
     private long mDrawnTime;
     private long mEndPaintTime;
@@ -53,7 +55,7 @@ public class DynDrawSfView extends SurfaceView implements DynDrawView {
     protected void onDraw(Canvas canvas) {
         if (mCanvasAdapter.beginPaint(canvas)) {
             canvas.drawColor(Color.TRANSPARENT, Mode.CLEAR);
-            mCoreView.dynDraw(mCanvasAdapter);
+            mCoreView.dynDraw(mViewAdapter, mCanvasAdapter);
             mCanvasAdapter.endPaint();
         }
     }

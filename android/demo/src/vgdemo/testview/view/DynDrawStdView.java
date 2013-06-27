@@ -5,6 +5,7 @@
 package vgdemo.testview.view;
 
 import touchvg.jni.GiCoreView;
+import touchvg.jni.GiView;
 import touchvg.view.CanvasAdapter;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -16,6 +17,7 @@ import android.view.View;
  */
 public class DynDrawStdView extends View implements DynDrawView {
     private CanvasAdapter mCanvasAdapter;
+    private GiView mViewAdapter;
     private GiCoreView mCoreView;
     private long mDrawnTime;
     private long mEndPaintTime;
@@ -49,7 +51,7 @@ public class DynDrawStdView extends View implements DynDrawView {
     protected void onDraw(Canvas canvas) {
         long ms = SystemClock.currentThreadTimeMillis();
         if (mCanvasAdapter.beginPaint(canvas)) {
-            mCoreView.dynDraw(mCanvasAdapter);
+            mCoreView.dynDraw(mViewAdapter, mCanvasAdapter);
             mCanvasAdapter.endPaint();
         }
         mDrawnTime = SystemClock.currentThreadTimeMillis() - ms;

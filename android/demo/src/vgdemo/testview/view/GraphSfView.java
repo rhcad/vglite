@@ -8,7 +8,6 @@ import touchvg.jni.GiCoreView;
 import touchvg.jni.GiGestureState;
 import touchvg.jni.GiGestureType;
 import touchvg.jni.GiView;
-import touchvg.jni.GiViewFactory;
 import touchvg.view.CanvasAdapter;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -38,10 +37,11 @@ public class GraphSfView extends SurfaceView {
         super(context);
         mCanvasAdapter = new CanvasAdapter(this);
         mViewAdapter = new ViewAdapter();
-        mCoreView = GiViewFactory.createView(0);
+        mCoreView = new GiCoreView();
+        mCoreView.createView(mViewAdapter, 0);
         
         DisplayMetrics dm = context.getApplicationContext().getResources().getDisplayMetrics();
-        GiViewFactory.setScreenDpi(dm.densityDpi);
+        GiCoreView.setScreenDpi(dm.densityDpi);
         
         getHolder().addCallback(new SurfaceCallback());
         
@@ -105,9 +105,9 @@ public class GraphSfView extends SurfaceView {
             else {
                 getBackground().draw(canvas);
             }
-            mCoreView.drawAll(mCanvasAdapter);
+            mCoreView.drawAll(mViewAdapter, mCanvasAdapter);
             if (mDynDrawView == null) {
-                mCoreView.dynDraw(mCanvasAdapter);
+                mCoreView.dynDraw(mViewAdapter, mCanvasAdapter);
             }
             mCanvasAdapter.endPaint();
         }

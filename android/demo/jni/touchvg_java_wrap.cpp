@@ -1661,6 +1661,18 @@ SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiView_1change_1ownership(JN
 }
 
 
+SWIGEXPORT jlong JNICALL Java_touchvg_jni_touchvgJNI_new_1GiCoreView(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  GiCoreView *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (GiCoreView *)new GiCoreView();
+  *(GiCoreView **)&jresult = result; 
+  return jresult;
+}
+
+
 SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_delete_1GiCoreView(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   GiCoreView *arg1 = (GiCoreView *) 0 ;
   
@@ -1671,67 +1683,90 @@ SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_delete_1GiCoreView(JNIEnv *j
 }
 
 
-SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1drawAll(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1createView(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jint jarg3) {
   GiCoreView *arg1 = (GiCoreView *) 0 ;
-  GiCanvas *arg2 = 0 ;
+  GiView *arg2 = (GiView *) 0 ;
+  int arg3 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
   arg1 = *(GiCoreView **)&jarg1; 
-  arg2 = *(GiCanvas **)&jarg2;
-  if (!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "GiCanvas & reference is null");
-    return ;
-  } 
-  (arg1)->drawAll(*arg2);
+  arg2 = *(GiView **)&jarg2; 
+  arg3 = (int)jarg3; 
+  (arg1)->createView(arg2,arg3);
 }
 
 
-SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1drawAppend(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1drawAll(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_) {
+  GiCoreView *arg1 = (GiCoreView *) 0 ;
+  GiView *arg2 = (GiView *) 0 ;
+  GiCanvas *arg3 = (GiCanvas *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  (void)jarg3_;
+  arg1 = *(GiCoreView **)&jarg1; 
+  arg2 = *(GiView **)&jarg2; 
+  arg3 = *(GiCanvas **)&jarg3; 
+  (arg1)->drawAll(arg2,arg3);
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1drawAppend(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_) {
   jboolean jresult = 0 ;
   GiCoreView *arg1 = (GiCoreView *) 0 ;
-  GiCanvas *arg2 = 0 ;
+  GiView *arg2 = (GiView *) 0 ;
+  GiCanvas *arg3 = (GiCanvas *) 0 ;
   bool result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
+  (void)jarg3_;
   arg1 = *(GiCoreView **)&jarg1; 
-  arg2 = *(GiCanvas **)&jarg2;
-  if (!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "GiCanvas & reference is null");
-    return 0;
-  } 
-  result = (bool)(arg1)->drawAppend(*arg2);
+  arg2 = *(GiView **)&jarg2; 
+  arg3 = *(GiCanvas **)&jarg3; 
+  result = (bool)(arg1)->drawAppend(arg2,arg3);
   jresult = (jboolean)result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1dynDraw(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1dynDraw(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_) {
   GiCoreView *arg1 = (GiCoreView *) 0 ;
-  GiCanvas *arg2 = 0 ;
+  GiView *arg2 = (GiView *) 0 ;
+  GiCanvas *arg3 = (GiCanvas *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
+  (void)jarg3_;
   arg1 = *(GiCoreView **)&jarg1; 
-  arg2 = *(GiCanvas **)&jarg2;
-  if (!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "GiCanvas & reference is null");
-    return ;
-  } 
-  (arg1)->dynDraw(*arg2);
+  arg2 = *(GiView **)&jarg2; 
+  arg3 = *(GiCanvas **)&jarg3; 
+  (arg1)->dynDraw(arg2,arg3);
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1setScreenDpi(JNIEnv *jenv, jclass jcls, jint jarg1) {
+  int arg1 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (int)jarg1; 
+  GiCoreView::setScreenDpi(arg1);
 }
 
 
 SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1onSize(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jint jarg3, jint jarg4) {
   GiCoreView *arg1 = (GiCoreView *) 0 ;
-  GiView *arg2 = 0 ;
+  GiView *arg2 = (GiView *) 0 ;
   int arg3 ;
   int arg4 ;
   
@@ -1740,21 +1775,17 @@ SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1onSize(JNIEnv *j
   (void)jarg1_;
   (void)jarg2_;
   arg1 = *(GiCoreView **)&jarg1; 
-  arg2 = *(GiView **)&jarg2;
-  if (!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "GiView & reference is null");
-    return ;
-  } 
+  arg2 = *(GiView **)&jarg2; 
   arg3 = (int)jarg3; 
   arg4 = (int)jarg4; 
-  (arg1)->onSize(*arg2,arg3,arg4);
+  (arg1)->onSize(arg2,arg3,arg4);
 }
 
 
 SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1onGesture(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jint jarg3, jint jarg4, jfloat jarg5, jfloat jarg6) {
   jboolean jresult = 0 ;
   GiCoreView *arg1 = (GiCoreView *) 0 ;
-  GiView *arg2 = 0 ;
+  GiView *arg2 = (GiView *) 0 ;
   GiGestureType arg3 ;
   GiGestureState arg4 ;
   float arg5 ;
@@ -1766,16 +1797,12 @@ SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1onGesture(JN
   (void)jarg1_;
   (void)jarg2_;
   arg1 = *(GiCoreView **)&jarg1; 
-  arg2 = *(GiView **)&jarg2;
-  if (!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "GiView & reference is null");
-    return 0;
-  } 
+  arg2 = *(GiView **)&jarg2; 
   arg3 = (GiGestureType)jarg3; 
   arg4 = (GiGestureState)jarg4; 
   arg5 = (float)jarg5; 
   arg6 = (float)jarg6; 
-  result = (bool)(arg1)->onGesture(*arg2,arg3,arg4,arg5,arg6);
+  result = (bool)(arg1)->onGesture(arg2,arg3,arg4,arg5,arg6);
   jresult = (jboolean)result; 
   return jresult;
 }
@@ -1784,7 +1811,7 @@ SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1onGesture(JN
 SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1twoFingersMove(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jint jarg3, jfloat jarg4, jfloat jarg5, jfloat jarg6, jfloat jarg7) {
   jboolean jresult = 0 ;
   GiCoreView *arg1 = (GiCoreView *) 0 ;
-  GiView *arg2 = 0 ;
+  GiView *arg2 = (GiView *) 0 ;
   GiGestureState arg3 ;
   float arg4 ;
   float arg5 ;
@@ -1797,65 +1824,15 @@ SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1twoFingersMo
   (void)jarg1_;
   (void)jarg2_;
   arg1 = *(GiCoreView **)&jarg1; 
-  arg2 = *(GiView **)&jarg2;
-  if (!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "GiView & reference is null");
-    return 0;
-  } 
+  arg2 = *(GiView **)&jarg2; 
   arg3 = (GiGestureState)jarg3; 
   arg4 = (float)jarg4; 
   arg5 = (float)jarg5; 
   arg6 = (float)jarg6; 
   arg7 = (float)jarg7; 
-  result = (bool)(arg1)->twoFingersMove(*arg2,arg3,arg4,arg5,arg6,arg7);
+  result = (bool)(arg1)->twoFingersMove(arg2,arg3,arg4,arg5,arg6,arg7);
   jresult = (jboolean)result; 
   return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_touchvg_jni_touchvgJNI_GiViewFactory_1createView(JNIEnv *jenv, jclass jcls, jint jarg1) {
-  jlong jresult = 0 ;
-  int arg1 ;
-  GiCoreView *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = (int)jarg1; 
-  result = (GiCoreView *)GiViewFactory::createView(arg1);
-  *(GiCoreView **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiViewFactory_1setScreenDpi(JNIEnv *jenv, jclass jcls, jint jarg1) {
-  int arg1 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = (int)jarg1; 
-  GiViewFactory::setScreenDpi(arg1);
-}
-
-
-SWIGEXPORT jlong JNICALL Java_touchvg_jni_touchvgJNI_new_1GiViewFactory(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  GiViewFactory *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  result = (GiViewFactory *)new GiViewFactory();
-  *(GiViewFactory **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_delete_1GiViewFactory(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  GiViewFactory *arg1 = (GiViewFactory *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(GiViewFactory **)&jarg1; 
-  delete arg1;
 }
 
 
@@ -1899,7 +1876,7 @@ SWIGEXPORT jfloat JNICALL Java_touchvg_jni_touchvgJNI_TestCanvas_1randFloat(JNIE
 
 
 SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_TestCanvas_1test_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jint jarg3, jboolean jarg4) {
-  GiCanvas *arg1 = 0 ;
+  GiCanvas *arg1 = (GiCanvas *) 0 ;
   int arg2 ;
   int arg3 ;
   bool arg4 ;
@@ -1907,219 +1884,167 @@ SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_TestCanvas_1test_1_1SWIG_10(
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(GiCanvas **)&jarg1;
-  if (!arg1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "GiCanvas & reference is null");
-    return ;
-  } 
+  arg1 = *(GiCanvas **)&jarg1; 
   arg2 = (int)jarg2; 
   arg3 = (int)jarg3; 
   arg4 = jarg4 ? true : false; 
-  TestCanvas::test(*arg1,arg2,arg3,arg4);
+  TestCanvas::test(arg1,arg2,arg3,arg4);
 }
 
 
 SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_TestCanvas_1test_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jint jarg3) {
-  GiCanvas *arg1 = 0 ;
+  GiCanvas *arg1 = (GiCanvas *) 0 ;
   int arg2 ;
   int arg3 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(GiCanvas **)&jarg1;
-  if (!arg1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "GiCanvas & reference is null");
-    return ;
-  } 
+  arg1 = *(GiCanvas **)&jarg1; 
   arg2 = (int)jarg2; 
   arg3 = (int)jarg3; 
-  TestCanvas::test(*arg1,arg2,arg3);
+  TestCanvas::test(arg1,arg2,arg3);
 }
 
 
 SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_TestCanvas_1test_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  GiCanvas *arg1 = 0 ;
+  GiCanvas *arg1 = (GiCanvas *) 0 ;
   int arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(GiCanvas **)&jarg1;
-  if (!arg1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "GiCanvas & reference is null");
-    return ;
-  } 
+  arg1 = *(GiCanvas **)&jarg1; 
   arg2 = (int)jarg2; 
-  TestCanvas::test(*arg1,arg2);
+  TestCanvas::test(arg1,arg2);
 }
 
 
 SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_TestCanvas_1testRect(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  GiCanvas *arg1 = 0 ;
+  GiCanvas *arg1 = (GiCanvas *) 0 ;
   int arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(GiCanvas **)&jarg1;
-  if (!arg1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "GiCanvas & reference is null");
-    return ;
-  } 
+  arg1 = *(GiCanvas **)&jarg1; 
   arg2 = (int)jarg2; 
-  TestCanvas::testRect(*arg1,arg2);
+  TestCanvas::testRect(arg1,arg2);
 }
 
 
 SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_TestCanvas_1testLine(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  GiCanvas *arg1 = 0 ;
+  GiCanvas *arg1 = (GiCanvas *) 0 ;
   int arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(GiCanvas **)&jarg1;
-  if (!arg1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "GiCanvas & reference is null");
-    return ;
-  } 
+  arg1 = *(GiCanvas **)&jarg1; 
   arg2 = (int)jarg2; 
-  TestCanvas::testLine(*arg1,arg2);
+  TestCanvas::testLine(arg1,arg2);
 }
 
 
 SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_TestCanvas_1testEllipse(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  GiCanvas *arg1 = 0 ;
+  GiCanvas *arg1 = (GiCanvas *) 0 ;
   int arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(GiCanvas **)&jarg1;
-  if (!arg1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "GiCanvas & reference is null");
-    return ;
-  } 
+  arg1 = *(GiCanvas **)&jarg1; 
   arg2 = (int)jarg2; 
-  TestCanvas::testEllipse(*arg1,arg2);
+  TestCanvas::testEllipse(arg1,arg2);
 }
 
 
 SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_TestCanvas_1testQuadBezier(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  GiCanvas *arg1 = 0 ;
+  GiCanvas *arg1 = (GiCanvas *) 0 ;
   int arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(GiCanvas **)&jarg1;
-  if (!arg1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "GiCanvas & reference is null");
-    return ;
-  } 
+  arg1 = *(GiCanvas **)&jarg1; 
   arg2 = (int)jarg2; 
-  TestCanvas::testQuadBezier(*arg1,arg2);
+  TestCanvas::testQuadBezier(arg1,arg2);
 }
 
 
 SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_TestCanvas_1testCubicBezier(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  GiCanvas *arg1 = 0 ;
+  GiCanvas *arg1 = (GiCanvas *) 0 ;
   int arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(GiCanvas **)&jarg1;
-  if (!arg1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "GiCanvas & reference is null");
-    return ;
-  } 
+  arg1 = *(GiCanvas **)&jarg1; 
   arg2 = (int)jarg2; 
-  TestCanvas::testCubicBezier(*arg1,arg2);
+  TestCanvas::testCubicBezier(arg1,arg2);
 }
 
 
 SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_TestCanvas_1testPolygon(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  GiCanvas *arg1 = 0 ;
+  GiCanvas *arg1 = (GiCanvas *) 0 ;
   int arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(GiCanvas **)&jarg1;
-  if (!arg1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "GiCanvas & reference is null");
-    return ;
-  } 
+  arg1 = *(GiCanvas **)&jarg1; 
   arg2 = (int)jarg2; 
-  TestCanvas::testPolygon(*arg1,arg2);
+  TestCanvas::testPolygon(arg1,arg2);
 }
 
 
 SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_TestCanvas_1testClipPath(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  GiCanvas *arg1 = 0 ;
+  GiCanvas *arg1 = (GiCanvas *) 0 ;
   int arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(GiCanvas **)&jarg1;
-  if (!arg1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "GiCanvas & reference is null");
-    return ;
-  } 
+  arg1 = *(GiCanvas **)&jarg1; 
   arg2 = (int)jarg2; 
-  TestCanvas::testClipPath(*arg1,arg2);
+  TestCanvas::testClipPath(arg1,arg2);
 }
 
 
 SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_TestCanvas_1testHandle(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  GiCanvas *arg1 = 0 ;
+  GiCanvas *arg1 = (GiCanvas *) 0 ;
   int arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(GiCanvas **)&jarg1;
-  if (!arg1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "GiCanvas & reference is null");
-    return ;
-  } 
+  arg1 = *(GiCanvas **)&jarg1; 
   arg2 = (int)jarg2; 
-  TestCanvas::testHandle(*arg1,arg2);
+  TestCanvas::testHandle(arg1,arg2);
 }
 
 
 SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_TestCanvas_1testDynCurves(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  GiCanvas *arg1 = 0 ;
+  GiCanvas *arg1 = (GiCanvas *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(GiCanvas **)&jarg1;
-  if (!arg1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "GiCanvas & reference is null");
-    return ;
-  } 
-  TestCanvas::testDynCurves(*arg1);
+  arg1 = *(GiCanvas **)&jarg1; 
+  TestCanvas::testDynCurves(arg1);
 }
 
 
 SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_TestCanvas_1testTextAt(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  GiCanvas *arg1 = 0 ;
+  GiCanvas *arg1 = (GiCanvas *) 0 ;
   int arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(GiCanvas **)&jarg1;
-  if (!arg1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "GiCanvas & reference is null");
-    return ;
-  } 
+  arg1 = *(GiCanvas **)&jarg1; 
   arg2 = (int)jarg2; 
-  TestCanvas::testTextAt(*arg1,arg2);
+  TestCanvas::testTextAt(arg1,arg2);
 }
 
 

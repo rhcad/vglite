@@ -8,7 +8,6 @@ import touchvg.jni.GiCoreView;
 import touchvg.jni.GiGestureState;
 import touchvg.jni.GiGestureType;
 import touchvg.jni.GiView;
-import touchvg.jni.GiViewFactory;
 import touchvg.view.CanvasAdapter;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -33,10 +32,11 @@ public class GraphViewCached extends View {
         super(context);
         mCanvasAdapter = new CanvasAdapter(this);
         mViewAdapter = new ViewAdapter();
-        mCoreView = GiViewFactory.createView(0);
+        mCoreView = new GiCoreView();
+        mCoreView.createView(mViewAdapter, 0);
         
         DisplayMetrics dm = context.getApplicationContext().getResources().getDisplayMetrics();
-        GiViewFactory.setScreenDpi(dm.densityDpi);
+        GiCoreView.setScreenDpi(dm.densityDpi);
         
         this.setOnTouchListener(new OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
@@ -77,9 +77,9 @@ public class GraphViewCached extends View {
         		canvas.drawBitmap(mCacheBitmap, 0, 0, null);
         	}
         	else {
-        		mCoreView.drawAll(mCanvasAdapter);
+        		mCoreView.drawAll(mViewAdapter, mCanvasAdapter);
         	}
-            mCoreView.dynDraw(mCanvasAdapter);
+            mCoreView.dynDraw(mViewAdapter, mCanvasAdapter);
             mCanvasAdapter.endPaint();
         }
         mDrawnTime = SystemClock.currentThreadTimeMillis() - ms;
@@ -98,7 +98,7 @@ public class GraphViewCached extends View {
     		
     		if (mCanvasAdapter.beginPaint(canvas)) {
     			canvas.drawColor(0);
-    			mCoreView.drawAll(mCanvasAdapter);
+    			mCoreView.drawAll(mViewAdapter, mCanvasAdapter);
     			mCanvasAdapter.endPaint();
     		}
     		else {
@@ -144,7 +144,7 @@ public class GraphViewCached extends View {
         	if (mCacheBitmap != null) {
         		Canvas canvas = new Canvas(mCacheBitmap);
         		if (mCanvasAdapter.beginPaint(canvas)) {
-        			mCoreView.drawAppend(mCanvasAdapter);
+        			mCoreView.drawAppend(mViewAdapter, mCanvasAdapter);
         			mCanvasAdapter.endPaint();
         		}
         	}

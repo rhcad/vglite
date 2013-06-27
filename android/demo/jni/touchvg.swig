@@ -26,6 +26,7 @@
 %feature("director") GiView;
 %include "giview.h"
 
+%include "gigesture.h"
 %include "gicoreview.h"
 %include "testcanvas.h"
 
