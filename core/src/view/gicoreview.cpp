@@ -8,17 +8,17 @@
 #include "testcanvas.h"
 #include <stdio.h>
 #include <vector>
-#include "GiMainView.h"
-#include "GiMagnifierView.h"
+#include "GcMainView.h"
+#include "GcMagnifierView.h"
 
 static int _dpi = 1;
 
 //! 测试视图
-class GiDummyView : public GiCoreView
+class GcDummyView : public GiCoreView
 {
 public:
-    GiDummyView() : _gestureState(kGiGestureCancel) {}
-    virtual ~GiDummyView() {}
+    GcDummyView() : _gestureState(kGiGestureCancel) {}
+    virtual ~GcDummyView() {}
     
     virtual void drawAll(GiCanvas& canvas);
     virtual bool drawAppend(GiCanvas& canvas);
@@ -38,12 +38,12 @@ private:
 GiCoreView* GiCoreView::createView(int type)
 {
     if (type == 1) {
-        return new GiMainView();
+        return new GcMainView();
     }
-    else if (type == 2 && GiMainView::lastView) {
-        return new GiMagnifierView(GiMainView::lastView);
+    else if (type == 2 && GcMainView::lastView) {
+        return new GcMagnifierView(GcMainView::lastView);
     }
-    return new GiDummyView();
+    return new GcDummyView();
 }
 
 void GiCoreView::setScreenDpi(int dpi)
@@ -51,10 +51,10 @@ void GiCoreView::setScreenDpi(int dpi)
     _dpi = dpi;
 }
 
-// GiDummyView
+// GcDummyView
 //
 
-void GiDummyView::drawAll(GiCanvas& canvas)
+void GcDummyView::drawAll(GiCanvas& canvas)
 {
     int n = TestCanvas::randInt(900, 1000);
     TestCanvas::test(canvas, 0x08, n, true);
@@ -80,7 +80,7 @@ static void drawPoints(GiCanvas& canvas)
     }
 }
 
-bool GiDummyView::drawAppend(GiCanvas& canvas)
+bool GcDummyView::drawAppend(GiCanvas& canvas)
 {
     canvas.setPen(TestCanvas::randInt(20, 0xFF) << 24 | TestCanvas::randInt(0, 0xFFFFFF),
                   TestCanvas::randFloat(1, 10), -1, 0);
@@ -90,7 +90,7 @@ bool GiDummyView::drawAppend(GiCanvas& canvas)
     return true;
 }
 
-void GiDummyView::dynDraw(GiCanvas& canvas)
+void GcDummyView::dynDraw(GiCanvas& canvas)
 {
 	if (_gestureState == kGiGestureBegan || _gestureState == kGiGestureMoved) {
 		static float phase = 0;
@@ -111,12 +111,12 @@ void GiDummyView::dynDraw(GiCanvas& canvas)
 	}
 }
 
-void GiDummyView::onSize(GiView&, int w, int h)
+void GcDummyView::onSize(GiView&, int w, int h)
 {
     if (w && h) {}
 }
 
-bool GiDummyView::onGesture(GiView& view, GiGestureType gestureType,
+bool GcDummyView::onGesture(GiView& view, GiGestureType gestureType,
         GiGestureState gestureState, float x, float y)
 {
 	_gestureState = gestureState;
@@ -135,7 +135,7 @@ bool GiDummyView::onGesture(GiView& view, GiGestureType gestureType,
     return true;
 }
 
-bool GiDummyView::twoFingersMove(GiView& view,
+bool GcDummyView::twoFingersMove(GiView& view,
         GiGestureState gestureState, float x1, float y1, float x2, float y2)
 {
 	_gestureState = gestureState;

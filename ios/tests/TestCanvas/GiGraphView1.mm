@@ -1,8 +1,8 @@
-//! \file GiGraphView.mm
-//! \brief 实现iOS绘图视图类 GiGraphView
+//! \file GiGraphView1.mm
+//! \brief 实现iOS绘图视图类 GiGraphView1
 // Copyright (c) 2012-2013, https://github.com/rhcad/vglite
 
-#import "GiGraphView.h"
+#import "GiGraphView1.h"
 #import <QuartzCore/CALayer.h>
 #include "GiQuartzCanvas.h"
 #include "giview.h"
@@ -49,8 +49,8 @@ private:
     UIImage     *_tmpshot;
     
 public:
-    GiViewAdapter(UIView *mainView, int viewType) : _view(mainView), _dynview(nil), _tmpshot(nil) {
-        _coreView = GiCoreView::createView(viewType);
+    GiViewAdapter(UIView *mainView) : _view(mainView), _dynview(nil), _tmpshot(nil) {
+        _coreView = GiCoreView::createView(0);
     }
     
     virtual ~GiViewAdapter() {
@@ -109,7 +109,7 @@ public:
     }
 };
 
-@implementation GiGraphView
+@implementation GiGraphView1
 
 - (void)dealloc
 {
@@ -123,7 +123,7 @@ public:
     if (self) {
         self.opaque = NO;                           // 透明背景
         self.autoresizingMask = 0xFF;               // 自动适应大小
-        _viewAdapter = new GiViewAdapter(self, 1);
+        _viewAdapter = new GiViewAdapter(self);
         
         GiCoreView::setScreenDpi(GiQuartzCanvas::getScreenDpi());
         [self coreView]->onSize(*_viewAdapter, frame.size.width, frame.size.height);
@@ -200,42 +200,6 @@ public:
     
     [self coreView]->onGesture(*_viewAdapter, kGiGesturePan,
                                kGiGestureEnded, pt.x, pt.y);
-}
-
-@end
-
-@implementation GiMagnifierView
-
-- (void)dealloc
-{
-    delete _viewAdapter;
-    [super dealloc];
-}
-
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        self.opaque = NO;                           // 透明背景
-        _viewAdapter = new GiViewAdapter(self, 2);
-    }
-    return self;
-}
-
-- (void)drawRect:(CGRect)rect
-{
-    GiCoreView *coreView = _viewAdapter->coreView();
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    GiQuartzCanvas canvas;
-        
-    coreView->onSize(*_viewAdapter, self.bounds.size.width, self.bounds.size.height);
-    
-    if (canvas.beginPaint(context)) {
-        if (!_viewAdapter->drawAppend(canvas)) {
-            coreView->drawAll(canvas);
-        }
-        canvas.endPaint();
-    }
 }
 
 @end

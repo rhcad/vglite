@@ -23,8 +23,8 @@ LOCAL_C_INCLUDES := $(COREINC)/callback \
 
 LOCAL_SRC_FILES  := $(CORESRC)/test/testcanvas.cpp \
                     $(CORESRC)/view/gicoreview.cpp \
-                    $(CORESRC)/view/GiMainView.cpp \
-                    $(CORESRC)/view/GiMagnifierView.cpp \
+                    $(CORESRC)/view/GcMainView.cpp \
+                    $(CORESRC)/view/GcMagnifierView.cpp \
                     touchvg_java_wrap.cpp
 
 include $(BUILD_SHARED_LIBRARY)

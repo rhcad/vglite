@@ -1,20 +1,20 @@
-//! \file GiMainView.h
-//! \brief 定义主绘图视图类 GiMainView
+//! \file GcMagnifierView.h
+//! \brief 定义放大镜视图类 GcMagnifierView
 // Copyright (c) 2012-2013, https://github.com/rhcad/vglite
 
-#ifndef VGLITE_CORE_MAINVIEW_H
-#define VGLITE_CORE_MAINVIEW_H
+#ifndef VGLITE_CORE_MAGNIFIERVIEW_H
+#define VGLITE_CORE_MAGNIFIERVIEW_H
 
 #include "gicoreview.h"
 
-//! 主绘图视图类
-class GiMainView : public GiCoreView
+class GcMainView;
+
+//! 放大镜视图类
+class GcMagnifierView : public GiCoreView
 {
 public:
-    GiMainView();
-    virtual ~GiMainView();
-    
-    static GiMainView* lastView;
+    GcMagnifierView(GcMainView* mainView);
+    virtual ~GcMagnifierView();
     
     virtual void drawAll(GiCanvas& canvas);
     virtual bool drawAppend(GiCanvas& canvas);
@@ -24,6 +24,9 @@ public:
                            GiGestureState gestureState, float x, float y);
     virtual bool twoFingersMove(GiView& view, GiGestureState gestureState,
                                 float x1, float y1, float x2, float y2);
+    
+private:
+    GcMainView*     _mainView;
 };
 
-#endif // VGLITE_CORE_MAINVIEW_H
+#endif // VGLITE_CORE_MAGNIFIERVIEW_H

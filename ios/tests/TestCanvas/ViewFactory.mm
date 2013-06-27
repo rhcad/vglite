@@ -1,7 +1,7 @@
 // ViewFactory.mm
 // Copyright (c) 2012-2013, https://github.com/rhcad/vglite
 
-#import "GiGraphView.h"
+#import "GiGraphView1.h"
 #import "GraphView1.h"
 #import "LargeView1.h"
 #import "BasicAnimationView.h"
@@ -65,7 +65,7 @@ static void addGraphView(NSMutableArray *arr, NSUInteger &i, NSUInteger index,
     }
     addView(arr, title, wrapview);
     if (wrapview) {
-        GiGraphView *v = [[GiGraphView alloc]initWithFrame:wrapview.bounds];
+        GiGraphView1 *v = [[GiGraphView1 alloc]initWithFrame:wrapview.bounds];
         [wrapview addSubview:v];
         [v release];
     }
@@ -75,7 +75,7 @@ static void gatherTestView(NSMutableArray *arr, NSUInteger index, CGRect frame)
 {
     NSUInteger i = 0;
     
-    addGraphView(arr, i, index, @"GiGraphView", frame);
+    addGraphView(arr, i, index, @"GiGraphView1", frame);
     
     addView1(arr, i, index, @"testRect", 0x01, frame);
     addView1(arr, i, index, @"testLine", 0x02, frame);
