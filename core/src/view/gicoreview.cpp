@@ -11,8 +11,6 @@
 #include "GcMainView.h"
 #include "GcMagnifierView.h"
 
-static int _dpi = 1;
-
 //! 测试视图
 class GcDummyView : public GiCoreView
 {
@@ -32,10 +30,12 @@ private:
     GiGestureState  _gestureState;
 };
 
-// GiCoreView
+// GiViewFactory
 //
 
-GiCoreView* GiCoreView::createView(int type)
+static int _dpi = 1;
+
+GiCoreView* GiViewFactory::createView(int type)
 {
     if (type == 1) {
         return new GcMainView();
@@ -46,7 +46,7 @@ GiCoreView* GiCoreView::createView(int type)
     return new GcDummyView();
 }
 
-void GiCoreView::setScreenDpi(int dpi)
+void GiViewFactory::setScreenDpi(int dpi)
 {
     _dpi = dpi;
 }

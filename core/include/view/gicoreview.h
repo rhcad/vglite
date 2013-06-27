@@ -1,5 +1,5 @@
 //! \file gicoreview.h
-//! \brief 定义内核视图类 GiCoreView
+//! \brief 定义内核视图接口 GiCoreView 和工厂类 GiViewFactory
 // Copyright (c) 2012-2013, https://github.com/rhcad/vglite
 
 #ifndef VGLITE_CORE_VIEWDISPATCHER_H
@@ -25,19 +25,14 @@ typedef enum {                  //!< 手势状态
     kGiGestureCancel,           //!< 取消
 } GiGestureState;
 
-//! 内核视图类
-/*! 本类拥有图形对象，负责显示和手势动作的分发。
+//! 内核视图接口
+/*! 内核视图拥有图形对象，负责显示和手势动作的分发。
     \ingroup GROUP_VIEW
+    \see GiViewFactory
  */
 class GiCoreView
 {
 public:
-    //! 创建内核视图
-    static GiCoreView* createView(int type);
-    
-    //! 设置屏幕的点密度
-    static void setScreenDpi(int dpi);
-    
     //! 析构函数
     virtual ~GiCoreView() {}
     
@@ -60,6 +55,16 @@ public:
     //! 传递双指移动手势(可放缩旋转)
     virtual bool twoFingersMove(GiView& view, GiGestureState gestureState,
             float x1, float y1, float x2, float y2) = 0;
+};
+
+//! 内核视图的工厂类
+struct GiViewFactory
+{
+    //! 创建内核视图
+    static GiCoreView* createView(int type);
+    
+    //! 设置屏幕的点密度
+    static void setScreenDpi(int dpi);
 };
 
 #endif // VGLITE_CORE_VIEWDISPATCHER_H

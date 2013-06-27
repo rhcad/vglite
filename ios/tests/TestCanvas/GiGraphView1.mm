@@ -73,7 +73,7 @@ public:
         return image;
     }
     
-    bool drawAppend(GiQuartzCanvas &canvas) {
+    bool drawAppend(GiQuartzCanvas& canvas) {
         if (_tmpshot) {
             [_tmpshot drawAtPoint:CGPointZero];
             [_tmpshot release];

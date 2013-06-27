@@ -35,15 +35,6 @@ public class GiCoreView {
     }
   }
 
-  public static GiCoreView createView(int type) {
-    long cPtr = touchvgJNI.GiCoreView_createView(type);
-    return (cPtr == 0) ? null : new GiCoreView(cPtr, false);
-  }
-
-  public static void setScreenDpi(int dpi) {
-    touchvgJNI.GiCoreView_setScreenDpi(dpi);
-  }
-
   public void drawAll(GiCanvas canvas) {
     touchvgJNI.GiCoreView_drawAll(swigCPtr, this, GiCanvas.getCPtr(canvas), canvas);
   }

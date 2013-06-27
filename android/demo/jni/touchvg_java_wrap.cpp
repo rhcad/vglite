@@ -1661,30 +1661,6 @@ SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiView_1change_1ownership(JN
 }
 
 
-SWIGEXPORT jlong JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1createView(JNIEnv *jenv, jclass jcls, jint jarg1) {
-  jlong jresult = 0 ;
-  int arg1 ;
-  GiCoreView *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = (int)jarg1; 
-  result = (GiCoreView *)GiCoreView::createView(arg1);
-  *(GiCoreView **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1setScreenDpi(JNIEnv *jenv, jclass jcls, jint jarg1) {
-  int arg1 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = (int)jarg1; 
-  GiCoreView::setScreenDpi(arg1);
-}
-
-
 SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_delete_1GiCoreView(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   GiCoreView *arg1 = (GiCoreView *) 0 ;
   
@@ -1834,6 +1810,52 @@ SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1twoFingersMo
   result = (bool)(arg1)->twoFingersMove(*arg2,arg3,arg4,arg5,arg6,arg7);
   jresult = (jboolean)result; 
   return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_touchvg_jni_touchvgJNI_GiViewFactory_1createView(JNIEnv *jenv, jclass jcls, jint jarg1) {
+  jlong jresult = 0 ;
+  int arg1 ;
+  GiCoreView *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (int)jarg1; 
+  result = (GiCoreView *)GiViewFactory::createView(arg1);
+  *(GiCoreView **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiViewFactory_1setScreenDpi(JNIEnv *jenv, jclass jcls, jint jarg1) {
+  int arg1 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (int)jarg1; 
+  GiViewFactory::setScreenDpi(arg1);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_touchvg_jni_touchvgJNI_new_1GiViewFactory(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  GiViewFactory *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (GiViewFactory *)new GiViewFactory();
+  *(GiViewFactory **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_delete_1GiViewFactory(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  GiViewFactory *arg1 = (GiViewFactory *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(GiViewFactory **)&jarg1; 
+  delete arg1;
 }
 
 

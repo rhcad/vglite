@@ -40,8 +40,6 @@ public class touchvgJNI {
   public final static native long new_GiView();
   public final static native void GiView_director_connect(GiView obj, long cptr, boolean mem_own, boolean weak_global);
   public final static native void GiView_change_ownership(GiView obj, long cptr, boolean take_or_release);
-  public final static native long GiCoreView_createView(int jarg1);
-  public final static native void GiCoreView_setScreenDpi(int jarg1);
   public final static native void delete_GiCoreView(long jarg1);
   public final static native void GiCoreView_drawAll(long jarg1, GiCoreView jarg1_, long jarg2, GiCanvas jarg2_);
   public final static native boolean GiCoreView_drawAppend(long jarg1, GiCoreView jarg1_, long jarg2, GiCanvas jarg2_);
@@ -49,6 +47,10 @@ public class touchvgJNI {
   public final static native void GiCoreView_onSize(long jarg1, GiCoreView jarg1_, long jarg2, GiView jarg2_, int jarg3, int jarg4);
   public final static native boolean GiCoreView_onGesture(long jarg1, GiCoreView jarg1_, long jarg2, GiView jarg2_, int jarg3, int jarg4, float jarg5, float jarg6);
   public final static native boolean GiCoreView_twoFingersMove(long jarg1, GiCoreView jarg1_, long jarg2, GiView jarg2_, int jarg3, float jarg4, float jarg5, float jarg6, float jarg7);
+  public final static native long GiViewFactory_createView(int jarg1);
+  public final static native void GiViewFactory_setScreenDpi(int jarg1);
+  public final static native long new_GiViewFactory();
+  public final static native void delete_GiViewFactory(long jarg1);
   public final static native void TestCanvas_initRand();
   public final static native int TestCanvas_randInt(int jarg1, int jarg2);
   public final static native float TestCanvas_randFloat(float jarg1, float jarg2);

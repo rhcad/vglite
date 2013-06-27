@@ -50,7 +50,7 @@ private:
     
 public:
     GiViewAdapter(UIView *mainView, int viewType) : _view(mainView), _dynview(nil), _tmpshot(nil) {
-        _coreView = GiCoreView::createView(viewType);
+        _coreView = GiViewFactory::createView(viewType);
     }
     
     virtual ~GiViewAdapter() {
@@ -73,7 +73,7 @@ public:
         return image;
     }
     
-    bool drawAppend(GiQuartzCanvas &canvas) {
+    bool drawAppend(GiQuartzCanvas& canvas) {
         if (_tmpshot) {
             [_tmpshot drawAtPoint:CGPointZero];
             [_tmpshot release];
@@ -125,7 +125,7 @@ public:
         self.autoresizingMask = 0xFF;               // 自动适应大小
         _viewAdapter = new GiViewAdapter(self, 1);
         
-        GiCoreView::setScreenDpi(GiQuartzCanvas::getScreenDpi());
+        GiViewFactory::setScreenDpi(GiQuartzCanvas::getScreenDpi());
         [self coreView]->onSize(*_viewAdapter, frame.size.width, frame.size.height);
     }
     return self;
