@@ -37,7 +37,7 @@ public class GraphSfView extends SurfaceView {
         super(context);
         mCanvasAdapter = new CanvasAdapter(this);
         mViewAdapter = new ViewAdapter();
-        mCoreView = new GiCoreView();
+        mCoreView = GiCoreView.createView(0);
         
         DisplayMetrics dm = context.getApplicationContext().getResources().getDisplayMetrics();
         GiCoreView.setScreenDpi(dm.densityDpi);

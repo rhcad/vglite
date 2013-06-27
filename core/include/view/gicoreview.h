@@ -32,34 +32,34 @@ typedef enum {                  //!< 手势状态
 class GiCoreView
 {
 public:
-    GiCoreView();
-    ~GiCoreView();
+    //! 创建内核视图
+    static GiCoreView* createView(int type);
     
-    //! 显示所有图形
-    void drawAll(GiCanvas& canvas);
-
-    //! 显示新图形，在 GiView.regenAppend() 后调用
-    bool drawAppend(GiCanvas& canvas);
-    
-    //! 显示动态图形
-    void dynDraw(GiCanvas& canvas);
-
     //! 设置屏幕的点密度
     static void setScreenDpi(int dpi);
+    
+    //! 析构函数
+    virtual ~GiCoreView() {}
+    
+    //! 显示所有图形
+    virtual void drawAll(GiCanvas& canvas) = 0;
+
+    //! 显示新图形，在 GiView.regenAppend() 后调用
+    virtual bool drawAppend(GiCanvas& canvas) = 0;
+    
+    //! 显示动态图形
+    virtual void dynDraw(GiCanvas& canvas) = 0;
 
     //! 设置视图的宽高
-    void onSize(GiView& view, int w, int h);
+    virtual void onSize(GiView& view, int w, int h) = 0;
     
     //! 传递单指触摸手势消息
-    bool onGesture(GiView& view, GiGestureType gestureType,
-            GiGestureState gestureState, float x, float y);
+    virtual bool onGesture(GiView& view, GiGestureType gestureType,
+            GiGestureState gestureState, float x, float y) = 0;
 
     //! 传递双指移动手势(可放缩旋转)
-    bool twoFingersMove(GiView& view, GiGestureState gestureState,
-            float x1, float y1, float x2, float y2);
-
-private:
-    GiGestureState  _gestureState;
+    virtual bool twoFingersMove(GiView& view, GiGestureState gestureState,
+            float x1, float y1, float x2, float y2) = 0;
 };
 
 #endif // VGLITE_CORE_VIEWDISPATCHER_H

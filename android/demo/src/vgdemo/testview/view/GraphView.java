@@ -31,7 +31,7 @@ public class GraphView extends View {
         super(context);
         mCanvasAdapter = new CanvasAdapter(this);
         mViewAdapter = new ViewAdapter();
-        mCoreView = new GiCoreView();
+        mCoreView = GiCoreView.createView(0);
         
         DisplayMetrics dm = context.getApplicationContext().getResources().getDisplayMetrics();
         GiCoreView.setScreenDpi(dm.densityDpi);

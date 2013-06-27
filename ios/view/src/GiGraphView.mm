@@ -51,13 +51,15 @@ private:
 public:
     UIImage     *tmpshot;
     
-    GiViewAdapter(UIView *mainView)
-        : _view(mainView), _dynview(nil), tmpshot(nil) {
-        _coreView = new GiCoreView();
+    GiViewAdapter(UIView *mainView) : _view(mainView), _dynview(nil), tmpshot(nil) {
+        _coreView = GiCoreView::createView(0);
     }
     
     virtual ~GiViewAdapter() {
-        delete _coreView;
+        if (_coreView) {
+            delete _coreView;
+            _coreView = NULL;
+        }
         [tmpshot release];
     }
     

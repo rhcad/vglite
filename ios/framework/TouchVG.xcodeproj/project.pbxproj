@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AE02809D177C30F9009C9B76 /* GiMagnifierView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE028099177C30F9009C9B76 /* GiMagnifierView.cpp */; };
+		AE02809E177C30F9009C9B76 /* GiMagnifierView.h in Headers */ = {isa = PBXBuildFile; fileRef = AE02809A177C30F9009C9B76 /* GiMagnifierView.h */; };
+		AE02809F177C30F9009C9B76 /* GiMainView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE02809B177C30F9009C9B76 /* GiMainView.cpp */; };
+		AE0280A0177C30F9009C9B76 /* GiMainView.h in Headers */ = {isa = PBXBuildFile; fileRef = AE02809C177C30F9009C9B76 /* GiMainView.h */; };
 		AEDBA7E1177959FC00A1E05F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEDBA7E0177959FC00A1E05F /* Foundation.framework */; };
 		AEDBA7E7177959FC00A1E05F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AEDBA7E5177959FC00A1E05F /* InfoPlist.strings */; };
 		AEDBA82917795E9A00A1E05F /* GiGraphView.h in Headers */ = {isa = PBXBuildFile; fileRef = AEDBA82717795E9A00A1E05F /* GiGraphView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -42,6 +46,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AE028099177C30F9009C9B76 /* GiMagnifierView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GiMagnifierView.cpp; path = /Users/zhangyg/Desktop/vglite/ios/tests/TestCanvas/../../../core/src/view/GiMagnifierView.cpp; sourceTree = "<absolute>"; };
+		AE02809A177C30F9009C9B76 /* GiMagnifierView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GiMagnifierView.h; path = /Users/zhangyg/Desktop/vglite/ios/tests/TestCanvas/../../../core/include/view/GiMagnifierView.h; sourceTree = "<absolute>"; };
+		AE02809B177C30F9009C9B76 /* GiMainView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GiMainView.cpp; path = /Users/zhangyg/Desktop/vglite/ios/tests/TestCanvas/../../../core/src/view/GiMainView.cpp; sourceTree = "<absolute>"; };
+		AE02809C177C30F9009C9B76 /* GiMainView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GiMainView.h; path = /Users/zhangyg/Desktop/vglite/ios/tests/TestCanvas/../../../core/include/view/GiMainView.h; sourceTree = "<absolute>"; };
 		AEDBA7DD177959FC00A1E05F /* TouchVG.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework.static; includeInIndex = 0; path = TouchVG.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEDBA7E0177959FC00A1E05F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		AEDBA7E4177959FC00A1E05F /* TouchVG-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TouchVG-Info.plist"; sourceTree = "<group>"; };
@@ -169,6 +177,10 @@
 		AEDBA83217795F0400A1E05F /* view */ = {
 			isa = PBXGroup;
 			children = (
+				AE028099177C30F9009C9B76 /* GiMagnifierView.cpp */,
+				AE02809A177C30F9009C9B76 /* GiMagnifierView.h */,
+				AE02809B177C30F9009C9B76 /* GiMainView.cpp */,
+				AE02809C177C30F9009C9B76 /* GiMainView.h */,
 				AEDBA83917795F4C00A1E05F /* gicoreview.h */,
 				AEDBA83D17795F7100A1E05F /* gicoreview.cpp */,
 			);
@@ -196,6 +208,8 @@
 				AEDBA83617795F3800A1E05F /* giview.h in Headers */,
 				AEDBA83817795F4300A1E05F /* testcanvas.h in Headers */,
 				AEDBA83A17795F4C00A1E05F /* gicoreview.h in Headers */,
+				AE02809E177C30F9009C9B76 /* GiMagnifierView.h in Headers */,
+				AE0280A0177C30F9009C9B76 /* GiMainView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -328,6 +342,8 @@
 				AEDBA82E17795EA400A1E05F /* GiQuartzCanvas.mm in Sources */,
 				AEDBA83C17795F6700A1E05F /* testcanvas.cpp in Sources */,
 				AEDBA83E17795F7100A1E05F /* gicoreview.cpp in Sources */,
+				AE02809D177C30F9009C9B76 /* GiMagnifierView.cpp in Sources */,
+				AE02809F177C30F9009C9B76 /* GiMainView.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AE028097177C30D3009C9B76 /* GiMagnifierView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE028095177C30D3009C9B76 /* GiMagnifierView.cpp */; };
+		AE028098177C30D3009C9B76 /* GiMainView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE028096177C30D3009C9B76 /* GiMainView.cpp */; };
 		AE3341B516ECBDBE00F0E517 /* CalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE3341B416ECBDBE00F0E517 /* CalloutView.m */; };
 		AE4D531E177AD9F200B766B6 /* vgdot3.png in Resources */ = {isa = PBXBuildFile; fileRef = AE4D531C177AD9F200B766B6 /* vgdot3.png */; };
 		AE4D531F177AD9F200B766B6 /* vgdot3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AE4D531D177AD9F200B766B6 /* vgdot3@2x.png */; };
@@ -37,6 +39,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AE028093177C30C6009C9B76 /* GiMagnifierView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GiMagnifierView.h; path = ../../../core/include/view/GiMagnifierView.h; sourceTree = "<group>"; };
+		AE028094177C30C6009C9B76 /* GiMainView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GiMainView.h; path = ../../../core/include/view/GiMainView.h; sourceTree = "<group>"; };
+		AE028095177C30D3009C9B76 /* GiMagnifierView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GiMagnifierView.cpp; path = ../../../core/src/view/GiMagnifierView.cpp; sourceTree = "<group>"; };
+		AE028096177C30D3009C9B76 /* GiMainView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GiMainView.cpp; path = ../../../core/src/view/GiMainView.cpp; sourceTree = "<group>"; };
 		AE3341B316ECBDBE00F0E517 /* CalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalloutView.h; sourceTree = "<group>"; };
 		AE3341B416ECBDBE00F0E517 /* CalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalloutView.m; sourceTree = "<group>"; };
 		AE4D531C177AD9F200B766B6 /* vgdot3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vgdot3.png; sourceTree = "<group>"; };
@@ -97,6 +103,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AE028089177C28FF009C9B76 /* core */ = {
+			isa = PBXGroup;
+			children = (
+				AE028095177C30D3009C9B76 /* GiMagnifierView.cpp */,
+				AE028093177C30C6009C9B76 /* GiMagnifierView.h */,
+				AE028096177C30D3009C9B76 /* GiMainView.cpp */,
+				AE028094177C30C6009C9B76 /* GiMainView.h */,
+				AE86279D1713FC80003E1614 /* gicoreview.cpp */,
+				AE86279C1713FC71003E1614 /* gicoreview.h */,
+				AE86279B1713FC65003E1614 /* giview.h */,
+			);
+			name = core;
+			sourceTree = "<group>";
+		};
 		AE0762F3160AABE000518207 /* canvas */ = {
 			isa = PBXGroup;
 			children = (
@@ -126,9 +146,7 @@
 		AE8627971713FA49003E1614 /* view */ = {
 			isa = PBXGroup;
 			children = (
-				AE86279D1713FC80003E1614 /* gicoreview.cpp */,
-				AE86279C1713FC71003E1614 /* gicoreview.h */,
-				AE86279B1713FC65003E1614 /* giview.h */,
+				AE028089177C28FF009C9B76 /* core */,
 				AE8627991713FA7E003E1614 /* GiGraphView.mm */,
 				AE8627981713FA70003E1614 /* GiGraphView.h */,
 			);
@@ -296,6 +314,8 @@
 				AE86279A1713FA7E003E1614 /* GiGraphView.mm in Sources */,
 				AE86279E1713FC80003E1614 /* gicoreview.cpp in Sources */,
 				AE815F331718EA71006BC607 /* BasicAnimationView.m in Sources */,
+				AE028097177C30D3009C9B76 /* GiMagnifierView.cpp in Sources */,
+				AE028098177C30D3009C9B76 /* GiMainView.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
