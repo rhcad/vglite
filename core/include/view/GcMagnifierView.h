@@ -5,24 +5,24 @@
 #ifndef VGLITE_CORE_MAGNIFIERVIEW_H
 #define VGLITE_CORE_MAGNIFIERVIEW_H
 
-#include "gicoreview.h"
+#include "GcBaseView.h"
 
 class GcMainView;
 
 //! 放大镜视图类
-class GcMagnifierView : public GiCoreView
+class GcMagnifierView : public GcBaseView
 {
 public:
-    GcMagnifierView(GcMainView* mainView);
+    GcMagnifierView(GiView *view, GcMainView* mainView);
     virtual ~GcMagnifierView();
     
-    virtual void drawAll(GiCanvas& canvas);
-    virtual bool drawAppend(GiCanvas& canvas);
-    virtual void dynDraw(GiCanvas& canvas);
-    virtual void onSize(GiView& view, int w, int h);
-    virtual bool onGesture(GiView& view, GiGestureType gestureType,
+    virtual void drawAll(GiCanvas* canvas);
+    virtual bool drawAppend(GiCanvas* canvas);
+    virtual void dynDraw(GiCanvas* canvas);
+    virtual void onSize(int w, int h);
+    virtual bool onGesture(GiGestureType gestureType,
                            GiGestureState gestureState, float x, float y);
-    virtual bool twoFingersMove(GiView& view, GiGestureState gestureState,
+    virtual bool twoFingersMove(GiGestureState gestureState,
                                 float x1, float y1, float x2, float y2);
     
 private:

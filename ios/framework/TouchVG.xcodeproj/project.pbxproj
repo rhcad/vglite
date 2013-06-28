@@ -7,10 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AE02809D177C30F9009C9B76 /* GcMagnifierView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE028099177C30F9009C9B76 /* GcMagnifierView.cpp */; };
-		AE02809E177C30F9009C9B76 /* GcMagnifierView.h in Headers */ = {isa = PBXBuildFile; fileRef = AE02809A177C30F9009C9B76 /* GcMagnifierView.h */; };
-		AE02809F177C30F9009C9B76 /* GcMainView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE02809B177C30F9009C9B76 /* GcMainView.cpp */; };
-		AE0280A0177C30F9009C9B76 /* GcMainView.h in Headers */ = {isa = PBXBuildFile; fileRef = AE02809C177C30F9009C9B76 /* GcMainView.h */; };
 		AEDBA7E1177959FC00A1E05F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEDBA7E0177959FC00A1E05F /* Foundation.framework */; };
 		AEDBA7E7177959FC00A1E05F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AEDBA7E5177959FC00A1E05F /* InfoPlist.strings */; };
 		AEDBA82917795E9A00A1E05F /* GiGraphView.h in Headers */ = {isa = PBXBuildFile; fileRef = AEDBA82717795E9A00A1E05F /* GiGraphView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -26,6 +22,14 @@
 		AEDBA8471779603500A1E05F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEDBA8461779603500A1E05F /* CoreGraphics.framework */; };
 		AEDBA8491779606500A1E05F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEDBA8481779606500A1E05F /* UIKit.framework */; };
 		AEDBA84B1779606D00A1E05F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEDBA84A1779606D00A1E05F /* QuartzCore.framework */; };
+		C98B72FB177DB5BB00075D78 /* gigesture.h in Headers */ = {isa = PBXBuildFile; fileRef = C98B72FA177DB5BB00075D78 /* gigesture.h */; };
+		C993E79B177D57C700CA398D /* GcBaseView.h in Headers */ = {isa = PBXBuildFile; fileRef = C993E79A177D57C700CA398D /* GcBaseView.h */; };
+		C9FD791D177D4C51002FACBF /* GcMagnifierView.h in Headers */ = {isa = PBXBuildFile; fileRef = C9FD791B177D4C51002FACBF /* GcMagnifierView.h */; };
+		C9FD791E177D4C51002FACBF /* GcMainView.h in Headers */ = {isa = PBXBuildFile; fileRef = C9FD791C177D4C51002FACBF /* GcMainView.h */; };
+		C9FD7921177D4C5E002FACBF /* GcMagnifierView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9FD791F177D4C5E002FACBF /* GcMagnifierView.cpp */; };
+		C9FD7922177D4C5E002FACBF /* GcMainView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9FD7920177D4C5E002FACBF /* GcMainView.cpp */; };
+		C9FD7945177D4F55002FACBF /* GcShapeDoc.h in Headers */ = {isa = PBXBuildFile; fileRef = C9FD7944177D4F55002FACBF /* GcShapeDoc.h */; };
+		C9FD7947177D4F8E002FACBF /* GcShapeDoc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9FD7946177D4F8E002FACBF /* GcShapeDoc.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,10 +50,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		AE028099177C30F9009C9B76 /* GcMagnifierView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GcMagnifierView.cpp; path = /Users/zhangyg/Desktop/vglite/ios/tests/TestCanvas/../../../core/src/view/GcMagnifierView.cpp; sourceTree = "<absolute>"; };
-		AE02809A177C30F9009C9B76 /* GcMagnifierView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GcMagnifierView.h; path = /Users/zhangyg/Desktop/vglite/ios/tests/TestCanvas/../../../core/include/view/GcMagnifierView.h; sourceTree = "<absolute>"; };
-		AE02809B177C30F9009C9B76 /* GcMainView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GcMainView.cpp; path = /Users/zhangyg/Desktop/vglite/ios/tests/TestCanvas/../../../core/src/view/GcMainView.cpp; sourceTree = "<absolute>"; };
-		AE02809C177C30F9009C9B76 /* GcMainView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GcMainView.h; path = /Users/zhangyg/Desktop/vglite/ios/tests/TestCanvas/../../../core/include/view/GcMainView.h; sourceTree = "<absolute>"; };
 		AEDBA7DD177959FC00A1E05F /* TouchVG.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework.static; includeInIndex = 0; path = TouchVG.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEDBA7E0177959FC00A1E05F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		AEDBA7E4177959FC00A1E05F /* TouchVG-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TouchVG-Info.plist"; sourceTree = "<group>"; };
@@ -69,6 +69,14 @@
 		AEDBA8481779606500A1E05F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		AEDBA84A1779606D00A1E05F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		AEDBA929177979A700A1E05F /* VGResources.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = VGResources.xcodeproj; sourceTree = "<group>"; };
+		C98B72FA177DB5BB00075D78 /* gigesture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = gigesture.h; path = ../../../core/include/view/gigesture.h; sourceTree = "<group>"; };
+		C993E79A177D57C700CA398D /* GcBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GcBaseView.h; path = ../../../core/include/view/GcBaseView.h; sourceTree = "<group>"; };
+		C9FD791B177D4C51002FACBF /* GcMagnifierView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GcMagnifierView.h; path = ../../../core/include/view/GcMagnifierView.h; sourceTree = "<group>"; };
+		C9FD791C177D4C51002FACBF /* GcMainView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GcMainView.h; path = ../../../core/include/view/GcMainView.h; sourceTree = "<group>"; };
+		C9FD791F177D4C5E002FACBF /* GcMagnifierView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GcMagnifierView.cpp; path = ../../../core/src/view/GcMagnifierView.cpp; sourceTree = "<group>"; };
+		C9FD7920177D4C5E002FACBF /* GcMainView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GcMainView.cpp; path = ../../../core/src/view/GcMainView.cpp; sourceTree = "<group>"; };
+		C9FD7944177D4F55002FACBF /* GcShapeDoc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GcShapeDoc.h; path = ../../../core/include/view/GcShapeDoc.h; sourceTree = "<group>"; };
+		C9FD7946177D4F8E002FACBF /* GcShapeDoc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GcShapeDoc.cpp; path = ../../../core/src/view/GcShapeDoc.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,10 +185,14 @@
 		AEDBA83217795F0400A1E05F /* view */ = {
 			isa = PBXGroup;
 			children = (
-				AE028099177C30F9009C9B76 /* GcMagnifierView.cpp */,
-				AE02809A177C30F9009C9B76 /* GcMagnifierView.h */,
-				AE02809B177C30F9009C9B76 /* GcMainView.cpp */,
-				AE02809C177C30F9009C9B76 /* GcMainView.h */,
+				C9FD7944177D4F55002FACBF /* GcShapeDoc.h */,
+				C9FD7946177D4F8E002FACBF /* GcShapeDoc.cpp */,
+				C9FD791B177D4C51002FACBF /* GcMagnifierView.h */,
+				C9FD791F177D4C5E002FACBF /* GcMagnifierView.cpp */,
+				C9FD791C177D4C51002FACBF /* GcMainView.h */,
+				C9FD7920177D4C5E002FACBF /* GcMainView.cpp */,
+				C993E79A177D57C700CA398D /* GcBaseView.h */,
+				C98B72FA177DB5BB00075D78 /* gigesture.h */,
 				AEDBA83917795F4C00A1E05F /* gicoreview.h */,
 				AEDBA83D17795F7100A1E05F /* gicoreview.cpp */,
 			);
@@ -208,8 +220,11 @@
 				AEDBA83617795F3800A1E05F /* giview.h in Headers */,
 				AEDBA83817795F4300A1E05F /* testcanvas.h in Headers */,
 				AEDBA83A17795F4C00A1E05F /* gicoreview.h in Headers */,
-				AE02809E177C30F9009C9B76 /* GcMagnifierView.h in Headers */,
-				AE0280A0177C30F9009C9B76 /* GcMainView.h in Headers */,
+				C9FD791D177D4C51002FACBF /* GcMagnifierView.h in Headers */,
+				C9FD791E177D4C51002FACBF /* GcMainView.h in Headers */,
+				C9FD7945177D4F55002FACBF /* GcShapeDoc.h in Headers */,
+				C993E79B177D57C700CA398D /* GcBaseView.h in Headers */,
+				C98B72FB177DB5BB00075D78 /* gigesture.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -342,8 +357,9 @@
 				AEDBA82E17795EA400A1E05F /* GiQuartzCanvas.mm in Sources */,
 				AEDBA83C17795F6700A1E05F /* testcanvas.cpp in Sources */,
 				AEDBA83E17795F7100A1E05F /* gicoreview.cpp in Sources */,
-				AE02809D177C30F9009C9B76 /* GcMagnifierView.cpp in Sources */,
-				AE02809F177C30F9009C9B76 /* GcMainView.cpp in Sources */,
+				C9FD7921177D4C5E002FACBF /* GcMagnifierView.cpp in Sources */,
+				C9FD7922177D4C5E002FACBF /* GcMainView.cpp in Sources */,
+				C9FD7947177D4F8E002FACBF /* GcShapeDoc.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

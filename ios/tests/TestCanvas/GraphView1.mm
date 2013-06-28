@@ -107,10 +107,10 @@ static int machToMs(uint64_t start)
     canvas->setBrush(_useFill ? 0x4400ff00 : 0, 0);
     
     if (_flags & 0x20000) {     // in scroll view
-        TestCanvas::test(*canvas, _flags, 200);
+        TestCanvas::test(canvas, _flags, 200);
     }
     else {
-        TestCanvas::test(*canvas, _flags, 100);
+        TestCanvas::test(canvas, _flags, 100);
     }
 }
 

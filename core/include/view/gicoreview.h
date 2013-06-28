@@ -1,70 +1,54 @@
 //! \file gicoreview.h
-//! \brief 定义内核视图接口 GiCoreView 和工厂类 GiViewFactory
+//! \brief 定义内核视图类 GiCoreView
 // Copyright (c) 2012-2013, https://github.com/rhcad/vglite
 
 #ifndef VGLITE_CORE_VIEWDISPATCHER_H
 #define VGLITE_CORE_VIEWDISPATCHER_H
 
+#include "gigesture.h"
+
 class GiView;
 class GiCanvas;
 
-typedef enum {                  //!< 手势类型
-    kGiGestureUnknown,          //!< 未知的手势
-    kGiGesturePan,              //!< 单指滑动
-    kGiGestureTap,              //!< 单指单击
-    kGiGestureDblTap,           //!< 单指双击
-    kGiGesturePress,            //!< 单指长按
-    kGiTwoFingersMove,          //!< 双指移动(可放缩旋转)
-} GiGestureType;
-
-typedef enum {                  //!< 手势状态
-    kGiGesturePossible,         //!< 待检查手势有效性
-    kGiGestureBegan,            //!< 开始
-    kGiGestureMoved,            //!< 改变
-    kGiGestureEnded,            //!< 结束
-    kGiGestureCancel,           //!< 取消
-} GiGestureState;
-
-//! 内核视图接口
+//! 内核视图类
 /*! 内核视图拥有图形对象，负责显示和手势动作的分发。
     \ingroup GROUP_VIEW
-    \see GiViewFactory
  */
 class GiCoreView
 {
 public:
-    //! 析构函数
-    virtual ~GiCoreView() {}
+    GiCoreView();
+    ~GiCoreView();
+    
+    //! 创建内核视图
+    void createView(GiView* view, int type);
     
     //! 显示所有图形
-    virtual void drawAll(GiCanvas& canvas) = 0;
+    void drawAll(GiView* view, GiCanvas* canvas);
 
     //! 显示新图形，在 GiView.regenAppend() 后调用
-    virtual bool drawAppend(GiCanvas& canvas) = 0;
+    bool drawAppend(GiView* view, GiCanvas* canvas);
     
     //! 显示动态图形
-    virtual void dynDraw(GiCanvas& canvas) = 0;
+    void dynDraw(GiView* view, GiCanvas* canvas);
 
-    //! 设置视图的宽高
-    virtual void onSize(GiView& view, int w, int h) = 0;
-    
-    //! 传递单指触摸手势消息
-    virtual bool onGesture(GiView& view, GiGestureType gestureType,
-            GiGestureState gestureState, float x, float y) = 0;
-
-    //! 传递双指移动手势(可放缩旋转)
-    virtual bool twoFingersMove(GiView& view, GiGestureState gestureState,
-            float x1, float y1, float x2, float y2) = 0;
-};
-
-//! 内核视图的工厂类
-struct GiViewFactory
-{
-    //! 创建内核视图
-    static GiCoreView* createView(int type);
-    
     //! 设置屏幕的点密度
     static void setScreenDpi(int dpi);
+    
+    //! 设置视图的宽高
+    void onSize(GiView* view, int w, int h);
+    
+    //! 传递单指触摸手势消息
+    bool onGesture(GiView* view, GiGestureType gestureType,
+            GiGestureState gestureState, float x, float y);
+
+    //! 传递双指移动手势(可放缩旋转)
+    bool twoFingersMove(GiView* view, GiGestureState gestureState,
+            float x1, float y1, float x2, float y2);
+
+private:
+    struct Impl;
+    Impl* _impl;
 };
 
 #endif // VGLITE_CORE_VIEWDISPATCHER_H
