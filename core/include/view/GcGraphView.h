@@ -8,6 +8,8 @@
 #include "GcBaseView.h"
 
 //! 主绘图视图类
+/*! \ingroup GROUP_VIEW
+ */
 class GcGraphView : public GcBaseView
 {
 public:

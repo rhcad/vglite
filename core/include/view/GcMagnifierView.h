@@ -10,6 +10,8 @@
 class GcGraphView;
 
 //! 放大镜视图类
+/*! \ingroup GROUP_VIEW
+ */
 class GcMagnifierView : public GcBaseView
 {
 public:

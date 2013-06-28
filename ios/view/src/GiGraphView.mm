@@ -8,8 +8,6 @@
 #include "giview.h"
 #include "gicoreview.h"
 
-class GiViewAdapter;
-
 //! 动态图形的绘图视图类
 @interface DynDrawView : UIView {
     GiViewAdapter   *_viewAdapter;

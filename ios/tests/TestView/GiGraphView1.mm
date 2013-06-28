@@ -10,32 +10,10 @@
 
 //! 动态图形的绘图视图类
 @interface DynDrawView : UIView {
-    GiCoreView  *_coreView;
-}
-@end
-
-@implementation DynDrawView
-
-- (id)initWithFrame:(CGRect)frame :(GiCoreView *)coreView
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        _coreView = coreView;
-        self.opaque = NO;                           // 透明背景
-        self.userInteractionEnabled = NO;           // 禁止交互，避免影响主视图显示
-    }
-    return self;
+    GiViewAdapter   *_viewAdapter;
 }
 
-- (void)drawRect:(CGRect)rect
-{
-    GiQuartzCanvas canvas;
-    
-    if (canvas.beginPaint(UIGraphicsGetCurrentContext())) {
-        _coreView->dynDraw(canvas);
-        canvas.endPaint();
-    }
-}
+- (id)initWithFrame:(CGRect)frame :(GiViewAdapter *)viewAdapter;
 
 @end
 
@@ -50,7 +28,8 @@ private:
     
 public:
     GiViewAdapter(UIView *mainView) : _view(mainView), _dynview(nil), _tmpshot(nil) {
-        _coreView = GiCoreView::createView(0);
+        _coreView = new GiCoreView(NULL);
+        _coreView->createView(this, 0);
     }
     
     virtual ~GiViewAdapter() {
@@ -73,12 +52,12 @@ public:
         return image;
     }
     
-    bool drawAppend(GiQuartzCanvas& canvas) {
+    bool drawAppend(GiQuartzCanvas* canvas) {
         if (_tmpshot) {
             [_tmpshot drawAtPoint:CGPointZero];
             [_tmpshot release];
             _tmpshot = nil;
-            return _coreView->drawAppend(canvas);
+            return _coreView->drawAppend(this, canvas);
         }
         return false;
     }
@@ -100,7 +79,7 @@ public:
     
     virtual void redraw() {
         if (!_dynview && _view) {       // 自动创建动态图形视图
-            _dynview = [[DynDrawView alloc]initWithFrame:_view.frame :_coreView];
+            _dynview = [[DynDrawView alloc]initWithFrame:_view.frame :this];
             _dynview.autoresizingMask = _view.autoresizingMask;
             [_view.superview addSubview:_dynview];
             [_dynview release];
@@ -108,6 +87,31 @@ public:
         [_dynview setNeedsDisplay];
     }
 };
+
+@implementation DynDrawView
+
+- (id)initWithFrame:(CGRect)frame :(GiViewAdapter *)viewAdapter
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        _viewAdapter = viewAdapter;
+        self.opaque = NO;                           // 透明背景
+        self.userInteractionEnabled = NO;           // 禁止交互，避免影响主视图显示
+    }
+    return self;
+}
+
+- (void)drawRect:(CGRect)rect
+{
+    GiQuartzCanvas canvas;
+    
+    if (canvas.beginPaint(UIGraphicsGetCurrentContext())) {
+        _viewAdapter->coreView()->dynDraw(_viewAdapter, &canvas);
+        canvas.endPaint();
+    }
+}
+
+@end
 
 @implementation GiGraphView1
 
@@ -126,7 +130,7 @@ public:
         _viewAdapter = new GiViewAdapter(self);
         
         GiCoreView::setScreenDpi(GiQuartzCanvas::getScreenDpi());
-        [self coreView]->onSize(*_viewAdapter, frame.size.width, frame.size.height);
+        [self coreView]->onSize(_viewAdapter, frame.size.width, frame.size.height);
     }
     return self;
 }
@@ -136,11 +140,11 @@ public:
     CGContextRef context = UIGraphicsGetCurrentContext();
     GiQuartzCanvas canvas;
     
-    [self coreView]->onSize(*_viewAdapter, self.bounds.size.width, self.bounds.size.height);
+    [self coreView]->onSize(_viewAdapter, self.bounds.size.width, self.bounds.size.height);
     
     if (canvas.beginPaint(context)) {
-        if (!_viewAdapter->drawAppend(canvas)) {
-            [self coreView]->drawAll(canvas);
+        if (!_viewAdapter->drawAppend(&canvas)) {
+            [self coreView]->drawAll(_viewAdapter, &canvas);
         }
         canvas.endPaint();
     }
@@ -169,6 +173,20 @@ public:
     return ret;
 }
 
+- (void)save
+{
+    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                          NSUserDomainMask, YES) objectAtIndex:0];
+    static int order = 0;
+    NSString *filename = [NSString stringWithFormat:@"%@/page%d.png", path, order++ % 10];
+    
+    [self savePng:filename];
+}
+
+- (void)edit
+{
+}
+
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [super touchesMoved:touches withEvent:event];
@@ -176,7 +194,7 @@ public:
     UITouch *touch = [touches anyObject];
     CGPoint pt = [touch locationInView:touch.view];
     
-    [self coreView]->onGesture(*_viewAdapter, kGiGesturePan,
+    [self coreView]->onGesture(_viewAdapter, kGiGesturePan,
                                kGiGestureBegan, pt.x, pt.y);
 }
 
@@ -187,7 +205,7 @@ public:
     UITouch *touch = [touches anyObject];
     CGPoint pt = [touch locationInView:touch.view];
     
-    [self coreView]->onGesture(*_viewAdapter, kGiGesturePan,
+    [self coreView]->onGesture(_viewAdapter, kGiGesturePan,
                                kGiGestureMoved, pt.x, pt.y);
 }
 
@@ -198,7 +216,7 @@ public:
     UITouch *touch = [touches anyObject];
     CGPoint pt = [touch locationInView:touch.view];
     
-    [self coreView]->onGesture(*_viewAdapter, kGiGesturePan,
+    [self coreView]->onGesture(_viewAdapter, kGiGesturePan,
                                kGiGestureEnded, pt.x, pt.y);
 }
 
