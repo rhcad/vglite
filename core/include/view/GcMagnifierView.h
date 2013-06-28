@@ -7,13 +7,13 @@
 
 #include "GcBaseView.h"
 
-class GcMainView;
+class GcGraphView;
 
 //! 放大镜视图类
 class GcMagnifierView : public GcBaseView
 {
 public:
-    GcMagnifierView(GiView *view, GcMainView* mainView);
+    GcMagnifierView(GiView *view, GcGraphView* mainView);
     virtual ~GcMagnifierView();
     
     virtual void drawAll(GiCanvas* canvas);
@@ -26,7 +26,7 @@ public:
                                 float x1, float y1, float x2, float y2);
     
 private:
-    GcMainView*     _mainView;
+    GcGraphView*     _mainView;
 };
 
 #endif // VGLITE_CORE_MAGNIFIERVIEW_H

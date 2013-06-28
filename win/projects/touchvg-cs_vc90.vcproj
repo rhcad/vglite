@@ -251,7 +251,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\core\src\view\GcMainView.cpp"
+				RelativePath="..\..\core\src\view\GcGraphView.cpp"
 				>
 			</File>
 			<File

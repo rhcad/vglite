@@ -28,4 +28,6 @@ class GiCoreView;
     GiViewAdapter   *_viewAdapter;
 }
 
+- (id)initWithFrame:(CGRect)frame :(GiCoreView *)coreView;
+
 @end

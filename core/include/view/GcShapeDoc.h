@@ -15,13 +15,17 @@ class GcShapeDoc
 {
 public:
     GcShapeDoc();
-    virtual ~GcShapeDoc();
+    void addRef();
+    void release();
     
     void addView(GcBaseView* view);
     void removeView(GcBaseView* view);
     GcBaseView* findView(GiView* view);
     
 private:
+    ~GcShapeDoc();
+    
+    long    _refcount;
     std::vector<GcBaseView*>    _views;
 };
 

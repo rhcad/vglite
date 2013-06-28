@@ -25,9 +25,9 @@
 		C98B72FB177DB5BB00075D78 /* gigesture.h in Headers */ = {isa = PBXBuildFile; fileRef = C98B72FA177DB5BB00075D78 /* gigesture.h */; };
 		C993E79B177D57C700CA398D /* GcBaseView.h in Headers */ = {isa = PBXBuildFile; fileRef = C993E79A177D57C700CA398D /* GcBaseView.h */; };
 		C9FD791D177D4C51002FACBF /* GcMagnifierView.h in Headers */ = {isa = PBXBuildFile; fileRef = C9FD791B177D4C51002FACBF /* GcMagnifierView.h */; };
-		C9FD791E177D4C51002FACBF /* GcMainView.h in Headers */ = {isa = PBXBuildFile; fileRef = C9FD791C177D4C51002FACBF /* GcMainView.h */; };
+		C9FD791E177D4C51002FACBF /* GcGraphView.h in Headers */ = {isa = PBXBuildFile; fileRef = C9FD791C177D4C51002FACBF /* GcGraphView.h */; };
 		C9FD7921177D4C5E002FACBF /* GcMagnifierView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9FD791F177D4C5E002FACBF /* GcMagnifierView.cpp */; };
-		C9FD7922177D4C5E002FACBF /* GcMainView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9FD7920177D4C5E002FACBF /* GcMainView.cpp */; };
+		C9FD7922177D4C5E002FACBF /* GcGraphView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9FD7920177D4C5E002FACBF /* GcGraphView.cpp */; };
 		C9FD7945177D4F55002FACBF /* GcShapeDoc.h in Headers */ = {isa = PBXBuildFile; fileRef = C9FD7944177D4F55002FACBF /* GcShapeDoc.h */; };
 		C9FD7947177D4F8E002FACBF /* GcShapeDoc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9FD7946177D4F8E002FACBF /* GcShapeDoc.cpp */; };
 /* End PBXBuildFile section */
@@ -72,9 +72,9 @@
 		C98B72FA177DB5BB00075D78 /* gigesture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = gigesture.h; path = ../../../core/include/view/gigesture.h; sourceTree = "<group>"; };
 		C993E79A177D57C700CA398D /* GcBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GcBaseView.h; path = ../../../core/include/view/GcBaseView.h; sourceTree = "<group>"; };
 		C9FD791B177D4C51002FACBF /* GcMagnifierView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GcMagnifierView.h; path = ../../../core/include/view/GcMagnifierView.h; sourceTree = "<group>"; };
-		C9FD791C177D4C51002FACBF /* GcMainView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GcMainView.h; path = ../../../core/include/view/GcMainView.h; sourceTree = "<group>"; };
+		C9FD791C177D4C51002FACBF /* GcGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GcGraphView.h; path = ../../../core/include/view/GcGraphView.h; sourceTree = "<group>"; };
 		C9FD791F177D4C5E002FACBF /* GcMagnifierView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GcMagnifierView.cpp; path = ../../../core/src/view/GcMagnifierView.cpp; sourceTree = "<group>"; };
-		C9FD7920177D4C5E002FACBF /* GcMainView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GcMainView.cpp; path = ../../../core/src/view/GcMainView.cpp; sourceTree = "<group>"; };
+		C9FD7920177D4C5E002FACBF /* GcGraphView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GcGraphView.cpp; path = ../../../core/src/view/GcGraphView.cpp; sourceTree = "<group>"; };
 		C9FD7944177D4F55002FACBF /* GcShapeDoc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GcShapeDoc.h; path = ../../../core/include/view/GcShapeDoc.h; sourceTree = "<group>"; };
 		C9FD7946177D4F8E002FACBF /* GcShapeDoc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GcShapeDoc.cpp; path = ../../../core/src/view/GcShapeDoc.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -189,8 +189,8 @@
 				C9FD7946177D4F8E002FACBF /* GcShapeDoc.cpp */,
 				C9FD791B177D4C51002FACBF /* GcMagnifierView.h */,
 				C9FD791F177D4C5E002FACBF /* GcMagnifierView.cpp */,
-				C9FD791C177D4C51002FACBF /* GcMainView.h */,
-				C9FD7920177D4C5E002FACBF /* GcMainView.cpp */,
+				C9FD791C177D4C51002FACBF /* GcGraphView.h */,
+				C9FD7920177D4C5E002FACBF /* GcGraphView.cpp */,
 				C993E79A177D57C700CA398D /* GcBaseView.h */,
 				C98B72FA177DB5BB00075D78 /* gigesture.h */,
 				AEDBA83917795F4C00A1E05F /* gicoreview.h */,
@@ -221,7 +221,7 @@
 				AEDBA83817795F4300A1E05F /* testcanvas.h in Headers */,
 				AEDBA83A17795F4C00A1E05F /* gicoreview.h in Headers */,
 				C9FD791D177D4C51002FACBF /* GcMagnifierView.h in Headers */,
-				C9FD791E177D4C51002FACBF /* GcMainView.h in Headers */,
+				C9FD791E177D4C51002FACBF /* GcGraphView.h in Headers */,
 				C9FD7945177D4F55002FACBF /* GcShapeDoc.h in Headers */,
 				C993E79B177D57C700CA398D /* GcBaseView.h in Headers */,
 				C98B72FB177DB5BB00075D78 /* gigesture.h in Headers */,
@@ -358,7 +358,7 @@
 				AEDBA83C17795F6700A1E05F /* testcanvas.cpp in Sources */,
 				AEDBA83E17795F7100A1E05F /* gicoreview.cpp in Sources */,
 				C9FD7921177D4C5E002FACBF /* GcMagnifierView.cpp in Sources */,
-				C9FD7922177D4C5E002FACBF /* GcMainView.cpp in Sources */,
+				C9FD7922177D4C5E002FACBF /* GcGraphView.cpp in Sources */,
 				C9FD7947177D4F8E002FACBF /* GcShapeDoc.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

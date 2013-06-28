@@ -1,5 +1,5 @@
-//! \file GcMainView.h
-//! \brief 定义主绘图视图类 GcMainView
+//! \file GcGraphView.h
+//! \brief 定义主绘图视图类 GcGraphView
 // Copyright (c) 2012-2013, https://github.com/rhcad/vglite
 
 #ifndef VGLITE_CORE_MAINVIEW_H
@@ -8,13 +8,13 @@
 #include "GcBaseView.h"
 
 //! 主绘图视图类
-class GcMainView : public GcBaseView
+class GcGraphView : public GcBaseView
 {
 public:
-    GcMainView(GiView *view);
-    virtual ~GcMainView();
+    GcGraphView(GiView *view);
+    virtual ~GcGraphView();
     
-    static GcMainView* lastView;
+    static GcGraphView* lastView;
     
     virtual void drawAll(GiCanvas* canvas);
     virtual bool drawAppend(GiCanvas* canvas);

@@ -35,12 +35,16 @@ public class GiCoreView {
     }
   }
 
-  public GiCoreView() {
-    this(touchvgJNI.new_GiCoreView(), true);
+  public GiCoreView(GiCoreView mainView) {
+    this(touchvgJNI.new_GiCoreView(GiCoreView.getCPtr(mainView), mainView), true);
   }
 
   public void createView(GiView view, int type) {
     touchvgJNI.GiCoreView_createView(swigCPtr, this, GiView.getCPtr(view), view, type);
+  }
+
+  public void destoryView(GiView view) {
+    touchvgJNI.GiCoreView_destoryView(swigCPtr, this, GiView.getCPtr(view), view);
   }
 
   public void drawAll(GiView view, GiCanvas canvas) {

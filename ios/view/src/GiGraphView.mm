@@ -25,21 +25,23 @@ class GiViewAdapter : public GiView
 private:
     UIView      *_view;
     UIView      *_dynview;
-    GiCoreView  _coreView;
+    GiCoreView  *_coreView;
     UIImage     *_tmpshot;
     
 public:
-    GiViewAdapter(UIView *mainView, int viewType)
+    GiViewAdapter(UIView *mainView, int viewType, GiCoreView *coreView)
     : _view(mainView), _dynview(nil), _tmpshot(nil) {
-        _coreView.createView(this, viewType);
+        _coreView = new GiCoreView(coreView);
+        _coreView->createView(this, viewType);
     }
     
     virtual ~GiViewAdapter() {
+        _coreView->destoryView(this);
         [_tmpshot release];
     }
     
     GiCoreView *coreView() {
-        return &_coreView;
+        return _coreView;
     }
     
     UIImage *snapshot() {
@@ -55,7 +57,7 @@ public:
             [_tmpshot drawAtPoint:CGPointZero];
             [_tmpshot release];
             _tmpshot = nil;
-            return _coreView.drawAppend(this, canvas);
+            return _coreView->drawAppend(this, canvas);
         }
         return false;
     }
@@ -125,7 +127,7 @@ public:
     if (self) {
         self.opaque = NO;                           // 透明背景
         self.autoresizingMask = 0xFF;               // 自动适应大小
-        _viewAdapter = new GiViewAdapter(self, 1);
+        _viewAdapter = new GiViewAdapter(self, 1, NULL);    // 将创建文档对象
         
         GiCoreView::setScreenDpi(GiQuartzCanvas::getScreenDpi());
         [self coreView]->onSize(_viewAdapter, frame.size.width, frame.size.height);
@@ -214,12 +216,12 @@ public:
     [super dealloc];
 }
 
-- (id)initWithFrame:(CGRect)frame
+- (id)initWithFrame:(CGRect)frame :(GiCoreView *)coreView
 {
     self = [super initWithFrame:frame];
     if (self) {
         self.opaque = NO;                           // 透明背景
-        _viewAdapter = new GiViewAdapter(self, 2);
+        _viewAdapter = new GiViewAdapter(self, 2, coreView);    // 将引用文档对象
     }
     return self;
 }

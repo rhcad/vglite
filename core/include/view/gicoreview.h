@@ -1,5 +1,5 @@
 //! \file gicoreview.h
-//! \brief 定义内核视图类 GiCoreView
+//! \brief 定义内核视图分发器类 GiCoreView
 // Copyright (c) 2012-2013, https://github.com/rhcad/vglite
 
 #ifndef VGLITE_CORE_VIEWDISPATCHER_H
@@ -10,18 +10,24 @@
 class GiView;
 class GiCanvas;
 
-//! 内核视图类
-/*! 内核视图拥有图形对象，负责显示和手势动作的分发。
+//! 内核视图分发器类
+/*! 本对象拥有图形文档对象，负责显示和手势动作的分发。
     \ingroup GROUP_VIEW
  */
 class GiCoreView
 {
 public:
-    GiCoreView();
+    //! 构造函数，传入NULL构造主视图，传入主视图构造辅助视图
+    GiCoreView(GiCoreView* mainView);
+    
+    //! 析构函数
     ~GiCoreView();
     
     //! 创建内核视图
     void createView(GiView* view, int type);
+    
+    //! 销毁内核视图
+    void destoryView(GiView* view);
     
     //! 显示所有图形
     void drawAll(GiView* view, GiCanvas* canvas);

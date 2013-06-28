@@ -3,9 +3,9 @@
 // Copyright (c) 2012-2013, https://github.com/rhcad/vglite
 
 #include "GcMagnifierView.h"
-#include "GcMainView.h"
+#include "GcGraphView.h"
 
-GcMagnifierView::GcMagnifierView(GiView *view, GcMainView* mainView)
+GcMagnifierView::GcMagnifierView(GiView *view, GcGraphView* mainView)
     : GcBaseView(view), _mainView(mainView)
 {
 }
