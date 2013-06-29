@@ -17,6 +17,7 @@
 		AE537517177D29AE0050CC4F /* GcShapeDoc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE537513177D29AE0050CC4F /* GcShapeDoc.cpp */; };
 		AE537518177D29AE0050CC4F /* gicoreview.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE537514177D29AE0050CC4F /* gicoreview.cpp */; };
 		AE53751B177D2B950050CC4F /* testcanvas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE53751A177D2B950050CC4F /* testcanvas.cpp */; };
+		AE537525177D51590050CC4F /* GiGraphView.mm in Sources */ = {isa = PBXBuildFile; fileRef = AE537524177D51590050CC4F /* GiGraphView.mm */; };
 		AE5BF68716E45BCE005CA76D /* translucent.png in Resources */ = {isa = PBXBuildFile; fileRef = AE5BF68516E45BCE005CA76D /* translucent.png */; };
 		AE5BF68816E45BCE005CA76D /* translucent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AE5BF68616E45BCE005CA76D /* translucent@2x.png */; };
 		AE815F351718EDCB006BC607 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE815F341718EDCB006BC607 /* QuartzCore.framework */; };
@@ -51,6 +52,14 @@
 		AE537514177D29AE0050CC4F /* gicoreview.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = gicoreview.cpp; path = ../../../core/src/view/gicoreview.cpp; sourceTree = "<group>"; };
 		AE537519177D2B840050CC4F /* testcanvas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = testcanvas.h; path = ../../../core/include/test/testcanvas.h; sourceTree = "<group>"; };
 		AE53751A177D2B950050CC4F /* testcanvas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testcanvas.cpp; path = ../../../core/src/test/testcanvas.cpp; sourceTree = "<group>"; };
+		AE53751D177D4FE00050CC4F /* GcBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GcBaseView.h; path = ../../../core/include/view/GcBaseView.h; sourceTree = "<group>"; };
+		AE53751E177D4FE00050CC4F /* GcGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GcGraphView.h; path = ../../../core/include/view/GcGraphView.h; sourceTree = "<group>"; };
+		AE53751F177D4FE00050CC4F /* GcMagnifierView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GcMagnifierView.h; path = ../../../core/include/view/GcMagnifierView.h; sourceTree = "<group>"; };
+		AE537520177D4FE00050CC4F /* GcShapeDoc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GcShapeDoc.h; path = ../../../core/include/view/GcShapeDoc.h; sourceTree = "<group>"; };
+		AE537521177D4FE00050CC4F /* gicoreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = gicoreview.h; path = ../../../core/include/view/gicoreview.h; sourceTree = "<group>"; };
+		AE537522177D4FE00050CC4F /* gigesture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = gigesture.h; path = ../../../core/include/view/gigesture.h; sourceTree = "<group>"; };
+		AE537523177D51480050CC4F /* GiGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GiGraphView.h; path = ../../view/include/GiGraphView.h; sourceTree = "<group>"; };
+		AE537524177D51590050CC4F /* GiGraphView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = GiGraphView.mm; path = ../../view/src/GiGraphView.mm; sourceTree = "<group>"; };
 		AE5BF68516E45BCE005CA76D /* translucent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = translucent.png; sourceTree = "<group>"; };
 		AE5BF68616E45BCE005CA76D /* translucent@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "translucent@2x.png"; sourceTree = "<group>"; };
 		AE65AD661711132300EB30AA /* gicanvas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = gicanvas.h; path = ../../../core/include/callback/gicanvas.h; sourceTree = "<group>"; };
@@ -110,6 +119,8 @@
 		AE0762FD160AAE3A00518207 /* Test */ = {
 			isa = PBXGroup;
 			children = (
+				AE537523177D51480050CC4F /* GiGraphView.h */,
+				AE537524177D51590050CC4F /* GiGraphView.mm */,
 				AE537510177D29950050CC4F /* core */,
 				AE53750C177D26980050CC4F /* GiGraphView1.h */,
 				AE53750D177D26980050CC4F /* GiGraphView1.mm */,
@@ -123,9 +134,15 @@
 		AE537510177D29950050CC4F /* core */ = {
 			isa = PBXGroup;
 			children = (
-				AE537511177D29AE0050CC4F /* GcGraphView.cpp */,
-				AE537512177D29AE0050CC4F /* GcMagnifierView.cpp */,
+				AE537520177D4FE00050CC4F /* GcShapeDoc.h */,
 				AE537513177D29AE0050CC4F /* GcShapeDoc.cpp */,
+				AE53751F177D4FE00050CC4F /* GcMagnifierView.h */,
+				AE537512177D29AE0050CC4F /* GcMagnifierView.cpp */,
+				AE53751E177D4FE00050CC4F /* GcGraphView.h */,
+				AE537511177D29AE0050CC4F /* GcGraphView.cpp */,
+				AE53751D177D4FE00050CC4F /* GcBaseView.h */,
+				AE537522177D4FE00050CC4F /* gigesture.h */,
+				AE537521177D4FE00050CC4F /* gicoreview.h */,
 				AE537514177D29AE0050CC4F /* gicoreview.cpp */,
 			);
 			name = core;
@@ -292,6 +309,7 @@
 				AE537517177D29AE0050CC4F /* GcShapeDoc.cpp in Sources */,
 				AE537518177D29AE0050CC4F /* gicoreview.cpp in Sources */,
 				AE53751B177D2B950050CC4F /* testcanvas.cpp in Sources */,
+				AE537525177D51590050CC4F /* GiGraphView.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

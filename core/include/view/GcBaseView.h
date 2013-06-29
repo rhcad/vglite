@@ -1,5 +1,5 @@
 //! \file GcBaseView.h
-//! \brief 定义内核视图接口 GcBaseView
+//! \brief 定义内核视图基类 GcBaseView
 // Copyright (c) 2012-2013, https://github.com/rhcad/vglite
 
 #ifndef VGLITE_CORE_BASEVIEW_H
@@ -11,7 +11,7 @@ class GiView;
 class GiCanvas;
 class GcShapeDoc;
 
-//! 内核视图接口
+//! 内核视图基类
 /*! \ingroup GROUP_VIEW
  */
 class GcBaseView

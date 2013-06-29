@@ -9,16 +9,16 @@
 #include "gicoreview.h"
 
 //! 动态图形的绘图视图类
-@interface DynDrawView : UIView {
-    GiViewAdapter   *_viewAdapter;
+@interface DynDrawView1 : UIView {
+    ViewAdapter1    *_viewAdapter;
 }
 
-- (id)initWithFrame:(CGRect)frame :(GiViewAdapter *)viewAdapter;
+- (id)initWithFrame:(CGRect)frame :(ViewAdapter1 *)viewAdapter;
 
 @end
 
 //! 绘图视图适配器
-class GiViewAdapter : public GiView
+class ViewAdapter1 : public GiView
 {
 private:
     UIView      *_view;
@@ -27,12 +27,12 @@ private:
     UIImage     *_tmpshot;
     
 public:
-    GiViewAdapter(UIView *mainView) : _view(mainView), _dynview(nil), _tmpshot(nil) {
+    ViewAdapter1(UIView *mainView) : _view(mainView), _dynview(nil), _tmpshot(nil) {
         _coreView = new GiCoreView(NULL);
         _coreView->createView(this, 0);
     }
     
-    virtual ~GiViewAdapter() {
+    virtual ~ViewAdapter1() {
         if (_coreView) {
             delete _coreView;
             _coreView = NULL;
@@ -79,7 +79,7 @@ public:
     
     virtual void redraw() {
         if (!_dynview && _view) {       // 自动创建动态图形视图
-            _dynview = [[DynDrawView alloc]initWithFrame:_view.frame :this];
+            _dynview = [[DynDrawView1 alloc]initWithFrame:_view.frame :this];
             _dynview.autoresizingMask = _view.autoresizingMask;
             [_view.superview addSubview:_dynview];
             [_dynview release];
@@ -88,9 +88,9 @@ public:
     }
 };
 
-@implementation DynDrawView
+@implementation DynDrawView1
 
-- (id)initWithFrame:(CGRect)frame :(GiViewAdapter *)viewAdapter
+- (id)initWithFrame:(CGRect)frame :(ViewAdapter1 *)viewAdapter
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -127,7 +127,7 @@ public:
     if (self) {
         self.opaque = NO;                           // 透明背景
         self.autoresizingMask = 0xFF;               // 自动适应大小
-        _viewAdapter = new GiViewAdapter(self);
+        _viewAdapter = new ViewAdapter1(self);
         
         GiCoreView::setScreenDpi(GiQuartzCanvas::getScreenDpi());
         [self coreView]->onSize(_viewAdapter, frame.size.width, frame.size.height);

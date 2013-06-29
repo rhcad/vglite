@@ -111,7 +111,10 @@ public:
 
 @end
 
-@implementation GiGraphView
+@implementation GiBaseView
+
+@synthesize panRecognizer, tapRecognizer, twoTapsRecognizer, pressRecognizer;
+@synthesize pinchRecognizer, rotationRecognizer, twoFingersPanRecognizer;
 
 - (void)dealloc
 {
@@ -124,28 +127,11 @@ public:
     self = [super initWithFrame:frame];
     if (self) {
         self.opaque = NO;                           // 透明背景
-        self.autoresizingMask = 0xFF;               // 自动适应大小
-        _viewAdapter = new GiViewAdapter(self, 1, NULL);    // 将创建文档对象
         
         GiCoreView::setScreenDpi(GiQuartzCanvas::getScreenDpi());
-        [self coreView]->onSize(_viewAdapter, frame.size.width, frame.size.height);
+        [self setupGestureRecognizers];
     }
     return self;
-}
-
-- (void)drawRect:(CGRect)rect
-{
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    GiQuartzCanvas canvas;
-    
-    [self coreView]->onSize(_viewAdapter, self.bounds.size.width, self.bounds.size.height);
-    
-    if (canvas.beginPaint(context)) {
-        if (!_viewAdapter->drawAppend(&canvas)) {
-            [self coreView]->drawAll(_viewAdapter, &canvas);
-        }
-        canvas.endPaint();
-    }
 }
 
 - (GiCoreView *)coreView
@@ -165,10 +151,115 @@ public:
     NSData* imageData = UIImagePNGRepresentation(image);
     
     if (imageData) {
-        ret = [imageData writeToFile:filename atomically:NO];                 
+        ret = [imageData writeToFile:filename atomically:NO];
     }
     
     return ret;
+}
+
+- (void)setupGestureRecognizers
+{
+    UIGestureRecognizer *recognizers[7];
+    int i = 0;
+    
+    recognizers[i++] = pinchRecognizer =
+    [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinchHandler:)];
+    
+    recognizers[i++] = rotationRecognizer =
+    [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(rotationHandler:)];
+    
+    recognizers[i++] = twoFingersPanRecognizer =
+    [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(twoFingersPanHandler:)];
+    twoFingersPanRecognizer.maximumNumberOfTouches = 2;
+    twoFingersPanRecognizer.minimumNumberOfTouches = 2;
+    
+    recognizers[i++] = panRecognizer =
+    [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panHandler:)];
+    panRecognizer.maximumNumberOfTouches = 2;                       // 允许单指滑动变为双指滑动
+    
+    recognizers[i++] = tapRecognizer =
+    [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHandler:)];
+    [tapRecognizer requireGestureRecognizerToFail:panRecognizer];   // 不是滑动才算点击
+    
+    recognizers[i++] = twoTapsRecognizer =
+    [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(twoTapsHandler:)];
+    twoTapsRecognizer.numberOfTapsRequired = 2;
+    
+    recognizers[i++] = pressRecognizer =
+    [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(pressHandler:)];
+    pressRecognizer.minimumPressDuration = 0.8;
+    
+    for (i--; i >= 0; i--) {
+        recognizers[i].delegate = self;
+        [self addGestureRecognizer:recognizers[i]];
+    }
+}
+
+- (BOOL)panHandler:(UIPanGestureRecognizer *)sender
+{
+    CGPoint pt = [sender locationInView:sender.view];
+    [self coreView]->onGesture(_viewAdapter, kGiGesturePan,
+                               (GiGestureState)[sender state], pt.x, pt.y);
+    return YES;
+}
+
+- (BOOL)tapHandler:(UITapGestureRecognizer *)sender
+{
+    return YES;
+}
+
+- (BOOL)twoTapsHandler:(UITapGestureRecognizer *)sender
+{
+    return YES;
+}
+
+- (BOOL)pressHandler:(UILongPressGestureRecognizer *)sender
+{
+    return YES;
+}
+
+- (BOOL)pinchHandler:(UIPinchGestureRecognizer *)sender
+{
+    return YES;
+}
+
+- (BOOL)rotationHandler:(UIRotationGestureRecognizer *)sender
+{
+    return YES;
+}
+
+- (BOOL)twoFingersPanHandler:(UIPanGestureRecognizer *)sender
+{
+    return YES;
+}
+
+@end
+
+@implementation GiGraphView
+
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        self.autoresizingMask = 0xFF;               // 自动适应大小
+        _viewAdapter = new GiViewAdapter(self, 1, NULL);    // 将创建文档对象
+    }
+    return self;
+}
+
+- (void)drawRect:(CGRect)rect
+{
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    GiQuartzCanvas canvas;
+    
+    [self coreView]->onSize(_viewAdapter, self.bounds.size.width, self.bounds.size.height);
+    
+    if (canvas.beginPaint(context)) {
+        if (!_viewAdapter->drawAppend(&canvas)) {
+            [self coreView]->drawAll(_viewAdapter, &canvas);
+        }
+        canvas.endPaint();
+    }
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -208,18 +299,13 @@ public:
 
 @implementation GiMagnifierView
 
-- (void)dealloc
-{
-    delete _viewAdapter;
-    [super dealloc];
-}
+- (id)initWithFrame:(CGRect)frame { return nil; }
 
-- (id)initWithFrame:(CGRect)frame :(GiCoreView *)coreView
+- (id)initWithFrame:(CGRect)frame :(GiGraphView *)mainView
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.opaque = NO;                           // 透明背景
-        _viewAdapter = new GiViewAdapter(self, 2, coreView);    // 将引用文档对象
+        _viewAdapter = new GiViewAdapter(self, 2, [mainView coreView]); // 将引用文档对象
     }
     return self;
 }

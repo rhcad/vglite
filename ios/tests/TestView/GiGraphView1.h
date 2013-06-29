@@ -4,14 +4,14 @@
 
 #import <UIKit/UIKit.h>
 
-class GiViewAdapter;
+class ViewAdapter1;
 class GiCoreView;
 
 //! iOS绘图视图类
 /*! \ingroup GROUP_IOS
  */
 @interface GiGraphView1 : UIView {
-    GiViewAdapter   *_viewAdapter;
+    ViewAdapter1    *_viewAdapter;
 }
 
 - (void)save;
