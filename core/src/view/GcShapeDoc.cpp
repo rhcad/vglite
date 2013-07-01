@@ -5,24 +5,12 @@
 #include "GcShapeDoc.h"
 #include "GcBaseView.h"
 
-GcShapeDoc::GcShapeDoc() : _refcount(1)
+GcShapeDoc::GcShapeDoc()
 {
 }
 
 GcShapeDoc::~GcShapeDoc()
 {
-}
-
-void GcShapeDoc::addRef()
-{
-    _refcount++;
-}
-
-void GcShapeDoc::release()
-{
-    if (--_refcount == 0) {
-        delete this;
-    }
 }
 
 void GcShapeDoc::addView(GcBaseView* view)

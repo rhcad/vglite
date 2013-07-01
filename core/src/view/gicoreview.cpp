@@ -12,6 +12,7 @@
 #include "GcShapeDoc.h"
 #include "GcGraphView.h"
 #include "GcMagnifierView.h"
+#include "mgcmdmgr.h"
 
 //! 测试视图
 class GcDummyView : public GcBaseView
@@ -40,27 +41,32 @@ private:
 
 struct GiCoreView::Impl
 {
-    GcShapeDoc* doc;
+    long            refcount;
+    GcShapeDoc*     doc;
+    MgCmdManager*   cmds;
+    
+    Impl() : refcount(1), doc(new GcShapeDoc()), cmds(new MgCmdManager()) {}
+    ~Impl() { delete doc; delete cmds; }
 };
 
 static int _dpi = 1;
 
 GiCoreView::GiCoreView(GiCoreView* mainView)
 {
-    _impl = new Impl;
     if (mainView) {
-        _impl->doc = mainView->_impl->doc;
-        _impl->doc->addRef();
+        impl = mainView->impl;
+        impl->refcount++;
     }
     else {
-        _impl->doc = new GcShapeDoc();
+        impl = new Impl;
     }
 }
 
 GiCoreView::~GiCoreView()
 {
-    _impl->doc->release();
-    delete _impl;
+    if (--impl->refcount == 0) {
+        delete impl;
+    }
 }
 
 void GiCoreView::createView(GiView* view, int type)
@@ -77,14 +83,14 @@ void GiCoreView::createView(GiView* view, int type)
         aview = new GcDummyView(view);
     }
     
-    _impl->doc->addView(aview);
+    impl->doc->addView(aview);
 }
 
 void GiCoreView::destoryView(GiView* view)
 {
-    GcBaseView* aview = _impl->doc->findView(view);
+    GcBaseView* aview = impl->doc->findView(view);
     if (aview) {
-        _impl->doc->removeView(aview);
+        impl->doc->removeView(aview);
         delete aview;
     }
 }
@@ -96,7 +102,7 @@ void GiCoreView::setScreenDpi(int dpi)
 
 void GiCoreView::drawAll(GiView* view, GiCanvas* canvas)
 {
-    GcBaseView* aview = _impl->doc->findView(view);
+    GcBaseView* aview = impl->doc->findView(view);
     if (aview) {
         aview->drawAll(canvas);
     }
@@ -104,13 +110,13 @@ void GiCoreView::drawAll(GiView* view, GiCanvas* canvas)
 
 bool GiCoreView::drawAppend(GiView* view, GiCanvas* canvas)
 {
-    GcBaseView* aview = _impl->doc->findView(view);
+    GcBaseView* aview = impl->doc->findView(view);
     return aview && aview->drawAppend(canvas);
 }
 
 void GiCoreView::dynDraw(GiView* view, GiCanvas* canvas)
 {
-    GcBaseView* aview = _impl->doc->findView(view);
+    GcBaseView* aview = impl->doc->findView(view);
     if (aview) {
         aview->dynDraw(canvas);
     }
@@ -118,7 +124,7 @@ void GiCoreView::dynDraw(GiView* view, GiCanvas* canvas)
 
 void GiCoreView::onSize(GiView* view, int w, int h)
 {
-    GcBaseView* aview = _impl->doc->findView(view);
+    GcBaseView* aview = impl->doc->findView(view);
     if (aview) {
         aview->onSize(w, h);
     }
@@ -127,14 +133,14 @@ void GiCoreView::onSize(GiView* view, int w, int h)
 bool GiCoreView::onGesture(GiView* view, GiGestureType gestureType,
                            GiGestureState gestureState, float x, float y)
 {
-    GcBaseView* aview = _impl->doc->findView(view);
+    GcBaseView* aview = impl->doc->findView(view);
     return aview && aview->onGesture(gestureType, gestureState, x, y);
 }
 
 bool GiCoreView::twoFingersMove(GiView* view, GiGestureState gestureState,
                                 float x1, float y1, float x2, float y2)
 {
-    GcBaseView* aview = _impl->doc->findView(view);
+    GcBaseView* aview = impl->doc->findView(view);
     return aview && aview->twoFingersMove(gestureState, x1, y1, x2, y2);
 }
 

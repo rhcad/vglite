@@ -54,7 +54,7 @@ public:
 
 private:
     struct Impl;
-    Impl* _impl;
+    Impl* impl;
 };
 
 #endif // VGLITE_CORE_VIEWDISPATCHER_H

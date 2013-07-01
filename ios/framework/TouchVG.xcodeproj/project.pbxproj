@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AE0BAECB17818DB800E2D8B7 /* mgcmdmgr.h in Headers */ = {isa = PBXBuildFile; fileRef = AE0BAECA17818DB800E2D8B7 /* mgcmdmgr.h */; };
+		AE0BAECD17818DC800E2D8B7 /* mgcmdmgr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE0BAECC17818DC800E2D8B7 /* mgcmdmgr.cpp */; };
 		AEDBA7E1177959FC00A1E05F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEDBA7E0177959FC00A1E05F /* Foundation.framework */; };
 		AEDBA7E7177959FC00A1E05F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AEDBA7E5177959FC00A1E05F /* InfoPlist.strings */; };
 		AEDBA82917795E9A00A1E05F /* GiGraphView.h in Headers */ = {isa = PBXBuildFile; fileRef = AEDBA82717795E9A00A1E05F /* GiGraphView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -50,6 +52,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AE0BAECA17818DB800E2D8B7 /* mgcmdmgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mgcmdmgr.h; path = ../../../core/include/command/mgcmdmgr.h; sourceTree = "<group>"; };
+		AE0BAECC17818DC800E2D8B7 /* mgcmdmgr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mgcmdmgr.cpp; path = ../../../core/src/command/mgcmdmgr.cpp; sourceTree = "<group>"; };
 		AEDBA7DD177959FC00A1E05F /* TouchVG.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework.static; includeInIndex = 0; path = TouchVG.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEDBA7E0177959FC00A1E05F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		AEDBA7E4177959FC00A1E05F /* TouchVG-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TouchVG-Info.plist"; sourceTree = "<group>"; };
@@ -94,6 +98,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AE0BAEC917818D8A00E2D8B7 /* command */ = {
+			isa = PBXGroup;
+			children = (
+				AE0BAECA17818DB800E2D8B7 /* mgcmdmgr.h */,
+				AE0BAECC17818DC800E2D8B7 /* mgcmdmgr.cpp */,
+			);
+			name = command;
+			sourceTree = "<group>";
+		};
 		AEDBA7CE177959FC00A1E05F = {
 			isa = PBXGroup;
 			children = (
@@ -158,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				AEDBA83217795F0400A1E05F /* view */,
+				AE0BAEC917818D8A00E2D8B7 /* command */,
 				AEDBA83117795EFB00A1E05F /* test */,
 				AEDBA83017795EE000A1E05F /* callback */,
 			);
@@ -225,6 +239,7 @@
 				C9FD7945177D4F55002FACBF /* GcShapeDoc.h in Headers */,
 				C993E79B177D57C700CA398D /* GcBaseView.h in Headers */,
 				C98B72FB177DB5BB00075D78 /* gigesture.h in Headers */,
+				AE0BAECB17818DB800E2D8B7 /* mgcmdmgr.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,6 +375,7 @@
 				C9FD7921177D4C5E002FACBF /* GcMagnifierView.cpp in Sources */,
 				C9FD7922177D4C5E002FACBF /* GcGraphView.cpp in Sources */,
 				C9FD7947177D4F8E002FACBF /* GcShapeDoc.cpp in Sources */,
+				AE0BAECD17818DC800E2D8B7 /* mgcmdmgr.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

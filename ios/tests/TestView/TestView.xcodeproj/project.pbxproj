@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AE0BAECF1781911B00E2D8B7 /* mgcmdmgr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE0BAECE1781911B00E2D8B7 /* mgcmdmgr.cpp */; };
 		AE3341B516ECBDBE00F0E517 /* CalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE3341B416ECBDBE00F0E517 /* CalloutView.m */; };
 		AE4D531E177AD9F200B766B6 /* vgdot3.png in Resources */ = {isa = PBXBuildFile; fileRef = AE4D531C177AD9F200B766B6 /* vgdot3.png */; };
 		AE4D531F177AD9F200B766B6 /* vgdot3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AE4D531D177AD9F200B766B6 /* vgdot3@2x.png */; };
@@ -39,6 +40,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AE0BAECE1781911B00E2D8B7 /* mgcmdmgr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mgcmdmgr.cpp; path = ../../../core/src/command/mgcmdmgr.cpp; sourceTree = "<group>"; };
+		AE0BAED01781912700E2D8B7 /* mgcmdmgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mgcmdmgr.h; path = ../../../core/include/command/mgcmdmgr.h; sourceTree = "<group>"; };
 		AE3341B316ECBDBE00F0E517 /* CalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalloutView.h; sourceTree = "<group>"; };
 		AE3341B416ECBDBE00F0E517 /* CalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalloutView.m; sourceTree = "<group>"; };
 		AE4D531C177AD9F200B766B6 /* vgdot3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vgdot3.png; sourceTree = "<group>"; };
@@ -131,7 +134,16 @@
 			name = Test;
 			sourceTree = "<group>";
 		};
-		AE537510177D29950050CC4F /* core */ = {
+		AE0BAED11781914C00E2D8B7 /* command */ = {
+			isa = PBXGroup;
+			children = (
+				AE0BAED01781912700E2D8B7 /* mgcmdmgr.h */,
+				AE0BAECE1781911B00E2D8B7 /* mgcmdmgr.cpp */,
+			);
+			name = command;
+			sourceTree = "<group>";
+		};
+		AE0BAED21781915E00E2D8B7 /* view */ = {
 			isa = PBXGroup;
 			children = (
 				AE537520177D4FE00050CC4F /* GcShapeDoc.h */,
@@ -144,6 +156,15 @@
 				AE537522177D4FE00050CC4F /* gigesture.h */,
 				AE537521177D4FE00050CC4F /* gicoreview.h */,
 				AE537514177D29AE0050CC4F /* gicoreview.cpp */,
+			);
+			name = view;
+			sourceTree = "<group>";
+		};
+		AE537510177D29950050CC4F /* core */ = {
+			isa = PBXGroup;
+			children = (
+				AE0BAED21781915E00E2D8B7 /* view */,
+				AE0BAED11781914C00E2D8B7 /* command */,
 			);
 			name = core;
 			sourceTree = "<group>";
@@ -310,6 +331,7 @@
 				AE537518177D29AE0050CC4F /* gicoreview.cpp in Sources */,
 				AE53751B177D2B950050CC4F /* testcanvas.cpp in Sources */,
 				AE537525177D51590050CC4F /* GiGraphView.mm in Sources */,
+				AE0BAECF1781911B00E2D8B7 /* mgcmdmgr.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
