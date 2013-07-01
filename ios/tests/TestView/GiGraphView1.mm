@@ -181,6 +181,13 @@ public:
     NSString *filename = [NSString stringWithFormat:@"%@/page%d.png", path, order++ % 10];
     
     [self savePng:filename];
+    
+    NSString *msg = [NSString stringWithFormat:@"%@", 
+                     [filename substringFromIndex:[filename length] - 19]];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Save" message:msg
+                                                   delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
+    [alert release];
 }
 
 - (void)edit

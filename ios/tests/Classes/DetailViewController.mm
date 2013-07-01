@@ -95,16 +95,30 @@
 - (void)editDetailPage:(id)sender
 {
     [self.masterPopoverController dismissPopoverAnimated:YES];
+    
     if ([_content.view respondsToSelector:@selector(edit)]) {
         [_content.view performSelector:@selector(edit)];
+    }
+    else if ([_content.view.subviews count] > 0) {
+        UIView *sview = [_content.view.subviews objectAtIndex:0];
+        if ([sview respondsToSelector:@selector(edit)]) {
+            [sview performSelector:@selector(edit)];
+        }
     }
 }
 
 - (void)saveDetailPage:(id)sender
 {
     [self.masterPopoverController dismissPopoverAnimated:YES];
+    
     if ([_content.view respondsToSelector:@selector(save)]) {
         [_content.view performSelector:@selector(save)];
+    }
+    else if ([_content.view.subviews count] > 0) {
+        UIView *sview = [_content.view.subviews objectAtIndex:0];
+        if ([sview respondsToSelector:@selector(save)]) {
+            [sview performSelector:@selector(save)];
+        }
     }
 }
 

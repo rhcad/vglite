@@ -10,8 +10,8 @@ class GiCoreView;
 //! iOS绘图视图基类
 /*! \ingroup GROUP_IOS
  */
-@interface GiBaseView : UIView<UIGestureRecognizerDelegate> {
-    GiViewAdapter   *_viewAdapter;
+@interface GiBaseView : UIView {
+    GiViewAdapter   *_adapter;
 }
 
 @property(nonatomic, readonly) UIPanGestureRecognizer *panRecognizer;           //!< 拖动
