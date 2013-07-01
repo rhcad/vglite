@@ -94,14 +94,20 @@ public:
         return _coreView->onGesture(this, gestureType, gestureState, pt.x, pt.y);
     }
     
-    bool twoFingersMove(UIGestureRecognizer *sender) {
+    bool twoFingersMove(UIGestureRecognizer *sender, int state = -1) {
         CGPoint pt1, pt2;
         
         if ([sender numberOfTouches] == 2) {
             pt1 = [sender locationOfTouch:0 inView:sender.view];
             pt2 = [sender locationOfTouch:1 inView:sender.view];
         }
-        return _coreView->twoFingersMove(this, (GiGestureState)sender.state, 
+        else {
+            pt1 = [sender locationInView:sender.view];
+            pt2 = pt1;
+        }
+        
+        state = state < 0 ? sender.state : state;
+        return _coreView->twoFingersMove(this, (GiGestureState)state, 
                                          pt1.x, pt1.y, pt2.x, pt2.y);
     }
 };
@@ -140,6 +146,7 @@ public:
     std::vector<CGPoint>    _points;        //!< 手势生效前的轨迹
     CGPoint                 _tapPoint;      //!< 点击位置
     int                     _tapCount;      //!< 点击次数
+    int                     _touchCount;    //!< 触点个数
     BOOL                    _moved;         //!< 是否已移动触点
 }
 @end
@@ -393,6 +400,7 @@ public:
         _timeBegan = 0;
         _points.clear();
         _moved = NO;
+        _touchCount = 0;
     }
     
     return YES;
@@ -405,18 +413,47 @@ public:
     }
     
     CGPoint pt = [sender locationInView:sender.view];
-    GiGestureType gestureType = [sender numberOfTouches] > 1 ? kGiTwoFingersMove : kGiGesturePan;
     
+    // 检查手势的有效性
     if (sender.state == UIGestureRecognizerStatePossible) {
-        return _adapter->dispatchGesture(gestureType, kGiGesturePossible, pt);
+        return _adapter->dispatchGesture(kGiGesturePan, kGiGesturePossible, pt);
     }
-    if (sender.state == UIGestureRecognizerStateBegan
-        && [sender numberOfTouches] == 1 && !_points.empty()) {
-        _adapter->dispatchGesture(gestureType, kGiGestureMoved, pt);    // touchesMoved已经分发了开始
+    // 在 touchesMoved 中已经分发了开始状态，就转为移动状态分发
+    if (sender.state == UIGestureRecognizerStateBegan && !_points.empty()) {
+        _touchCount = 1;
+        _tapPoint = pt;
+        return _adapter->dispatchGesture(kGiGesturePan, kGiGestureMoved, pt);
+    }
+    // 切换单指与双指模式，就结束前一模式
+    if (_touchCount != [sender numberOfTouches]
+        && sender.state == UIGestureRecognizerStateChanged) {
+        if (_moved && _touchCount > 0) {
+            _moved = NO;
+            if (_touchCount > 1) {          // 双指变为单指
+                _adapter->twoFingersMove(sender, kGiGestureEnded);
+            }
+            else {                          // 单指变为双指
+                _adapter->dispatchGesture(kGiGesturePan, kGiGestureEnded, _tapPoint);
+            }
+        }
+        _touchCount = [sender numberOfTouches];
     }
     else {
-        _adapter->dispatchGesture(gestureType, (GiGestureState)sender.state, pt);
+        GiGestureState state = (GiGestureState)sender.state;
+        
+        if (!_moved && sender.state == UIGestureRecognizerStateChanged) {
+            _moved = YES;
+            state = kGiGestureBegan;
+        }
+        if (_touchCount > 1) {
+            _adapter->twoFingersMove(sender, state);
+        }
+        else {
+            _adapter->dispatchGesture(kGiGesturePan, state, pt);
+        }
     }
+    
+    _tapPoint = pt;
     
     return [self gesturePost:sender];
 }

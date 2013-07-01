@@ -7,16 +7,14 @@
 
 #include "GcBaseView.h"
 
-//! 主绘图视图类
+//! 内核绘图视图类
 /*! \ingroup GROUP_VIEW
  */
-class GcGraphView : public GcBaseView
+class GcShapeView : public GcBaseView
 {
 public:
-    GcGraphView(GiView *view);
-    virtual ~GcGraphView();
-    
-    static GcGraphView* lastView;
+    GcShapeView(GiView *view);
+    virtual ~GcShapeView();
     
     virtual void drawAll(GiCanvas* canvas);
     virtual bool drawAppend(GiCanvas* canvas);
@@ -26,6 +24,18 @@ public:
                            GiGestureState gestureState, float x, float y);
     virtual bool twoFingersMove(GiGestureState gestureState,
                                 float x1, float y1, float x2, float y2);
+};
+
+//! 主绘图视图类
+/*! \ingroup GROUP_VIEW
+ */
+class GcGraphView : public GcShapeView
+{
+public:
+    GcGraphView(GiView *view);
+    virtual ~GcGraphView();
+    
+    static GcGraphView* lastView;
 };
 
 #endif // VGLITE_CORE_MAINVIEW_H
