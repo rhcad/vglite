@@ -7,32 +7,105 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AE0BAECB17818DB800E2D8B7 /* mgcmdmgr.h in Headers */ = {isa = PBXBuildFile; fileRef = AE0BAECA17818DB800E2D8B7 /* mgcmdmgr.h */; };
-		AE0BAECD17818DC800E2D8B7 /* mgcmdmgr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE0BAECC17818DC800E2D8B7 /* mgcmdmgr.cpp */; };
+		AE1A75D71782A45A007FB031 /* gicanvas.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A755D1782A45A007FB031 /* gicanvas.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AE1A75D81782A45A007FB031 /* giview.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A755E1782A45A007FB031 /* giview.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AE1A75D91782A45A007FB031 /* mgcmdmgr.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A75601782A45A007FB031 /* mgcmdmgr.h */; };
+		AE1A75DA1782A45A007FB031 /* mgview.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A75611782A45A007FB031 /* mgview.h */; };
+		AE1A75DB1782A45A007FB031 /* mgbase.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A75631782A45A007FB031 /* mgbase.h */; };
+		AE1A75DC1782A45A007FB031 /* mgbnd.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A75641782A45A007FB031 /* mgbnd.h */; };
+		AE1A75DD1782A45A007FB031 /* mgbox.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A75651782A45A007FB031 /* mgbox.h */; };
+		AE1A75DE1782A45A007FB031 /* mgcurv.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A75661782A45A007FB031 /* mgcurv.h */; };
+		AE1A75DF1782A45A007FB031 /* mgdef.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A75671782A45A007FB031 /* mgdef.h */; };
+		AE1A75E01782A45A007FB031 /* mglnrel.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A75681782A45A007FB031 /* mglnrel.h */; };
+		AE1A75E11782A45A007FB031 /* mgmat.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A75691782A45A007FB031 /* mgmat.h */; };
+		AE1A75E21782A45A007FB031 /* mgnear.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A756A1782A45A007FB031 /* mgnear.h */; };
+		AE1A75E31782A45A007FB031 /* mgpnt.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A756B1782A45A007FB031 /* mgpnt.h */; };
+		AE1A75E41782A45A007FB031 /* mgtol.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A756C1782A45A007FB031 /* mgtol.h */; };
+		AE1A75E51782A45A007FB031 /* mgvec.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A756D1782A45A007FB031 /* mgvec.h */; };
+		AE1A75E61782A45A007FB031 /* gicanvas.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A756F1782A45A007FB031 /* gicanvas.h */; };
+		AE1A75E71782A45A007FB031 /* gicanvdr.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A75701782A45A007FB031 /* gicanvdr.h */; };
+		AE1A75E81782A45A007FB031 /* gicolor.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A75711782A45A007FB031 /* gicolor.h */; };
+		AE1A75E91782A45A007FB031 /* gicontxt.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A75721782A45A007FB031 /* gicontxt.h */; };
+		AE1A75EA1782A45A007FB031 /* gidef.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A75731782A45A007FB031 /* gidef.h */; };
+		AE1A75EB1782A45A007FB031 /* gigraph.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A75741782A45A007FB031 /* gigraph.h */; };
+		AE1A75EC1782A45A007FB031 /* gigraph_.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A75751782A45A007FB031 /* gigraph_.h */; };
+		AE1A75ED1782A45A007FB031 /* gipath.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A75761782A45A007FB031 /* gipath.h */; };
+		AE1A75EE1782A45A007FB031 /* gixform.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A75771782A45A007FB031 /* gixform.h */; };
+		AE1A75EF1782A45A007FB031 /* mgbasicsp.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A75791782A45A007FB031 /* mgbasicsp.h */; };
+		AE1A75F01782A45A007FB031 /* mgcomposite.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A757A1782A45A007FB031 /* mgcomposite.h */; };
+		AE1A75F21782A45A007FB031 /* mggrid.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A757C1782A45A007FB031 /* mggrid.h */; };
+		AE1A75F31782A45A007FB031 /* mgjsonstorage.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A757D1782A45A007FB031 /* mgjsonstorage.h */; };
+		AE1A75F41782A45A007FB031 /* mgobject.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A757E1782A45A007FB031 /* mgobject.h */; };
+		AE1A75F51782A45A007FB031 /* mgshape.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A757F1782A45A007FB031 /* mgshape.h */; };
+		AE1A75F61782A45A007FB031 /* mgshape_.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A75801782A45A007FB031 /* mgshape_.h */; };
+		AE1A75F71782A45A007FB031 /* mgshapedoc.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A75811782A45A007FB031 /* mgshapedoc.h */; };
+		AE1A75F81782A45A007FB031 /* mgshapes.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A75821782A45A007FB031 /* mgshapes.h */; };
+		AE1A75F91782A45A007FB031 /* mgshapest.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A75831782A45A007FB031 /* mgshapest.h */; };
+		AE1A75FA1782A45A007FB031 /* mgshapet.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A75841782A45A007FB031 /* mgshapet.h */; };
+		AE1A75FB1782A45A007FB031 /* mgshapetype.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A75851782A45A007FB031 /* mgshapetype.h */; };
+		AE1A75FC1782A45A007FB031 /* mgstorage.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A75861782A45A007FB031 /* mgstorage.h */; };
+		AE1A75FD1782A45A007FB031 /* mgstoragebs.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A75871782A45A007FB031 /* mgstoragebs.h */; };
+		AE1A75FE1782A45A007FB031 /* mgvector.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A75881782A45A007FB031 /* mgvector.h */; };
+		AE1A75FF1782A45A007FB031 /* RandomShape.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A758A1782A45A007FB031 /* RandomShape.h */; };
+		AE1A76001782A45A007FB031 /* testcanvas.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A758B1782A45A007FB031 /* testcanvas.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AE1A76011782A45A007FB031 /* GcBaseView.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A758D1782A45A007FB031 /* GcBaseView.h */; };
+		AE1A76021782A45A007FB031 /* GcGraphView.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A758E1782A45A007FB031 /* GcGraphView.h */; };
+		AE1A76031782A45A007FB031 /* GcMagnifierView.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A758F1782A45A007FB031 /* GcMagnifierView.h */; };
+		AE1A76041782A45A007FB031 /* GcShapeDoc.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A75901782A45A007FB031 /* GcShapeDoc.h */; };
+		AE1A76051782A45A007FB031 /* gicoreview.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A75911782A45A007FB031 /* gicoreview.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AE1A76061782A45A007FB031 /* gigesture.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A75921782A45A007FB031 /* gigesture.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AE1A76071782A45A007FB031 /* mgcmdmgr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE1A75951782A45A007FB031 /* mgcmdmgr.cpp */; };
+		AE1A760B1782A45A007FB031 /* mgbase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE1A759A1782A45A007FB031 /* mgbase.cpp */; };
+		AE1A760C1782A45A007FB031 /* mgbnd.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE1A759B1782A45A007FB031 /* mgbnd.cpp */; };
+		AE1A760D1782A45A007FB031 /* mgbox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE1A759C1782A45A007FB031 /* mgbox.cpp */; };
+		AE1A760E1782A45A007FB031 /* mgcurv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE1A759D1782A45A007FB031 /* mgcurv.cpp */; };
+		AE1A760F1782A45A007FB031 /* mgdblpt.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A759E1782A45A007FB031 /* mgdblpt.h */; };
+		AE1A76101782A45A007FB031 /* mglnrel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE1A759F1782A45A007FB031 /* mglnrel.cpp */; };
+		AE1A76111782A45A007FB031 /* mgmat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE1A75A01782A45A007FB031 /* mgmat.cpp */; };
+		AE1A76121782A45A007FB031 /* mgnear.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE1A75A11782A45A007FB031 /* mgnear.cpp */; };
+		AE1A76131782A45A007FB031 /* mgnearbz.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE1A75A21782A45A007FB031 /* mgnearbz.cpp */; };
+		AE1A76141782A45A007FB031 /* mgvec.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE1A75A31782A45A007FB031 /* mgvec.cpp */; };
+		AE1A76151782A45A007FB031 /* gigraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE1A75A51782A45A007FB031 /* gigraph.cpp */; };
+		AE1A76161782A45A007FB031 /* gipath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE1A75A61782A45A007FB031 /* gipath.cpp */; };
+		AE1A76171782A45A007FB031 /* giplclip.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A75A71782A45A007FB031 /* giplclip.h */; };
+		AE1A76181782A45A007FB031 /* gixform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE1A75A81782A45A007FB031 /* gixform.cpp */; };
+		AE1A761F1782A45A007FB031 /* mgjsonstorage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE1A75B01782A45A007FB031 /* mgjsonstorage.cpp */; };
+		AE1A76201782A45A007FB031 /* document.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A75B21782A45A007FB031 /* document.h */; };
+		AE1A76211782A45A007FB031 /* filestream.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A75B31782A45A007FB031 /* filestream.h */; };
+		AE1A76221782A45A007FB031 /* pow10.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A75B51782A45A007FB031 /* pow10.h */; };
+		AE1A76231782A45A007FB031 /* stack.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A75B61782A45A007FB031 /* stack.h */; };
+		AE1A76241782A45A007FB031 /* strfunc.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A75B71782A45A007FB031 /* strfunc.h */; };
+		AE1A76251782A45A007FB031 /* prettywriter.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A75B81782A45A007FB031 /* prettywriter.h */; };
+		AE1A76261782A45A007FB031 /* rapidjson.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A75B91782A45A007FB031 /* rapidjson.h */; };
+		AE1A76271782A45A007FB031 /* reader.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A75BA1782A45A007FB031 /* reader.h */; };
+		AE1A76281782A45A007FB031 /* stringbuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A75BB1782A45A007FB031 /* stringbuffer.h */; };
+		AE1A76291782A45A007FB031 /* writer.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A75BC1782A45A007FB031 /* writer.h */; };
+		AE1A762C1782A45A007FB031 /* mgcomposite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE1A75C01782A45A007FB031 /* mgcomposite.cpp */; };
+		AE1A76301782A45A007FB031 /* mgellipse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE1A75C41782A45A007FB031 /* mgellipse.cpp */; };
+		AE1A76311782A45A007FB031 /* mggrid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE1A75C51782A45A007FB031 /* mggrid.cpp */; };
+		AE1A76321782A45A007FB031 /* mgline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE1A75C61782A45A007FB031 /* mgline.cpp */; };
+		AE1A76331782A45A007FB031 /* mglines.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE1A75C71782A45A007FB031 /* mglines.cpp */; };
+		AE1A76341782A45A007FB031 /* mgrdrect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE1A75C81782A45A007FB031 /* mgrdrect.cpp */; };
+		AE1A76351782A45A007FB031 /* mgrect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE1A75C91782A45A007FB031 /* mgrect.cpp */; };
+		AE1A76361782A45A007FB031 /* mgshape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE1A75CA1782A45A007FB031 /* mgshape.cpp */; };
+		AE1A76371782A45A007FB031 /* mgshapedoc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE1A75CB1782A45A007FB031 /* mgshapedoc.cpp */; };
+		AE1A76381782A45A007FB031 /* mgshapes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE1A75CC1782A45A007FB031 /* mgshapes.cpp */; };
+		AE1A76391782A45A007FB031 /* mgsplines.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE1A75CD1782A45A007FB031 /* mgsplines.cpp */; };
+		AE1A763B1782A45A007FB031 /* RandomShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE1A75D01782A45A007FB031 /* RandomShape.cpp */; };
+		AE1A763C1782A45A007FB031 /* testcanvas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE1A75D11782A45A007FB031 /* testcanvas.cpp */; };
+		AE1A763D1782A45A007FB031 /* GcGraphView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE1A75D31782A45A007FB031 /* GcGraphView.cpp */; };
+		AE1A763E1782A45A007FB031 /* GcMagnifierView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE1A75D41782A45A007FB031 /* GcMagnifierView.cpp */; };
+		AE1A763F1782A45A007FB031 /* GcShapeDoc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE1A75D51782A45A007FB031 /* GcShapeDoc.cpp */; };
+		AE1A76401782A45A007FB031 /* gicoreview.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE1A75D61782A45A007FB031 /* gicoreview.cpp */; };
 		AEDBA7E1177959FC00A1E05F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEDBA7E0177959FC00A1E05F /* Foundation.framework */; };
 		AEDBA7E7177959FC00A1E05F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AEDBA7E5177959FC00A1E05F /* InfoPlist.strings */; };
 		AEDBA82917795E9A00A1E05F /* GiGraphView.h in Headers */ = {isa = PBXBuildFile; fileRef = AEDBA82717795E9A00A1E05F /* GiGraphView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AEDBA82A17795E9A00A1E05F /* GiQuartzCanvas.h in Headers */ = {isa = PBXBuildFile; fileRef = AEDBA82817795E9A00A1E05F /* GiQuartzCanvas.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AEDBA82D17795EA400A1E05F /* GiGraphView.mm in Sources */ = {isa = PBXBuildFile; fileRef = AEDBA82B17795EA400A1E05F /* GiGraphView.mm */; };
 		AEDBA82E17795EA400A1E05F /* GiQuartzCanvas.mm in Sources */ = {isa = PBXBuildFile; fileRef = AEDBA82C17795EA400A1E05F /* GiQuartzCanvas.mm */; };
-		AEDBA83517795F3800A1E05F /* gicanvas.h in Headers */ = {isa = PBXBuildFile; fileRef = AEDBA83317795F3800A1E05F /* gicanvas.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AEDBA83617795F3800A1E05F /* giview.h in Headers */ = {isa = PBXBuildFile; fileRef = AEDBA83417795F3800A1E05F /* giview.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AEDBA83817795F4300A1E05F /* testcanvas.h in Headers */ = {isa = PBXBuildFile; fileRef = AEDBA83717795F4300A1E05F /* testcanvas.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AEDBA83A17795F4C00A1E05F /* gicoreview.h in Headers */ = {isa = PBXBuildFile; fileRef = AEDBA83917795F4C00A1E05F /* gicoreview.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AEDBA83C17795F6700A1E05F /* testcanvas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AEDBA83B17795F6700A1E05F /* testcanvas.cpp */; };
-		AEDBA83E17795F7100A1E05F /* gicoreview.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AEDBA83D17795F7100A1E05F /* gicoreview.cpp */; };
 		AEDBA8471779603500A1E05F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEDBA8461779603500A1E05F /* CoreGraphics.framework */; };
 		AEDBA8491779606500A1E05F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEDBA8481779606500A1E05F /* UIKit.framework */; };
 		AEDBA84B1779606D00A1E05F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEDBA84A1779606D00A1E05F /* QuartzCore.framework */; };
-		C98B72FB177DB5BB00075D78 /* gigesture.h in Headers */ = {isa = PBXBuildFile; fileRef = C98B72FA177DB5BB00075D78 /* gigesture.h */; };
-		C993E79B177D57C700CA398D /* GcBaseView.h in Headers */ = {isa = PBXBuildFile; fileRef = C993E79A177D57C700CA398D /* GcBaseView.h */; };
-		C99E721617829C4800F449D4 /* mgview.h in Headers */ = {isa = PBXBuildFile; fileRef = C99E721517829C4800F449D4 /* mgview.h */; };
-		C9FD791D177D4C51002FACBF /* GcMagnifierView.h in Headers */ = {isa = PBXBuildFile; fileRef = C9FD791B177D4C51002FACBF /* GcMagnifierView.h */; };
-		C9FD791E177D4C51002FACBF /* GcGraphView.h in Headers */ = {isa = PBXBuildFile; fileRef = C9FD791C177D4C51002FACBF /* GcGraphView.h */; };
-		C9FD7921177D4C5E002FACBF /* GcMagnifierView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9FD791F177D4C5E002FACBF /* GcMagnifierView.cpp */; };
-		C9FD7922177D4C5E002FACBF /* GcGraphView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9FD7920177D4C5E002FACBF /* GcGraphView.cpp */; };
-		C9FD7945177D4F55002FACBF /* GcShapeDoc.h in Headers */ = {isa = PBXBuildFile; fileRef = C9FD7944177D4F55002FACBF /* GcShapeDoc.h */; };
-		C9FD7947177D4F8E002FACBF /* GcShapeDoc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9FD7946177D4F8E002FACBF /* GcShapeDoc.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,8 +126,96 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		AE0BAECA17818DB800E2D8B7 /* mgcmdmgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mgcmdmgr.h; path = ../../../core/include/command/mgcmdmgr.h; sourceTree = "<group>"; };
-		AE0BAECC17818DC800E2D8B7 /* mgcmdmgr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mgcmdmgr.cpp; path = ../../../core/src/command/mgcmdmgr.cpp; sourceTree = "<group>"; };
+		AE1A755D1782A45A007FB031 /* gicanvas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gicanvas.h; sourceTree = "<group>"; };
+		AE1A755E1782A45A007FB031 /* giview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = giview.h; sourceTree = "<group>"; };
+		AE1A75601782A45A007FB031 /* mgcmdmgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mgcmdmgr.h; sourceTree = "<group>"; };
+		AE1A75611782A45A007FB031 /* mgview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mgview.h; sourceTree = "<group>"; };
+		AE1A75631782A45A007FB031 /* mgbase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mgbase.h; sourceTree = "<group>"; };
+		AE1A75641782A45A007FB031 /* mgbnd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mgbnd.h; sourceTree = "<group>"; };
+		AE1A75651782A45A007FB031 /* mgbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mgbox.h; sourceTree = "<group>"; };
+		AE1A75661782A45A007FB031 /* mgcurv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mgcurv.h; sourceTree = "<group>"; };
+		AE1A75671782A45A007FB031 /* mgdef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mgdef.h; sourceTree = "<group>"; };
+		AE1A75681782A45A007FB031 /* mglnrel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mglnrel.h; sourceTree = "<group>"; };
+		AE1A75691782A45A007FB031 /* mgmat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mgmat.h; sourceTree = "<group>"; };
+		AE1A756A1782A45A007FB031 /* mgnear.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mgnear.h; sourceTree = "<group>"; };
+		AE1A756B1782A45A007FB031 /* mgpnt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mgpnt.h; sourceTree = "<group>"; };
+		AE1A756C1782A45A007FB031 /* mgtol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mgtol.h; sourceTree = "<group>"; };
+		AE1A756D1782A45A007FB031 /* mgvec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mgvec.h; sourceTree = "<group>"; };
+		AE1A756F1782A45A007FB031 /* gicanvas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gicanvas.h; sourceTree = "<group>"; };
+		AE1A75701782A45A007FB031 /* gicanvdr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gicanvdr.h; sourceTree = "<group>"; };
+		AE1A75711782A45A007FB031 /* gicolor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gicolor.h; sourceTree = "<group>"; };
+		AE1A75721782A45A007FB031 /* gicontxt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gicontxt.h; sourceTree = "<group>"; };
+		AE1A75731782A45A007FB031 /* gidef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gidef.h; sourceTree = "<group>"; };
+		AE1A75741782A45A007FB031 /* gigraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gigraph.h; sourceTree = "<group>"; };
+		AE1A75751782A45A007FB031 /* gigraph_.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gigraph_.h; sourceTree = "<group>"; };
+		AE1A75761782A45A007FB031 /* gipath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gipath.h; sourceTree = "<group>"; };
+		AE1A75771782A45A007FB031 /* gixform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gixform.h; sourceTree = "<group>"; };
+		AE1A75791782A45A007FB031 /* mgbasicsp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mgbasicsp.h; sourceTree = "<group>"; };
+		AE1A757A1782A45A007FB031 /* mgcomposite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mgcomposite.h; sourceTree = "<group>"; };
+		AE1A757C1782A45A007FB031 /* mggrid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mggrid.h; sourceTree = "<group>"; };
+		AE1A757D1782A45A007FB031 /* mgjsonstorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mgjsonstorage.h; sourceTree = "<group>"; };
+		AE1A757E1782A45A007FB031 /* mgobject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mgobject.h; sourceTree = "<group>"; };
+		AE1A757F1782A45A007FB031 /* mgshape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mgshape.h; sourceTree = "<group>"; };
+		AE1A75801782A45A007FB031 /* mgshape_.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mgshape_.h; sourceTree = "<group>"; };
+		AE1A75811782A45A007FB031 /* mgshapedoc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mgshapedoc.h; sourceTree = "<group>"; };
+		AE1A75821782A45A007FB031 /* mgshapes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mgshapes.h; sourceTree = "<group>"; };
+		AE1A75831782A45A007FB031 /* mgshapest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mgshapest.h; sourceTree = "<group>"; };
+		AE1A75841782A45A007FB031 /* mgshapet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mgshapet.h; sourceTree = "<group>"; };
+		AE1A75851782A45A007FB031 /* mgshapetype.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mgshapetype.h; sourceTree = "<group>"; };
+		AE1A75861782A45A007FB031 /* mgstorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mgstorage.h; sourceTree = "<group>"; };
+		AE1A75871782A45A007FB031 /* mgstoragebs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mgstoragebs.h; sourceTree = "<group>"; };
+		AE1A75881782A45A007FB031 /* mgvector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mgvector.h; sourceTree = "<group>"; };
+		AE1A758A1782A45A007FB031 /* RandomShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RandomShape.h; sourceTree = "<group>"; };
+		AE1A758B1782A45A007FB031 /* testcanvas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testcanvas.h; sourceTree = "<group>"; };
+		AE1A758D1782A45A007FB031 /* GcBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GcBaseView.h; sourceTree = "<group>"; };
+		AE1A758E1782A45A007FB031 /* GcGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GcGraphView.h; sourceTree = "<group>"; };
+		AE1A758F1782A45A007FB031 /* GcMagnifierView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GcMagnifierView.h; sourceTree = "<group>"; };
+		AE1A75901782A45A007FB031 /* GcShapeDoc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GcShapeDoc.h; sourceTree = "<group>"; };
+		AE1A75911782A45A007FB031 /* gicoreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gicoreview.h; sourceTree = "<group>"; };
+		AE1A75921782A45A007FB031 /* gigesture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gigesture.h; sourceTree = "<group>"; };
+		AE1A75951782A45A007FB031 /* mgcmdmgr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mgcmdmgr.cpp; sourceTree = "<group>"; };
+		AE1A759A1782A45A007FB031 /* mgbase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mgbase.cpp; sourceTree = "<group>"; };
+		AE1A759B1782A45A007FB031 /* mgbnd.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mgbnd.cpp; sourceTree = "<group>"; };
+		AE1A759C1782A45A007FB031 /* mgbox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mgbox.cpp; sourceTree = "<group>"; };
+		AE1A759D1782A45A007FB031 /* mgcurv.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mgcurv.cpp; sourceTree = "<group>"; };
+		AE1A759E1782A45A007FB031 /* mgdblpt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mgdblpt.h; sourceTree = "<group>"; };
+		AE1A759F1782A45A007FB031 /* mglnrel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mglnrel.cpp; sourceTree = "<group>"; };
+		AE1A75A01782A45A007FB031 /* mgmat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mgmat.cpp; sourceTree = "<group>"; };
+		AE1A75A11782A45A007FB031 /* mgnear.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mgnear.cpp; sourceTree = "<group>"; };
+		AE1A75A21782A45A007FB031 /* mgnearbz.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mgnearbz.cpp; sourceTree = "<group>"; };
+		AE1A75A31782A45A007FB031 /* mgvec.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mgvec.cpp; sourceTree = "<group>"; };
+		AE1A75A51782A45A007FB031 /* gigraph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gigraph.cpp; sourceTree = "<group>"; };
+		AE1A75A61782A45A007FB031 /* gipath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gipath.cpp; sourceTree = "<group>"; };
+		AE1A75A71782A45A007FB031 /* giplclip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = giplclip.h; sourceTree = "<group>"; };
+		AE1A75A81782A45A007FB031 /* gixform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gixform.cpp; sourceTree = "<group>"; };
+		AE1A75B01782A45A007FB031 /* mgjsonstorage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mgjsonstorage.cpp; sourceTree = "<group>"; };
+		AE1A75B21782A45A007FB031 /* document.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = document.h; sourceTree = "<group>"; };
+		AE1A75B31782A45A007FB031 /* filestream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = filestream.h; sourceTree = "<group>"; };
+		AE1A75B51782A45A007FB031 /* pow10.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pow10.h; sourceTree = "<group>"; };
+		AE1A75B61782A45A007FB031 /* stack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stack.h; sourceTree = "<group>"; };
+		AE1A75B71782A45A007FB031 /* strfunc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = strfunc.h; sourceTree = "<group>"; };
+		AE1A75B81782A45A007FB031 /* prettywriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = prettywriter.h; sourceTree = "<group>"; };
+		AE1A75B91782A45A007FB031 /* rapidjson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rapidjson.h; sourceTree = "<group>"; };
+		AE1A75BA1782A45A007FB031 /* reader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = reader.h; sourceTree = "<group>"; };
+		AE1A75BB1782A45A007FB031 /* stringbuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stringbuffer.h; sourceTree = "<group>"; };
+		AE1A75BC1782A45A007FB031 /* writer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = writer.h; sourceTree = "<group>"; };
+		AE1A75C01782A45A007FB031 /* mgcomposite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mgcomposite.cpp; sourceTree = "<group>"; };
+		AE1A75C41782A45A007FB031 /* mgellipse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mgellipse.cpp; sourceTree = "<group>"; };
+		AE1A75C51782A45A007FB031 /* mggrid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mggrid.cpp; sourceTree = "<group>"; };
+		AE1A75C61782A45A007FB031 /* mgline.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mgline.cpp; sourceTree = "<group>"; };
+		AE1A75C71782A45A007FB031 /* mglines.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mglines.cpp; sourceTree = "<group>"; };
+		AE1A75C81782A45A007FB031 /* mgrdrect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mgrdrect.cpp; sourceTree = "<group>"; };
+		AE1A75C91782A45A007FB031 /* mgrect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mgrect.cpp; sourceTree = "<group>"; };
+		AE1A75CA1782A45A007FB031 /* mgshape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mgshape.cpp; sourceTree = "<group>"; };
+		AE1A75CB1782A45A007FB031 /* mgshapedoc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mgshapedoc.cpp; sourceTree = "<group>"; };
+		AE1A75CC1782A45A007FB031 /* mgshapes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mgshapes.cpp; sourceTree = "<group>"; };
+		AE1A75CD1782A45A007FB031 /* mgsplines.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mgsplines.cpp; sourceTree = "<group>"; };
+		AE1A75D01782A45A007FB031 /* RandomShape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RandomShape.cpp; sourceTree = "<group>"; };
+		AE1A75D11782A45A007FB031 /* testcanvas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = testcanvas.cpp; sourceTree = "<group>"; };
+		AE1A75D31782A45A007FB031 /* GcGraphView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GcGraphView.cpp; sourceTree = "<group>"; };
+		AE1A75D41782A45A007FB031 /* GcMagnifierView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GcMagnifierView.cpp; sourceTree = "<group>"; };
+		AE1A75D51782A45A007FB031 /* GcShapeDoc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GcShapeDoc.cpp; sourceTree = "<group>"; };
+		AE1A75D61782A45A007FB031 /* gicoreview.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gicoreview.cpp; sourceTree = "<group>"; };
 		AEDBA7DD177959FC00A1E05F /* TouchVG.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework.static; includeInIndex = 0; path = TouchVG.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEDBA7E0177959FC00A1E05F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		AEDBA7E4177959FC00A1E05F /* TouchVG-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TouchVG-Info.plist"; sourceTree = "<group>"; };
@@ -64,25 +225,10 @@
 		AEDBA82817795E9A00A1E05F /* GiQuartzCanvas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GiQuartzCanvas.h; path = ../../view/include/GiQuartzCanvas.h; sourceTree = "<group>"; };
 		AEDBA82B17795EA400A1E05F /* GiGraphView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = GiGraphView.mm; path = ../../view/src/GiGraphView.mm; sourceTree = "<group>"; };
 		AEDBA82C17795EA400A1E05F /* GiQuartzCanvas.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = GiQuartzCanvas.mm; path = ../../view/src/GiQuartzCanvas.mm; sourceTree = "<group>"; };
-		AEDBA83317795F3800A1E05F /* gicanvas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = gicanvas.h; path = ../../../core/include/callback/gicanvas.h; sourceTree = "<group>"; };
-		AEDBA83417795F3800A1E05F /* giview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = giview.h; path = ../../../core/include/callback/giview.h; sourceTree = "<group>"; };
-		AEDBA83717795F4300A1E05F /* testcanvas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = testcanvas.h; path = ../../../core/include/test/testcanvas.h; sourceTree = "<group>"; };
-		AEDBA83917795F4C00A1E05F /* gicoreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = gicoreview.h; path = ../../../core/include/view/gicoreview.h; sourceTree = "<group>"; };
-		AEDBA83B17795F6700A1E05F /* testcanvas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testcanvas.cpp; path = ../../../core/src/test/testcanvas.cpp; sourceTree = "<group>"; };
-		AEDBA83D17795F7100A1E05F /* gicoreview.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = gicoreview.cpp; path = ../../../core/src/view/gicoreview.cpp; sourceTree = "<group>"; };
 		AEDBA8461779603500A1E05F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		AEDBA8481779606500A1E05F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		AEDBA84A1779606D00A1E05F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		AEDBA929177979A700A1E05F /* VGResources.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = VGResources.xcodeproj; sourceTree = "<group>"; };
-		C98B72FA177DB5BB00075D78 /* gigesture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = gigesture.h; path = ../../../core/include/view/gigesture.h; sourceTree = "<group>"; };
-		C993E79A177D57C700CA398D /* GcBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GcBaseView.h; path = ../../../core/include/view/GcBaseView.h; sourceTree = "<group>"; };
-		C99E721517829C4800F449D4 /* mgview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mgview.h; path = ../../../core/include/command/mgview.h; sourceTree = "<group>"; };
-		C9FD791B177D4C51002FACBF /* GcMagnifierView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GcMagnifierView.h; path = ../../../core/include/view/GcMagnifierView.h; sourceTree = "<group>"; };
-		C9FD791C177D4C51002FACBF /* GcGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GcGraphView.h; path = ../../../core/include/view/GcGraphView.h; sourceTree = "<group>"; };
-		C9FD791F177D4C5E002FACBF /* GcMagnifierView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GcMagnifierView.cpp; path = ../../../core/src/view/GcMagnifierView.cpp; sourceTree = "<group>"; };
-		C9FD7920177D4C5E002FACBF /* GcGraphView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GcGraphView.cpp; path = ../../../core/src/view/GcGraphView.cpp; sourceTree = "<group>"; };
-		C9FD7944177D4F55002FACBF /* GcShapeDoc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GcShapeDoc.h; path = ../../../core/include/view/GcShapeDoc.h; sourceTree = "<group>"; };
-		C9FD7946177D4F8E002FACBF /* GcShapeDoc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GcShapeDoc.cpp; path = ../../../core/src/view/GcShapeDoc.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,14 +246,246 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		AE0BAEC917818D8A00E2D8B7 /* command */ = {
+		AE1A755A1782A45A007FB031 /* core */ = {
 			isa = PBXGroup;
 			children = (
-				C99E721517829C4800F449D4 /* mgview.h */,
-				AE0BAECA17818DB800E2D8B7 /* mgcmdmgr.h */,
-				AE0BAECC17818DC800E2D8B7 /* mgcmdmgr.cpp */,
+				AE1A755B1782A45A007FB031 /* include */,
+				AE1A75931782A45A007FB031 /* src */,
 			);
-			name = command;
+			name = core;
+			path = ../../../core;
+			sourceTree = "<group>";
+		};
+		AE1A755B1782A45A007FB031 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				AE1A755C1782A45A007FB031 /* callback */,
+				AE1A755F1782A45A007FB031 /* command */,
+				AE1A75621782A45A007FB031 /* geom */,
+				AE1A756E1782A45A007FB031 /* graph */,
+				AE1A75781782A45A007FB031 /* shape */,
+				AE1A75891782A45A007FB031 /* test */,
+				AE1A758C1782A45A007FB031 /* view */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		AE1A755C1782A45A007FB031 /* callback */ = {
+			isa = PBXGroup;
+			children = (
+				AE1A755D1782A45A007FB031 /* gicanvas.h */,
+				AE1A755E1782A45A007FB031 /* giview.h */,
+			);
+			path = callback;
+			sourceTree = "<group>";
+		};
+		AE1A755F1782A45A007FB031 /* command */ = {
+			isa = PBXGroup;
+			children = (
+				AE1A75601782A45A007FB031 /* mgcmdmgr.h */,
+				AE1A75611782A45A007FB031 /* mgview.h */,
+			);
+			path = command;
+			sourceTree = "<group>";
+		};
+		AE1A75621782A45A007FB031 /* geom */ = {
+			isa = PBXGroup;
+			children = (
+				AE1A75631782A45A007FB031 /* mgbase.h */,
+				AE1A75641782A45A007FB031 /* mgbnd.h */,
+				AE1A75651782A45A007FB031 /* mgbox.h */,
+				AE1A75661782A45A007FB031 /* mgcurv.h */,
+				AE1A75671782A45A007FB031 /* mgdef.h */,
+				AE1A75681782A45A007FB031 /* mglnrel.h */,
+				AE1A75691782A45A007FB031 /* mgmat.h */,
+				AE1A756A1782A45A007FB031 /* mgnear.h */,
+				AE1A756B1782A45A007FB031 /* mgpnt.h */,
+				AE1A756C1782A45A007FB031 /* mgtol.h */,
+				AE1A756D1782A45A007FB031 /* mgvec.h */,
+			);
+			path = geom;
+			sourceTree = "<group>";
+		};
+		AE1A756E1782A45A007FB031 /* graph */ = {
+			isa = PBXGroup;
+			children = (
+				AE1A756F1782A45A007FB031 /* gicanvas.h */,
+				AE1A75701782A45A007FB031 /* gicanvdr.h */,
+				AE1A75711782A45A007FB031 /* gicolor.h */,
+				AE1A75721782A45A007FB031 /* gicontxt.h */,
+				AE1A75731782A45A007FB031 /* gidef.h */,
+				AE1A75741782A45A007FB031 /* gigraph.h */,
+				AE1A75751782A45A007FB031 /* gigraph_.h */,
+				AE1A75761782A45A007FB031 /* gipath.h */,
+				AE1A75771782A45A007FB031 /* gixform.h */,
+			);
+			path = graph;
+			sourceTree = "<group>";
+		};
+		AE1A75781782A45A007FB031 /* shape */ = {
+			isa = PBXGroup;
+			children = (
+				AE1A75791782A45A007FB031 /* mgbasicsp.h */,
+				AE1A757A1782A45A007FB031 /* mgcomposite.h */,
+				AE1A757C1782A45A007FB031 /* mggrid.h */,
+				AE1A757D1782A45A007FB031 /* mgjsonstorage.h */,
+				AE1A757E1782A45A007FB031 /* mgobject.h */,
+				AE1A757F1782A45A007FB031 /* mgshape.h */,
+				AE1A75801782A45A007FB031 /* mgshape_.h */,
+				AE1A75811782A45A007FB031 /* mgshapedoc.h */,
+				AE1A75821782A45A007FB031 /* mgshapes.h */,
+				AE1A75831782A45A007FB031 /* mgshapest.h */,
+				AE1A75841782A45A007FB031 /* mgshapet.h */,
+				AE1A75851782A45A007FB031 /* mgshapetype.h */,
+				AE1A75861782A45A007FB031 /* mgstorage.h */,
+				AE1A75871782A45A007FB031 /* mgstoragebs.h */,
+				AE1A75881782A45A007FB031 /* mgvector.h */,
+			);
+			path = shape;
+			sourceTree = "<group>";
+		};
+		AE1A75891782A45A007FB031 /* test */ = {
+			isa = PBXGroup;
+			children = (
+				AE1A758A1782A45A007FB031 /* RandomShape.h */,
+				AE1A758B1782A45A007FB031 /* testcanvas.h */,
+			);
+			path = test;
+			sourceTree = "<group>";
+		};
+		AE1A758C1782A45A007FB031 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				AE1A758D1782A45A007FB031 /* GcBaseView.h */,
+				AE1A758E1782A45A007FB031 /* GcGraphView.h */,
+				AE1A758F1782A45A007FB031 /* GcMagnifierView.h */,
+				AE1A75901782A45A007FB031 /* GcShapeDoc.h */,
+				AE1A75911782A45A007FB031 /* gicoreview.h */,
+				AE1A75921782A45A007FB031 /* gigesture.h */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		AE1A75931782A45A007FB031 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				AE1A75941782A45A007FB031 /* command */,
+				AE1A75961782A45A007FB031 /* geom */,
+				AE1A75A41782A45A007FB031 /* graph */,
+				AE1A75AC1782A45A007FB031 /* json */,
+				AE1A75BD1782A45A007FB031 /* shape */,
+				AE1A75CF1782A45A007FB031 /* test */,
+				AE1A75D21782A45A007FB031 /* view */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		AE1A75941782A45A007FB031 /* command */ = {
+			isa = PBXGroup;
+			children = (
+				AE1A75951782A45A007FB031 /* mgcmdmgr.cpp */,
+			);
+			path = command;
+			sourceTree = "<group>";
+		};
+		AE1A75961782A45A007FB031 /* geom */ = {
+			isa = PBXGroup;
+			children = (
+				AE1A759A1782A45A007FB031 /* mgbase.cpp */,
+				AE1A759B1782A45A007FB031 /* mgbnd.cpp */,
+				AE1A759C1782A45A007FB031 /* mgbox.cpp */,
+				AE1A759D1782A45A007FB031 /* mgcurv.cpp */,
+				AE1A759E1782A45A007FB031 /* mgdblpt.h */,
+				AE1A759F1782A45A007FB031 /* mglnrel.cpp */,
+				AE1A75A01782A45A007FB031 /* mgmat.cpp */,
+				AE1A75A11782A45A007FB031 /* mgnear.cpp */,
+				AE1A75A21782A45A007FB031 /* mgnearbz.cpp */,
+				AE1A75A31782A45A007FB031 /* mgvec.cpp */,
+			);
+			path = geom;
+			sourceTree = "<group>";
+		};
+		AE1A75A41782A45A007FB031 /* graph */ = {
+			isa = PBXGroup;
+			children = (
+				AE1A75A51782A45A007FB031 /* gigraph.cpp */,
+				AE1A75A61782A45A007FB031 /* gipath.cpp */,
+				AE1A75A71782A45A007FB031 /* giplclip.h */,
+				AE1A75A81782A45A007FB031 /* gixform.cpp */,
+			);
+			path = graph;
+			sourceTree = "<group>";
+		};
+		AE1A75AC1782A45A007FB031 /* json */ = {
+			isa = PBXGroup;
+			children = (
+				AE1A75B01782A45A007FB031 /* mgjsonstorage.cpp */,
+				AE1A75B11782A45A007FB031 /* rapidjson */,
+			);
+			path = json;
+			sourceTree = "<group>";
+		};
+		AE1A75B11782A45A007FB031 /* rapidjson */ = {
+			isa = PBXGroup;
+			children = (
+				AE1A75B21782A45A007FB031 /* document.h */,
+				AE1A75B31782A45A007FB031 /* filestream.h */,
+				AE1A75B41782A45A007FB031 /* internal */,
+				AE1A75B81782A45A007FB031 /* prettywriter.h */,
+				AE1A75B91782A45A007FB031 /* rapidjson.h */,
+				AE1A75BA1782A45A007FB031 /* reader.h */,
+				AE1A75BB1782A45A007FB031 /* stringbuffer.h */,
+				AE1A75BC1782A45A007FB031 /* writer.h */,
+			);
+			path = rapidjson;
+			sourceTree = "<group>";
+		};
+		AE1A75B41782A45A007FB031 /* internal */ = {
+			isa = PBXGroup;
+			children = (
+				AE1A75B51782A45A007FB031 /* pow10.h */,
+				AE1A75B61782A45A007FB031 /* stack.h */,
+				AE1A75B71782A45A007FB031 /* strfunc.h */,
+			);
+			path = internal;
+			sourceTree = "<group>";
+		};
+		AE1A75BD1782A45A007FB031 /* shape */ = {
+			isa = PBXGroup;
+			children = (
+				AE1A75C01782A45A007FB031 /* mgcomposite.cpp */,
+				AE1A75C41782A45A007FB031 /* mgellipse.cpp */,
+				AE1A75C51782A45A007FB031 /* mggrid.cpp */,
+				AE1A75C61782A45A007FB031 /* mgline.cpp */,
+				AE1A75C71782A45A007FB031 /* mglines.cpp */,
+				AE1A75C81782A45A007FB031 /* mgrdrect.cpp */,
+				AE1A75C91782A45A007FB031 /* mgrect.cpp */,
+				AE1A75CA1782A45A007FB031 /* mgshape.cpp */,
+				AE1A75CB1782A45A007FB031 /* mgshapedoc.cpp */,
+				AE1A75CC1782A45A007FB031 /* mgshapes.cpp */,
+				AE1A75CD1782A45A007FB031 /* mgsplines.cpp */,
+			);
+			path = shape;
+			sourceTree = "<group>";
+		};
+		AE1A75CF1782A45A007FB031 /* test */ = {
+			isa = PBXGroup;
+			children = (
+				AE1A75D01782A45A007FB031 /* RandomShape.cpp */,
+				AE1A75D11782A45A007FB031 /* testcanvas.cpp */,
+			);
+			path = test;
+			sourceTree = "<group>";
+		};
+		AE1A75D21782A45A007FB031 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				AE1A75D31782A45A007FB031 /* GcGraphView.cpp */,
+				AE1A75D41782A45A007FB031 /* GcMagnifierView.cpp */,
+				AE1A75D51782A45A007FB031 /* GcShapeDoc.cpp */,
+				AE1A75D61782A45A007FB031 /* gicoreview.cpp */,
+			);
+			path = view;
 			sourceTree = "<group>";
 		};
 		AEDBA7CE177959FC00A1E05F = {
@@ -142,7 +520,7 @@
 		AEDBA7E2177959FC00A1E05F /* TouchVG */ = {
 			isa = PBXGroup;
 			children = (
-				AEDBA82F17795EC400A1E05F /* core */,
+				AE1A755A1782A45A007FB031 /* core */,
 				AEDBA82517795E7D00A1E05F /* view */,
 				AEDBA7E3177959FC00A1E05F /* Supporting Files */,
 			);
@@ -170,52 +548,6 @@
 			name = view;
 			sourceTree = "<group>";
 		};
-		AEDBA82F17795EC400A1E05F /* core */ = {
-			isa = PBXGroup;
-			children = (
-				AEDBA83217795F0400A1E05F /* view */,
-				AE0BAEC917818D8A00E2D8B7 /* command */,
-				AEDBA83117795EFB00A1E05F /* test */,
-				AEDBA83017795EE000A1E05F /* callback */,
-			);
-			name = core;
-			sourceTree = "<group>";
-		};
-		AEDBA83017795EE000A1E05F /* callback */ = {
-			isa = PBXGroup;
-			children = (
-				AEDBA83317795F3800A1E05F /* gicanvas.h */,
-				AEDBA83417795F3800A1E05F /* giview.h */,
-			);
-			name = callback;
-			sourceTree = "<group>";
-		};
-		AEDBA83117795EFB00A1E05F /* test */ = {
-			isa = PBXGroup;
-			children = (
-				AEDBA83717795F4300A1E05F /* testcanvas.h */,
-				AEDBA83B17795F6700A1E05F /* testcanvas.cpp */,
-			);
-			name = test;
-			sourceTree = "<group>";
-		};
-		AEDBA83217795F0400A1E05F /* view */ = {
-			isa = PBXGroup;
-			children = (
-				C9FD7944177D4F55002FACBF /* GcShapeDoc.h */,
-				C9FD7946177D4F8E002FACBF /* GcShapeDoc.cpp */,
-				C9FD791B177D4C51002FACBF /* GcMagnifierView.h */,
-				C9FD791F177D4C5E002FACBF /* GcMagnifierView.cpp */,
-				C9FD791C177D4C51002FACBF /* GcGraphView.h */,
-				C9FD7920177D4C5E002FACBF /* GcGraphView.cpp */,
-				C993E79A177D57C700CA398D /* GcBaseView.h */,
-				C98B72FA177DB5BB00075D78 /* gigesture.h */,
-				AEDBA83917795F4C00A1E05F /* gicoreview.h */,
-				AEDBA83D17795F7100A1E05F /* gicoreview.cpp */,
-			);
-			name = view;
-			sourceTree = "<group>";
-		};
 		AEDBA92A177979A700A1E05F /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -231,19 +563,67 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE1A76001782A45A007FB031 /* testcanvas.h in Headers */,
+				AE1A76051782A45A007FB031 /* gicoreview.h in Headers */,
+				AE1A76061782A45A007FB031 /* gigesture.h in Headers */,
+				AE1A75D71782A45A007FB031 /* gicanvas.h in Headers */,
+				AE1A75D81782A45A007FB031 /* giview.h in Headers */,
 				AEDBA82917795E9A00A1E05F /* GiGraphView.h in Headers */,
 				AEDBA82A17795E9A00A1E05F /* GiQuartzCanvas.h in Headers */,
-				AEDBA83517795F3800A1E05F /* gicanvas.h in Headers */,
-				AEDBA83617795F3800A1E05F /* giview.h in Headers */,
-				AEDBA83817795F4300A1E05F /* testcanvas.h in Headers */,
-				AEDBA83A17795F4C00A1E05F /* gicoreview.h in Headers */,
-				C9FD791D177D4C51002FACBF /* GcMagnifierView.h in Headers */,
-				C9FD791E177D4C51002FACBF /* GcGraphView.h in Headers */,
-				C9FD7945177D4F55002FACBF /* GcShapeDoc.h in Headers */,
-				C993E79B177D57C700CA398D /* GcBaseView.h in Headers */,
-				C98B72FB177DB5BB00075D78 /* gigesture.h in Headers */,
-				AE0BAECB17818DB800E2D8B7 /* mgcmdmgr.h in Headers */,
-				C99E721617829C4800F449D4 /* mgview.h in Headers */,
+				AE1A75D91782A45A007FB031 /* mgcmdmgr.h in Headers */,
+				AE1A75DA1782A45A007FB031 /* mgview.h in Headers */,
+				AE1A75DB1782A45A007FB031 /* mgbase.h in Headers */,
+				AE1A75DC1782A45A007FB031 /* mgbnd.h in Headers */,
+				AE1A75DD1782A45A007FB031 /* mgbox.h in Headers */,
+				AE1A75DE1782A45A007FB031 /* mgcurv.h in Headers */,
+				AE1A75DF1782A45A007FB031 /* mgdef.h in Headers */,
+				AE1A75E01782A45A007FB031 /* mglnrel.h in Headers */,
+				AE1A75E11782A45A007FB031 /* mgmat.h in Headers */,
+				AE1A75E21782A45A007FB031 /* mgnear.h in Headers */,
+				AE1A75E31782A45A007FB031 /* mgpnt.h in Headers */,
+				AE1A75E41782A45A007FB031 /* mgtol.h in Headers */,
+				AE1A75E51782A45A007FB031 /* mgvec.h in Headers */,
+				AE1A75E61782A45A007FB031 /* gicanvas.h in Headers */,
+				AE1A75E71782A45A007FB031 /* gicanvdr.h in Headers */,
+				AE1A75E81782A45A007FB031 /* gicolor.h in Headers */,
+				AE1A75E91782A45A007FB031 /* gicontxt.h in Headers */,
+				AE1A75EA1782A45A007FB031 /* gidef.h in Headers */,
+				AE1A75EB1782A45A007FB031 /* gigraph.h in Headers */,
+				AE1A75EC1782A45A007FB031 /* gigraph_.h in Headers */,
+				AE1A75ED1782A45A007FB031 /* gipath.h in Headers */,
+				AE1A75EE1782A45A007FB031 /* gixform.h in Headers */,
+				AE1A75EF1782A45A007FB031 /* mgbasicsp.h in Headers */,
+				AE1A75F01782A45A007FB031 /* mgcomposite.h in Headers */,
+				AE1A75F21782A45A007FB031 /* mggrid.h in Headers */,
+				AE1A75F31782A45A007FB031 /* mgjsonstorage.h in Headers */,
+				AE1A75F41782A45A007FB031 /* mgobject.h in Headers */,
+				AE1A75F51782A45A007FB031 /* mgshape.h in Headers */,
+				AE1A75F61782A45A007FB031 /* mgshape_.h in Headers */,
+				AE1A75F71782A45A007FB031 /* mgshapedoc.h in Headers */,
+				AE1A75F81782A45A007FB031 /* mgshapes.h in Headers */,
+				AE1A75F91782A45A007FB031 /* mgshapest.h in Headers */,
+				AE1A75FA1782A45A007FB031 /* mgshapet.h in Headers */,
+				AE1A75FB1782A45A007FB031 /* mgshapetype.h in Headers */,
+				AE1A75FC1782A45A007FB031 /* mgstorage.h in Headers */,
+				AE1A75FD1782A45A007FB031 /* mgstoragebs.h in Headers */,
+				AE1A75FE1782A45A007FB031 /* mgvector.h in Headers */,
+				AE1A75FF1782A45A007FB031 /* RandomShape.h in Headers */,
+				AE1A76011782A45A007FB031 /* GcBaseView.h in Headers */,
+				AE1A76021782A45A007FB031 /* GcGraphView.h in Headers */,
+				AE1A76031782A45A007FB031 /* GcMagnifierView.h in Headers */,
+				AE1A76041782A45A007FB031 /* GcShapeDoc.h in Headers */,
+				AE1A760F1782A45A007FB031 /* mgdblpt.h in Headers */,
+				AE1A76171782A45A007FB031 /* giplclip.h in Headers */,
+				AE1A76201782A45A007FB031 /* document.h in Headers */,
+				AE1A76211782A45A007FB031 /* filestream.h in Headers */,
+				AE1A76221782A45A007FB031 /* pow10.h in Headers */,
+				AE1A76231782A45A007FB031 /* stack.h in Headers */,
+				AE1A76241782A45A007FB031 /* strfunc.h in Headers */,
+				AE1A76251782A45A007FB031 /* prettywriter.h in Headers */,
+				AE1A76261782A45A007FB031 /* rapidjson.h in Headers */,
+				AE1A76271782A45A007FB031 /* reader.h in Headers */,
+				AE1A76281782A45A007FB031 /* stringbuffer.h in Headers */,
+				AE1A76291782A45A007FB031 /* writer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -374,12 +754,37 @@
 			files = (
 				AEDBA82D17795EA400A1E05F /* GiGraphView.mm in Sources */,
 				AEDBA82E17795EA400A1E05F /* GiQuartzCanvas.mm in Sources */,
-				AEDBA83C17795F6700A1E05F /* testcanvas.cpp in Sources */,
-				AEDBA83E17795F7100A1E05F /* gicoreview.cpp in Sources */,
-				C9FD7921177D4C5E002FACBF /* GcMagnifierView.cpp in Sources */,
-				C9FD7922177D4C5E002FACBF /* GcGraphView.cpp in Sources */,
-				C9FD7947177D4F8E002FACBF /* GcShapeDoc.cpp in Sources */,
-				AE0BAECD17818DC800E2D8B7 /* mgcmdmgr.cpp in Sources */,
+				AE1A76071782A45A007FB031 /* mgcmdmgr.cpp in Sources */,
+				AE1A760B1782A45A007FB031 /* mgbase.cpp in Sources */,
+				AE1A760C1782A45A007FB031 /* mgbnd.cpp in Sources */,
+				AE1A760D1782A45A007FB031 /* mgbox.cpp in Sources */,
+				AE1A760E1782A45A007FB031 /* mgcurv.cpp in Sources */,
+				AE1A76101782A45A007FB031 /* mglnrel.cpp in Sources */,
+				AE1A76111782A45A007FB031 /* mgmat.cpp in Sources */,
+				AE1A76121782A45A007FB031 /* mgnear.cpp in Sources */,
+				AE1A76131782A45A007FB031 /* mgnearbz.cpp in Sources */,
+				AE1A76141782A45A007FB031 /* mgvec.cpp in Sources */,
+				AE1A76151782A45A007FB031 /* gigraph.cpp in Sources */,
+				AE1A76161782A45A007FB031 /* gipath.cpp in Sources */,
+				AE1A76181782A45A007FB031 /* gixform.cpp in Sources */,
+				AE1A761F1782A45A007FB031 /* mgjsonstorage.cpp in Sources */,
+				AE1A762C1782A45A007FB031 /* mgcomposite.cpp in Sources */,
+				AE1A76301782A45A007FB031 /* mgellipse.cpp in Sources */,
+				AE1A76311782A45A007FB031 /* mggrid.cpp in Sources */,
+				AE1A76321782A45A007FB031 /* mgline.cpp in Sources */,
+				AE1A76331782A45A007FB031 /* mglines.cpp in Sources */,
+				AE1A76341782A45A007FB031 /* mgrdrect.cpp in Sources */,
+				AE1A76351782A45A007FB031 /* mgrect.cpp in Sources */,
+				AE1A76361782A45A007FB031 /* mgshape.cpp in Sources */,
+				AE1A76371782A45A007FB031 /* mgshapedoc.cpp in Sources */,
+				AE1A76381782A45A007FB031 /* mgshapes.cpp in Sources */,
+				AE1A76391782A45A007FB031 /* mgsplines.cpp in Sources */,
+				AE1A763B1782A45A007FB031 /* RandomShape.cpp in Sources */,
+				AE1A763C1782A45A007FB031 /* testcanvas.cpp in Sources */,
+				AE1A763D1782A45A007FB031 /* GcGraphView.cpp in Sources */,
+				AE1A763E1782A45A007FB031 /* GcMagnifierView.cpp in Sources */,
+				AE1A763F1782A45A007FB031 /* GcShapeDoc.cpp in Sources */,
+				AE1A76401782A45A007FB031 /* gicoreview.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
