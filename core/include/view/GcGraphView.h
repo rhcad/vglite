@@ -17,7 +17,7 @@ public:
     virtual ~GcShapeView();
     
     virtual void drawAll(GiCanvas* canvas);
-    virtual bool drawAppend(GiCanvas* canvas);
+    virtual void drawAppend(GiCanvas* canvas);
     virtual void dynDraw(GiCanvas* canvas);
     virtual void onSize(int w, int h);
     virtual bool onGesture(GiGestureType gestureType,

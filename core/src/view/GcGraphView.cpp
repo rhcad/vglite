@@ -16,9 +16,8 @@ void GcShapeView::drawAll(GiCanvas* canvas)
 {
 }
 
-bool GcShapeView::drawAppend(GiCanvas* canvas)
+void GcShapeView::drawAppend(GiCanvas* canvas)
 {
-    return true;
 }
 
 void GcShapeView::dynDraw(GiCanvas* canvas)

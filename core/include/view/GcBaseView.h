@@ -32,7 +32,7 @@ public:
     virtual void drawAll(GiCanvas* canvas) = 0;
 
     //! 显示新图形，在 GiView.regenAppend() 后调用
-    virtual bool drawAppend(GiCanvas* canvas) = 0;
+    virtual void drawAppend(GiCanvas* canvas) = 0;
     
     //! 显示动态图形
     virtual void dynDraw(GiCanvas* canvas) = 0;

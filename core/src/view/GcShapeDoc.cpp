@@ -35,9 +35,9 @@ void GcShapeDoc::removeView(GcBaseView* view)
     }
 }
 
-GcBaseView* GcShapeDoc::findView(GiView* view)
+GcBaseView* GcShapeDoc::findView(GiView* view) const
 {
-    std::vector<GcBaseView*>::iterator it;
+    std::vector<GcBaseView*>::const_iterator it;
     
     for (it = _views.begin(); it != _views.end(); ++it) {
         if ((*it)->deviceView() == view) {
@@ -45,4 +45,19 @@ GcBaseView* GcShapeDoc::findView(GiView* view)
         }
     }
     return NULL;
+}
+
+GcBaseView* GcShapeDoc::getView(int index) const
+{
+    return index >= 0 && index < getViewCount() ? _views[index] : NULL;
+}
+
+int GcShapeDoc::getViewCount() const
+{
+    return (int)_views.size();
+}
+
+GiView* GcShapeDoc::firstView() const
+{
+    return !_views.empty() ? _views.front()->deviceView() : NULL;
 }

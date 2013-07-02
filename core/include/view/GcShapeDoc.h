@@ -21,7 +21,10 @@ public:
     
     void addView(GcBaseView* view);
     void removeView(GcBaseView* view);
-    GcBaseView* findView(GiView* view);
+    GcBaseView* findView(GiView* view) const;
+    GcBaseView* getView(int index) const;
+    int getViewCount() const;
+    GiView* firstView() const;
     
 private:
     std::vector<GcBaseView*>    _views;
