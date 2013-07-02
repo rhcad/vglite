@@ -9,6 +9,7 @@
 
 class GiView;
 class GiCanvas;
+class GiCoreViewImpl;
 
 //! 内核视图分发器类
 /*! 本对象拥有图形文档对象，负责显示和手势动作的分发。
@@ -53,8 +54,7 @@ public:
             float x1, float y1, float x2, float y2);
 
 private:
-    struct Impl;
-    Impl* impl;
+    GiCoreViewImpl* impl;
 };
 
 #endif // VGLITE_CORE_VIEWDISPATCHER_H

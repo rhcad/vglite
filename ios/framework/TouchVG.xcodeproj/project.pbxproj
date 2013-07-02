@@ -26,6 +26,7 @@
 		AEDBA84B1779606D00A1E05F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEDBA84A1779606D00A1E05F /* QuartzCore.framework */; };
 		C98B72FB177DB5BB00075D78 /* gigesture.h in Headers */ = {isa = PBXBuildFile; fileRef = C98B72FA177DB5BB00075D78 /* gigesture.h */; };
 		C993E79B177D57C700CA398D /* GcBaseView.h in Headers */ = {isa = PBXBuildFile; fileRef = C993E79A177D57C700CA398D /* GcBaseView.h */; };
+		C99E721617829C4800F449D4 /* mgview.h in Headers */ = {isa = PBXBuildFile; fileRef = C99E721517829C4800F449D4 /* mgview.h */; };
 		C9FD791D177D4C51002FACBF /* GcMagnifierView.h in Headers */ = {isa = PBXBuildFile; fileRef = C9FD791B177D4C51002FACBF /* GcMagnifierView.h */; };
 		C9FD791E177D4C51002FACBF /* GcGraphView.h in Headers */ = {isa = PBXBuildFile; fileRef = C9FD791C177D4C51002FACBF /* GcGraphView.h */; };
 		C9FD7921177D4C5E002FACBF /* GcMagnifierView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9FD791F177D4C5E002FACBF /* GcMagnifierView.cpp */; };
@@ -75,6 +76,7 @@
 		AEDBA929177979A700A1E05F /* VGResources.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = VGResources.xcodeproj; sourceTree = "<group>"; };
 		C98B72FA177DB5BB00075D78 /* gigesture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = gigesture.h; path = ../../../core/include/view/gigesture.h; sourceTree = "<group>"; };
 		C993E79A177D57C700CA398D /* GcBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GcBaseView.h; path = ../../../core/include/view/GcBaseView.h; sourceTree = "<group>"; };
+		C99E721517829C4800F449D4 /* mgview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mgview.h; path = ../../../core/include/command/mgview.h; sourceTree = "<group>"; };
 		C9FD791B177D4C51002FACBF /* GcMagnifierView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GcMagnifierView.h; path = ../../../core/include/view/GcMagnifierView.h; sourceTree = "<group>"; };
 		C9FD791C177D4C51002FACBF /* GcGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GcGraphView.h; path = ../../../core/include/view/GcGraphView.h; sourceTree = "<group>"; };
 		C9FD791F177D4C5E002FACBF /* GcMagnifierView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GcMagnifierView.cpp; path = ../../../core/src/view/GcMagnifierView.cpp; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 		AE0BAEC917818D8A00E2D8B7 /* command */ = {
 			isa = PBXGroup;
 			children = (
+				C99E721517829C4800F449D4 /* mgview.h */,
 				AE0BAECA17818DB800E2D8B7 /* mgcmdmgr.h */,
 				AE0BAECC17818DC800E2D8B7 /* mgcmdmgr.cpp */,
 			);
@@ -240,6 +243,7 @@
 				C993E79B177D57C700CA398D /* GcBaseView.h in Headers */,
 				C98B72FB177DB5BB00075D78 /* gigesture.h in Headers */,
 				AE0BAECB17818DB800E2D8B7 /* mgcmdmgr.h in Headers */,
+				C99E721617829C4800F449D4 /* mgview.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

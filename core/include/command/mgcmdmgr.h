@@ -5,7 +5,7 @@
 #ifndef VGLITE_CORE_COMMAND_MANAGER_H
 #define VGLITE_CORE_COMMAND_MANAGER_H
 
-#include "GcGraphView.h"
+#include "mgview.h"
 
 //! 命令管理器类
 /*! \ingroup GROUP_COMMAND

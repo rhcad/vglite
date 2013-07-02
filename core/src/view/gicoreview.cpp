@@ -39,14 +39,32 @@ private:
 // GiCoreView
 //
 
-struct GiCoreView::Impl
+class GiCoreViewImpl
 {
+public:
     long            refcount;
     GcShapeDoc*     doc;
     MgCmdManager*   cmds;
     
-    Impl() : refcount(1), doc(new GcShapeDoc()), cmds(new MgCmdManager()) {}
-    ~Impl() { delete doc; delete cmds; }
+    GiCoreViewImpl() : refcount(1), doc(new GcShapeDoc()), cmds(new MgCmdManager()) {}
+    ~GiCoreViewImpl() { delete doc; delete cmds; }
+};
+
+struct MgMotion : public MgView
+{
+    GiView*         view;
+    GiCoreViewImpl* impl;
+    
+    MgMotion(GiView* v, GiCoreViewImpl* i) : view(v), impl(i) {}
+    
+    void regenAll() {
+    }
+    
+    void regenAppend() {
+    }
+    
+    void redraw() {
+    }
 };
 
 static int _dpi = 1;
@@ -58,7 +76,7 @@ GiCoreView::GiCoreView(GiCoreView* mainView)
         impl->refcount++;
     }
     else {
-        impl = new Impl;
+        impl = new GiCoreViewImpl;
     }
 }
 

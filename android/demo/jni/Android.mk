@@ -19,6 +19,7 @@ endif
 LOCAL_C_INCLUDES := $(COREINC)/callback \
                     $(COREINC)/test \
                     $(COREINC)/view \
+                    $(COREINC)/command \
                     $(COREINC)
 
 LOCAL_SRC_FILES  := $(CORESRC)/test/testcanvas.cpp \
@@ -26,6 +27,7 @@ LOCAL_SRC_FILES  := $(CORESRC)/test/testcanvas.cpp \
                     $(CORESRC)/view/GcShapeDoc.cpp \
                     $(CORESRC)/view/GcGraphView.cpp \
                     $(CORESRC)/view/GcMagnifierView.cpp \
+                    $(CORESRC)/command/mgcmdmgr.cpp \
                     touchvg_java_wrap.cpp
 
 include $(BUILD_SHARED_LIBRARY)

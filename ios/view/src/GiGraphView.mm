@@ -16,7 +16,7 @@
     GiViewAdapter   *_adapter;
 }
 
-- (id)initWithFrame:(CGRect)frame :(GiViewAdapter *)viewAdapter;
+- (id)initWithFrame:(CGRect)frame :(GiViewAdapter *)adapter;
 
 @end
 
@@ -149,6 +149,17 @@ public:
     int                     _touchCount;    //!< 触点个数
     BOOL                    _moved;         //!< 是否已移动触点
 }
+
+- (void)setupGestureRecognizers;
+- (BOOL)panHandler:(UIPanGestureRecognizer *)sender;
+- (BOOL)tapHandler:(UITapGestureRecognizer *)sender;
+- (BOOL)twoTapsHandler:(UITapGestureRecognizer *)sender;
+- (BOOL)pressHandler:(UILongPressGestureRecognizer *)sender;
+- (BOOL)pinchHandler:(UIPinchGestureRecognizer *)sender;
+- (BOOL)rotationHandler:(UIRotationGestureRecognizer *)sender;
+- (BOOL)twoFingersPanHandler:(UIPanGestureRecognizer *)sender;
+- (BOOL)delayTap;
+
 @end
 
 @implementation GiBaseView

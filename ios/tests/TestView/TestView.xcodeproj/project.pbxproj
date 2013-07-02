@@ -86,6 +86,8 @@
 		AEF2D5AD1609BF7D00DDB7F2 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		AEF2D5AE1609BF7D00DDB7F2 /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
 		AEF2D5B81609C1A900DDB7F2 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C99E721217829A2E00F449D4 /* mgview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mgview.h; path = ../../../core/include/command/mgview.h; sourceTree = "<group>"; };
+		C99E721417829B0D00F449D4 /* giview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = giview.h; path = ../../../core/include/callback/giview.h; sourceTree = "<group>"; };
 		C9A6534516E058BA00343CA3 /* vgdot1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vgdot1.png; sourceTree = "<group>"; };
 		C9A6534616E058BA00343CA3 /* vgdot1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vgdot1@2x.png"; sourceTree = "<group>"; };
 		C9A6534716E058BA00343CA3 /* vgdot2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vgdot2.png; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 		AE0BAED11781914C00E2D8B7 /* command */ = {
 			isa = PBXGroup;
 			children = (
+				C99E721217829A2E00F449D4 /* mgview.h */,
 				AE0BAED01781912700E2D8B7 /* mgcmdmgr.h */,
 				AE0BAECE1781911B00E2D8B7 /* mgcmdmgr.cpp */,
 			);
@@ -154,6 +157,7 @@
 				AE537511177D29AE0050CC4F /* GcGraphView.cpp */,
 				AE53751D177D4FE00050CC4F /* GcBaseView.h */,
 				AE537522177D4FE00050CC4F /* gigesture.h */,
+				C99E721417829B0D00F449D4 /* giview.h */,
 				AE537521177D4FE00050CC4F /* gicoreview.h */,
 				AE537514177D29AE0050CC4F /* gicoreview.cpp */,
 			);
