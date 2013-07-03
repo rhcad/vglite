@@ -1,5 +1,5 @@
-﻿#include "mgjsonstorage.h"
-#include <mgstorage.h>
+#include "mgjsonstorage.h"
+#include "mgstorage.h"
 #include <vector>
 
 #if !defined(_MSC_VER) || _MSC_VER > 1200
@@ -15,30 +15,30 @@ class MgJsonStorage::Impl : public MgStorage
 {
 public:
     Impl() : _err(NULL) {}
-
+    
     void clear();
     const char* stringify(bool pretty);
     Document& document() { return _doc; }
     const char* getError() { return _err ? _err : _doc.GetParseError(); }
-
+    
 private:
     bool readNode(const char* name, int index, bool ended);
     bool writeNode(const char* name, int index, bool ended);
     bool setError(const char* err);
-
+    
     int readInt(const char* name, int defvalue);
     bool readBool(const char* name, bool defvalue);
     float readFloat(const char* name, float defvalue);
     int readFloatArray(const char* name, float* values, int count);
     int readString(const char* name, char* value, int count);
-
+    
     void writeInt(const char* name, int value);
     void writeUInt(const char* name, int value);
     void writeBool(const char* name, bool value);
     void writeFloat(const char* name, float value);
     void writeFloatArray(const char* name, const float* values, int count);
     void writeString(const char* name, const char* value);
-
+    
 private:
     Document _doc;
     std::vector<Value*> _stack;
@@ -79,7 +79,7 @@ MgStorage* MgJsonStorage::storageForRead(const char* content)
     if (content) {
         _impl->document().Parse<0>(content);
     }
-
+    
     return _impl;
 #else
     content;
@@ -133,7 +133,7 @@ bool MgJsonStorage::Impl::readNode(const char* name, int index, bool ended)
 #endif
             name = tmpname;
         }
-
+        
         if (_stack.empty()) {
             if (!_doc.IsObject() || !_doc.HasMember(name)) {
                 return false;           // 没有此节点
@@ -157,7 +157,7 @@ bool MgJsonStorage::Impl::readNode(const char* name, int index, bool ended)
             clear();
         }
     }
-
+    
     return true;
 }
 
@@ -173,10 +173,10 @@ bool MgJsonStorage::Impl::writeNode(const char* name, int index, bool ended)
 #endif
             name = tmpname;
         }
-
+        
         Value tmpnode(kObjectType);
         Value namenode(name, _doc.GetAllocator());  // 节点名是临时串，要复制
-
+        
         if (_stack.empty()) {
             _doc.SetObject();
             _doc.AddMember(namenode, tmpnode, _doc.GetAllocator());
@@ -194,7 +194,7 @@ bool MgJsonStorage::Impl::writeNode(const char* name, int index, bool ended)
             _stack.pop_back();          // 出栈
         }
     }
-
+    
     return true;
 }
 
@@ -202,7 +202,7 @@ const char* MgJsonStorage::Impl::stringify(bool pretty)
 {
     if (_strbuf.Size() == 0 && !_doc.IsNull()) {
         Document::AllocatorType allocator;
-
+        
         if (pretty) {
             PrettyWriter<StringBuffer> writer(_strbuf, &allocator);
             _doc.Accept(writer);    // DOM树转换到文本流
@@ -214,7 +214,7 @@ const char* MgJsonStorage::Impl::stringify(bool pretty)
         _doc.SetNull();
         _stack.clear();
     }
-
+    
     return _strbuf.GetString();
 }
 
@@ -222,10 +222,10 @@ int MgJsonStorage::Impl::readInt(const char* name, int defvalue)
 {
     int ret = defvalue;
     Value *node = _stack.empty() ? NULL : _stack.back();
-
+    
     if (node && node->HasMember(name)) {
         const Value &item = (*node)[name];
-
+        
         if (item.IsInt()) {
             ret = item.GetInt();
         }
@@ -236,7 +236,7 @@ int MgJsonStorage::Impl::readInt(const char* name, int defvalue)
             ret = ret;
         }
     }
-
+    
     return ret;
 }
 
@@ -244,10 +244,10 @@ bool MgJsonStorage::Impl::readBool(const char* name, bool defvalue)
 {
     bool ret = defvalue;
     Value *node = _stack.empty() ? NULL : _stack.back();
-
+    
     if (node && node->HasMember(name)) {
         const Value &item = node->GetMember(name);
-
+        
         if (item.IsBool()) {
             ret = item.GetBool();
         }
@@ -255,7 +255,7 @@ bool MgJsonStorage::Impl::readBool(const char* name, bool defvalue)
             ret = ret;
         }
     }
-
+    
     return ret;
 }
 
@@ -263,10 +263,10 @@ float MgJsonStorage::Impl::readFloat(const char* name, float defvalue)
 {
     float ret = defvalue;
     Value *node = _stack.empty() ? NULL : _stack.back();
-
+    
     if (node && node->HasMember(name)) {
         const Value &item = node->GetMember(name);
-
+        
         if (item.IsDouble()) {
             ret = (float)item.GetDouble();
         }
@@ -277,7 +277,7 @@ float MgJsonStorage::Impl::readFloat(const char* name, float defvalue)
             ret = ret;
         }
     }
-
+    
     return ret;
 }
 
@@ -285,10 +285,10 @@ int MgJsonStorage::Impl::readFloatArray(const char* name, float* values, int cou
 {
     int ret = 0;
     Value *node = _stack.empty() ? NULL : _stack.back();
-
+    
     if (node && node->HasMember(name)) {
         const Value &item = node->GetMember(name);
-
+        
         if (item.IsArray()) {
             ret = item.Size();
             if (values) {
@@ -296,7 +296,7 @@ int MgJsonStorage::Impl::readFloatArray(const char* name, float* values, int cou
                 ret = 0;
                 for (int i = 0; i < n; i++) {
                     const Value &v = item[i];
-
+                    
                     if (v.IsDouble()) {
                         values[ret++] = (float)v.GetDouble();
                     }
@@ -316,7 +316,7 @@ int MgJsonStorage::Impl::readFloatArray(const char* name, float* values, int cou
     if (values && ret < count) {
         setError("readFloatArray: lose numbers.");
     }
-
+    
     return ret;
 }
 
@@ -324,10 +324,10 @@ int MgJsonStorage::Impl::readString(const char* name, char* value, int count)
 {
     int ret = 0;
     Value *node = _stack.empty() ? NULL : _stack.back();
-
+    
     if (node && node->HasMember(name)) {
         const Value &item = node->GetMember(name);
-
+        
         if (item.IsString()) {
             ret = item.GetStringLength();
             if (value) {
@@ -343,7 +343,7 @@ int MgJsonStorage::Impl::readString(const char* name, char* value, int count)
             ret = ret;
         }
     }
-
+    
     return ret;
 }
 
@@ -370,7 +370,7 @@ void MgJsonStorage::Impl::writeFloat(const char* name, float value)
 void MgJsonStorage::Impl::writeFloatArray(const char* name, const float* values, int count)
 {
     Value node(kArrayType);
-
+    
     for (int i = 0; i < count; i++) {
         node.PushBack((double)values[i], _doc.GetAllocator());
     }

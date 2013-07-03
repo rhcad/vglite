@@ -16,7 +16,7 @@
     GiViewAdapter   *_adapter;
 }
 
-- (id)initWithFrame:(CGRect)frame :(GiViewAdapter *)adapter;
+- (id)initView:(CGRect)frame :(GiViewAdapter *)adapter;
 
 @end
 
@@ -82,7 +82,7 @@ public:
     
     virtual void redraw() {
         if (!_dynview && _view) {       // 自动创建动态图形视图
-            _dynview = [[DynDrawView alloc]initWithFrame:_view.frame :this];
+            _dynview = [[DynDrawView alloc]initView:_view.frame :this];
             _dynview.autoresizingMask = _view.autoresizingMask;
             [_view.superview addSubview:_dynview];
             [_dynview release];
@@ -116,7 +116,7 @@ public:
 
 @implementation DynDrawView
 
-- (id)initWithFrame:(CGRect)frame :(GiViewAdapter *)adapter
+- (id)initView:(CGRect)frame :(GiViewAdapter *)adapter
 {
     self = [super initWithFrame:frame];
     if (self) {
