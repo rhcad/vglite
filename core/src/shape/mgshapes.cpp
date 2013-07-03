@@ -10,10 +10,10 @@
 
 MgShape* mgCreateShape(int type);
 
-struct MgShapes::Impl
+struct MgShapes::I
 {
     typedef std::list<MgShape*> Container;
-    typedef Container::const_iterator const_iterator;
+    typedef Container::const_iterator citerator;
     typedef Container::iterator iterator;
     
     Container   shapes;
@@ -32,15 +32,15 @@ MgShapes* MgShapes::create(MgObject* owner, int index)
 
 MgShapes::MgShapes(MgObject* owner, int index)
 {
-    impl = new Impl();
-    impl->owner = owner;
-    impl->index = index;
+    im = new I();
+    im->owner = owner;
+    im->index = index;
 }
 
 MgShapes::~MgShapes()
 {
     clear();
-    delete impl;
+    delete im;
 }
 
 void MgShapes::release()
@@ -50,7 +50,7 @@ void MgShapes::release()
 
 MgObject* MgShapes::clone() const
 {
-    MgShapes *p = new MgShapes(impl->owner, impl->index);
+    MgShapes *p = new MgShapes(im->owner, im->index);
     p->copy(*this);
     return p;
 }
@@ -76,7 +76,7 @@ bool MgShapes::equals(const MgObject& src) const
     
     if (src.isKindOf(Type())) {
         const MgShapes& _src = (const MgShapes&)src;
-        ret = (impl->shapes == _src.impl->shapes);
+        ret = (im->shapes == _src.im->shapes);
     }
     
     return ret;
@@ -84,23 +84,23 @@ bool MgShapes::equals(const MgObject& src) const
 
 void MgShapes::clear()
 {
-    for (Impl::iterator it = impl->shapes.begin(); it != impl->shapes.end(); ++it) {
+    for (I::iterator it = im->shapes.begin(); it != im->shapes.end(); ++it) {
         (*it)->release();
     }
-    impl->shapes.clear();
+    im->shapes.clear();
 }
 
 MgObject* MgShapes::getOwner() const
 {
-    return this ? impl->owner : NULL;
+    return this ? im->owner : NULL;
 }
 
 MgShape* MgShapes::addShape(const MgShape& src)
 {
     MgShape* p = (MgShape*)src.clone();
     if (p) {
-        p->setParent(this, impl->getNewID(src.getID()));
-        impl->shapes.push_back(p);
+        p->setParent(this, im->getNewID(src.getID()));
+        im->shapes.push_back(p);
     }
     return p;
 }
@@ -109,21 +109,21 @@ MgShape* MgShapes::addShapeByType(int type)
 {
     MgShape* p = mgCreateShape(type);
     if (p) {
-        p->setParent(this, impl->getNewID(0));
-        impl->shapes.push_back(p);
+        p->setParent(this, im->getNewID(0));
+        im->shapes.push_back(p);
     }
     return p;
 }
 
 MgShape* MgShapes::removeShape(int sid, bool skipLockedShape)
 {
-    for (Impl::iterator it = impl->shapes.begin(); it != impl->shapes.end(); ++it) {
+    for (I::iterator it = im->shapes.begin(); it != im->shapes.end(); ++it) {
         MgShape* shape = *it;
         if (shape->getID() == sid) {
             if (skipLockedShape && shape->shapec()->getFlag(kMgShapeLocked)) {
                 return NULL;
             }
-            impl->shapes.erase(it);
+            im->shapes.erase(it);
             return shape;
         }
     }
@@ -140,8 +140,8 @@ MgShape* MgShapes::moveTo(int sid, MgShapes* dest)
         if (shape && dest->isKindOf(Type())) {
             MgShapes* d = (MgShapes*)dest;
             
-            shape->setParent(d, d->impl->getNewID(shape->getID()));
-            d->impl->shapes.push_back(shape);
+            shape->setParent(d, d->im->getNewID(shape->getID()));
+            d->im->shapes.push_back(shape);
         }
         else if (shape) {
             MgShape* newsp = addShape(*shape);
@@ -155,18 +155,18 @@ MgShape* MgShapes::moveTo(int sid, MgShapes* dest)
 
 void MgShapes::moveAllShapesTo(MgShapes* dest)
 {
-    while (!impl->shapes.empty()) {
-        moveTo(impl->shapes.back()->getID(), dest);
+    while (!im->shapes.empty()) {
+        moveTo(im->shapes.back()->getID(), dest);
     }
 }
 
 bool MgShapes::bringToFront(int sid)
 {
-    for (Impl::iterator it = impl->shapes.begin(); it != impl->shapes.end(); ++it) {
+    for (I::iterator it = im->shapes.begin(); it != im->shapes.end(); ++it) {
         MgShape* shape = *it;
         if (shape->getID() == sid) {
-            impl->shapes.erase(it);
-            impl->shapes.push_back(shape);
+            im->shapes.erase(it);
+            im->shapes.push_back(shape);
             return true;
         }
     }
@@ -175,31 +175,31 @@ bool MgShapes::bringToFront(int sid)
 
 int MgShapes::getShapeCount() const
 {
-    return this ? (int)impl->shapes.size() : 0;
+    return this ? (int)im->shapes.size() : 0;
 }
 
 void MgShapes::freeIterator(void*& it)
 {
-    delete (Impl::const_iterator*)it;
+    delete (I::citerator*)it;
     it = NULL;
 }
 
 MgShape* MgShapes::getFirstShape(void*& it) const
 {
-    if (!this || impl->shapes.empty()) {
+    if (!this || im->shapes.empty()) {
         it = NULL;
         return NULL;
     }
-    it = (void*)(new Impl::const_iterator(impl->shapes.begin()));
-    return impl->shapes.empty() ? NULL : impl->shapes.front();
+    it = (void*)(new I::citerator(im->shapes.begin()));
+    return im->shapes.empty() ? NULL : im->shapes.front();
 }
 
 MgShape* MgShapes::getNextShape(void*& it) const
 {
-    Impl::const_iterator* pit = (Impl::const_iterator*)it;
-    if (pit && *pit != impl->shapes.end()) {
+    I::citerator* pit = (I::citerator*)it;
+    if (pit && *pit != im->shapes.end()) {
         ++(*pit);
-        if (*pit != impl->shapes.end())
+        if (*pit != im->shapes.end())
             return *(*pit);
     }
     return NULL;
@@ -207,24 +207,24 @@ MgShape* MgShapes::getNextShape(void*& it) const
 
 MgShape* MgShapes::getHeadShape() const
 {
-    return (!this || impl->shapes.empty()) ? NULL : impl->shapes.front();
+    return (!this || im->shapes.empty()) ? NULL : im->shapes.front();
 }
 
 MgShape* MgShapes::getLastShape() const
 {
-    return (!this || impl->shapes.empty()) ? NULL : impl->shapes.back();
+    return (!this || im->shapes.empty()) ? NULL : im->shapes.back();
 }
 
 MgShape* MgShapes::findShape(int sid) const
 {
-    return impl->findShape(sid);
+    return im->findShape(sid);
 }
 
 MgShape* MgShapes::findShapeByTag(int tag) const
 {
     if (!this || 0 == tag)
         return NULL;
-    for (Impl::const_iterator it = impl->shapes.begin(); it != impl->shapes.end(); ++it) {
+    for (I::citerator it = im->shapes.begin(); it != im->shapes.end(); ++it) {
         if ((*it)->getTag() == tag)
             return *it;
     }
@@ -235,7 +235,7 @@ MgShape* MgShapes::findShapeByType(int type) const
 {
     if (!this || 0 == type)
         return NULL;
-    for (Impl::const_iterator it = impl->shapes.begin(); it != impl->shapes.end(); ++it) {
+    for (I::citerator it = im->shapes.begin(); it != im->shapes.end(); ++it) {
         if ((*it)->shapec()->getType() == type)
             return *it;
     }
@@ -245,7 +245,7 @@ MgShape* MgShapes::findShapeByType(int type) const
 Box2d MgShapes::getExtent() const
 {
     Box2d extent;
-    for (Impl::const_iterator it = impl->shapes.begin(); it != impl->shapes.end(); ++it) {
+    for (I::citerator it = im->shapes.begin(); it != im->shapes.end(); ++it) {
         extent.unionWith((*it)->shapec()->getExtent());
     }
     
@@ -258,7 +258,7 @@ MgShape* MgShapes::hitTest(const Box2d& limits, Point2d& nearpt,
     MgShape* retshape = NULL;
     float distMin = _FLT_MAX;
     
-    for (Impl::const_iterator it = impl->shapes.begin(); it != impl->shapes.end(); ++it) {
+    for (I::citerator it = im->shapes.begin(); it != im->shapes.end(); ++it) {
         const MgBaseShape* shape = (*it)->shapec();
         Box2d extent(shape->getExtent());
         
@@ -267,7 +267,7 @@ MgShape* MgShapes::hitTest(const Box2d& limits, Point2d& nearpt,
             && (!filter || filter(*it))) {
             Point2d tmpNear;
             int    tmpSegment;
-            float  tol = (!impl->hasFillColor(*it) ? limits.width() / 2
+            float  tol = (!im->hasFillColor(*it) ? limits.width() / 2
                           : mgMax(extent.width(), extent.height()));
             float  dist = shape->hitTest(limits.center(), tol, tmpNear, tmpSegment);
             
@@ -281,7 +281,7 @@ MgShape* MgShapes::hitTest(const Box2d& limits, Point2d& nearpt,
             }
         }
     }
-    if (retshape && distMin > limits.width() && !impl->hasFillColor(retshape)) {
+    if (retshape && distMin > limits.width() && !im->hasFillColor(retshape)) {
         retshape = NULL;
     }
     
@@ -298,7 +298,7 @@ int MgShapes::dyndraw(int mode, GiGraphics& gs, const GiContext *ctx, int segmen
     Box2d clip(gs.getClipModel());
     int count = 0;
     
-    for (Impl::const_iterator it = impl->shapes.begin(); it != impl->shapes.end(); ++it) {
+    for (I::citerator it = im->shapes.begin(); it != im->shapes.end(); ++it) {
         if ((*it)->shapec()->getExtent().isIntersect(clip)) {
             if ((*it)->draw(mode, gs, ctx, segment))
                 count++;
@@ -314,13 +314,14 @@ bool MgShapes::save(MgStorage* s, int startIndex) const
     Box2d rect;
     int index = 0;
     
-    if (s && s->writeNode("shapes", impl->index, false)) {
+    if (s && s->writeNode("shapes", im->index, false)) {
         ret = true;
         rect = getExtent();
         s->writeFloatArray("extent", &rect.xmin, 4);
         
-        s->writeUInt32("count", impl->shapes.size() - (int)startIndex);
-        for (Impl::const_iterator it = impl->shapes.begin(); ret && it != impl->shapes.end(); ++it, ++index)
+        s->writeUInt32("count", im->shapes.size() - (int)startIndex);
+        for (I::citerator it = im->shapes.begin();
+             ret && it != im->shapes.end(); ++it, ++index)
         {
             if (index < startIndex)
                 continue;
@@ -336,7 +337,7 @@ bool MgShapes::save(MgStorage* s, int startIndex) const
                 s->writeNode("shape", index - startIndex, true);
             }
         }
-        s->writeNode("shapes", impl->index, true);
+        s->writeNode("shapes", im->index, true);
     }
     
     return ret;
@@ -348,7 +349,7 @@ bool MgShapes::load(MgStorage* s, bool addOnly)
     Box2d rect;
     int index = 0;
     
-    if (s && s->readNode("shapes", impl->index, false)) {
+    if (s && s->readNode("shapes", im->index, false)) {
         ret = true;
         s->readFloatArray("extent", &rect.xmin, 4);
         s->readUInt32("count", 0);
@@ -366,7 +367,7 @@ bool MgShapes::load(MgStorage* s, bool addOnly)
                 shape->setParent(this, id);
                 ret = shape->load(s);
                 if (ret) {
-                    impl->shapes.push_back(shape);
+                    im->shapes.push_back(shape);
                 }
                 else {
                     shape->release();
@@ -374,27 +375,27 @@ bool MgShapes::load(MgStorage* s, bool addOnly)
             }
             s->readNode("shape", index++, true);
         }
-        s->readNode("shapes", impl->index, true);
+        s->readNode("shapes", im->index, true);
     }
-    else if (impl->index == 0) {
+    else if (im->index == 0) {
         s->setError("No shapes node.");
     }
     
     return ret;
 }
 
-MgShape* MgShapes::Impl::findShape(int sid) const
+MgShape* MgShapes::I::findShape(int sid) const
 {
     if (!this || 0 == sid)
         return NULL;
-    for (const_iterator it = shapes.begin(); it != shapes.end(); ++it) {
+    for (citerator it = shapes.begin(); it != shapes.end(); ++it) {
         if ((*it)->getID() == sid)
             return *it;
     }
     return NULL;
 }
 
-int MgShapes::Impl::getNewID(int sid)
+int MgShapes::I::getNewID(int sid)
 {
     if (0 == sid || findShape(sid)) {
         sid = 1;
@@ -406,7 +407,7 @@ int MgShapes::Impl::getNewID(int sid)
     return sid;
 }
 
-bool MgShapes::Impl::hasFillColor(const MgShape* shape) const
+bool MgShapes::I::hasFillColor(const MgShape* shape) const
 {
     return shape->contextc()->hasFillColor() && shape->shapec()->isClosed();
 }

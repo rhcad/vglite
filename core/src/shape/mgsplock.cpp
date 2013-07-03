@@ -1,4 +1,4 @@
-// mgsplock.cpp: 实现图形列表类 MgShapes
+// mgsplock.cpp: 实现 MgLockRW, MgShapesLock, MgDynShapeLock
 // Copyright (c) 2004-2012, Zhang Yungui
 // License: LGPL, https://github.com/rhcad/touchvg
 

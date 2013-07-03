@@ -1,5 +1,5 @@
 //! \file mgshapes.h
-//! \brief 定义图形列表接口 MgShapes
+//! \brief 定义图形列表类 MgShapes
 // Copyright (c) 2004-2012, Zhang Yungui
 // License: LGPL, https://github.com/rhcad/touchvg
 
@@ -15,7 +15,7 @@ class MgShapes;
 class GiGraphics;
 class GiContext;
 
-//! 图形列表接口
+//! 图形列表类
 /*! \ingroup GEOM_SHAPE
     \see MgShapeIterator, mgCreateShapes
 */
@@ -32,59 +32,59 @@ public:
     static MgShapes* create(MgObject* owner = NULL, int index = -1);
 
 #ifndef SWIG
-    virtual MgShape* getFirstShape(void*& it) const;
-    virtual MgShape* getNextShape(void*& it) const;
-    virtual void freeIterator(void*& it);
+    MgShape* getFirstShape(void*& it) const;
+    MgShape* getNextShape(void*& it) const;
+    void freeIterator(void*& it);
     typedef bool (*Filter)(const MgShape*);
 #endif
 
-    virtual int getShapeCount() const;
-    virtual MgShape* getHeadShape() const;
-    virtual MgShape* getLastShape() const;
-    virtual MgShape* findShape(int sid) const;
-    virtual MgShape* findShapeByTag(int tag) const;
-    virtual MgShape* findShapeByType(int type) const;
-    virtual Box2d getExtent() const;
+    int getShapeCount() const;
+    MgShape* getHeadShape() const;
+    MgShape* getLastShape() const;
+    MgShape* findShape(int sid) const;
+    MgShape* findShapeByTag(int tag) const;
+    MgShape* findShapeByType(int type) const;
+    Box2d getExtent() const;
     
-    virtual MgShape* hitTest(const Box2d& limits, Point2d& nearpt
+    MgShape* hitTest(const Box2d& limits, Point2d& nearpt
 #ifndef SWIG
         , int* segment = NULL, Filter filter = NULL) const;
 #else
         ) const;
 #endif
     
-    virtual int draw(GiGraphics& gs, const GiContext *ctx = NULL) const;
-    virtual int dyndraw(int mode, GiGraphics& gs, const GiContext *ctx, int segment) const;
+    int draw(GiGraphics& gs, const GiContext *ctx = NULL) const;
+    int dyndraw(int mode, GiGraphics& gs, const GiContext *ctx, int segment) const;
 
-    virtual bool save(MgStorage* s, int startIndex = 0) const;
-    virtual bool load(MgStorage* s, bool addOnly = false);
+    bool save(MgStorage* s, int startIndex = 0) const;
+    bool load(MgStorage* s, bool addOnly = false);
     
     //! 删除所有图形
-    virtual void clear();
+    void clear();
 
     //! 复制(深拷贝)每一个图形
-    virtual void copyShapes(const MgShapes* src);
+    void copyShapes(const MgShapes* src);
     
     //! 复制出新图形并添加到图形列表中
-    virtual MgShape* addShape(const MgShape& src);
+    MgShape* addShape(const MgShape& src);
 
     //! 添加一个指定类型的新图形
-    virtual MgShape* addShapeByType(int type);
+    MgShape* addShapeByType(int type);
     
     //! 移除一个图形，由调用者删除图形对象
-    virtual MgShape* removeShape(int sid, bool skipLockedShape = true);
+    MgShape* removeShape(int sid, bool skipLockedShape = true);
 
     //! 将一个图形移到另一个图形列表
-    virtual MgShape* moveTo(int sid, MgShapes* dest);
+    MgShape* moveTo(int sid, MgShapes* dest);
 
     //! 将所有图形移到另一个图形列表
-    virtual void moveAllShapesTo(MgShapes* dest);
+    void moveAllShapesTo(MgShapes* dest);
     
     //! 移动图形到最后，以便显示在最前面
-    virtual bool bringToFront(int sid);
+    bool bringToFront(int sid);
 
     //! 返回拥有者对象
-    virtual MgObject* getOwner() const;
+    MgObject* getOwner() const;
     
 public:
     virtual MgObject* clone() const;
@@ -98,8 +98,8 @@ protected:
     MgShapes(MgObject* owner, int index);
     virtual ~MgShapes();
     
-    struct Impl;
-    Impl*   impl;
+    struct I;
+    I*  im;
 };
 
 //! 遍历图形的辅助类
