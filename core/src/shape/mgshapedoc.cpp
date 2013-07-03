@@ -11,7 +11,7 @@ MgShapeDoc::MgShapeDoc() : _viewScale(0), _changeCount(0)
 {
     for (int i = 0; i < kMaxLayers; i++)
         _layers[i] = NULL;
-    _layers[0] = mgCreateShapes(this, 0);
+    _layers[0] = MgShapes::create(this, 0);
     _shapes = _layers[0];
 }
 
@@ -133,7 +133,7 @@ bool MgShapeDoc::switchLayer(int index)
 
     if (index >= 0 && index < kMaxLayers) {
         if (!_layers[index]) {
-            _layers[index] = mgCreateShapes(this, index);
+            _layers[index] = MgShapes::create(this, index);
         }
         _shapes = _layers[index];
         ret = true;
@@ -203,7 +203,7 @@ bool MgShapeDoc::load(MgStorage* s, bool addOnly)
 
     for (int i = 0; i < kMaxLayers; i++) {
         if (!_layers[i]) {
-            _layers[i] = mgCreateShapes(this, i);
+            _layers[i] = MgShapes::create(this, i);
 
             if (_layers[i]->load(s, addOnly)) {
                 ret = true;

@@ -2,231 +2,411 @@
 // Copyright (c) 2004-2012, Zhang Yungui
 // License: LGPL, https://github.com/rhcad/touchvg
 
-#include <mgshapedoc.h>
-#include <map>
-#include <vector>
-#include <mgshapet.h>
-#include <mgcomposite.h>
-#include "mggrid.h"
+#include "mgshapes.h"
+#include "mgshape.h"
+#include "mgstorage.h"
+#include "gigraph.h"
+#include <list>
 
-typedef std::pair<MgShapesLock::ShapesLocked, void*> ShapeObserver;
-static std::vector<ShapeObserver>  s_shapeObservers;
-static MgLockRW s_dynLock;
+MgShape* mgCreateShape(int type);
 
-#ifdef _WIN32
-void giSleep(int ms) { Sleep(ms); }
-#else
-#include <unistd.h>
-void giSleep(int ms) { usleep(ms * 1000); }
-#endif
-
-// MgLockRW
-//
-
-MgLockRW::MgLockRW() : _editFlags(0)
+struct MgShapes::Impl
 {
-    _counts[0] = _counts[1] = _counts[2] = 0;
+    typedef std::list<MgShape*> Container;
+    typedef Container::const_iterator const_iterator;
+    typedef Container::iterator iterator;
+    
+    Container   shapes;
+    MgObject*   owner;
+    int         index;
+    
+    MgShape* findShape(int sid) const;
+    int getNewID(int sid);
+    bool hasFillColor(const MgShape* shape) const;
+};
+
+MgShapes* MgShapes::create(MgObject* owner, int index)
+{
+    return new MgShapes(owner, owner ? index : -1);
 }
 
-bool MgLockRW::lock(bool forWrite, int timeout)
+MgShapes::MgShapes(MgObject* owner, int index)
+{
+    impl = new Impl();
+    impl->owner = owner;
+    impl->index = index;
+}
+
+MgShapes::~MgShapes()
+{
+    clear();
+    delete impl;
+}
+
+void MgShapes::release()
+{
+    delete this;
+}
+
+MgObject* MgShapes::clone() const
+{
+    MgShapes *p = new MgShapes(impl->owner, impl->index);
+    p->copy(*this);
+    return p;
+}
+
+void MgShapes::copy(const MgObject&)
+{
+}
+
+void MgShapes::copyShapes(const MgShapes* src)
+{
+    clear();
+    void* it;
+    for (MgShape* sp = src->getFirstShape(it); sp;
+         sp = src->getNextShape(it)) {
+        addShape(*sp);
+    }
+    freeIterator(it);
+}
+
+bool MgShapes::equals(const MgObject& src) const
 {
     bool ret = false;
     
-    if (1 == giInterlockedIncrement(_counts)) {     // first locked
-        giInterlockedIncrement(_counts + (forWrite ? 2 : 1));
-        ret = true;
-    }
-    else {
-        ret = !forWrite && 0 == _counts[2];         // for read and not locked for write
-        for (int i = 0; i < timeout && !ret; i += 25) {
-            giSleep(25);
-            ret = forWrite ? (!_counts[1] && !_counts[2]) : !_counts[2];
-        }
-        if (ret) {
-            giInterlockedIncrement(_counts + (forWrite ? 2 : 1));
-        }
-        else {
-            giInterlockedDecrement(_counts);
-        }
+    if (src.isKindOf(Type())) {
+        const MgShapes& _src = (const MgShapes&)src;
+        ret = (impl->shapes == _src.impl->shapes);
     }
     
     return ret;
 }
 
-long MgLockRW::unlock(bool forWrite)
+void MgShapes::clear()
 {
-    giInterlockedDecrement(_counts + (forWrite ? 2 : 1));
-    return giInterlockedDecrement(_counts);
+    for (Impl::iterator it = impl->shapes.begin(); it != impl->shapes.end(); ++it) {
+        (*it)->release();
+    }
+    impl->shapes.clear();
 }
 
-bool MgLockRW::firstLocked()
+MgObject* MgShapes::getOwner() const
 {
-    return _counts[0] == 1;
+    return this ? impl->owner : NULL;
 }
 
-bool MgLockRW::lockedForRead()
+MgShape* MgShapes::addShape(const MgShape& src)
 {
-    return _counts[0] > 0;
+    MgShape* p = (MgShape*)src.clone();
+    if (p) {
+        p->setParent(this, impl->getNewID(src.getID()));
+        impl->shapes.push_back(p);
+    }
+    return p;
 }
 
-bool MgLockRW::lockedForWrite()
+MgShape* MgShapes::addShapeByType(int type)
 {
-    return _counts[2] > 0;
+    MgShape* p = mgCreateShape(type);
+    if (p) {
+        p->setParent(this, impl->getNewID(0));
+        impl->shapes.push_back(p);
+    }
+    return p;
 }
 
-// MgShapesLock
-//
-
-MgShapesLock::MgShapesLock(MgShapeDoc* d, int flags, int timeout) : doc(d)
+MgShape* MgShapes::removeShape(int sid, bool skipLockedShape)
 {
-    bool forWrite = (flags != 0);
-    _mode = d && d->getLockData()->lock(forWrite, timeout) ? (forWrite ? 2 : 1) : 0;
-    if (_mode == 2 && flags == Unknown)
-        _mode |= 4;
-    if (_mode == 2 && doc->getLockData()->firstLocked()) {
-        doc->getLockData()->setEditFlags(flags);
-        for (std::vector<ShapeObserver>::iterator it = s_shapeObservers.begin();
-             it != s_shapeObservers.end(); ++it) {
-            (it->first)(doc, it->second, true);
+    for (Impl::iterator it = impl->shapes.begin(); it != impl->shapes.end(); ++it) {
+        MgShape* shape = *it;
+        if (shape->getID() == sid) {
+            if (skipLockedShape && shape->shapec()->getFlag(kMgShapeLocked)) {
+                return NULL;
+            }
+            impl->shapes.erase(it);
+            return shape;
         }
     }
+    return NULL;
 }
 
-MgShapesLock::~MgShapesLock()
+MgShape* MgShapes::moveTo(int sid, MgShapes* dest)
 {
-    bool ended = false;
+    MgShape* shape = NULL;
     
-    if (locked() && doc) {
-        MgComposite *group = (MgComposite *)doc->getCurrentShapes()->getOwner();
-        if (group->isKindOf(MgComposite::Type())) {
-            group->updateExtent();
+    if (dest && dest != this) {
+        shape = removeShape(sid, false);
+        
+        if (shape && dest->isKindOf(Type())) {
+            MgShapes* d = (MgShapes*)dest;
+            
+            shape->setParent(d, d->impl->getNewID(shape->getID()));
+            d->impl->shapes.push_back(shape);
         }
-        ended = (0 == doc->getLockData()->unlock((_mode & 2) != 0));
-    }
-    if (_mode == 2 && ended && doc) {
-        doc->afterChanged();
-        for (std::vector<ShapeObserver>::iterator it = s_shapeObservers.begin();
-             it != s_shapeObservers.end(); ++it) {
-            (it->first)(doc, it->second, false);
-        }
-    }
-}
-
-void MgShapesLock::registerObserver(ShapesLocked func, void* obj)
-{
-    if (func) {
-        unregisterObserver(func, obj);
-        s_shapeObservers.push_back(ShapeObserver(func, obj));
-    }
-}
-
-void MgShapesLock::unregisterObserver(ShapesLocked func, void* obj)
-{
-    for (std::vector<ShapeObserver>::iterator it = s_shapeObservers.begin();
-         it != s_shapeObservers.end(); ++it) {
-        if (it->first == func && it->second == obj) {
-            s_shapeObservers.erase(it);
-            break;
+        else if (shape) {
+            MgShape* newsp = addShape(*shape);
+            shape->release();
+            shape = newsp;
         }
     }
-}
-
-bool MgShapesLock::locked()
-{
-    return _mode != 0;
-}
-
-bool MgShapesLock::lockedForRead(MgShapeDoc* d)
-{
-    return d->getLockData()->lockedForRead();
-}
-
-bool MgShapesLock::lockedForWrite(MgShapeDoc* d)
-{
-    return d->getLockData()->lockedForWrite();
-}
-
-// MgDynShapeLock
-//
-
-MgDynShapeLock::MgDynShapeLock(bool forWrite, int timeout)
-{
-    _mode = s_dynLock.lock(forWrite, timeout) ? (forWrite ? 2 : 1) : 0;
-}
-
-MgDynShapeLock::~MgDynShapeLock()
-{
-    if (locked()) {
-        s_dynLock.unlock(_mode == 2);
-    }
-}
-
-bool MgDynShapeLock::locked()
-{
-    return _mode != 0;
-}
-
-bool MgDynShapeLock::lockedForRead()
-{
-    return s_dynLock.lockedForRead();
-}
-
-bool MgDynShapeLock::lockedForWrite()
-{
-    return s_dynLock.lockedForWrite();
-}
-
-// mgRegisterShapeCreator, mgCreateShape
-//
-
-static std::map<int, MgShape* (*)()>   s_shapeCreators;
-
-static void registerCoreCreators()
-{
-    s_shapeCreators[MgShapeT<MgGroup>::Type() & 0xFFFF] = MgShapeT<MgGroup>::create;
-    s_shapeCreators[MgShapeT<MgLine>::Type() & 0xFFFF] = MgShapeT<MgLine>::create;
-    s_shapeCreators[MgShapeT<MgRect>::Type() & 0xFFFF] = MgShapeT<MgRect>::create;
-    s_shapeCreators[MgShapeT<MgEllipse>::Type() & 0xFFFF] = MgShapeT<MgEllipse>::create;
-    s_shapeCreators[MgShapeT<MgRoundRect>::Type() & 0xFFFF] = MgShapeT<MgRoundRect>::create;
-    s_shapeCreators[MgShapeT<MgDiamond>::Type() & 0xFFFF] = MgShapeT<MgDiamond>::create;
-    s_shapeCreators[MgShapeT<MgParallelogram>::Type() & 0xFFFF] = MgShapeT<MgParallelogram>::create;
-    s_shapeCreators[MgShapeT<MgLines>::Type() & 0xFFFF] = MgShapeT<MgLines>::create;
-    s_shapeCreators[MgShapeT<MgSplines>::Type() & 0xFFFF] = MgShapeT<MgSplines>::create;
-    s_shapeCreators[MgShapeT<MgGrid>::Type() & 0xFFFF] = MgShapeT<MgGrid>::create;
-    s_shapeCreators[MgShapeT<MgImageShape>::Type() & 0xFFFF] = MgShapeT<MgImageShape>::create;
-    s_shapeCreators[MgShapeT<MgArc>::Type() & 0xFFFF] = MgShapeT<MgArc>::create;
-    s_shapeCreators[MgShapeT<MgGrid>::Type() & 0xFFFF] = MgShapeT<MgGrid>::create;
-}
-
-void mgRegisterShapeCreator(int type, MgShape* (*factory)())
-{
-    if (s_shapeCreators.empty()) {
-        registerCoreCreators();
-    }
-    type = type & 0xFFFF;
-    if (type > 20) {
-        if (factory) {
-            s_shapeCreators[type] = factory;
-        }
-        else {
-            s_shapeCreators.erase(type);
-        }
-    }
-}
-
-MgShape* mgCreateShape(int type)
-{
-    if (s_shapeCreators.empty())
-        registerCoreCreators();
     
-    std::map<int, MgShape* (*)()>::const_iterator it = s_shapeCreators.find(type & 0xFFFF);
-    return (it != s_shapeCreators.end()) ? (it->second)() : NULL;
+    return shape;
 }
 
-#include <mgshapest.h>
-#include <list>
-
-MgShapes* mgCreateShapes(MgObject* owner, int index)
+void MgShapes::moveAllShapesTo(MgShapes* dest)
 {
-    return new MgShapesT<std::list<MgShape*> >(owner, owner ? index : -1);
+    while (!impl->shapes.empty()) {
+        moveTo(impl->shapes.back()->getID(), dest);
+    }
+}
+
+bool MgShapes::bringToFront(int sid)
+{
+    for (Impl::iterator it = impl->shapes.begin(); it != impl->shapes.end(); ++it) {
+        MgShape* shape = *it;
+        if (shape->getID() == sid) {
+            impl->shapes.erase(it);
+            impl->shapes.push_back(shape);
+            return true;
+        }
+    }
+    return false;
+}
+
+int MgShapes::getShapeCount() const
+{
+    return this ? (int)impl->shapes.size() : 0;
+}
+
+void MgShapes::freeIterator(void*& it)
+{
+    delete (Impl::const_iterator*)it;
+    it = NULL;
+}
+
+MgShape* MgShapes::getFirstShape(void*& it) const
+{
+    if (!this || impl->shapes.empty()) {
+        it = NULL;
+        return NULL;
+    }
+    it = (void*)(new Impl::const_iterator(impl->shapes.begin()));
+    return impl->shapes.empty() ? NULL : impl->shapes.front();
+}
+
+MgShape* MgShapes::getNextShape(void*& it) const
+{
+    Impl::const_iterator* pit = (Impl::const_iterator*)it;
+    if (pit && *pit != impl->shapes.end()) {
+        ++(*pit);
+        if (*pit != impl->shapes.end())
+            return *(*pit);
+    }
+    return NULL;
+}
+
+MgShape* MgShapes::getHeadShape() const
+{
+    return (!this || impl->shapes.empty()) ? NULL : impl->shapes.front();
+}
+
+MgShape* MgShapes::getLastShape() const
+{
+    return (!this || impl->shapes.empty()) ? NULL : impl->shapes.back();
+}
+
+MgShape* MgShapes::findShape(int sid) const
+{
+    return impl->findShape(sid);
+}
+
+MgShape* MgShapes::findShapeByTag(int tag) const
+{
+    if (!this || 0 == tag)
+        return NULL;
+    for (Impl::const_iterator it = impl->shapes.begin(); it != impl->shapes.end(); ++it) {
+        if ((*it)->getTag() == tag)
+            return *it;
+    }
+    return NULL;
+}
+
+MgShape* MgShapes::findShapeByType(int type) const
+{
+    if (!this || 0 == type)
+        return NULL;
+    for (Impl::const_iterator it = impl->shapes.begin(); it != impl->shapes.end(); ++it) {
+        if ((*it)->shapec()->getType() == type)
+            return *it;
+    }
+    return NULL;
+}
+
+Box2d MgShapes::getExtent() const
+{
+    Box2d extent;
+    for (Impl::const_iterator it = impl->shapes.begin(); it != impl->shapes.end(); ++it) {
+        extent.unionWith((*it)->shapec()->getExtent());
+    }
+    
+    return extent;
+}
+
+MgShape* MgShapes::hitTest(const Box2d& limits, Point2d& nearpt, 
+                           int* segment, Filter filter) const
+{
+    MgShape* retshape = NULL;
+    float distMin = _FLT_MAX;
+    
+    for (Impl::const_iterator it = impl->shapes.begin(); it != impl->shapes.end(); ++it) {
+        const MgBaseShape* shape = (*it)->shapec();
+        Box2d extent(shape->getExtent());
+        
+        if (!shape->getFlag(kMgShapeLocked)
+            && extent.isIntersect(limits)
+            && (!filter || filter(*it))) {
+            Point2d tmpNear;
+            int    tmpSegment;
+            float  tol = (!impl->hasFillColor(*it) ? limits.width() / 2
+                          : mgMax(extent.width(), extent.height()));
+            float  dist = shape->hitTest(limits.center(), tol, tmpNear, tmpSegment);
+            
+            if (distMin > dist - _MGZERO) {     // 让末尾图形优先选中
+                distMin = dist;
+                if (segment) {
+                    *segment = tmpSegment;
+                }
+                nearpt = tmpNear;
+                retshape = *it;
+            }
+        }
+    }
+    if (retshape && distMin > limits.width() && !impl->hasFillColor(retshape)) {
+        retshape = NULL;
+    }
+    
+    return retshape;
+}
+
+int MgShapes::draw(GiGraphics& gs, const GiContext *ctx) const
+{
+    return dyndraw(0, gs, ctx, -1);
+}
+
+int MgShapes::dyndraw(int mode, GiGraphics& gs, const GiContext *ctx, int segment) const
+{
+    Box2d clip(gs.getClipModel());
+    int count = 0;
+    
+    for (Impl::const_iterator it = impl->shapes.begin(); it != impl->shapes.end(); ++it) {
+        if ((*it)->shapec()->getExtent().isIntersect(clip)) {
+            if ((*it)->draw(mode, gs, ctx, segment))
+                count++;
+        }
+    }
+    
+    return count;
+}
+
+bool MgShapes::save(MgStorage* s, int startIndex) const
+{
+    bool ret = false;
+    Box2d rect;
+    int index = 0;
+    
+    if (s && s->writeNode("shapes", impl->index, false)) {
+        ret = true;
+        rect = getExtent();
+        s->writeFloatArray("extent", &rect.xmin, 4);
+        
+        s->writeUInt32("count", impl->shapes.size() - (int)startIndex);
+        for (Impl::const_iterator it = impl->shapes.begin(); ret && it != impl->shapes.end(); ++it, ++index)
+        {
+            if (index < startIndex)
+                continue;
+            ret = s->writeNode("shape", index - startIndex, false);
+            if (ret) {
+                s->writeUInt32("type", (*it)->getType() & 0xFFFF);
+                s->writeUInt32("id", (*it)->getID());
+                
+                rect = (*it)->shapec()->getExtent();
+                s->writeFloatArray("extent", &rect.xmin, 4);
+                
+                ret = (*it)->save(s);
+                s->writeNode("shape", index - startIndex, true);
+            }
+        }
+        s->writeNode("shapes", impl->index, true);
+    }
+    
+    return ret;
+}
+
+bool MgShapes::load(MgStorage* s, bool addOnly)
+{
+    bool ret = false;
+    Box2d rect;
+    int index = 0;
+    
+    if (s && s->readNode("shapes", impl->index, false)) {
+        ret = true;
+        s->readFloatArray("extent", &rect.xmin, 4);
+        s->readUInt32("count", 0);
+        
+        if (!addOnly)
+            clear();
+        
+        while (ret && s->readNode("shape", index, false)) {
+            int type = s->readUInt32("type", 0);
+            int id = s->readUInt32("id", 0);
+            MgShape* shape = mgCreateShape(type);
+            
+            s->readFloatArray("extent", &rect.xmin, 4);
+            if (shape) {
+                shape->setParent(this, id);
+                ret = shape->load(s);
+                if (ret) {
+                    impl->shapes.push_back(shape);
+                }
+                else {
+                    shape->release();
+                }
+            }
+            s->readNode("shape", index++, true);
+        }
+        s->readNode("shapes", impl->index, true);
+    }
+    else if (impl->index == 0) {
+        s->setError("No shapes node.");
+    }
+    
+    return ret;
+}
+
+MgShape* MgShapes::Impl::findShape(int sid) const
+{
+    if (!this || 0 == sid)
+        return NULL;
+    for (const_iterator it = shapes.begin(); it != shapes.end(); ++it) {
+        if ((*it)->getID() == sid)
+            return *it;
+    }
+    return NULL;
+}
+
+int MgShapes::Impl::getNewID(int sid)
+{
+    if (0 == sid || findShape(sid)) {
+        sid = 1;
+        if (!shapes.empty())
+            sid = shapes.back()->getID() + 1;
+        while (findShape(sid))
+            sid++;
+    }
+    return sid;
+}
+
+bool MgShapes::Impl::hasFillColor(const MgShape* shape) const
+{
+    return shape->contextc()->hasFillColor() && shape->shapec()->isClosed();
 }

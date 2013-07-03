@@ -8,7 +8,7 @@
 
 MgComposite::MgComposite()
 {
-    _shapes = mgCreateShapes(this);
+    _shapes = MgShapes::create(this);
 }
 
 MgComposite::~MgComposite()
