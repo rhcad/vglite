@@ -20,6 +20,9 @@ LOCAL_C_INCLUDES := $(COREINC)/callback \
                     $(COREINC)/test \
                     $(COREINC)/view \
                     $(COREINC)/command \
+                    $(COREINC)/shape \
+                    $(COREINC)/graph \
+                    $(COREINC)/geom \
                     $(COREINC)
 
 LOCAL_SRC_FILES  := $(CORESRC)/test/testcanvas.cpp \
@@ -28,6 +31,33 @@ LOCAL_SRC_FILES  := $(CORESRC)/test/testcanvas.cpp \
                     $(CORESRC)/view/GcGraphView.cpp \
                     $(CORESRC)/view/GcMagnifierView.cpp \
                     $(CORESRC)/command/mgcmdmgr.cpp \
+                    $(CORESRC)/json/mgjsonstorage.cpp \
+                    $(CORESRC)/shape/mgcomposite.cpp \
+                    $(CORESRC)/shape/mgellipse.cpp \
+                    $(CORESRC)/shape/mggrid.cpp \
+                    $(CORESRC)/shape/mglayer.cpp \
+                    $(CORESRC)/shape/mgline.cpp \
+                    $(CORESRC)/shape/mglines.cpp \
+                    $(CORESRC)/shape/mgrdrect.cpp \
+                    $(CORESRC)/shape/mgrect.cpp \
+                    $(CORESRC)/shape/mgshape.cpp \
+                    $(CORESRC)/shape/mgshapedoc.cpp \
+                    $(CORESRC)/shape/mgshapes.cpp \
+                    $(CORESRC)/shape/mgspfactory.cpp \
+                    $(CORESRC)/shape/mgsplines.cpp \
+                    $(CORESRC)/shape/mgsplock.cpp \
+                    $(CORESRC)/graph/gipath.cpp \
+                    $(CORESRC)/graph/gixform.cpp \
+                    $(CORESRC)/graph/gigraph.cpp \
+                    $(CORESRC)/geom/mgmat.cpp \
+                    $(CORESRC)/geom/mgbase.cpp \
+                    $(CORESRC)/geom/mgbnd.cpp \
+                    $(CORESRC)/geom/mgbox.cpp \
+                    $(CORESRC)/geom/mgcurv.cpp \
+                    $(CORESRC)/geom/mglnrel.cpp \
+                    $(CORESRC)/geom/mgnear.cpp \
+                    $(CORESRC)/geom/mgnearbz.cpp \
+                    $(CORESRC)/geom/mgvec.cpp \
                     touchvg_java_wrap.cpp
 
 include $(BUILD_SHARED_LIBRARY)

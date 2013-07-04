@@ -8,8 +8,6 @@
 #include "gigraph.h"
 #include <list>
 
-MgShape* mgCreateShape(int type);
-
 struct MgShapes::I
 {
     typedef std::list<MgShape*> Container;
@@ -107,7 +105,7 @@ MgShape* MgShapes::addShape(const MgShape& src)
 
 MgShape* MgShapes::addShapeByType(int type)
 {
-    MgShape* p = mgCreateShape(type);
+    MgShape* p = MgShape::createShape(type);
     if (p) {
         p->setParent(this, im->getNewID(0));
         im->shapes.push_back(p);
@@ -360,7 +358,7 @@ bool MgShapes::load(MgStorage* s, bool addOnly)
         while (ret && s->readNode("shape", index, false)) {
             int type = s->readUInt32("type", 0);
             int id = s->readUInt32("id", 0);
-            MgShape* shape = mgCreateShape(type);
+            MgShape* shape = MgShape::createShape(type);
             
             s->readFloatArray("extent", &rect.xmin, 4);
             if (shape) {

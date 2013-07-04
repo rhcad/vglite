@@ -17,7 +17,7 @@ class GiContext;
 
 //! 图形列表类
 /*! \ingroup GEOM_SHAPE
-    \see MgShapeIterator, mgCreateShapes
+    \see MgShapeIterator, MgShape::createShape()
 */
 class MgShapes : public MgObject
 {

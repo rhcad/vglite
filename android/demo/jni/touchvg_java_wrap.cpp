@@ -1702,6 +1702,23 @@ SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1createView(JNIEn
 }
 
 
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1createMagnifierView(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_) {
+  GiCoreView *arg1 = (GiCoreView *) 0 ;
+  GiView *arg2 = (GiView *) 0 ;
+  GiView *arg3 = (GiView *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  (void)jarg3_;
+  arg1 = *(GiCoreView **)&jarg1; 
+  arg2 = *(GiView **)&jarg2; 
+  arg3 = *(GiView **)&jarg3; 
+  (arg1)->createMagnifierView(arg2,arg3);
+}
+
+
 SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1destoryView(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
   GiCoreView *arg1 = (GiCoreView *) 0 ;
   GiView *arg2 = (GiView *) 0 ;

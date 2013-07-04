@@ -8,6 +8,7 @@
 
 //! 图形类型号
 /*! \ingroup GEOM_SHAPE
+    1-40为内置图形类型，41以上为其他应用可用的类型号
 */
 typedef enum {
     kMgShapeList = 1,           //!< 图形列表,MgShapes
@@ -16,7 +17,7 @@ typedef enum {
     kMgShapeBaseRect = 4,       //!< 矩形基类,MgBaseRect
     kMgShapeBaseLines = 5,      //!< 折线基类,MgBaseLines
     kMgShapeComposite = 6,      //!< 复合图形,MgComposite
-    kMgShapeBaseMark = 7,       //!< 符号基类,MgBaseMark
+    kMgShapeLayer = 7,          //!< 图层,MgLayer
     kMgShapeDoc = 8,            //!< 图形文档,MgShapeDoc
 
     kMgShapeGroup = 9,          //!< 成组图形
@@ -31,9 +32,6 @@ typedef enum {
     kMgShapeImage = 18,         //!< 图像矩形
     kMgShapeArc = 19,           //!< 圆弧
     kMgShapeGrid = 20,          //!< 网格
-    kMgShapeCube = 21,          //!< 立方体、长方体
-    kMgShapeCubeProj = 22,      //!< 立方体三视图
-    kMgShapeCylinder = 23,      //!< 圆柱体
 } MgShapeType;
 
 #endif // __GEOMETRY_SHAPETYPE_H_

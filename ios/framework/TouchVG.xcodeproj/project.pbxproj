@@ -105,6 +105,8 @@
 		AEDBA8471779603500A1E05F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEDBA8461779603500A1E05F /* CoreGraphics.framework */; };
 		AEDBA8491779606500A1E05F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEDBA8481779606500A1E05F /* UIKit.framework */; };
 		AEDBA84B1779606D00A1E05F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEDBA84A1779606D00A1E05F /* QuartzCore.framework */; };
+		C97752D217866C0B00237264 /* mglayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C97752D117866C0B00237264 /* mglayer.cpp */; };
+		C97752D417866C1600237264 /* mglayer.h in Headers */ = {isa = PBXBuildFile; fileRef = C97752D317866C1600237264 /* mglayer.h */; };
 		C98E70C91783F2F5009F0C98 /* mgspfactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C98E70C71783F2F5009F0C98 /* mgspfactory.cpp */; };
 		C98E70CA1783F2F5009F0C98 /* mgsplock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C98E70C81783F2F5009F0C98 /* mgsplock.cpp */; };
 /* End PBXBuildFile section */
@@ -216,7 +218,7 @@
 		AE1A75D41782A45A007FB031 /* GcMagnifierView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GcMagnifierView.cpp; sourceTree = "<group>"; };
 		AE1A75D51782A45A007FB031 /* GcShapeDoc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GcShapeDoc.cpp; sourceTree = "<group>"; };
 		AE1A75D61782A45A007FB031 /* gicoreview.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gicoreview.cpp; sourceTree = "<group>"; };
-		AEDBA7DD177959FC00A1E05F /* TouchVG.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework.static; includeInIndex = 0; name = TouchVG.framework; path = TouchVG; sourceTree = BUILT_PRODUCTS_DIR; };
+		AEDBA7DD177959FC00A1E05F /* TouchVG.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework.static; includeInIndex = 0; path = TouchVG.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEDBA7E0177959FC00A1E05F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		AEDBA7E4177959FC00A1E05F /* TouchVG-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TouchVG-Info.plist"; sourceTree = "<group>"; };
 		AEDBA7E6177959FC00A1E05F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -229,6 +231,8 @@
 		AEDBA8481779606500A1E05F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		AEDBA84A1779606D00A1E05F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		AEDBA929177979A700A1E05F /* VGResources.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = VGResources.xcodeproj; sourceTree = "<group>"; };
+		C97752D117866C0B00237264 /* mglayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mglayer.cpp; sourceTree = "<group>"; };
+		C97752D317866C1600237264 /* mglayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mglayer.h; sourceTree = "<group>"; };
 		C98E70C71783F2F5009F0C98 /* mgspfactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mgspfactory.cpp; path = ../../src/shape/mgspfactory.cpp; sourceTree = "<group>"; };
 		C98E70C81783F2F5009F0C98 /* mgsplock.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mgsplock.cpp; path = ../../src/shape/mgsplock.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -327,6 +331,7 @@
 		AE1A75781782A45A007FB031 /* shape */ = {
 			isa = PBXGroup;
 			children = (
+				C97752D317866C1600237264 /* mglayer.h */,
 				C98E70C71783F2F5009F0C98 /* mgspfactory.cpp */,
 				C98E70C81783F2F5009F0C98 /* mgsplock.cpp */,
 				AE1A75791782A45A007FB031 /* mgbasicsp.h */,
@@ -456,6 +461,7 @@
 		AE1A75BD1782A45A007FB031 /* shape */ = {
 			isa = PBXGroup;
 			children = (
+				C97752D117866C0B00237264 /* mglayer.cpp */,
 				AE1A75C01782A45A007FB031 /* mgcomposite.cpp */,
 				AE1A75C41782A45A007FB031 /* mgellipse.cpp */,
 				AE1A75C51782A45A007FB031 /* mggrid.cpp */,
@@ -626,6 +632,7 @@
 				AE1A76271782A45A007FB031 /* reader.h in Headers */,
 				AE1A76281782A45A007FB031 /* stringbuffer.h in Headers */,
 				AE1A76291782A45A007FB031 /* writer.h in Headers */,
+				C97752D417866C1600237264 /* mglayer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -789,6 +796,7 @@
 				AE1A76401782A45A007FB031 /* gicoreview.cpp in Sources */,
 				C98E70C91783F2F5009F0C98 /* mgspfactory.cpp in Sources */,
 				C98E70CA1783F2F5009F0C98 /* mgsplock.cpp in Sources */,
+				C97752D217866C0B00237264 /* mglayer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

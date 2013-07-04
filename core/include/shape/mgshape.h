@@ -28,6 +28,14 @@ public:
     //! 返回本对象的类型
     static int Type() { return 2; }
 
+    //! 根据类型号创建图形对象
+    static MgShape* createShape(int type);
+
+#ifndef SWIG
+    //! 登记类型号对应的图形创建函数，factory为NULL则取消登记
+    static void registerCreator(int type, MgShape* (*factory)());
+#endif
+
     //! 复制出一个新图形对象
     MgShape* cloneShape() const { return (MgShape*)clone(); }
 

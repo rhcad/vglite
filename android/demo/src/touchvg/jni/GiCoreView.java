@@ -43,6 +43,10 @@ public class GiCoreView {
     touchvgJNI.GiCoreView_createView(swigCPtr, this, GiView.getCPtr(view), view, type);
   }
 
+  public void createMagnifierView(GiView newview, GiView mainView) {
+    touchvgJNI.GiCoreView_createMagnifierView(swigCPtr, this, GiView.getCPtr(newview), newview, GiView.getCPtr(mainView), mainView);
+  }
+
   public void destoryView(GiView view) {
     touchvgJNI.GiCoreView_destoryView(swigCPtr, this, GiView.getCPtr(view), view);
   }

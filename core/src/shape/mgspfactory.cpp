@@ -8,29 +8,31 @@
 #include "mggrid.h"
 #include <map>
 
-// mgRegisterShapeCreator, mgCreateShape
-//
-
 static std::map<int, MgShape* (*)()>   s_shapeCreators;
+
+template <class T>
+static inline void addCreator() {
+    s_shapeCreators[MgShapeT<T>::Type() & 0xFFFF] = MgShapeT<T>::create;
+}
 
 static void registerCoreCreators()
 {
-    s_shapeCreators[MgShapeT<MgGroup>::Type() & 0xFFFF] = MgShapeT<MgGroup>::create;
-    s_shapeCreators[MgShapeT<MgLine>::Type() & 0xFFFF] = MgShapeT<MgLine>::create;
-    s_shapeCreators[MgShapeT<MgRect>::Type() & 0xFFFF] = MgShapeT<MgRect>::create;
-    s_shapeCreators[MgShapeT<MgEllipse>::Type() & 0xFFFF] = MgShapeT<MgEllipse>::create;
-    s_shapeCreators[MgShapeT<MgRoundRect>::Type() & 0xFFFF] = MgShapeT<MgRoundRect>::create;
-    s_shapeCreators[MgShapeT<MgDiamond>::Type() & 0xFFFF] = MgShapeT<MgDiamond>::create;
-    s_shapeCreators[MgShapeT<MgParallelogram>::Type() & 0xFFFF] = MgShapeT<MgParallelogram>::create;
-    s_shapeCreators[MgShapeT<MgLines>::Type() & 0xFFFF] = MgShapeT<MgLines>::create;
-    s_shapeCreators[MgShapeT<MgSplines>::Type() & 0xFFFF] = MgShapeT<MgSplines>::create;
-    s_shapeCreators[MgShapeT<MgGrid>::Type() & 0xFFFF] = MgShapeT<MgGrid>::create;
-    s_shapeCreators[MgShapeT<MgImageShape>::Type() & 0xFFFF] = MgShapeT<MgImageShape>::create;
-    s_shapeCreators[MgShapeT<MgArc>::Type() & 0xFFFF] = MgShapeT<MgArc>::create;
-    s_shapeCreators[MgShapeT<MgGrid>::Type() & 0xFFFF] = MgShapeT<MgGrid>::create;
+    addCreator<MgGroup>();
+    addCreator<MgLine>();
+    addCreator<MgRect>();
+    addCreator<MgEllipse>();
+    addCreator<MgRoundRect>();
+    addCreator<MgDiamond>();
+    addCreator<MgParallelogram>();
+    addCreator<MgLines>();
+    addCreator<MgSplines>();
+    addCreator<MgGrid>();
+    addCreator<MgImageShape>();
+    addCreator<MgArc>();
+    addCreator<MgGrid>();
 }
 
-void mgRegisterShapeCreator(int type, MgShape* (*factory)())
+void MgShape::registerCreator(int type, MgShape* (*factory)())
 {
     if (s_shapeCreators.empty()) {
         registerCoreCreators();
@@ -46,7 +48,7 @@ void mgRegisterShapeCreator(int type, MgShape* (*factory)())
     }
 }
 
-MgShape* mgCreateShape(int type)
+MgShape* MgShape::createShape(int type)
 {
     if (s_shapeCreators.empty())
         registerCoreCreators();
