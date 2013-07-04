@@ -9,6 +9,7 @@
 
 class GcBaseView;
 class GiView;
+class MgShapeDoc;
 
 //! 图形文档类
 /*! \ingroup GROUP_VIEW
@@ -28,6 +29,7 @@ public:
     
 private:
     std::vector<GcBaseView*>    _views;
+    MgShapeDoc*     _doc;
 };
 
 #endif // VGLITE_CORE_SHAPEDOC_H

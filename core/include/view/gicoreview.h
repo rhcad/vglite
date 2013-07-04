@@ -27,6 +27,9 @@ public:
     //! 创建内核视图
     void createView(GiView* view, int type);
     
+    //! 创建放大镜视图
+    void createMagnifierView(GiView* newview, GiView* mainView);
+    
     //! 销毁内核视图
     void destoryView(GiView* view);
     

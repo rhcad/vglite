@@ -10,6 +10,8 @@
 #include "gicontxt.h"
 #include "mgmat.h"
 
+class MgLayer;
+
 //! 读写锁定数据类
 /*! \ingroup GEOM_SHAPE
  */
@@ -114,8 +116,8 @@ protected:
     
 protected:
     enum { kMaxLayers = 10 };
-    MgShapes*   _layers[kMaxLayers];
-    MgShapes*   _shapes;
+    MgLayer*    _layers[kMaxLayers];
+    MgShapes*   _curShapes;
     GiContext   _context;
     Matrix2d    _xf;
     Box2d       _rectW;

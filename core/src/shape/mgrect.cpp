@@ -266,22 +266,6 @@ bool MgRect::_draw(int mode, GiGraphics& gs, const GiContext& ctx, int segment) 
     return __super::_draw(mode, gs, ctx, segment) || ret;
 }
 
-int MgRect::_getDimensions(const Matrix2d& m2w, float* vars, char* types, int count) const
-{
-    int ret = 0;
-    
-    if (count > ret) {
-        types[ret] = 'w';
-        vars[ret++] = fabsf(getWidth() * m2w.m11);
-    }
-    if (count > ret) {
-        types[ret] = 'h';
-        vars[ret++] = fabsf(getHeight() * m2w.m22);
-    }
-    
-    return ret;
-}
-
 // MgImageShape
 //
 

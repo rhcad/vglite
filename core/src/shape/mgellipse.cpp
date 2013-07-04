@@ -449,19 +449,3 @@ bool MgArc::_setHandlePoint(int index, const Point2d& pt, float)
     }
     return setCenterStartEnd(pt, getStartPoint(), getEndPoint());
 }
-
-int MgArc::_getDimensions(const Matrix2d& m2w, float* vars, char* types, int count) const
-{
-    int ret = 0;
-    
-    if (count > ret) {
-        types[ret] = 'r';
-        vars[ret++] = fabsf(getRadius() * m2w.m11);
-    }
-    if (count > ret) {
-        types[ret] = 'a';
-        vars[ret++] = mgRad2Deg(mgTo0_2PI(getSweepAngle() * (m2w.m22 < 0 ? -1.f : 1.f)));
-    }
-    
-    return ret;
-}

@@ -46,8 +46,6 @@
         { return _rotateHandlePoint(index, pt) || _setHandlePoint(index, pt, tol); } \
     bool Cls::isHandleFixed(int index) const { return _isHandleFixed(index); } \
     bool Cls::offset(const Vector2d& vec, int segment)          \
-        { return _offset(vec, segment); }                       \
-    int Cls::getDimensions(const Matrix2d& m2w, float* vars, char* types, int count) const \
-        { return _getDimensions(m2w, vars, types, count); }
+        { return _offset(vec, segment); }
 
 #endif // __GEOMETRY_MGSHAPEIMPL_H_

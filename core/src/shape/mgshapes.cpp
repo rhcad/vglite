@@ -315,11 +315,11 @@ bool MgShapes::save(MgStorage* s, int startIndex) const
     int index = 0;
     
     if (s && s->writeNode("shapes", im->index, false)) {
-        ret = true;
+        ret = saveExtra(s);
         rect = getExtent();
         s->writeFloatArray("extent", &rect.xmin, 4);
-        
         s->writeUInt32("count", im->shapes.size() - (int)startIndex);
+        
         for (I::citerator it = im->shapes.begin();
              ret && it != im->shapes.end(); ++it, ++index)
         {
@@ -350,12 +350,12 @@ bool MgShapes::load(MgStorage* s, bool addOnly)
     int index = 0;
     
     if (s && s->readNode("shapes", im->index, false)) {
-        ret = true;
-        s->readFloatArray("extent", &rect.xmin, 4);
-        s->readUInt32("count", 0);
-        
         if (!addOnly)
             clear();
+        
+        ret = loadExtra(s);
+        s->readFloatArray("extent", &rect.xmin, 4);
+        s->readUInt32("count", 0);
         
         while (ret && s->readNode("shape", index, false)) {
             int type = s->readUInt32("type", 0);

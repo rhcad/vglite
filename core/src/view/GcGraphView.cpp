@@ -43,16 +43,10 @@ bool GcShapeView::twoFingersMove(GiGestureState gestureState,
 // GcGraphView
 //
 
-GcGraphView* GcGraphView::lastView = (GcGraphView*)0;
-
 GcGraphView::GcGraphView(GiView *view) : GcShapeView(view)
 {
-    lastView = this;
 }
 
 GcGraphView::~GcGraphView()
 {
-    if (lastView == this) {
-        lastView = (GcGraphView*)0;
-    }
 }

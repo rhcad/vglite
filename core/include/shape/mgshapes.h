@@ -98,6 +98,9 @@ protected:
     MgShapes(MgObject* owner, int index);
     virtual ~MgShapes();
     
+    virtual bool saveExtra(MgStorage* s) const { return !!s; }
+    virtual bool loadExtra(MgStorage* s) { return !!s; }
+    
     struct I;
     I*  im;
 };

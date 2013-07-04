@@ -48,6 +48,7 @@
 		AE5BF68816E45BCE005CA76D /* translucent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AE5BF68616E45BCE005CA76D /* translucent@2x.png */; };
 		AE815F351718EDCB006BC607 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE815F341718EDCB006BC607 /* QuartzCore.framework */; };
 		AEADC21F16EB570800484962 /* LargeView1.mm in Sources */ = {isa = PBXBuildFile; fileRef = AEADC21E16EB570800484962 /* LargeView1.mm */; };
+		AEB27EF51785737E00761059 /* mglayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AEB27EF41785737E00761059 /* mglayer.cpp */; };
 		AEE59F8116EA200500CBC04B /* GiQuartzCanvas.mm in Sources */ = {isa = PBXBuildFile; fileRef = AEE59F8016EA200500CBC04B /* GiQuartzCanvas.mm */; };
 		AEF2D52B160964BA00DDB7F2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEF2D52A160964BA00DDB7F2 /* UIKit.framework */; };
 		AEF2D52D160964BA00DDB7F2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEF2D52C160964BA00DDB7F2 /* Foundation.framework */; };
@@ -170,6 +171,8 @@
 		AE815F341718EDCB006BC607 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		AEADC21D16EB570800484962 /* LargeView1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LargeView1.h; sourceTree = "<group>"; };
 		AEADC21E16EB570800484962 /* LargeView1.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LargeView1.mm; sourceTree = "<group>"; };
+		AEB27EF21785725300761059 /* mglayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mglayer.h; sourceTree = "<group>"; };
+		AEB27EF41785737E00761059 /* mglayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mglayer.cpp; sourceTree = "<group>"; };
 		AEE59F7F16EA1FFA00CBC04B /* GiQuartzCanvas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GiQuartzCanvas.h; path = ../../view/include/GiQuartzCanvas.h; sourceTree = "<group>"; };
 		AEE59F8016EA200500CBC04B /* GiQuartzCanvas.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = GiQuartzCanvas.mm; path = ../../view/src/GiQuartzCanvas.mm; sourceTree = "<group>"; };
 		AEF2D526160964BA00DDB7F2 /* TestView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestView.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -210,21 +213,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		AE0762F3160AABE000518207 /* canvas */ = {
+		AE0762F3160AABE000518207 /* TouchVG */ = {
 			isa = PBXGroup;
 			children = (
-				AEE59F8016EA200500CBC04B /* GiQuartzCanvas.mm */,
-				AEE59F7F16EA1FFA00CBC04B /* GiQuartzCanvas.h */,
+				AEB27EE9178568D300761059 /* ios */,
+				AE1A76411782E3D7007FB031 /* core */,
 			);
-			name = canvas;
+			name = TouchVG;
 			sourceTree = "<group>";
 		};
 		AE0762FD160AAE3A00518207 /* Test */ = {
 			isa = PBXGroup;
 			children = (
-				AE1A76411782E3D7007FB031 /* core */,
-				AE537523177D51480050CC4F /* GiGraphView.h */,
-				AE537524177D51590050CC4F /* GiGraphView.mm */,
 				AE53750C177D26980050CC4F /* GiGraphView1.h */,
 				AE53750D177D26980050CC4F /* GiGraphView1.mm */,
 				AEADC21D16EB570800484962 /* LargeView1.h */,
@@ -313,6 +313,7 @@
 		AE1A765F1782E3D7007FB031 /* shape */ = {
 			isa = PBXGroup;
 			children = (
+				AEB27EF21785725300761059 /* mglayer.h */,
 				AE1A76601782E3D7007FB031 /* mgbasicsp.h */,
 				AE1A76611782E3D7007FB031 /* mgcomposite.h */,
 				AE1A76621782E3D7007FB031 /* mggrid.h */,
@@ -440,6 +441,7 @@
 		AE1A76A31782E3D7007FB031 /* shape */ = {
 			isa = PBXGroup;
 			children = (
+				AEB27EF41785737E00761059 /* mglayer.cpp */,
 				C98E70C21783E96A009F0C98 /* mgspfactory.cpp */,
 				C98E70C31783E96A009F0C98 /* mgsplock.cpp */,
 				AE1A76A61782E3D7007FB031 /* mgcomposite.cpp */,
@@ -477,11 +479,22 @@
 			path = view;
 			sourceTree = "<group>";
 		};
+		AEB27EE9178568D300761059 /* ios */ = {
+			isa = PBXGroup;
+			children = (
+				AEE59F8016EA200500CBC04B /* GiQuartzCanvas.mm */,
+				AEE59F7F16EA1FFA00CBC04B /* GiQuartzCanvas.h */,
+				AE537523177D51480050CC4F /* GiGraphView.h */,
+				AE537524177D51590050CC4F /* GiGraphView.mm */,
+			);
+			name = ios;
+			sourceTree = "<group>";
+		};
 		AEF2D51B160964BA00DDB7F2 = {
 			isa = PBXGroup;
 			children = (
 				AE0762FD160AAE3A00518207 /* Test */,
-				AE0762F3160AABE000518207 /* canvas */,
+				AE0762F3160AABE000518207 /* TouchVG */,
 				AEF2D530160964BA00DDB7F2 /* Classes */,
 				AEF2D56C1609B67200DDB7F2 /* Resources */,
 				AEF2D529160964BA00DDB7F2 /* Frameworks */,
@@ -667,6 +680,7 @@
 				AE1A76E41782E3D7007FB031 /* gicoreview.cpp in Sources */,
 				C98E70C41783E96A009F0C98 /* mgspfactory.cpp in Sources */,
 				C98E70C51783E96A009F0C98 /* mgsplock.cpp in Sources */,
+				AEB27EF51785737E00761059 /* mglayer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

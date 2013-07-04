@@ -32,10 +32,9 @@ private:
     UIImage     *_tmpshot;
     
 public:
-    GiViewAdapter(UIView *mainView, int viewType, GiCoreView *coreView)
+    GiViewAdapter(UIView *mainView, GiCoreView *coreView)
     : _view(mainView), _dynview(nil), _tmpshot(nil) {
         _coreView = new GiCoreView(coreView);
-        _coreView->createView(this, viewType);
     }
     
     virtual ~GiViewAdapter() {
@@ -184,6 +183,11 @@ public:
         [self setupGestureRecognizers];
     }
     return self;
+}
+
+- (GiViewAdapter *)viewAdapter
+{
+    return _adapter;
 }
 
 - (GiCoreView *)coreView
@@ -552,7 +556,8 @@ public:
     self = [super initWithFrame:frame];
     if (self) {
         self.autoresizingMask = 0xFF;                   // 自动适应大小
-        _adapter = new GiViewAdapter(self, 1, NULL);    // 将创建文档对象
+        _adapter = new GiViewAdapter(self, NULL);       // 将创建文档对象
+        [self coreView]->createView(_adapter, 1);
     }
     return self;
 }
@@ -565,11 +570,12 @@ public:
 
 - (id)initWithFrame:(CGRect)frame { return nil; }
 
-- (id)initWithFrame:(CGRect)frame :(GiGraphView *)mainView
+- (id)initWithFrame:(CGRect)frame refView:(GiGraphView *)refView
 {
     self = [super initWithFrame:frame];
     if (self) {
-        _adapter = new GiViewAdapter(self, 2, [mainView coreView]); // 将引用文档对象
+        _adapter = new GiViewAdapter(self, [refView coreView]);     // 将引用文档对象
+        [self coreView]->createMagnifierView(_adapter, [refView viewAdapter]);
     }
     return self;
 }

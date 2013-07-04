@@ -3,16 +3,17 @@
 // Copyright (c) 2004-2012, Zhang Yungui
 // License: LGPL, https://github.com/rhcad/touchvg
 
-#include <mgshapedoc.h>
+#include "mgshapedoc.h"
 #include <mgstorage.h>
 #include <gidef.h>
+#include "mglayer.h"
 
 MgShapeDoc::MgShapeDoc() : _viewScale(0), _changeCount(0)
 {
     for (int i = 0; i < kMaxLayers; i++)
         _layers[i] = NULL;
-    _layers[0] = MgShapes::create(this, 0);
-    _shapes = _layers[0];
+    _layers[0] = MgLayer::create(this, 0);
+    _curShapes = _layers[0];
 }
 
 MgShapeDoc::~MgShapeDoc()
@@ -87,7 +88,7 @@ void MgShapeDoc::clear()
             _layers[i]->clear();
         }
     }
-    _shapes = _layers[0];
+    _curShapes = _layers[0];
 }
 
 Box2d MgShapeDoc::getExtent() const
@@ -118,12 +119,12 @@ int MgShapeDoc::getShapeCount() const
 
 MgShapes* MgShapeDoc::getCurrentShapes() const
 {
-    return _shapes;
+    return _curShapes;
 }
 
 bool MgShapeDoc::setCurrentShapes(MgShapes* shapes)
 {
-    _shapes = shapes ? shapes : _layers[0];
+    _curShapes = shapes ? shapes : _layers[0];
     return true;
 }
 
@@ -133,9 +134,9 @@ bool MgShapeDoc::switchLayer(int index)
 
     if (index >= 0 && index < kMaxLayers) {
         if (!_layers[index]) {
-            _layers[index] = MgShapes::create(this, index);
+            _layers[index] = MgLayer::create(this, index);
         }
-        _shapes = _layers[index];
+        _curShapes = _layers[index];
         ret = true;
     }
 
@@ -203,7 +204,7 @@ bool MgShapeDoc::load(MgStorage* s, bool addOnly)
 
     for (int i = 0; i < kMaxLayers; i++) {
         if (!_layers[i]) {
-            _layers[i] = MgShapes::create(this, i);
+            _layers[i] = MgLayer::create(this, i);
 
             if (_layers[i]->load(s, addOnly)) {
                 ret = true;

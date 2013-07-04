@@ -216,7 +216,7 @@
 		AE1A75D41782A45A007FB031 /* GcMagnifierView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GcMagnifierView.cpp; sourceTree = "<group>"; };
 		AE1A75D51782A45A007FB031 /* GcShapeDoc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GcShapeDoc.cpp; sourceTree = "<group>"; };
 		AE1A75D61782A45A007FB031 /* gicoreview.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gicoreview.cpp; sourceTree = "<group>"; };
-		AEDBA7DD177959FC00A1E05F /* TouchVG.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework.static; includeInIndex = 0; path = TouchVG.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AEDBA7DD177959FC00A1E05F /* TouchVG.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework.static; includeInIndex = 0; name = TouchVG.framework; path = TouchVG; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEDBA7E0177959FC00A1E05F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		AEDBA7E4177959FC00A1E05F /* TouchVG-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TouchVG-Info.plist"; sourceTree = "<group>"; };
 		AEDBA7E6177959FC00A1E05F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };

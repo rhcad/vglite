@@ -4,13 +4,15 @@
 
 #include "GcShapeDoc.h"
 #include "GcBaseView.h"
+#include "mgshapedoc.h"
 
-GcShapeDoc::GcShapeDoc()
+GcShapeDoc::GcShapeDoc() : _doc(MgShapeDoc::create())
 {
 }
 
 GcShapeDoc::~GcShapeDoc()
 {
+    _doc->release();
 }
 
 void GcShapeDoc::addView(GcBaseView* view)

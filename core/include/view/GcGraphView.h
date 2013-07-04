@@ -34,8 +34,6 @@ class GcGraphView : public GcShapeView
 public:
     GcGraphView(GiView *view);
     virtual ~GcGraphView();
-    
-    static GcGraphView* lastView;
 };
 
 #endif // VGLITE_CORE_MAINVIEW_H

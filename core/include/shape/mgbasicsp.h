@@ -45,7 +45,6 @@ protected:
     Point2d _getHandlePoint(int index) const;
     bool _setHandlePoint(int index, const Point2d& pt, float tol);
     bool _isHandleFixed(int index) const;
-    int _getDimensions(const Matrix2d& m2w, float* vars, char* types, int count) const;
 
 private:
     Point2d     _points[2];
@@ -129,9 +128,6 @@ protected:
 class MgRect : public MgBaseRect
 {
     MG_INHERIT_CREATE(MgRect, MgBaseRect, 11)
-    
-protected:
-    int _getDimensions(const Matrix2d& m2w, float* vars, char* types, int count) const;
 };
 
 //! 椭圆图形类
@@ -327,7 +323,6 @@ protected:
     bool _hitTestBox(const Box2d& rect) const;
     bool _save(MgStorage* s) const;
     bool _load(MgStorage* s);
-    int _getDimensions(const Matrix2d& m2w, float* vars, char* types, int count) const;
 
 protected:
     Point2d     _points[4]; // 从左上角起顺时针的四个角点
@@ -387,7 +382,6 @@ protected:
     int _getHandleCount() const;
     Point2d _getHandlePoint(int index) const;
     bool _setHandlePoint(int index, const Point2d& pt, float tol);
-    int _getDimensions(const Matrix2d& m2w, float* vars, char* types, int count) const;
     bool _reverse();
 
 private:

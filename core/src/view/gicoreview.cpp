@@ -110,18 +110,27 @@ void GiCoreView::createView(GiView* view, int type)
 {
     GcBaseView* aview;
     
-    if (type == 1) {
-        aview = new GcGraphView(view);
-        impl->curview = view;
+    if (view && !impl->_doc->findView(view)) {
+        if (type == 1) {
+            aview = new GcGraphView(view);
+            impl->curview = view;
+        }
+        else {
+            aview = new GcDummyView(view);
+        }
+        
+        impl->_doc->addView(aview);
     }
-    else if (type == 2 && GcGraphView::lastView) {
-        aview = new GcMagnifierView(view, GcGraphView::lastView);
-    }
-    else {
-        aview = new GcDummyView(view);
-    }
+}
+
+void GiCoreView::createMagnifierView(GiView* newview, GiView* mainView)
+{
+    GcGraphView* refview = dynamic_cast<GcGraphView *>(impl->_doc->findView(mainView));
     
-    impl->_doc->addView(aview);
+    if (refview && newview && !impl->_doc->findView(newview)) {
+        GcBaseView* aview = new GcMagnifierView(newview, refview);
+        impl->_doc->addView(aview);
+    }
 }
 
 void GiCoreView::destoryView(GiView* view)
