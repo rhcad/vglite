@@ -41,11 +41,10 @@ GiTransform& GiGraphics::_xf()
     return *m_impl->xform;
 }
 
-void GiGraphics::beginPaint(GiCanvas* canvas, float dpi, const RECT_2D& clipBox)
+void GiGraphics::beginPaint(GiCanvas* canvas, const RECT_2D& clipBox)
 {
     m_impl->canvas = canvas;
     m_impl->ctxused = 0;
-    m_impl->xform->setResolution(dpi);
     
     if (m_impl->lastZoomTimes != xf().getZoomTimes())
     {

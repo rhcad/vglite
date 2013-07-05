@@ -17,10 +17,10 @@ GcShapeDoc::~GcShapeDoc()
 
 void GcShapeDoc::addView(GcBaseView* view)
 {
-    if (view && view->deviceView() && !view->doc()
+    if (view && view->deviceView() && !view->document()
         && !findView(view->deviceView())) {
         _views.push_back(view);
-        view->setDoc(this);
+        view->setDocument(this);
     }
 }
 
@@ -30,7 +30,7 @@ void GcShapeDoc::removeView(GcBaseView* view)
     
     for (it = _views.begin(); it != _views.end(); ++it) {
         if (*it == view) {
-            view->setDoc(NULL);
+            view->setDocument(NULL);
             _views.erase(it);
             break;
         }

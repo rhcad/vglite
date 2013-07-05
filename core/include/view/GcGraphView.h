@@ -6,6 +6,7 @@
 #define VGLITE_CORE_MAINVIEW_H
 
 #include "GcBaseView.h"
+#include "mgshapedoc.h"
 
 //! 内核绘图视图类
 /*! \ingroup GROUP_VIEW
@@ -19,7 +20,7 @@ public:
     virtual void drawAll(GiCanvas* canvas);
     virtual void drawAppend(GiCanvas* canvas);
     virtual void dynDraw(GiCanvas* canvas);
-    virtual void onSize(int w, int h);
+    virtual void onSize(int dpi, int w, int h);
     virtual bool onGesture(GiGestureType gestureType,
                            GiGestureState gestureState, float x, float y);
     virtual bool twoFingersMove(GiGestureState gestureState,

@@ -24,7 +24,7 @@ public:
     virtual void drawAll(GiCanvas* canvas);
     virtual void drawAppend(GiCanvas* canvas);
     virtual void dynDraw(GiCanvas* canvas);
-    virtual void onSize(int w, int h);
+    virtual void onSize(int dpi, int w, int h);
     virtual bool onGesture(GiGestureType gestureType,
                            GiGestureState gestureState, float x, float y);
     virtual bool twoFingersMove(GiGestureState gestureState,
@@ -58,10 +58,26 @@ public:
         delete _cmds;
     }
     
-    GcShapeDoc* doc() { return _doc; }
-    MgCmdManager* cmds() { return _cmds; }
+    MgShapeDoc* doc() { return _doc->doc(); }
+    MgShapes* shapes() { return doc()->getCurrentShapes(); }
+    GiContext* context() { return doc()->context(); }
     MgGestureState gestureState() { return (MgGestureState)state; }
-    GcBaseView* currentView() { return curview ? curview : _doc->firstView(); }
+    bool useFinger() { return true; }
+    MgCmdManager* cmds() { return _cmds; }
+    
+    GcBaseView* currentView() {
+        return curview ? curview : _doc->firstView();
+    }
+    
+    GiTransform* xform() {
+        GcBaseView* view = currentView();
+        return view ? view->xform() : NULL;
+    }
+    
+    GiGraphics* graph() {
+        GcBaseView* view = currentView();
+        return view ? view->graph() : NULL;
+    }
     
     void regenAll() {
         for (int i = 0; i < _doc->getViewCount(); i++) {
@@ -84,6 +100,16 @@ public:
 };
 
 static int _dpi = 1;
+
+MgShapeDoc* GcBaseView::doc()
+{
+    return document()->doc();
+}
+
+MgShapes* GcBaseView::shapes()
+{
+    return doc()->getCurrentShapes();
+}
 
 GiCoreView::GiCoreView(GiCoreView* mainView)
 {
@@ -177,7 +203,7 @@ void GiCoreView::onSize(GiView* view, int w, int h)
 {
     GcBaseView* aview = impl->_doc->findView(view);
     if (aview) {
-        aview->onSize(w, h);
+        aview->onSize(_dpi, w, h);
     }
 }
 
@@ -260,9 +286,8 @@ void GcDummyView::dynDraw(GiCanvas* canvas)
 	}
 }
 
-void GcDummyView::onSize(int w, int h)
+void GcDummyView::onSize(int, int, int)
 {
-    if (w && h) {}
 }
 
 bool GcDummyView::onGesture(GiGestureType gestureType,

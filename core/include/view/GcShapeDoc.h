@@ -26,6 +26,7 @@ public:
     GcBaseView* getView(int index) const;
     int getViewCount() const;
     GcBaseView* firstView() const;
+    MgShapeDoc* doc() const { return _doc; }
     
 private:
     std::vector<GcBaseView*>    _views;

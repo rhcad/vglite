@@ -6,10 +6,13 @@
 #define VGLITE_CORE_BASEVIEW_H
 
 #include "gigesture.h"
+#include "gigraph.h"
 
 class GiView;
 class GiCanvas;
 class GcShapeDoc;
+class MgShapeDoc;
+class MgShapes;
 
 //! 内核视图基类
 /*! \ingroup GROUP_VIEW
@@ -17,7 +20,7 @@ class GcShapeDoc;
 class GcBaseView
 {
 public:
-    GcBaseView(GiView *view) : _view(view), _doc((GcShapeDoc*)0) {}
+    GcBaseView(GiView *view) : _view(view), _doc((GcShapeDoc*)0), _gs(&_xf) {}
     
     //! 析构函数
     virtual ~GcBaseView() {}
@@ -25,8 +28,17 @@ public:
     //! 返回回调视图对象
     GiView* deviceView() { return _view; }
     
-    GcShapeDoc* doc() { return _doc; }
-    void setDoc(GcShapeDoc* doc) { _doc = doc; }
+    MgShapeDoc* doc();
+    MgShapes* shapes();
+    
+    GcShapeDoc* document() { return _doc; }
+    void setDocument(GcShapeDoc* doc) { _doc = doc; }
+    
+    //! 得到坐标系对象
+    GiTransform* xform() { return &_xf; }
+    
+    //! 得到图形显示对象
+    GiGraphics* graph() { return &_gs; }
     
     //! 显示所有图形
     virtual void drawAll(GiCanvas* canvas) = 0;
@@ -38,7 +50,7 @@ public:
     virtual void dynDraw(GiCanvas* canvas) = 0;
 
     //! 设置视图的宽高
-    virtual void onSize(int w, int h) = 0;
+    virtual void onSize(int dpi, int w, int h) = 0;
     
     //! 传递单指触摸手势消息
     virtual bool onGesture(GiGestureType gestureType, 
@@ -50,6 +62,8 @@ public:
 private:
     GiView*     _view;
     GcShapeDoc* _doc;
+    GiTransform _xf;
+    GiGraphics  _gs;
 };
 
 #endif // VGLITE_CORE_BASEVIEW_H

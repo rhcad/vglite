@@ -3,9 +3,11 @@
 // Copyright (c) 2012-2013, https://github.com/rhcad/vglite
 
 #include "GcGraphView.h"
+#include <RandomShape.h>
 
 GcShapeView::GcShapeView(GiView *view) : GcBaseView(view)
 {
+    RandomParam().initShapes(shapes());
 }
 
 GcShapeView::~GcShapeView()
@@ -24,8 +26,10 @@ void GcShapeView::dynDraw(GiCanvas* canvas)
 {
 }
 
-void GcShapeView::onSize(int w, int h)
+void GcShapeView::onSize(int dpi, int w, int h)
 {
+    xform()->setResolution((float)dpi);
+    xform()->setWndSize(w, h);
 }
 
 bool GcShapeView::onGesture(GiGestureType gestureType,
