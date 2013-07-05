@@ -44,11 +44,11 @@ class GiCoreViewImpl : public MgView
 public:
     GcShapeDoc*     _doc;
     MgCmdManager*   _cmds;
+    GcBaseView*     curview;
     long            refcount;
-    GiView*         curview;
     int             state;
     
-    GiCoreViewImpl() : refcount(1), curview((GiView*)0), state(0) {
+    GiCoreViewImpl() : curview(NULL), refcount(1), state(0) {
         _doc = new GcShapeDoc();
         _cmds = new MgCmdManager();
     }
@@ -61,10 +61,7 @@ public:
     GcShapeDoc* doc() { return _doc; }
     MgCmdManager* cmds() { return _cmds; }
     MgGestureState gestureState() { return (MgGestureState)state; }
-    
-    GiView* currentView() {
-        return curview ? curview : _doc->firstView();
-    }
+    GcBaseView* currentView() { return curview ? curview : _doc->firstView(); }
     
     void regenAll() {
         for (int i = 0; i < _doc->getViewCount(); i++) {
@@ -79,9 +76,9 @@ public:
     }
     
     void redraw() {
-        GiView* view = currentView();
+        GcBaseView* view = currentView();
         if (view) {
-            view->redraw();
+            view->deviceView()->redraw();
         }
     }
 };
@@ -113,7 +110,7 @@ void GiCoreView::createView(GiView* view, int type)
     if (view && !impl->_doc->findView(view)) {
         if (type == 1) {
             aview = new GcGraphView(view);
-            impl->curview = view;
+            impl->curview = aview;
         }
         else {
             aview = new GcDummyView(view);
@@ -137,8 +134,8 @@ void GiCoreView::destoryView(GiView* view)
 {
     GcBaseView* aview = impl->_doc->findView(view);
     if (aview) {
-        if (impl->curview == view) {
-            impl->curview = (GiView *)0;
+        if (impl->curview == aview) {
+            impl->curview = NULL;
         }
         impl->_doc->removeView(aview);
         delete aview;
@@ -189,7 +186,7 @@ bool GiCoreView::onGesture(GiView* view, GiGestureType gestureType,
 {
     GcBaseView* aview = impl->_doc->findView(view);
     
-    impl->curview = view;
+    impl->curview = aview;
     impl->state = gestureState;
     
     return aview && aview->onGesture(gestureType, gestureState, x, y);
@@ -200,7 +197,7 @@ bool GiCoreView::twoFingersMove(GiView* view, GiGestureState gestureState,
 {
     GcBaseView* aview = impl->_doc->findView(view);
     
-    impl->curview = view;
+    impl->curview = aview;
     impl->state = gestureState;
     
     return aview && aview->twoFingersMove(gestureState, x1, y1, x2, y2);
@@ -288,11 +285,10 @@ bool GcDummyView::onGesture(GiGestureType gestureType,
 }
 
 bool GcDummyView::twoFingersMove(GiGestureState gestureState,
-                                 float x1, float y1, float x2, float y2)
+                                 float, float, float, float)
 {
 	_gestureState = gestureState;
     if (gestureState == kGiGestureMoved) {
-        x2 = x1; y2 = y1; if (x2 > y2) x2 = x1; // avoid not used
         deviceView()->redraw();
     }
     return true;

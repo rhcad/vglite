@@ -375,7 +375,7 @@ bool MgShapes::load(MgStorage* s, bool addOnly)
         }
         s->readNode("shapes", im->index, true);
     }
-    else if (im->index == 0) {
+    else if (s && im->index == 0) {
         s->setError("No shapes node.");
     }
     

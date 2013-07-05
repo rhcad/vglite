@@ -6,7 +6,8 @@
 #ifndef __GEOMETRY_GRAPHSYS_H_
 #define __GEOMETRY_GRAPHSYS_H_
 
-#include "gicanvdr.h"
+#include "gixform.h"
+#include "gicontxt.h"
 
 #ifndef SWIG
 class GiGraphicsImpl;
@@ -18,7 +19,7 @@ class GiCanvas;
     显示图形所用的坐标计算和坐标系转换是在 GiTransform 中定义的。
     \ingroup GRAPH_INTERFACE
 */
-class GiGraphics : public GiCanvasDrawing
+class GiGraphics
 {
 public:
     //! 构造函数，坐标系管理对象必须有效
@@ -70,10 +71,10 @@ public:
     bool setClipWorld(const Box2d& rectWorld);
 
     //! 返回颜色模式
-    GiColorMode getColorMode() const;
+    bool isGrayMode() const;
 
     //! 设置颜色模式
-    void setColorMode(GiColorMode mode);
+    void setGrayMode(bool gray);
 
     //! 计算画笔颜色
     /*! 根据颜色模式和设备属性调整显示颜色。\n
@@ -97,12 +98,6 @@ public:
         \param minw 最小画笔宽度，像素，小于0时不改变
     */
     void setMaxPenWidth(float pixels, float minw = 1);
-
-    //! 返回是否为反走样模式
-    bool isAntiAliasMode() const;
-
-    //! 设置是否为反走样模式
-    bool setAntiAliasMode(bool antiAlias);
     
 public:
     //! 绘制直线段，模型坐标或世界坐标
@@ -301,22 +296,13 @@ public:
     
     //! 返回坐标系管理对象
     GiTransform& _xf();
-    
-    //! 在显示适配类的构造函数中调用
-    void _setCanvas(GiCanvas* canvas);
 
     //! 在显示适配类的 beginPaint() 中调用
-    void _beginPaint(const RECT_2D& clipBox);
+    void beginPaint(GiCanvas* canvas, float dpi, const RECT_2D& clipBox);
 
     //! 在显示适配类的 endPaint() 中调用
-    void _endPaint();
-#endif
-
-public:
-    void clearCachedBitmap(bool clearAll = false);
-    float getScreenDpi() const;
-    GiColor getBkColor() const;
-    GiColor setBkColor(const GiColor& color);
+    void endPaint();
+    
     bool rawLine(const GiContext* ctx, float x1, float y1, float x2, float y2);
     bool rawLines(const GiContext* ctx, const Point2d* pxs, int count);
     bool rawBeziers(const GiContext* ctx, const Point2d* pxs, int count);
@@ -329,8 +315,15 @@ public:
     bool rawLineTo(float x, float y);
     bool rawBezierTo(float c1x, float c1y, float c2x, float c2y, float x, float y);
     bool rawClosePath();
-    void rawTextCenter(const char* text, float x, float y, float h);
-    bool drawImage(const char* name, float xc, float yc, float w, float h, float angle);
+    bool rawText(const char* text, float x, float y, float h, int align = 0);
+    bool rawImage(const char* name, float xc, float yc, float w, float h, float angle);
+#endif
+    
+private:
+    bool setPen(const GiContext* ctx);
+    bool setBrush(const GiContext* ctx);
+    bool _drawPolygon(const GiContext* ctx, int count, const Point2d* points,
+                      bool m2d, bool fill, bool edge, bool modelUnit);
 
 private:
     GiGraphics();

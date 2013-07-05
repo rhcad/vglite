@@ -197,9 +197,12 @@ bool GiGdipCanvas::hasCachedBitmap(bool secondBmp) const
     return _impl->cachedBitmap(secondBmp) != NULL;
 }
 
-void GiGdipCanvas::clearCachedBitmap(bool secondBmp)
+void GiGdipCanvas::clearCachedBitmap(bool clearAll)
 {
-    SAFEDEL(_impl->cachedBitmap(secondBmp));
+    SAFEDEL(_impl->cachedBitmap(false));
+    if (clearAll) {
+        SAFEDEL(_impl->cachedBitmap(true));
+    }
 }
 
 bool GiGdipCanvas::isBufferedDrawing() const

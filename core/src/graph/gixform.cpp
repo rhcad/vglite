@@ -351,10 +351,9 @@ bool GiTransform::zoomWnd(const Point2d& pt1, const Point2d& pt2, bool adjust)
         return false;
 
     // 中心不变，扩大开窗矩形使得宽高比例和显示窗口相同
-    if (h * m_impl->cxWnd > w * m_impl->cyWnd)
-        w = h * m_impl->cxWnd / m_impl->cyWnd;
-    else
+    if (h * m_impl->cxWnd < w * m_impl->cyWnd) {
         h = w * m_impl->cyWnd / m_impl->cxWnd;
+    }
 
     // 计算放缩前矩形中心的世界坐标
     Point2d ptW (ptCen * m_impl->matD2W);

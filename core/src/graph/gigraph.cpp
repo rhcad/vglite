@@ -22,19 +22,12 @@ GiGraphics::~GiGraphics()
     delete m_impl;
 }
 
-void GiGraphics::_setCanvas(GiCanvas* canvas)
-{
-    m_impl->canvas = canvas;
-    SafeCall(m_impl->canvas, _init(this, m_impl));
-}
-
 void GiGraphics::copy(const GiGraphics& src)
 {
     if (this != &src)
     {
         m_impl->maxPenWidth = src.m_impl->maxPenWidth;
-        m_impl->antiAlias = src.m_impl->antiAlias;
-        m_impl->colorMode = src.m_impl->colorMode;
+        m_impl->drawColors = src.m_impl->drawColors;
     }
 }
 
@@ -48,8 +41,12 @@ GiTransform& GiGraphics::_xf()
     return *m_impl->xform;
 }
 
-void GiGraphics::_beginPaint(const RECT_2D& clipBox)
+void GiGraphics::beginPaint(GiCanvas* canvas, float dpi, const RECT_2D& clipBox)
 {
+    m_impl->canvas = canvas;
+    m_impl->ctxused = 0;
+    m_impl->xform->setResolution(dpi);
+    
     if (m_impl->lastZoomTimes != xf().getZoomTimes())
     {
         m_impl->zoomChanged();
@@ -70,8 +67,9 @@ void GiGraphics::_beginPaint(const RECT_2D& clipBox)
     }
 }
 
-void GiGraphics::_endPaint()
+void GiGraphics::endPaint()
 {
+    m_impl->canvas = NULL;
     giInterlockedDecrement(&m_impl->drawRefcnt);
 }
 
@@ -123,7 +121,9 @@ bool GiGraphics::setClipBox(const RECT_2D& rc)
             m_impl->rectDraw.inflate(GiGraphicsImpl::CLIP_INFLATE);
             m_impl->rectDrawM = m_impl->rectDraw * xf().displayToModel();
             m_impl->rectDrawW = m_impl->rectDrawM * xf().modelToWorld();
-            SafeCall(m_impl->canvas, _clipBoxChanged(m_impl->clipBox));
+            SafeCall(m_impl->canvas, clipRect(m_impl->clipBox.left, m_impl->clipBox.top,
+                                              m_impl->clipBox.right - m_impl->clipBox.left,
+                                              m_impl->clipBox.bottom - m_impl->clipBox.top));
         }
         ret = true;
     }
@@ -149,7 +149,9 @@ bool GiGraphics::setClipWorld(const Box2d& rectWorld)
                 m_impl->rectDraw.inflate(GiGraphicsImpl::CLIP_INFLATE);
                 m_impl->rectDrawM = m_impl->rectDraw * xf().displayToModel();
                 m_impl->rectDrawW = m_impl->rectDrawM * xf().modelToWorld();
-                SafeCall(m_impl->canvas, _clipBoxChanged(m_impl->clipBox));
+                SafeCall(m_impl->canvas, clipRect(m_impl->clipBox.left, m_impl->clipBox.top,
+                                                  m_impl->clipBox.right - m_impl->clipBox.left,
+                                                  m_impl->clipBox.bottom - m_impl->clipBox.top));
             }
 
             ret = true;
@@ -159,50 +161,24 @@ bool GiGraphics::setClipWorld(const Box2d& rectWorld)
     return ret;
 }
 
-bool GiGraphics::isAntiAliasMode() const
+bool GiGraphics::isGrayMode() const
 {
-    return m_impl->antiAlias;
+    return m_impl->drawColors > 0 && m_impl->drawColors < 8;
 }
 
-bool GiGraphics::setAntiAliasMode(bool antiAlias)
+void GiGraphics::setGrayMode(bool gray)
 {
-    bool old = m_impl->antiAlias;
-    m_impl->antiAlias = antiAlias;
-    SafeCall(m_impl->canvas, _antiAliasModeChanged(antiAlias));
-    return old;
-}
-
-GiColorMode GiGraphics::getColorMode() const
-{
-    return m_impl->colorMode;
-}
-
-void GiGraphics::setColorMode(GiColorMode mode)
-{
-    m_impl->colorMode = mode;
+    m_impl->drawColors = gray ? 2 : 0;
 }
 
 GiColor GiGraphics::calcPenColor(const GiColor& color) const
 {
     GiColor ret = color;
-
-    if (kGiColorMono == m_impl->colorMode)
-    {
-        const GiColor& bk = getBkColor();
-        if (color != bk)
-            ret.set(~bk.r, ~bk.g, ~bk.b);
-    }
-    if (m_impl->drawColors == 2           // 黑白
-        || kGiColorGray == m_impl->colorMode)
-    {
+    
+    if (isGrayMode()) {
         unsigned char by = (unsigned char)(
             (77 * ret.r + 151 * ret.g + 28 * ret.b + 128) / 256);
         ret.set(by, by, by);
-    }
-    if (m_impl->drawColors > 0 && m_impl->drawColors < 8
-        && m_impl->canvas)              // 少于256色
-    {
-        ret = m_impl->canvas->getNearestColor(ret);
     }
 
     return ret;
@@ -226,9 +202,8 @@ float GiGraphics::calcPenWidth(float lineWidth, bool useViewScale) const
     }
     w = mgMin(w, m_impl->maxPenWidth);
     w = mgMax(w, m_impl->minPenWidth);
-    if (lineWidth <= 0 && xf().getDpiY() > getScreenDpi()) {
-        w = w * xf().getDpiY() / getScreenDpi();
-    }
+    //if (lineWidth <= 0 && xf().getDpiY() > getScreenDpi())
+    //    w = w * xf().getDpiY() / getScreenDpi();
 
     return w;
 }
@@ -443,14 +418,13 @@ bool GiGraphics::drawBeziers(const GiContext* ctx, int count,
         for (i = 0; i < count; i++)
             pxs[i] = points[i] * matD;
         ret = rawBeginPath();
-        if (ret)
-        {
-            ret = rawMoveTo(pxs[0].x, pxs[0].y);
+        if (ret) {
+            rawMoveTo(pxs[0].x, pxs[0].y);
             for (i = 1; i + 2 < getSize(pxpoints); i += 3) {
-                ret = rawBezierTo(pxs[i].x, pxs[i].y,
+                rawBezierTo(pxs[i].x, pxs[i].y,
                     pxs[i+1].x, pxs[i+1].y, pxs[i+2].x, pxs[i+2].y);
             }
-            ret = rawClosePath();
+            rawClosePath();
             ret = rawEndPath(ctx, true);
         }
     }
@@ -552,7 +526,7 @@ static bool drawPolygonEdge(const PolylineAux& aux,
     Point2d pt1, pt2;
     int si, ei, n, i;
 
-    for (si = ei = ienter + 1; (ei - ienter) % count != 0; )
+    for (ei = ienter + 1; (ei - ienter) % count != 0; )
     {
         si = findVisibleEdge(clip, ei, ienter);
         ei = findInvisibleEdge(clip, si, ienter);
@@ -580,19 +554,13 @@ static bool drawPolygonEdge(const PolylineAux& aux,
     return ret;
 }
 
-static bool _DrawPolygon(GiCanvas* cv, const GiContext* ctx, 
-                         int count, const Point2d* points, 
-                         bool bM2D, bool bFill, bool bEdge, bool modelUnit)
+bool GiGraphics::_drawPolygon(const GiContext* ctx, int count, const Point2d* points,
+                              bool m2d, bool fill, bool edge, bool modelUnit)
 {
-    if (!ctx && cv)
-        ctx = cv->getCurrentContext();
-    if (!ctx || !cv)
-        return false;
-    
-    GiContext context (*ctx);
-    if (!bEdge)
+    GiContext context (ctx ? *ctx : m_impl->ctx);
+    if (!edge)
         context.setNullLine();
-    if (!bFill)
+    if (!fill)
         context.setNoFillColor();
     
     if (context.isNullLine() && !context.hasFillColor())
@@ -600,19 +568,17 @@ static bool _DrawPolygon(GiCanvas* cv, const GiContext* ctx,
 
     vector<Point2d> pxpoints;
     Point2d pt1, pt2;
-    Matrix2d matD(S2D(cv->gs()->xf(), modelUnit));
+    Matrix2d matD(S2D(xf(), modelUnit));
 
     pxpoints.resize(count);
     Point2d *pxs = &pxpoints.front();
     int n = 0;
-    for (int i = 0; i < count; i++)
-    {
+    for (int i = 0; i < count; i++) {
         pt2 = points[i];
-        if (bM2D)
+        if (m2d)
             pt2 *= matD;
         if (i == 0 || fabsf(pt1.x - pt2.x) > 2
-            || fabsf(pt1.y - pt2.y) > 2)
-        {
+            || fabsf(pt1.y - pt2.y) > 2) {
             pt1 = pt2;
             pxs[n++] = pt1;
         }
@@ -621,11 +587,11 @@ static bool _DrawPolygon(GiCanvas* cv, const GiContext* ctx,
     if (n == 4 && mgEquals(pxs[0].x, pxs[3].x) && mgEquals(pxs[1].x, pxs[2].x)
         && mgEquals(pxs[0].y, pxs[1].y) && mgEquals(pxs[2].y, pxs[3].y))
     {
-        return cv->rawRect(&context, pxs[0].x, pxs[0].y, 
+        return rawRect(&context, pxs[0].x, pxs[0].y, 
             pxs[2].x - pxs[0].x, pxs[2].y - pxs[0].y);
     }
 
-    return cv->rawPolygon(&context, pxs, n);
+    return rawPolygon(&context, pxs, n);
 }
 
 bool GiGraphics::drawPolygon(const GiContext* ctx, int count, 
@@ -634,8 +600,9 @@ bool GiGraphics::drawPolygon(const GiContext* ctx, int count,
     if (m_impl->drawRefcnt == 0 || count < 2 || points == NULL)
         return false;
     GiLock lock (&m_impl->drawRefcnt);
-    if (count > 0x2000)
-        count = 0x2000;
+    
+    count = count > 0x2000 ? 0x2000 : count;
+    ctx = ctx ? ctx : &(m_impl->ctx);
 
     bool ret = false;
 
@@ -645,8 +612,7 @@ bool GiGraphics::drawPolygon(const GiContext* ctx, int count,
 
     if (DRAW_MAXR(m_impl, modelUnit).contains(extent))  // 全部在显示区域内
     {
-        ret = _DrawPolygon(m_impl->canvas, ctx, 
-            count, points, true, true, true, modelUnit);
+        ret = _drawPolygon(ctx, count, points, true, true, true, modelUnit);
     }
     else                                                // 部分在显示区域内
     {
@@ -656,14 +622,12 @@ bool GiGraphics::drawPolygon(const GiContext* ctx, int count,
         count = clip.getCount();
         points = clip.getPoints();
 
-        ret = _DrawPolygon(m_impl->canvas, ctx, 
-            count, points, false, true, false, modelUnit);
+        ret = _drawPolygon(ctx, count, points, false, true, false, modelUnit);
 
         int ienter = findInvisibleEdge(clip);
         if (ienter == count)
         {
-            ret = _DrawPolygon(m_impl->canvas, ctx, count, points, 
-                false, false, true, modelUnit) || ret;
+            ret = _drawPolygon(ctx, count, points, false, false, true, modelUnit) || ret;
         }
         else
         {
@@ -714,12 +678,12 @@ bool GiGraphics::drawEllipse(const GiContext* ctx, const Point2d& center,
         ret = rawBeginPath();
         if (ret)
         {
-            ret = rawMoveTo(pxs[0].x, pxs[0].y);
+            rawMoveTo(pxs[0].x, pxs[0].y);
             for (int i = 1; i + 2 < 13; i += 3) {
-                ret = rawBezierTo(pxs[i].x, pxs[i].y,
+                rawBezierTo(pxs[i].x, pxs[i].y,
                     pxs[i+1].x, pxs[i+1].y, pxs[i+2].x, pxs[i+2].y);
             }
-            ret = rawClosePath();
+            rawClosePath();
             ret = rawEndPath(ctx, true);
         }
     }
@@ -754,13 +718,13 @@ bool GiGraphics::drawPie(const GiContext* ctx,
     bool ret = rawBeginPath();
     if (ret)
     {
-        ret = rawMoveTo(cen.x, cen.y);
-        ret = rawLineTo(pxs[0].x, pxs[0].y);
+        rawMoveTo(cen.x, cen.y);
+        rawLineTo(pxs[0].x, pxs[0].y);
         for (int i = 1; i + 2 < count; i += 3) {
-            ret = rawBezierTo(pxs[i].x, pxs[i].y,
+            rawBezierTo(pxs[i].x, pxs[i].y,
                 pxs[i+1].x, pxs[i+1].y, pxs[i+2].x, pxs[i+2].y);
         }
-        ret = rawClosePath();
+        rawClosePath();
         ret = rawEndPath(ctx, true);
     }
 
@@ -810,19 +774,19 @@ bool GiGraphics::drawRoundRect(const GiContext* ctx,
         ret = rawBeginPath();
         if (ret)
         {
-            ret = rawMoveTo(pxs[0].x, pxs[0].y);
-            ret = rawBezierTo(pxs[1].x, pxs[1].y, pxs[2].x, pxs[2].y, pxs[3].x, pxs[3].y);
+            rawMoveTo(pxs[0].x, pxs[0].y);
+            rawBezierTo(pxs[1].x, pxs[1].y, pxs[2].x, pxs[2].y, pxs[3].x, pxs[3].y);
 
-            ret = rawLineTo(pxs[4].x, pxs[4].y);
-            ret = rawBezierTo(pxs[5].x, pxs[5].y, pxs[6].x, pxs[6].y, pxs[7].x, pxs[7].y);
+            rawLineTo(pxs[4].x, pxs[4].y);
+            rawBezierTo(pxs[5].x, pxs[5].y, pxs[6].x, pxs[6].y, pxs[7].x, pxs[7].y);
 
-            ret = rawLineTo(pxs[8].x, pxs[8].y);
-            ret = rawBezierTo(pxs[9].x, pxs[9].y, pxs[10].x, pxs[10].y, pxs[11].x, pxs[11].y);
+            rawLineTo(pxs[8].x, pxs[8].y);
+            rawBezierTo(pxs[9].x, pxs[9].y, pxs[10].x, pxs[10].y, pxs[11].x, pxs[11].y);
 
-            ret = rawLineTo(pxs[12].x, pxs[12].y);
-            ret = rawBezierTo(pxs[13].x, pxs[13].y, pxs[14].x, pxs[14].y, pxs[15].x, pxs[15].y);
+            rawLineTo(pxs[12].x, pxs[12].y);
+            rawBezierTo(pxs[13].x, pxs[13].y, pxs[14].x, pxs[14].y, pxs[15].x, pxs[15].y);
 
-            ret = rawClosePath();
+            rawClosePath();
             ret = rawEndPath(ctx, true);
         }
     }
@@ -906,12 +870,12 @@ bool GiGraphics::drawClosedSplines(const GiContext* ctx, int count,
     bool ret = rawBeginPath();
     if (ret)
     {
-        ret = rawMoveTo(pxs[0].x, pxs[0].y);
+        rawMoveTo(pxs[0].x, pxs[0].y);
         for (i = 1; i + 2 < getSize(pxpoints); i += 3) {
-            ret = rawBezierTo(pxs[i].x, pxs[i].y,
+            rawBezierTo(pxs[i].x, pxs[i].y,
                 pxs[i+1].x, pxs[i+1].y, pxs[i+2].x, pxs[i+2].y);
         }
-        ret = rawClosePath();
+        rawClosePath();
         ret = rawEndPath(ctx, true);
     }
 
@@ -1017,105 +981,215 @@ bool GiGraphics::drawClosedBSplines(const GiContext* ctx,
     if (ret)
     {
         pxs = &pxpoints.front();
-        ret = rawMoveTo(pxs[0].x, pxs[0].y);
+        rawMoveTo(pxs[0].x, pxs[0].y);
         for (i = 1; i + 2 < getSize(pxpoints); i += 3) {
-            ret = rawBezierTo(pxs[i].x, pxs[i].y,
+            rawBezierTo(pxs[i].x, pxs[i].y,
                 pxs[i+1].x, pxs[i+1].y, pxs[i+2].x, pxs[i+2].y);
         }
-        ret = rawClosePath();
+        rawClosePath();
         ret = rawEndPath(ctx, true);
     }
 
     return ret;
 }
 
-void GiGraphics::clearCachedBitmap(bool clearAll)
+bool GiGraphics::setPen(const GiContext* ctx)
 {
-    SafeCall(m_impl->canvas, clearCachedBitmap(clearAll));
+    bool changed = !(m_impl->ctxused & 1);
+    
+    if (m_impl->canvas) {
+        if (ctx && (!mgEquals(ctx->getLineWidth(), m_impl->ctx.getLineWidth())
+                    || ctx->isAutoScale() != m_impl->ctx.isAutoScale())) {
+            m_impl->ctx.setLineWidth(ctx->getLineWidth(), ctx->isAutoScale());
+            changed = true;
+        }
+        if (ctx && ctx->getLineColor() != m_impl->ctx.getLineColor()) {
+            m_impl->ctx.setLineColor(ctx->getLineColor());
+            changed = true;
+        }
+        if (ctx && ctx->getLineStyle() != m_impl->ctx.getLineStyle()) {
+            m_impl->ctx.setLineStyle(ctx->getLineStyle());
+            changed = true;
+        }
+    }
+    
+    ctx = &(m_impl->ctx);
+    if (m_impl->canvas && changed) {
+        m_impl->ctxused &= 1;
+        m_impl->canvas->setPen(calcPenColor(ctx->getLineColor()).getARGB(),
+                               calcPenWidth(ctx->getLineWidth(), ctx->isAutoScale()),
+                               ctx->getLineStyle(), 0);
+    }
+    
+    return !ctx->isNullLine();
 }
 
-GiColor GiGraphics::getBkColor() const
+bool GiGraphics::setBrush(const GiContext* ctx)
 {
-    return m_impl->canvas ? m_impl->canvas->getBkColor() : GiColor::Invalid();
-}
-
-GiColor GiGraphics::setBkColor(const GiColor& color)
-{
-    GiColor colorNoAlhpa(color.r, color.g, color.b);
-    return m_impl->canvas ? m_impl->canvas->setBkColor(colorNoAlhpa) : color;
-}
-
-float GiGraphics::getScreenDpi() const
-{
-    return m_impl->canvas ? m_impl->canvas->getScreenDpi() : 96;
+    bool changed = !(m_impl->ctxused & 2);
+    
+    if (m_impl->canvas) {
+        if (ctx && ctx->getFillColor() != m_impl->ctx.getFillColor()) {
+            m_impl->ctx.setFillColor(ctx->getFillColor());
+            changed = true;
+        }
+    }
+    
+    ctx = &(m_impl->ctx);
+    if (m_impl->canvas && changed) {
+        m_impl->ctxused &= 2;
+        m_impl->canvas->setBrush(calcPenColor(ctx->getFillColor()).getARGB(), 0);
+    }
+    
+    return ctx->hasFillColor();
 }
 
 bool GiGraphics::rawLine(const GiContext* ctx, float x1, float y1, float x2, float y2)
 {
-    return m_impl->canvas && m_impl->canvas->rawLine(ctx, x1, y1, x2, y2);
+    if (m_impl->canvas && setPen(ctx)) {
+        m_impl->canvas->drawLine(x1, y1, x2, y2);
+        return true;
+    }
+    return false;
 }
 
 bool GiGraphics::rawLines(const GiContext* ctx, const Point2d* pxs, int count)
 {
-    return m_impl->canvas && m_impl->canvas->rawLines(ctx, pxs, count);
+    if (m_impl->canvas && setPen(ctx) && pxs && count > 0) {
+        m_impl->canvas->beginPath();
+        m_impl->canvas->moveTo(pxs[0].x, pxs[0].y);
+        for (int i = 1; i < count; i++) {
+            m_impl->canvas->lineTo(pxs[i].x, pxs[i].y);
+        }
+        m_impl->canvas->drawPath(true, false);
+        return true;
+    }
+    return false;
 }
 
 bool GiGraphics::rawBeziers(const GiContext* ctx, const Point2d* pxs, int count)
 {
-    return m_impl->canvas && m_impl->canvas->rawBeziers(ctx, pxs, count);
+    if (m_impl->canvas && setPen(ctx) && pxs && count > 0) {
+        m_impl->canvas->beginPath();
+        m_impl->canvas->moveTo(pxs[0].x, pxs[0].y);
+        for (int i = 1; i + 2 < count; i += 3) {
+            m_impl->canvas->bezierTo(pxs[i].x, pxs[i].y, pxs[i+1].x, pxs[i+1].y,
+                                     pxs[i+2].x, pxs[i+2].y);
+        }
+        m_impl->canvas->drawPath(true, false);
+        return true;
+    }
+    return false;
 }
 
 bool GiGraphics::rawPolygon(const GiContext* ctx, const Point2d* pxs, int count)
 {
-    return m_impl->canvas && m_impl->canvas->rawPolygon(ctx, pxs, count);
+    bool usePen = setPen(ctx);
+    bool useBrush = setBrush(ctx);
+    
+    if (m_impl->canvas && (usePen || useBrush) && pxs && count > 0) {
+        m_impl->canvas->beginPath();
+        m_impl->canvas->moveTo(pxs[0].x, pxs[0].y);
+        for (int i = 1; i < count; i++) {
+            m_impl->canvas->lineTo(pxs[i].x, pxs[i].y);
+        }
+        m_impl->canvas->closePath();
+        m_impl->canvas->drawPath(usePen, useBrush);
+        return true;
+    }
+    return false;
 }
 
 bool GiGraphics::rawRect(const GiContext* ctx, float x, float y, float w, float h)
 {
-    return m_impl->canvas && m_impl->canvas->rawRect(ctx, x, y, w, h);
+    bool usePen = setPen(ctx);
+    bool useBrush = setBrush(ctx);
+    
+    if (m_impl->canvas && (usePen || useBrush)) {
+        m_impl->canvas->drawRect(x, y, w, h, usePen, useBrush);
+        return true;
+    }
+    return false;
 }
 
 bool GiGraphics::rawEllipse(const GiContext* ctx, float x, float y, float w, float h)
 {
-    return m_impl->canvas && m_impl->canvas->rawEllipse(ctx, x, y, w, h);
+    bool usePen = setPen(ctx);
+    bool useBrush = setBrush(ctx);
+    
+    if (m_impl->canvas && (usePen || useBrush)) {
+        m_impl->canvas->drawEllipse(x, y, w, h, usePen, useBrush);
+        return true;
+    }
+    return false;
 }
 
 bool GiGraphics::rawBeginPath()
 {
-    return m_impl->canvas && m_impl->canvas->rawBeginPath();
+    if (m_impl->canvas) {
+        m_impl->canvas->beginPath();
+    }
+    return !!m_impl->canvas;
 }
 
 bool GiGraphics::rawEndPath(const GiContext* ctx, bool fill)
 {
-    return m_impl->canvas && m_impl->canvas->rawEndPath(ctx, fill);
+    bool usePen = setPen(ctx);
+    bool useBrush = setBrush(ctx);
+    
+    if (m_impl->canvas && (usePen || useBrush)) {
+        m_impl->canvas->drawPath(usePen, useBrush);
+        return true;
+    }
+    return false;
 }
 
 bool GiGraphics::rawMoveTo(float x, float y)
 {
-    return m_impl->canvas && m_impl->canvas->rawMoveTo(x, y);
+    if (m_impl->canvas) {
+        m_impl->canvas->moveTo(x, y);
+    }
+    return !!m_impl->canvas;
 }
 
 bool GiGraphics::rawLineTo(float x, float y)
 {
-    return m_impl->canvas && m_impl->canvas->rawLineTo(x, y);
+    if (m_impl->canvas) {
+        m_impl->canvas->lineTo(x, y);
+    }
+    return !!m_impl->canvas;
 }
 
 bool GiGraphics::rawBezierTo(float c1x, float c1y, float c2x, float c2y, float x, float y)
 {
-    return m_impl->canvas && m_impl->canvas->rawBezierTo(c1x, c1y, c2x, c2y, x, y);
+    if (m_impl->canvas) {
+        m_impl->canvas->bezierTo(c1x, c1y, c2x, c2y, x, y);
+    }
+    return !!m_impl->canvas;
 }
 
 bool GiGraphics::rawClosePath()
 {
-    return m_impl->canvas && m_impl->canvas->rawClosePath();
+    if (m_impl->canvas) {
+        m_impl->canvas->closePath();
+    }
+    return !!m_impl->canvas;
 }
 
-void GiGraphics::rawTextCenter(const char* text, float x, float y, float h)
+bool GiGraphics::rawText(const char* text, float x, float y, float h, int align)
 {
-    m_impl->canvas->rawTextCenter(text, x, y, h);
+    if (m_impl->canvas && text) {
+        m_impl->canvas->drawTextAt(text, x, y, h, align);
+        return true;
+    }
+    return false;
 }
 
-bool GiGraphics::drawImage(const char* name, float xc, float yc, float w, float h, float angle)
+bool GiGraphics::rawImage(const char* name, float xc, float yc, float w, float h, float angle)
 {
-    return m_impl->canvas->drawImage(name, xc, yc, w, h, angle);
+    if (m_impl->canvas && name) {
+        m_impl->canvas->drawBitmap(name, xc, yc, w, h, angle);
+        return true;
+    }
+    return false;
 }

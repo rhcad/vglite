@@ -40,9 +40,6 @@ public:
     //! 返回是否有已缓存的显示内容
     bool hasCachedBitmap(bool secondBmp = false) const;
 
-    //! 清除已缓存的显示内容
-    void clearCachedBitmap(bool secondBmp = false);
-
     //! 返回当前是否在缓冲位图上绘图，调用endPaint()前有效
     bool isBufferedDrawing() const;
 

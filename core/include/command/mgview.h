@@ -5,7 +5,6 @@
 #ifndef VGLITE_CORE_COMMAND_VIEW_H
 #define VGLITE_CORE_COMMAND_VIEW_H
 
-class GiView;
 class GcShapeDoc;
 class MgCmdManager;
 
@@ -24,9 +23,6 @@ class MgView
 {
 public:
     virtual ~MgView() {}
-    
-    //! 返回当前回调视图对象
-    virtual GiView* currentView() = 0;
     
     //! 返回当前手势状态
     virtual MgGestureState gestureState() = 0;

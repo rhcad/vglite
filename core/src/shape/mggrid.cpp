@@ -104,7 +104,6 @@ bool MgGrid::_draw(int mode, GiGraphics& gs, const GiContext& ctx, int segment) 
     float w = gs.calcPenWidth(ctx.getLineWidth(), ctx.isAutoScale()) / -2.f;
     GiContext ctxgrid(w, ctx.getLineColor());
     
-    bool antiAlias = gs.setAntiAliasMode(false);
     int ret = gs.drawRect(&ctxgrid, rect) ? 1 : 0;
     
     bool switchx = (nx >= 10 && cell.x < gs.xf().displayToModel(20, true));
@@ -130,8 +129,6 @@ bool MgGrid::_draw(int mode, GiGraphics& gs, const GiContext& ctx, int segment) 
             ctx.getLineAlpha() / 2 : ctx.getLineAlpha());
         ret += gs.drawLine(&ctxgrid, pts[0], pts[1]) ? 1 : 0;
     }
-
-    gs.setAntiAliasMode(antiAlias);
     
     return __super::_draw(mode, gs, ctx, segment) || ret > 0;
 }

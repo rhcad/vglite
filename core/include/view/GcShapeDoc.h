@@ -25,7 +25,7 @@ public:
     GcBaseView* findView(GiView* view) const;
     GcBaseView* getView(int index) const;
     int getViewCount() const;
-    GiView* firstView() const;
+    GcBaseView* firstView() const;
     
 private:
     std::vector<GcBaseView*>    _views;

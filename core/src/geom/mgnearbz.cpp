@@ -85,7 +85,7 @@ static int CrossingCount(const point_t* pts, int degree)
     int     n_crossings = 0;    // Number of zero-crossings
     int     sign, old_sign;     // Sign of coefficients
 
-    sign = old_sign = SGN(pts[0].y);
+    old_sign = SGN(pts[0].y);
     for (i = 1; i <= degree; i++) {
         sign = SGN(pts[i].y);
         if (sign != old_sign) n_crossings++;
@@ -381,7 +381,7 @@ static void NearestOnBezier(const point_t& pt, const point_t* pts, point_t& near
         // Finally, look at distance to end point, where t = 1.0
         new_dist = (pt - pts[DEGREE]).lengthSquare();
         if (new_dist < dist) {
-            dist = new_dist;
+            //dist = new_dist;
             t = 1.0;
         }
     }

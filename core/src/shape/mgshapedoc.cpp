@@ -193,8 +193,9 @@ bool MgShapeDoc::load(MgStorage* s, bool addOnly)
     bool ret = false;
     Box2d rect;
 
-    if (!s || !s->readNode("shapedoc", -1, false))
-        return s->setError("No root node.");
+    if (!s || !s->readNode("shapedoc", -1, false)) {
+        return s && s->setError("No root node.");
+    }
 
     s->readFloatArray("transform", &_xf.m11, 6);
     s->readFloatArray("zoomExtent", &_rectW.xmin, 4);

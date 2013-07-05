@@ -14,16 +14,16 @@ public:
 
     GiTransform*  xform;            //!< 坐标系管理对象
     GiCanvas*   canvas;             //!< 显示适配器
+    GiContext   ctx;                //!< 当前绘图参数
+    int         ctxused;            //!< 画笔和画刷的设置标志
 
     float       maxPenWidth;        //!< 最大像素线宽
     float       minPenWidth;        //!< 最小像素线宽
-    bool        antiAlias;          //!< 当前是否是反走样模式
 
     long        lastZoomTimes;      //!< 记下的放缩结果改变次数
     long        drawRefcnt;         //!< 绘图锁定计数
     bool        isPrint;            //!< 是否打印或打印预览
     int         drawColors;         //!< 绘图DC颜色数
-    GiColorMode    colorMode;      //!< 颜色模式
     RECT_2D     clipBox0;           //!< 开始绘图时的剪裁框(LP)
 
     RECT_2D     clipBox;            //!< 剪裁框(LP)
@@ -37,11 +37,10 @@ public:
     {
         drawRefcnt = 0;
         drawColors = 0;
-        colorMode = kGiColorReal;
         isPrint = false;
+        ctxused = 0;
         maxPenWidth = 100;
         minPenWidth = 1;
-        antiAlias = true;
     }
 
     ~GiGraphicsImpl()
@@ -55,8 +54,9 @@ public:
         rectDrawMaxM = rect * xform->displayToModel();
         rectDrawW = rectDrawM * xform->modelToWorld();
         rectDrawMaxW = rectDrawMaxM * xform->modelToWorld();
-        if (canvas)
+        if (canvas) {
             canvas->clearCachedBitmap(true);
+        }
     }
 
 private:

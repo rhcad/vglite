@@ -59,7 +59,7 @@ int GcShapeDoc::getViewCount() const
     return (int)_views.size();
 }
 
-GiView* GcShapeDoc::firstView() const
+GcBaseView* GcShapeDoc::firstView() const
 {
-    return !_views.empty() ? _views.front()->deviceView() : NULL;
+    return !_views.empty() ? _views.front() : NULL;
 }

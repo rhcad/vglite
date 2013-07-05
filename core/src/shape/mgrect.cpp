@@ -303,8 +303,8 @@ bool MgImageShape::_draw(int mode, GiGraphics& gs, const GiContext& ctx, int seg
     tmpctx.setNoFillColor();
     
     bool ret = (gs.drawPolygon(&tmpctx, 4, _points) ||
-                gs.drawImage(_name, rect.center().x, rect.center().y, 
-                             rect.width(), rect.height(), vec.angle2()));
+                gs.rawImage(_name, rect.center().x, rect.center().y,
+                            rect.width(), rect.height(), vec.angle2()));
     return __super::_draw(mode, gs, ctx, segment) || ret;
 }
 

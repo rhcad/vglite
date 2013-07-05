@@ -22,8 +22,6 @@
 		AE1A75E31782A45A007FB031 /* mgpnt.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A756B1782A45A007FB031 /* mgpnt.h */; };
 		AE1A75E41782A45A007FB031 /* mgtol.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A756C1782A45A007FB031 /* mgtol.h */; };
 		AE1A75E51782A45A007FB031 /* mgvec.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A756D1782A45A007FB031 /* mgvec.h */; };
-		AE1A75E61782A45A007FB031 /* gicanvas.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A756F1782A45A007FB031 /* gicanvas.h */; };
-		AE1A75E71782A45A007FB031 /* gicanvdr.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A75701782A45A007FB031 /* gicanvdr.h */; };
 		AE1A75E81782A45A007FB031 /* gicolor.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A75711782A45A007FB031 /* gicolor.h */; };
 		AE1A75E91782A45A007FB031 /* gicontxt.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A75721782A45A007FB031 /* gicontxt.h */; };
 		AE1A75EA1782A45A007FB031 /* gidef.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1A75731782A45A007FB031 /* gidef.h */; };
@@ -144,8 +142,6 @@
 		AE1A756B1782A45A007FB031 /* mgpnt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mgpnt.h; sourceTree = "<group>"; };
 		AE1A756C1782A45A007FB031 /* mgtol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mgtol.h; sourceTree = "<group>"; };
 		AE1A756D1782A45A007FB031 /* mgvec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mgvec.h; sourceTree = "<group>"; };
-		AE1A756F1782A45A007FB031 /* gicanvas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gicanvas.h; sourceTree = "<group>"; };
-		AE1A75701782A45A007FB031 /* gicanvdr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gicanvdr.h; sourceTree = "<group>"; };
 		AE1A75711782A45A007FB031 /* gicolor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gicolor.h; sourceTree = "<group>"; };
 		AE1A75721782A45A007FB031 /* gicontxt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gicontxt.h; sourceTree = "<group>"; };
 		AE1A75731782A45A007FB031 /* gidef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gidef.h; sourceTree = "<group>"; };
@@ -315,8 +311,6 @@
 		AE1A756E1782A45A007FB031 /* graph */ = {
 			isa = PBXGroup;
 			children = (
-				AE1A756F1782A45A007FB031 /* gicanvas.h */,
-				AE1A75701782A45A007FB031 /* gicanvdr.h */,
 				AE1A75711782A45A007FB031 /* gicolor.h */,
 				AE1A75721782A45A007FB031 /* gicontxt.h */,
 				AE1A75731782A45A007FB031 /* gidef.h */,
@@ -592,8 +586,6 @@
 				AE1A75E31782A45A007FB031 /* mgpnt.h in Headers */,
 				AE1A75E41782A45A007FB031 /* mgtol.h in Headers */,
 				AE1A75E51782A45A007FB031 /* mgvec.h in Headers */,
-				AE1A75E61782A45A007FB031 /* gicanvas.h in Headers */,
-				AE1A75E71782A45A007FB031 /* gicanvdr.h in Headers */,
 				AE1A75E81782A45A007FB031 /* gicolor.h in Headers */,
 				AE1A75E91782A45A007FB031 /* gicontxt.h in Headers */,
 				AE1A75EA1782A45A007FB031 /* gidef.h in Headers */,

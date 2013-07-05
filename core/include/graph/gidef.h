@@ -42,11 +42,4 @@ typedef enum {
     kGiMoveTo = 6,
 } GiPathNode;
 
-//! 颜色模式定义
-typedef enum {
-    kGiColorReal,       //!< 真彩
-    kGiColorGray,       //!< 灰度，256级
-    kGiColorMono        //!< 单色，背景色和反色
-} GiColorMode;
-
 #endif // __GEOMETRY_GIDEF_H_

@@ -124,6 +124,11 @@ public:
         \return 实际显示宽度
      */
     virtual float drawTextAt(const char* text, float x, float y, float h, int align) = 0;
+    
+#ifndef SWIG
+    //! 清除后备缓冲位图，以便重新绘图
+    virtual void clearCachedBitmap(bool clearAll = false) { clearAll = clearAll; }
+#endif
 };
 
 #endif // VGLITE_CORE_GICANVAS_H
