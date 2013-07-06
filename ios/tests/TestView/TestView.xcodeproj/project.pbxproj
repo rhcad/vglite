@@ -246,12 +246,12 @@
 			isa = PBXGroup;
 			children = (
 				AE1A76431782E3D7007FB031 /* callback */,
-				AE1A76461782E3D7007FB031 /* command */,
-				AE1A76491782E3D7007FB031 /* geom */,
-				AE1A76551782E3D7007FB031 /* graph */,
-				AE1A765F1782E3D7007FB031 /* shape */,
-				AE1A766F1782E3D7007FB031 /* test */,
 				AE1A76721782E3D7007FB031 /* view */,
+				AE1A76461782E3D7007FB031 /* command */,
+				AE1A765F1782E3D7007FB031 /* shape */,
+				AE1A76551782E3D7007FB031 /* graph */,
+				AE1A76491782E3D7007FB031 /* geom */,
+				AE1A766F1782E3D7007FB031 /* test */,
 			);
 			path = include;
 			sourceTree = "<group>";
@@ -353,13 +353,13 @@
 		AE1A76791782E3D7007FB031 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				AE1A767A1782E3D7007FB031 /* command */,
-				AE1A767C1782E3D7007FB031 /* geom */,
-				AE1A768A1782E3D7007FB031 /* graph */,
-				AE1A76921782E3D7007FB031 /* json */,
-				AE1A76A31782E3D7007FB031 /* shape */,
-				AE1A76B21782E3D7007FB031 /* test */,
 				AE1A76B51782E3D7007FB031 /* view */,
+				AE1A767A1782E3D7007FB031 /* command */,
+				AE1A76A31782E3D7007FB031 /* shape */,
+				AE1A76921782E3D7007FB031 /* json */,
+				AE1A768A1782E3D7007FB031 /* graph */,
+				AE1A767C1782E3D7007FB031 /* geom */,
+				AE1A76B21782E3D7007FB031 /* test */,
 			);
 			path = src;
 			sourceTree = "<group>";

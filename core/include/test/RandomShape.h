@@ -14,10 +14,11 @@ struct RandomParam
     
     static void init();
 
-    RandomParam() : lineCount(10), rectCount(0), arcCount(10), curveCount(10), randomLineStyle(true) {}
+    RandomParam(long curve = 10) : lineCount(10), rectCount(0), arcCount(10)
+    , curveCount(curve), randomLineStyle(true) {}
 
     long getShapeCount() const { return lineCount + rectCount + arcCount + curveCount; }
-    void initShapes(MgShapes* shapes);
+    void addShapes(MgShapes* shapes);
     void setShapeProp(GiContext* context);
 
     static float RandF(float dMin, float dMax);

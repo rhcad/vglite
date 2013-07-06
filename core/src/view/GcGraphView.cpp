@@ -5,9 +5,9 @@
 #include "GcGraphView.h"
 #include <RandomShape.h>
 
-GcShapeView::GcShapeView(GiView *view) : GcBaseView(view)
+GcShapeView::GcShapeView(GcShapeDoc* doc, GiView *view) : GcBaseView(doc, view)
 {
-    RandomParam().initShapes(shapes());
+    RandomParam(1000).addShapes(shapes());
 }
 
 GcShapeView::~GcShapeView()
@@ -16,6 +16,10 @@ GcShapeView::~GcShapeView()
 
 void GcShapeView::drawAll(GiCanvas* canvas)
 {
+    if (graph()->beginPaint(canvas)) {
+        doc()->draw(*graph());
+        graph()->endPaint();
+    }
 }
 
 void GcShapeView::drawAppend(GiCanvas* canvas)
@@ -47,7 +51,7 @@ bool GcShapeView::twoFingersMove(GiGestureState gestureState,
 // GcGraphView
 //
 
-GcGraphView::GcGraphView(GiView *view) : GcShapeView(view)
+GcGraphView::GcGraphView(GcShapeDoc* doc, GiView *view) : GcShapeView(doc, view)
 {
 }
 

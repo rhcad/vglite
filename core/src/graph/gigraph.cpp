@@ -41,29 +41,34 @@ GiTransform& GiGraphics::_xf()
     return *m_impl->xform;
 }
 
-void GiGraphics::beginPaint(GiCanvas* canvas, const RECT_2D& clipBox)
+bool GiGraphics::beginPaint(GiCanvas* canvas, const RECT_2D& clipBox)
 {
+    if (!canvas || m_impl->canvas || m_impl->drawRefcnt > 0) {
+        return false;
+    }
+    
     m_impl->canvas = canvas;
     m_impl->ctxused = 0;
+    giInterlockedIncrement(&m_impl->drawRefcnt);
     
-    if (m_impl->lastZoomTimes != xf().getZoomTimes())
-    {
+    if (m_impl->lastZoomTimes != xf().getZoomTimes()) {
         m_impl->zoomChanged();
         m_impl->lastZoomTimes = xf().getZoomTimes();
     }
-    giInterlockedIncrement(&m_impl->drawRefcnt);
-
-    if (!Box2d(clipBox).isEmpty())
-    {
-        m_impl->clipBox0 = clipBox;
-        m_impl->clipBox  = clipBox;
-        m_impl->rectDraw = Box2d(clipBox);
-        m_impl->rectDraw.inflate(GiGraphicsImpl::CLIP_INFLATE);
-        m_impl->rectDrawM = Box2d(m_impl->rectDraw) * xf().displayToModel();
-        m_impl->rectDrawMaxM = Box2d(0, 0, xf().getWidth(), xf().getHeight()) * xf().displayToModel();
-        m_impl->rectDrawW = m_impl->rectDrawM * xf().modelToWorld();
-        m_impl->rectDrawMaxW = m_impl->rectDrawMaxM * xf().modelToWorld();
+    
+    m_impl->clipBox0 = clipBox;
+    if (Box2d(clipBox).isEmpty()) {
+        (xf().getWndRectW() * xf().worldToDisplay()).get(m_impl->clipBox0);
     }
+    m_impl->clipBox  = m_impl->clipBox0;
+    m_impl->rectDraw = m_impl->clipBox0;
+    m_impl->rectDraw.inflate(GiGraphicsImpl::CLIP_INFLATE);
+    m_impl->rectDrawM = Box2d(m_impl->rectDraw) * xf().displayToModel();
+    m_impl->rectDrawMaxM = Box2d(0, 0, xf().getWidth(), xf().getHeight()) * xf().displayToModel();
+    m_impl->rectDrawW = m_impl->rectDrawM * xf().modelToWorld();
+    m_impl->rectDrawMaxW = m_impl->rectDrawMaxM * xf().modelToWorld();
+    
+    return true;
 }
 
 void GiGraphics::endPaint()

@@ -36,7 +36,7 @@ void RandomParam::setShapeProp(GiContext* context)
     context->setFillColor(GiColor(RandUInt8(0, 255), RandUInt8(0, 255), RandUInt8(0, 255), RandUInt8(32, 240)));
 }
 
-void RandomParam::initShapes(MgShapes* shapes)
+void RandomParam::addShapes(MgShapes* shapes)
 {
     for (long n = getShapeCount(); n > 0; n--)
     {

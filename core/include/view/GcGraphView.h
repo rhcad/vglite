@@ -14,7 +14,7 @@
 class GcShapeView : public GcBaseView
 {
 public:
-    GcShapeView(GiView *view);
+    GcShapeView(GcShapeDoc* doc, GiView *view);
     virtual ~GcShapeView();
     
     virtual void drawAll(GiCanvas* canvas);
@@ -33,7 +33,7 @@ public:
 class GcGraphView : public GcShapeView
 {
 public:
-    GcGraphView(GiView *view);
+    GcGraphView(GcShapeDoc* doc, GiView *view);
     virtual ~GcGraphView();
 };
 

@@ -298,7 +298,7 @@ public:
     GiTransform& _xf();
 
     //! 在显示适配类的 beginPaint() 中调用
-    void beginPaint(GiCanvas* canvas, const RECT_2D& clipBox);
+    bool beginPaint(GiCanvas* canvas, const RECT_2D& clipBox = RECT_2D());
 
     //! 在显示适配类的 endPaint() 中调用
     void endPaint();

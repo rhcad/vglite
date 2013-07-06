@@ -20,7 +20,7 @@ class MgShapes;
 class GcBaseView
 {
 public:
-    GcBaseView(GiView *view) : _view(view), _doc((GcShapeDoc*)0), _gs(&_xf) {}
+    GcBaseView(GcShapeDoc* doc, GiView *view);
     
     //! 析构函数
     virtual ~GcBaseView() {}
@@ -30,9 +30,7 @@ public:
     
     MgShapeDoc* doc();
     MgShapes* shapes();
-    
     GcShapeDoc* document() { return _doc; }
-    void setDocument(GcShapeDoc* doc) { _doc = doc; }
     
     //! 得到坐标系对象
     GiTransform* xform() { return &_xf; }
