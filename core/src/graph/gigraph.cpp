@@ -1139,7 +1139,7 @@ bool GiGraphics::rawBeginPath()
 bool GiGraphics::rawEndPath(const GiContext* ctx, bool fill)
 {
     bool usePen = setPen(ctx);
-    bool useBrush = setBrush(ctx);
+    bool useBrush = fill && setBrush(ctx);
     
     if (m_impl->canvas && (usePen || useBrush)) {
         m_impl->canvas->drawPath(usePen, useBrush);

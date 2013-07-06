@@ -44,7 +44,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\..\core\include\callback;..\..\core\include\test;..\..\core\include\view;..\..\core\include"
+				AdditionalIncludeDirectories="..\..\core\include\callback;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;TOUCHVG_EXPORTS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -247,11 +247,11 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\core\src\view\GcMagnifierView.cpp"
+				RelativePath="..\..\core\src\view\GcGraphView.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\core\src\view\GcGraphView.cpp"
+				RelativePath="..\..\core\src\view\GcMagnifierView.cpp"
 				>
 			</File>
 			<File
@@ -263,9 +263,141 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\core\src\test\RandomShape.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\core\src\test\testcanvas.cpp"
 				>
 			</File>
+			<Filter
+				Name="command"
+				>
+				<File
+					RelativePath="..\..\core\src\command\mgcmdmgr.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="shape"
+				>
+				<File
+					RelativePath="..\..\core\src\shape\mgcomposite.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\shape\mgellipse.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\shape\mggrid.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\json\mgjsonstorage.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\shape\mglayer.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\shape\mgline.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\shape\mglines.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\shape\mgrdrect.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\shape\mgrect.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\shape\mgshape.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\shape\mgshapedoc.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\shape\mgshapes.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\shape\mgspfactory.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\shape\mgsplines.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\shape\mgsplock.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="graph"
+				>
+				<File
+					RelativePath="..\..\core\src\graph\gigraph.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\graph\gipath.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\graph\gixform.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="geom"
+				>
+				<File
+					RelativePath="..\..\core\src\geom\mgbase.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\geom\mgbnd.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\geom\mgbox.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\geom\mgcurv.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\geom\mglnrel.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\geom\mgmat.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\geom\mgnear.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\geom\mgnearbz.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\geom\mgvec.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 	</Files>
 	<Globals>

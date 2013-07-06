@@ -37,6 +37,9 @@ public:
     //! 缓存显示的内容
     void saveCachedBitmap(bool secondBmp = false);
 
+    //! 清除后备缓冲位图，以便重新绘图
+    void clearCachedBitmap(bool clearAll = false);
+
     //! 返回是否有已缓存的显示内容
     bool hasCachedBitmap(bool secondBmp = false) const;
 
