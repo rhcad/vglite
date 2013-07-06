@@ -17,7 +17,7 @@ GcShapeDoc::~GcShapeDoc()
 
 void GcShapeDoc::addView(GcBaseView* view)
 {
-    if (view && view->deviceView() && view->document() == this
+    if (view && view->deviceView() && view->cmdView()->document() == this
         && !findView(view->deviceView())) {
         _views.push_back(view);
     }

@@ -14,7 +14,7 @@
 class GcShapeView : public GcBaseView
 {
 public:
-    GcShapeView(GcShapeDoc* doc, GiView *view);
+    GcShapeView(MgView* mgview, GiView *view);
     virtual ~GcShapeView();
     
     virtual void drawAll(GiCanvas* canvas);
@@ -25,6 +25,10 @@ public:
                            GiGestureState gestureState, float x, float y);
     virtual bool twoFingersMove(GiGestureState gestureState,
                                 float x1, float y1, float x2, float y2);
+private:
+    Point2d     _startPt[2];
+    Point2d     _lastCenter;
+    float       _lastScale;
 };
 
 //! 主绘图视图类
@@ -33,7 +37,7 @@ public:
 class GcGraphView : public GcShapeView
 {
 public:
-    GcGraphView(GcShapeDoc* doc, GiView *view);
+    GcGraphView(MgView* mgview, GiView *view);
     virtual ~GcGraphView();
 };
 

@@ -156,15 +156,14 @@ public:
 - (BOOL)pressHandler:(UILongPressGestureRecognizer *)sender;
 - (BOOL)pinchHandler:(UIPinchGestureRecognizer *)sender;
 - (BOOL)rotationHandler:(UIRotationGestureRecognizer *)sender;
-- (BOOL)twoFingersPanHandler:(UIPanGestureRecognizer *)sender;
 - (BOOL)delayTap;
 
 @end
 
 @implementation GiBaseView
 
-@synthesize panRecognizer, tapRecognizer, twoTapsRecognizer, pressRecognizer;
-@synthesize pinchRecognizer, rotationRecognizer, twoFingersPanRecognizer;
+@synthesize panRecognizer, tapRecognizer, twoTapsRecognizer;
+@synthesize pressRecognizer, pinchRecognizer, rotationRecognizer;
 
 - (void)dealloc
 {
@@ -242,11 +241,6 @@ public:
     recognizers[i++] = rotationRecognizer =
     [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(rotationHandler:)];
     
-    recognizers[i++] = twoFingersPanRecognizer =
-    [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(twoFingersPanHandler:)];
-    twoFingersPanRecognizer.maximumNumberOfTouches = 2;
-    twoFingersPanRecognizer.minimumNumberOfTouches = 2;
-    
     recognizers[i++] = panRecognizer =
     [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panHandler:)];
     panRecognizer.maximumNumberOfTouches = 2;                       // 允许单指拖动变为双指拖动
@@ -290,12 +284,8 @@ public:
     else if (gestureRecognizer == rotationRecognizer) {
         allow = [self rotationHandler:(UIRotationGestureRecognizer *)gestureRecognizer];
     }
-    else if (gestureRecognizer == twoFingersPanRecognizer) {
-        allow = [self twoFingersPanHandler:(UIPanGestureRecognizer *)gestureRecognizer];
-    }
     else if (gestureRecognizer == panRecognizer) {
-        allow = ([gestureRecognizer numberOfTouches] == 1    // 只在移动过程中识别第二个触点
-                 && [self panHandler:(UIPanGestureRecognizer *)gestureRecognizer]);
+        allow = [self panHandler:(UIPanGestureRecognizer *)gestureRecognizer];
     }
     else if (gestureRecognizer == tapRecognizer) {
         allow = [self tapHandler:(UITapGestureRecognizer *)gestureRecognizer];
@@ -427,11 +417,14 @@ public:
         return NO;
     }
     
-    CGPoint pt = [sender locationInView:sender.view];
+    const CGPoint pt = [sender locationInView:sender.view];
+    const int touchCount = [sender numberOfTouches];
     
     // 检查手势的有效性
     if (sender.state == UIGestureRecognizerStatePossible) {
-        return _adapter->dispatchGesture(kGiGesturePan, kGiGesturePossible, pt);
+        _touchCount = touchCount;
+        return (touchCount > 1 ? _adapter->twoFingersMove(sender)
+                : _adapter->dispatchGesture(kGiGesturePan, kGiGesturePossible, pt));
     }
     // 在 touchesMoved 中已经分发了开始状态，就转为移动状态分发
     if (sender.state == UIGestureRecognizerStateBegan && !_points.empty()) {
@@ -440,7 +433,7 @@ public:
         return _adapter->dispatchGesture(kGiGesturePan, kGiGestureMoved, pt);
     }
     // 切换单指与双指模式，就结束前一模式
-    if (_touchCount != [sender numberOfTouches]
+    if (_touchCount != touchCount
         && sender.state == UIGestureRecognizerStateChanged) {
         if (_moved && _touchCount > 0) {
             _moved = NO;
@@ -451,7 +444,7 @@ public:
                 _adapter->dispatchGesture(kGiGesturePan, kGiGestureEnded, _tapPoint);
             }
         }
-        _touchCount = [sender numberOfTouches];
+        _touchCount = touchCount;
     }
     else {
         GiGestureState state = (GiGestureState)sender.state;
@@ -532,13 +525,6 @@ public:
 }
 
 - (BOOL)rotationHandler:(UIRotationGestureRecognizer *)sender
-{
-    return ([self gestureCheck:sender]
-            && [self gesturePost:sender]
-            && _adapter->twoFingersMove(sender));
-}
-
-- (BOOL)twoFingersPanHandler:(UIPanGestureRecognizer *)sender
 {
     return ([self gestureCheck:sender]
             && [self gesturePost:sender]

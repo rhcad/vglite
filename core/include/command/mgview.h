@@ -9,6 +9,7 @@
 #include "mgshapedoc.h"
 
 class MgCmdManager;
+class GcShapeDoc;
 
 typedef enum {                  //!< 手势状态
     kMgGesturePossible,         //!< 待检查手势有效性
@@ -26,6 +27,7 @@ class MgView
 public:
     virtual ~MgView() {}
     
+    virtual GcShapeDoc* document() = 0;
     virtual MgCmdManager* cmds() = 0;           //!< 返回命令管理器对象
     virtual GiTransform* xform() = 0;           //!< 得到坐标系对象
     virtual GiGraphics* graph() = 0;            //!< 得到图形显示对象

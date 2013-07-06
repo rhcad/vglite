@@ -6,13 +6,9 @@
 #define VGLITE_CORE_BASEVIEW_H
 
 #include "gigesture.h"
-#include "gigraph.h"
+#include "mgview.h"
 
 class GiView;
-class GiCanvas;
-class GcShapeDoc;
-class MgShapeDoc;
-class MgShapes;
 
 //! 内核视图基类
 /*! \ingroup GROUP_VIEW
@@ -20,7 +16,7 @@ class MgShapes;
 class GcBaseView
 {
 public:
-    GcBaseView(GcShapeDoc* doc, GiView *view);
+    GcBaseView(MgView* mgview, GiView *view);
     
     //! 析构函数
     virtual ~GcBaseView() {}
@@ -28,9 +24,9 @@ public:
     //! 返回回调视图对象
     GiView* deviceView() { return _view; }
     
+    MgView* cmdView() { return _mgview; }
     MgShapeDoc* doc();
     MgShapes* shapes();
-    GcShapeDoc* document() { return _doc; }
     
     //! 得到坐标系对象
     GiTransform* xform() { return &_xf; }
@@ -57,9 +53,10 @@ public:
     //! 传递双指移动手势(可放缩旋转)
     virtual bool twoFingersMove(GiGestureState gestureState,
             float x1, float y1, float x2, float y2) = 0;
+
 private:
+    MgView*     _mgview;
     GiView*     _view;
-    GcShapeDoc* _doc;
     GiTransform _xf;
     GiGraphics  _gs;
 };

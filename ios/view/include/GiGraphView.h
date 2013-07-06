@@ -18,10 +18,8 @@ class GiCoreView;
 @property(nonatomic, readonly) UITapGestureRecognizer *tapRecognizer;           //!< 点击
 @property(nonatomic, readonly) UITapGestureRecognizer *twoTapsRecognizer;       //!< 双击
 @property(nonatomic, readonly) UILongPressGestureRecognizer *pressRecognizer;   //!< 长按
-
 @property(nonatomic, readonly) UIPinchGestureRecognizer *pinchRecognizer;       //!< 放缩
 @property(nonatomic, readonly) UIRotationGestureRecognizer *rotationRecognizer; //!< 旋转
-@property(nonatomic, readonly) UIPanGestureRecognizer *twoFingersPanRecognizer; //!< 双指拖动
 
 - (GiViewAdapter *)viewAdapter;         //!< 得到视图适配器对象
 - (GiCoreView *)coreView;               //!< 得到跨平台内核视图

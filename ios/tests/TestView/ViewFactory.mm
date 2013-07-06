@@ -21,12 +21,12 @@ static void addView(NSMutableArray *arr, NSString* title, UIView* view)
 }
 
 static void addLargeView1(NSMutableArray *arr, NSUInteger &i, NSUInteger index, 
-                         NSString* title, CGRect frame)
+                         NSString* title, CGRect frame, int type)
 {
     LargeView1 *view = nil;
     
     if (!arr && index == i++) {
-        view = [[LargeView1 alloc]initWithFrame:frame];
+        view = [[LargeView1 alloc]initWithFrame:frame withType:type];
     }
     addView(arr, title, view);
 }
@@ -58,8 +58,9 @@ static void gatherTestView(NSMutableArray *arr, NSUInteger index, CGRect frame)
     NSUInteger i = 0;
     
     addGraphView(arr, i, index, @"GiGraphView1", frame, 0);
-    addLargeView1(arr, i, index, @"GiGraphView1 in large view", frame);
+    addLargeView1(arr, i, index, @"GiGraphView1 in large view", frame, 0);
     addGraphView(arr, i, index, @"GiGraphView", frame, 1);
+    addLargeView1(arr, i, index, @"GiGraphView in large view", frame, 1);
 }
 
 void getTestViewTitles(NSMutableArray *arr)

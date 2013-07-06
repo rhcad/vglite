@@ -3,10 +3,11 @@
 
 #import "LargeView1.h"
 #import "GiGraphView1.h"
+#import "GiGraphView.h"
 
 @implementation LargeView1
 
-- (id)initWithFrame:(CGRect)frame
+- (id)initWithFrame:(CGRect)frame withType:(int)type
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -16,12 +17,26 @@
         [self addSubview:view];
         [view release];
         
-        _subview = [[GiGraphView1 alloc]initWithFrame:view.bounds];
-        [view addSubview:_subview];
-        [_subview release];
+        UIView *subview;
+        
+        if (type == 0) {
+            _subview1 = [[GiGraphView1 alloc]initWithFrame:view.bounds];
+            subview = _subview1;
+        }
+        else {
+            _subview2 = [[GiGraphView alloc]initWithFrame:view.bounds];
+            subview = _subview2;
+#ifdef __IPHONE_5_0
+            if (_subview2.panGestureRecognizer) {
+                [self.panGestureRecognizer requireGestureRecognizerToFail:_subview2.panGestureRecognizer];
+            }
+#endif
+        }
+        [view addSubview:subview];
+        [subview release];
         
         self.delegate = self;
-        self.contentSize = _subview.frame.size;
+        self.contentSize = subview.frame.size;
         self.minimumZoomScale = 0.25f;
         self.maximumZoomScale = 5.f;
     }
@@ -31,17 +46,17 @@
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
 {
-    return _subview.superview;
+    return _subview1 ? _subview1.superview : _subview2.superview;
 }
 
 - (void)save
 {
-    [_subview save];
+    [_subview1 save];
 }
 
 - (void)edit
 {
-    [_subview edit];
+    [_subview1 edit];
 }
 
 @end

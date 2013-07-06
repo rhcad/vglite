@@ -13,7 +13,7 @@
 class GcMagnifierView : public GcShapeView
 {
 public:
-    GcMagnifierView(GcShapeDoc* doc, GiView *view, GcGraphView* mainView);
+    GcMagnifierView(MgView* mgview, GiView *view, GcGraphView* mainView);
     virtual ~GcMagnifierView();
     
 private:

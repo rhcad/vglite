@@ -18,8 +18,8 @@
 class GcDummyView : public GcBaseView
 {
 public:
-    GcDummyView(GcShapeDoc* doc, GiView *view)
-        : GcBaseView(doc, view), _gestureState(kGiGestureCancel) {}
+    GcDummyView(MgView* mgview, GiView *view)
+        : GcBaseView(mgview, view), _gestureState(kGiGestureCancel) {}
     virtual ~GcDummyView() {}
     
     virtual void drawAll(GiCanvas* canvas);
@@ -59,6 +59,7 @@ public:
         delete _cmds;
     }
     
+    GcShapeDoc* document() { return _doc; }
     MgShapeDoc* doc() { return _doc->doc(); }
     MgShapes* shapes() { return doc()->getCurrentShapes(); }
     GiContext* context() { return doc()->context(); }
@@ -102,14 +103,14 @@ public:
 
 static int _dpi = 1;
 
-GcBaseView::GcBaseView(GcShapeDoc* doc, GiView *view) : _view(view), _doc(doc), _gs(&_xf)
+GcBaseView::GcBaseView(MgView* mgview, GiView *view) : _view(view), _mgview(mgview), _gs(&_xf)
 {
-    doc->addView(this);
+    mgview->document()->addView(this);
 }
 
 MgShapeDoc* GcBaseView::doc()
 {
-    return document()->doc();
+    return cmdView()->document()->doc();
 }
 
 MgShapes* GcBaseView::shapes()
@@ -139,10 +140,10 @@ void GiCoreView::createView(GiView* view, int type)
 {
     if (view && !impl->_doc->findView(view)) {
         if (type == 1) {
-            impl->curview = new GcGraphView(impl->_doc, view);
+            impl->curview = new GcGraphView(impl, view);
         }
         else {
-            new GcDummyView(impl->_doc, view);
+            new GcDummyView(impl, view);
         }
     }
 }
@@ -152,7 +153,7 @@ void GiCoreView::createMagnifierView(GiView* newview, GiView* mainView)
     GcGraphView* refview = dynamic_cast<GcGraphView *>(impl->_doc->findView(mainView));
     
     if (refview && newview && !impl->_doc->findView(newview)) {
-        new GcMagnifierView(impl->_doc, newview, refview);
+        new GcMagnifierView(impl, newview, refview);
     }
 }
 
