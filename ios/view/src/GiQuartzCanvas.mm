@@ -12,6 +12,10 @@ int GiQuartzCanvas::getScreenDpi()
     
     sysctlbyname("hw.machine", machine, &size, NULL, 0);
     
+    if (strcmp(machine, "i386") == 0) {
+        return 72;
+    }
+    
     bool iPadMini = (strcmp(machine, "iPad2,5") == 0 ||
                      strcmp(machine, "iPad2,6") == 0 ||
                      strcmp(machine, "iPad2,7") == 0);

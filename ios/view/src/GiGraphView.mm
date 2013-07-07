@@ -333,7 +333,6 @@ public:
     
     if ([touches count] == 1 && !_points.empty()) {
         _points.push_back(pt);
-        
         if (!_moved) {                                  // 分发拖动开始
             _moved = YES;
             _adapter->dispatchGesture(kGiGesturePan, kGiGestureBegan, _points.front());
@@ -417,7 +416,7 @@ public:
         return NO;
     }
     
-    const CGPoint pt = [sender locationInView:sender.view];
+    CGPoint pt = [sender locationInView:sender.view];
     const int touchCount = [sender numberOfTouches];
     
     // 检查手势的有效性
@@ -427,8 +426,7 @@ public:
                 : _adapter->dispatchGesture(kGiGesturePan, kGiGesturePossible, pt));
     }
     // 在 touchesMoved 中已经分发了开始状态，就转为移动状态分发
-    if (sender.state == UIGestureRecognizerStateBegan && !_points.empty()) {
-        _touchCount = 1;
+    if (sender.state == UIGestureRecognizerStateBegan && _moved) {
         _tapPoint = pt;
         return _adapter->dispatchGesture(kGiGesturePan, kGiGestureMoved, pt);
     }
@@ -460,7 +458,6 @@ public:
             _adapter->dispatchGesture(kGiGesturePan, state, pt);
         }
     }
-    
     _tapPoint = pt;
     
     return [self gesturePost:sender];

@@ -13,7 +13,6 @@
 }
 
 - (id)initWithFrame:(CGRect)frame withType:(int)type;
-- (void)save;
-- (void)edit;
+- (BOOL)savePng:(NSString *)filename;
 
 @end

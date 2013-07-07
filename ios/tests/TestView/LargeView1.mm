@@ -49,14 +49,14 @@
     return _subview1 ? _subview1.superview : _subview2.superview;
 }
 
-- (void)save
+- (BOOL)savePng:(NSString *)filename
 {
-    [_subview1 save];
-}
-
-- (void)edit
-{
-    [_subview1 edit];
+    if (_subview1) {
+        return [_subview1 savePng:filename];
+    }
+    else {
+        return [_subview2 savePng:filename];
+    }
 }
 
 @end

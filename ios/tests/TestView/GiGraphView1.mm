@@ -173,27 +173,6 @@ public:
     return ret;
 }
 
-- (void)save
-{
-    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
-                                                          NSUserDomainMask, YES) objectAtIndex:0];
-    static int order = 0;
-    NSString *filename = [NSString stringWithFormat:@"%@/page%d.png", path, order++ % 10];
-    
-    [self savePng:filename];
-    
-    NSString *msg = [NSString stringWithFormat:@"%@", 
-                     [filename substringFromIndex:[filename length] - 19]];
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Save" message:msg
-                                                   delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [alert show];
-    [alert release];
-}
-
-- (void)edit
-{
-}
-
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [super touchesMoved:touches withEvent:event];

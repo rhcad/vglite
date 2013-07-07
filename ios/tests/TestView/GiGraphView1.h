@@ -14,9 +14,6 @@ class GiCoreView;
     ViewAdapter1    *_viewAdapter;
 }
 
-- (void)save;
-- (void)edit;
-
 - (GiCoreView *)coreView;               //!< 得到跨平台内核视图
 - (UIImage *)snapshot;                  //!< 得到静态图形的快照，自动释放
 - (BOOL)savePng:(NSString *)filename;   //!< 保存静态图形的快照到PNG文件

@@ -107,6 +107,23 @@
     }
 }
 
+- (void)savePng:(id)obj
+{
+    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                          NSUserDomainMask, YES) objectAtIndex:0];
+    static int order = 0;
+    NSString *filename = [NSString stringWithFormat:@"%@/page%d.png", path, order++ % 10];
+    
+    if ([obj performSelector:@selector(savePng:) withObject:filename]) {
+        NSString *msg = [NSString stringWithFormat:@"%@", 
+                         [filename substringFromIndex:[filename length] - 19]];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Save" message:msg
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+        [alert release];
+    }
+}
+
 - (void)saveDetailPage:(id)sender
 {
     [self.masterPopoverController dismissPopoverAnimated:YES];
@@ -114,10 +131,16 @@
     if ([_content.view respondsToSelector:@selector(save)]) {
         [_content.view performSelector:@selector(save)];
     }
+    else if ([_content.view respondsToSelector:@selector(savePng:)]) {
+        [self savePng:_content.view];
+    }
     else if ([_content.view.subviews count] > 0) {
         UIView *sview = [_content.view.subviews objectAtIndex:0];
         if ([sview respondsToSelector:@selector(save)]) {
             [sview performSelector:@selector(save)];
+        }
+        else if ([sview respondsToSelector:@selector(savePng:)]) {
+            [self savePng:sview];
         }
     }
 }
