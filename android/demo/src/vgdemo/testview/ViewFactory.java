@@ -42,6 +42,7 @@ public class ViewFactory {
         addItem("vgdemo.testview.view.TestDoubleViews", 1|4, "Test2Views, surface+surface");
         addItem("vgdemo.testview.view.TestDoubleViews", 1|2|0x100000, "Test2Views, back surface+view");
         addItem("vgdemo.testview.view.TestDoubleViews", 1|4|0x100000, "Test2Views, back surface+surface");
+        addItem("vgdemo.testview.view.TestDoubleViews", 8|4, "Test2Views, cachedview+surface");
         
         addItem("vgdemo.testview.view.LargeView2", 0|2, "Test2Views, scroll view+view");
         addItem("vgdemo.testview.view.LargeView2", 1|2, "Test2Views, scroll surface+view");

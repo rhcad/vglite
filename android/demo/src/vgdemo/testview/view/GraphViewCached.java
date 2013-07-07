@@ -24,6 +24,7 @@ public class GraphViewCached extends View {
     private CanvasAdapter mCanvasAdapter;
     private ViewAdapter mViewAdapter;
     private GiCoreView mCoreView;
+    private DynDrawView mDynDrawView;
     private Bitmap mCacheBitmap;
     private long mDrawnTime;
     private long mEndPaintTime;
@@ -40,15 +41,18 @@ public class GraphViewCached extends View {
         
         this.setOnTouchListener(new OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
-            	if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     mCoreView.onGesture(mViewAdapter, GiGestureType.kGiGesturePan, 
                             GiGestureState.kGiGestureBegan, event.getX(), event.getY());
                 }
-            	else if (event.getAction() == MotionEvent.ACTION_UP) {
+                else if (event.getAction() == MotionEvent.ACTION_UP) {
                     mCoreView.onGesture(mViewAdapter, GiGestureType.kGiGesturePan, 
                             GiGestureState.kGiGestureEnded, event.getX(), event.getY());
                 }
-                else if (event.getEventTime() > mEndPaintTime) {
+                else if ((mDynDrawView != null
+                        && event.getEventTime() > mDynDrawView.getEndPaintTime())
+                        || (mDynDrawView == null
+                        && event.getEventTime() > mEndPaintTime)) {
                     mCoreView.onGesture(mViewAdapter, GiGestureType.kGiGesturePan, 
                             GiGestureState.kGiGestureMoved, event.getX(), event.getY());
                 }
@@ -59,6 +63,13 @@ public class GraphViewCached extends View {
     
     public GiCoreView getCoreView() {
         return mCoreView;
+    }
+    
+    public void setDynDrawView(DynDrawView view) {
+        mDynDrawView = view;
+        if (mDynDrawView != null) {
+            mDynDrawView.setCoreView(mCoreView);
+        }
     }
     
     public long getDrawnTime() {
@@ -73,13 +84,15 @@ public class GraphViewCached extends View {
         mCoreView.onSize(mViewAdapter, this.getWidth(), this.getHeight());
         
         if (mCanvasAdapter.beginPaint(canvas)) {
-        	if (mCacheBitmap != null) {
-        		canvas.drawBitmap(mCacheBitmap, 0, 0, null);
-        	}
-        	else {
-        		mCoreView.drawAll(mViewAdapter, mCanvasAdapter);
-        	}
-            mCoreView.dynDraw(mViewAdapter, mCanvasAdapter);
+            if (mCacheBitmap != null) {
+                canvas.drawBitmap(mCacheBitmap, 0, 0, null);
+            }
+            else {
+                mCoreView.drawAll(mViewAdapter, mCanvasAdapter);
+            }
+            if (mDynDrawView == null) {
+                mCoreView.dynDraw(mViewAdapter, mCanvasAdapter);
+            }
             mCanvasAdapter.endPaint();
         }
         mDrawnTime = SystemClock.currentThreadTimeMillis() - ms;
@@ -87,29 +100,33 @@ public class GraphViewCached extends View {
     }
     
     private void autoBuildCache() {
-    	if (mCacheBitmap != null && (mCacheBitmap.getWidth() != getWidth()
-    			|| mCacheBitmap.getHeight() != getHeight())) {
-    		mCacheBitmap.recycle();
+        if (mCacheBitmap != null && (mCacheBitmap.getWidth() != getWidth()
+                || mCacheBitmap.getHeight() != getHeight())) {
+            mCacheBitmap.recycle();
             mCacheBitmap = null;
-    	}
-    	if (mCacheBitmap == null) {
-    		mCacheBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
-    		Canvas canvas = new Canvas(mCacheBitmap);
-    		
-    		if (mCanvasAdapter.beginPaint(canvas)) {
-    			canvas.drawColor(0);
-    			mCoreView.drawAll(mViewAdapter, mCanvasAdapter);
-    			mCanvasAdapter.endPaint();
-    		}
-    		else {
-    			mCacheBitmap.recycle();
+        }
+        if (mCacheBitmap == null) {
+            mCacheBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(mCacheBitmap);
+            
+            if (mCanvasAdapter.beginPaint(canvas)) {
+                canvas.drawColor(0);
+                mCoreView.drawAll(mViewAdapter, mCanvasAdapter);
+                mCanvasAdapter.endPaint();
+            }
+            else {
+                mCacheBitmap.recycle();
                 mCacheBitmap = null;
-    		}
-    	}
+            }
+        }
     }
 
     @Override
     protected void onDetachedFromWindow() {
+        if (mDynDrawView != null) {
+            mDynDrawView.setCoreView(null);
+            mDynDrawView = null;
+        }
         if (mViewAdapter != null) {
             mViewAdapter.delete();
             mViewAdapter = null;
@@ -123,8 +140,8 @@ public class GraphViewCached extends View {
             mCanvasAdapter = null;
         }
         if (mCacheBitmap != null) {
-        	mCacheBitmap.recycle();
-        	mCacheBitmap = null;
+            mCacheBitmap.recycle();
+            mCacheBitmap = null;
         }
         super.onDetachedFromWindow();
     }
@@ -132,28 +149,36 @@ public class GraphViewCached extends View {
     private class ViewAdapter extends GiView {
         @Override
         public void regenAll() {
-        	if (mCacheBitmap != null) {
-            	mCacheBitmap.recycle();
-            	mCacheBitmap = null;
+            if (mCacheBitmap != null) {
+                mCacheBitmap.recycle();
+                mCacheBitmap = null;
             }
             invalidate();
         }
         
         @Override
         public void regenAppend() {
-        	if (mCacheBitmap != null) {
-        		Canvas canvas = new Canvas(mCacheBitmap);
-        		if (mCanvasAdapter.beginPaint(canvas)) {
-        			mCoreView.drawAppend(mViewAdapter, mCanvasAdapter);
-        			mCanvasAdapter.endPaint();
-        		}
-        	}
-        	invalidate();
+            if (mCacheBitmap != null) {
+                Canvas canvas = new Canvas(mCacheBitmap);
+                if (mCanvasAdapter.beginPaint(canvas)) {
+                    mCoreView.drawAppend(mViewAdapter, mCanvasAdapter);
+                    mCanvasAdapter.endPaint();
+                }
+            }
+            invalidate();
+            if (mDynDrawView != null) {
+                mDynDrawView.doDraw();
+            }
         }
         
         @Override
         public void redraw() {
-            invalidate();
+            if (mDynDrawView != null) {
+                mDynDrawView.doDraw();
+            }
+            else {
+                invalidate();
+            }
         }
     }
 }
