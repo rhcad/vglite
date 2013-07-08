@@ -103,7 +103,7 @@ public:
 
 static int _dpi = 1;
 
-GcBaseView::GcBaseView(MgView* mgview, GiView *view) : _view(view), _mgview(mgview), _gs(&_xf)
+GcBaseView::GcBaseView(MgView* mgview, GiView *view) : _mgview(mgview), _view(view), _gs(&_xf)
 {
     mgview->document()->addView(this);
 }

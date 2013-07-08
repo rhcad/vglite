@@ -27,8 +27,11 @@
             _subview2 = [[GiGraphView alloc]initWithFrame:view.bounds];
             subview = _subview2;
 #ifdef __IPHONE_5_0
-            if (_subview2.panGestureRecognizer) {
-                [self.panGestureRecognizer requireGestureRecognizerToFail:_subview2.panGestureRecognizer];
+            if (_subview2.panRecognizer) {
+                [self.panGestureRecognizer requireGestureRecognizerToFail:_subview2.panRecognizer];
+            }
+            if (_subview2.pinchRecognizer) {
+                [self.pinchGestureRecognizer requireGestureRecognizerToFail:_subview2.pinchRecognizer];
             }
 #endif
         }

@@ -24,10 +24,12 @@ void GcShapeView::drawAll(GiCanvas* canvas)
 
 void GcShapeView::drawAppend(GiCanvas* canvas)
 {
+	if (canvas) {}
 }
 
 void GcShapeView::dynDraw(GiCanvas* canvas)
 {
+	if (canvas) {}
 }
 
 void GcShapeView::onSize(int dpi, int w, int h)
@@ -70,7 +72,8 @@ bool GcShapeView::twoFingersMove(GiGestureState gestureState,
         _startPt[0].set(x1, y1);
         _startPt[1].set(x2, y2);
     }
-    if (gestureState == kGiGestureMoved && _startPt[0] != _startPt[1]) {
+    if (gestureState == kGiGestureMoved && _startPt[0] != _startPt[1]
+        && Point2d(x1, y1) != Point2d(x2, y2)) {    // 双指变单指则忽略移动
         Point2d at((_startPt[0] + _startPt[1]) / 2);
         Point2d pt((x1 + x2) / 2, (y1 + y2) / 2);
         float d1 = Point2d(x1, y1).distanceTo(Point2d(x2, y2));

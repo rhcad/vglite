@@ -12,7 +12,7 @@ int GiQuartzCanvas::getScreenDpi()
     
     sysctlbyname("hw.machine", machine, &size, NULL, 0);
     
-    if (strcmp(machine, "i386") == 0) {
+    if (strcmp(machine, "i386") == 0) {     // 模拟器
         return 72;
     }
     
@@ -47,7 +47,7 @@ bool GiQuartzCanvas::beginPaint(CGContextRef context)
     _fill = false;
     
     CGContextSetShouldAntialias(_ctx, true);        // 两者都为true才反走样
-    CGContextSetAllowsAntialiasing(_ctx, true);
+    CGContextSetAllowsAntialiasing(_ctx, [UIScreen mainScreen].scale < 1.5f);   // 高清屏不反走样
     CGContextSetFlatness(_ctx, 3);                  // 平滑度为3达到精确和速度的平衡点
     
     CGContextSetLineCap(_ctx, kCGLineCapRound);     // 圆端
