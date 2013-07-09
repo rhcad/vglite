@@ -45,6 +45,7 @@ public class CanvasAdapter extends GiCanvas {
     @Override
     public synchronized void delete() {
         mView = null;
+        mBitmaps = null;
         super.delete();
     }
 
