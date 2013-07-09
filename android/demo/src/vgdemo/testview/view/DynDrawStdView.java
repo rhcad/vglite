@@ -27,7 +27,8 @@ public class DynDrawStdView extends View implements DynDrawView {
         mCanvasAdapter = new CanvasAdapter(this);
     }
     
-    public void setCoreView(GiCoreView coreView) {
+    public void setCoreView(GiView viewAdapter, GiCoreView coreView) {
+    	mViewAdapter = viewAdapter;
         mCoreView = coreView;
     }
     

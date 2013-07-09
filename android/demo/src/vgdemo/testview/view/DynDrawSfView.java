@@ -35,7 +35,8 @@ public class DynDrawSfView extends SurfaceView implements DynDrawView {
         getHolder().setFormat(PixelFormat.TRANSLUCENT);
     }
     
-    public void setCoreView(GiCoreView coreView) {
+    public void setCoreView(GiView viewAdapter, GiCoreView coreView) {
+    	mViewAdapter = viewAdapter;
         mCoreView = coreView;
     }
     

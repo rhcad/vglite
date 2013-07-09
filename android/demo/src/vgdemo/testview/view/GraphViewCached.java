@@ -68,7 +68,7 @@ public class GraphViewCached extends View {
     public void setDynDrawView(DynDrawView view) {
         mDynDrawView = view;
         if (mDynDrawView != null) {
-            mDynDrawView.setCoreView(mCoreView);
+            mDynDrawView.setCoreView(mViewAdapter, mCoreView);
         }
     }
     
@@ -124,7 +124,7 @@ public class GraphViewCached extends View {
     @Override
     protected void onDetachedFromWindow() {
         if (mDynDrawView != null) {
-            mDynDrawView.setCoreView(null);
+            mDynDrawView.setCoreView(null, null);
             mDynDrawView = null;
         }
         if (mViewAdapter != null) {

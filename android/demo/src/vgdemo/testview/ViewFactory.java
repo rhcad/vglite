@@ -36,13 +36,14 @@ public class ViewFactory {
         addItem("vgdemo.testview.view.TestDoubleViews", 1|0|0x100000, "TestOneSurfaceView, back");
         addItem("vgdemo.testview.view.GraphViewCached", 0, "GraphViewCached");
         
-        addItem("vgdemo.testview.view.TestDoubleViews", 0|2, "Test2Views, view+view");
-        addItem("vgdemo.testview.view.TestDoubleViews", 1|2, "Test2Views, surface+view");
-        addItem("vgdemo.testview.view.TestDoubleViews", 0|4, "Test2Views, view+surface");
-        addItem("vgdemo.testview.view.TestDoubleViews", 1|4, "Test2Views, surface+surface");
+        addItem("vgdemo.testview.view.TestDoubleViews", 0|2, "Test2Views, std view+view");
+        addItem("vgdemo.testview.view.TestDoubleViews", 1|2, "Test2Views, top surface+view");
+        addItem("vgdemo.testview.view.TestDoubleViews", 0|4, "Test2Views, std view+surface");
+        addItem("vgdemo.testview.view.TestDoubleViews", 1|4, "Test2Views, top surface+surface");
         addItem("vgdemo.testview.view.TestDoubleViews", 1|2|0x100000, "Test2Views, back surface+view");
         addItem("vgdemo.testview.view.TestDoubleViews", 1|4|0x100000, "Test2Views, back surface+surface");
         addItem("vgdemo.testview.view.TestDoubleViews", 8|4, "Test2Views, cachedview+surface");
+        addItem("vgdemo.testview.view.TestDoubleViews", 8|2, "Test2Views, cachedview+view");
         
         addItem("vgdemo.testview.view.LargeView2", 0|2, "Test2Views, scroll view+view");
         addItem("vgdemo.testview.view.LargeView2", 1|2, "Test2Views, scroll surface+view");
@@ -52,6 +53,8 @@ public class ViewFactory {
         addItem("vgdemo.testview.view.LargeView2", 1|0, "TestOneSurfaceView, scroll");
         addItem("vgdemo.testview.view.TestDoubleViews", 1|2|0x100000, "Test2Views, scroll back surface+view");
         addItem("vgdemo.testview.view.TestDoubleViews", 1|4|0x100000, "Test2Views, scroll back surface+surface");
+        addItem("vgdemo.testview.view.LargeView2", 8|4, "Test2Views, scroll cachedview+surface");
+        addItem("vgdemo.testview.view.LargeView2", 8|2, "Test2Views, scroll cachedview+surface");
         
         addItem("vgdemo.testview.canvas.GraphView1", 0x01, "testRect");
         addItem("vgdemo.testview.canvas.GraphView1", 0x02, "testLine");

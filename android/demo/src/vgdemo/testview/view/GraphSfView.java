@@ -22,7 +22,8 @@ import android.view.SurfaceView;
 import android.view.View;
 
 //! Android绘图视图类
-/*! \ingroup GROUP_ANDROID
+/** \ingroup GROUP_ANDROID
+ * 默认是底部媒体窗口类型，调用 setBackgroundColor(TRANSPARENT) 后将设置为顶部面板窗口类型
  */
 public class GraphSfView extends SurfaceView {
     private CanvasAdapter mCanvasAdapter;
@@ -74,7 +75,7 @@ public class GraphSfView extends SurfaceView {
     public void setDynDrawView(DynDrawView view) {
         mDynDrawView = view;
         if (mDynDrawView != null) {
-            mDynDrawView.setCoreView(mCoreView);
+            mDynDrawView.setCoreView(mViewAdapter, mCoreView);
         }
     }
     
@@ -116,7 +117,7 @@ public class GraphSfView extends SurfaceView {
     @Override
     protected void onDetachedFromWindow() {
         if (mDynDrawView != null) {
-            mDynDrawView.setCoreView(null);
+            mDynDrawView.setCoreView(null, null);
             mDynDrawView = null;
         }
         if (mViewAdapter != null) {

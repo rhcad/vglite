@@ -5,11 +5,13 @@
 package vgdemo.testview.view;
 
 import touchvg.jni.GiCoreView;
+import touchvg.jni.GiView;
 
 //! 动态绘图视图接口
 public interface DynDrawView {
+	
     //! 设置内核视图对象
-    public void setCoreView(GiCoreView coreView);
+    public void setCoreView(GiView viewAdapter, GiCoreView coreView);
     
     //! 返回是否正在显示
     public boolean isDrawing();
