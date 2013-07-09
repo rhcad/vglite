@@ -9,10 +9,10 @@ import touchvg.jni.GiGestureState;
 import touchvg.jni.GiGestureType;
 import touchvg.jni.GiView;
 import touchvg.view.CanvasAdapter;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.os.SystemClock;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
@@ -28,6 +28,7 @@ public class GraphViewCached extends View {
     private Bitmap mCacheBitmap;
     private long mDrawnTime;
     private long mEndPaintTime;
+    private long mBeginTime;
 
     public GraphViewCached(Context context) {
         super(context);
@@ -48,13 +49,18 @@ public class GraphViewCached extends View {
                 else if (event.getAction() == MotionEvent.ACTION_UP) {
                     mCoreView.onGesture(mViewAdapter, GiGestureType.kGiGesturePan, 
                             GiGestureState.kGiGestureEnded, event.getX(), event.getY());
+                    showTime();
                 }
-                else if ((mDynDrawView != null
-                        && event.getEventTime() > mDynDrawView.getEndPaintTime())
-                        || (mDynDrawView == null
-                        && event.getEventTime() > mEndPaintTime)) {
-                    mCoreView.onGesture(mViewAdapter, GiGestureType.kGiGesturePan, 
+                else if (mDynDrawView != null
+                        && event.getEventTime() > mDynDrawView.getEndPaintTime()) {
+                	mCoreView.onGesture(mViewAdapter, GiGestureType.kGiGesturePan, 
                             GiGestureState.kGiGestureMoved, event.getX(), event.getY());
+                	showTime();
+                }
+                else if (mDynDrawView == null && event.getEventTime() > mEndPaintTime) {
+                	mCoreView.onGesture(mViewAdapter, GiGestureType.kGiGesturePan, 
+                            GiGestureState.kGiGestureMoved, event.getX(), event.getY());
+                	showTime();
                 }
                 return true;
             }
@@ -75,11 +81,25 @@ public class GraphViewCached extends View {
     public long getDrawnTime() {
         return mDrawnTime;
     }
+    
+    private void showTime() {
+        Activity activity = (Activity) this.getContext();
+        String title = activity.getTitle().toString();
+        int pos = title.indexOf(" - ");
+        if (pos >= 0) {
+            title = title.substring(0, pos);
+        }
+        String dyntext = mDynDrawView != null ? (mDynDrawView.getDrawnTime() + "/") : "";
+        activity.setTitle(title + " - " + dyntext + mDrawnTime + " ms");
+    }
+    
+    private void doDraw() {
+    	mBeginTime = android.os.SystemClock.uptimeMillis();
+    	invalidate();
+    }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        long ms = SystemClock.currentThreadTimeMillis();
-        
         autoBuildCache();
         mCoreView.onSize(mViewAdapter, this.getWidth(), this.getHeight());
         
@@ -95,8 +115,8 @@ public class GraphViewCached extends View {
             }
             mCanvasAdapter.endPaint();
         }
-        mDrawnTime = SystemClock.currentThreadTimeMillis() - ms;
         mEndPaintTime = android.os.SystemClock.uptimeMillis();
+        mDrawnTime = mEndPaintTime - mBeginTime;
     }
     
     private void autoBuildCache() {
@@ -153,7 +173,7 @@ public class GraphViewCached extends View {
                 mCacheBitmap.recycle();
                 mCacheBitmap = null;
             }
-            invalidate();
+            doDraw();
         }
         
         @Override
@@ -165,7 +185,7 @@ public class GraphViewCached extends View {
                     mCanvasAdapter.endPaint();
                 }
             }
-            invalidate();
+            doDraw();
             if (mDynDrawView != null) {
                 mDynDrawView.doDraw();
             }
@@ -177,7 +197,7 @@ public class GraphViewCached extends View {
                 mDynDrawView.doDraw();
             }
             else {
-                invalidate();
+            	doDraw();
             }
         }
     }

@@ -12,7 +12,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff.Mode;
-import android.os.SystemClock;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -25,6 +24,7 @@ public class DynDrawSfView extends SurfaceView implements DynDrawView {
     private GiCoreView mCoreView;
     private long mDrawnTime;
     private long mEndPaintTime;
+    private long mBeginTime;
 
     public DynDrawSfView(Context context) {
         super(context);
@@ -68,11 +68,13 @@ public class DynDrawSfView extends SurfaceView implements DynDrawView {
             mCanvasAdapter = null;
         }
         mCoreView = null;
+        mViewAdapter = null;
         super.onDetachedFromWindow();
     }
     
     public void doDraw() {
         if (!mCanvasAdapter.isDrawing()) {
+        	mBeginTime = android.os.SystemClock.uptimeMillis();
             new Thread(new DrawThread()).start();
         }
     }
@@ -91,7 +93,6 @@ public class DynDrawSfView extends SurfaceView implements DynDrawView {
     
     private class DrawThread implements Runnable {
         public void run() {
-            long ms = SystemClock.currentThreadTimeMillis();
             Canvas canvas = null;
             try {
                 mEndPaintTime = Integer.MAX_VALUE;
@@ -106,8 +107,8 @@ public class DynDrawSfView extends SurfaceView implements DynDrawView {
                     getHolder().unlockCanvasAndPost(canvas);
                 }
             }
-            mDrawnTime = SystemClock.currentThreadTimeMillis() - ms;
             mEndPaintTime = android.os.SystemClock.uptimeMillis();
+            mDrawnTime = mEndPaintTime - mBeginTime;
         }
     }
 }

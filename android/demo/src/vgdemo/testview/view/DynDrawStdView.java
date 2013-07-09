@@ -9,7 +9,6 @@ import touchvg.jni.GiView;
 import touchvg.view.CanvasAdapter;
 import android.content.Context;
 import android.graphics.Canvas;
-import android.os.SystemClock;
 import android.view.View;
 
 //! 基于View的动态绘图视图类
@@ -21,6 +20,7 @@ public class DynDrawStdView extends View implements DynDrawView {
     private GiCoreView mCoreView;
     private long mDrawnTime;
     private long mEndPaintTime;
+    private long mBeginTime;
 
     public DynDrawStdView(Context context) {
         super(context);
@@ -45,18 +45,18 @@ public class DynDrawStdView extends View implements DynDrawView {
     }
     
     public void doDraw() {
+    	mBeginTime = android.os.SystemClock.uptimeMillis();
         this.invalidate();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        long ms = SystemClock.currentThreadTimeMillis();
         if (mCanvasAdapter.beginPaint(canvas)) {
             mCoreView.dynDraw(mViewAdapter, mCanvasAdapter);
             mCanvasAdapter.endPaint();
         }
-        mDrawnTime = SystemClock.currentThreadTimeMillis() - ms;
         mEndPaintTime = android.os.SystemClock.uptimeMillis();
+        mDrawnTime = mEndPaintTime - mBeginTime;
     }
 
     @Override
@@ -66,6 +66,7 @@ public class DynDrawStdView extends View implements DynDrawView {
             mCanvasAdapter = null;
         }
         mCoreView = null;
+        mViewAdapter = null;
         super.onDetachedFromWindow();
     }
 }
