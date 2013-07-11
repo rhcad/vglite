@@ -32,7 +32,6 @@ public class ViewFactory {
 
     static {
     	addItem("touchvg.view.GraphView", 0, "GraphView");
-    	addItem("touchvg.view.GraphSfView", 0, "GraphSfView");
     	
         addItem("vgdemo.testview.view.GraphView", 0, "TestOneView");
         addItem("vgdemo.testview.view.TestDoubleViews", 1|0, "TestOneSurfaceView");

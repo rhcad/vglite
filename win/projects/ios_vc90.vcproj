@@ -187,6 +187,30 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="TestView"
+				>
+				<File
+					RelativePath="..\..\ios\tests\TestView\GiGraphView1.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\ios\tests\TestView\GiGraphView1.mm"
+					>
+				</File>
+				<File
+					RelativePath="..\..\ios\tests\TestView\LargeView1.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\ios\tests\TestView\LargeView1.mm"
+					>
+				</File>
+				<File
+					RelativePath="..\..\ios\tests\TestView\ViewFactory.mm"
+					>
+				</File>
+			</Filter>
 		</Filter>
 	</Files>
 	<Globals>
