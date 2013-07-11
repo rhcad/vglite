@@ -7,10 +7,10 @@
 class GiViewAdapter;
 class GiCoreView;
 
-//! iOS绘图视图基类
+//! iOS绘图视图类
 /*! \ingroup GROUP_IOS
  */
-@interface GiBaseView : UIView {
+@interface GiGraphView : UIView {
     GiViewAdapter   *_adapter;
 }
 
@@ -21,26 +21,11 @@ class GiCoreView;
 @property(nonatomic, readonly) UIPinchGestureRecognizer *pinchRecognizer;       //!< 放缩
 @property(nonatomic, readonly) UIRotationGestureRecognizer *rotationRecognizer; //!< 旋转
 
+- (id)initWithFrame:(CGRect)frame refView:(GiGraphView *)refView;
+
 - (GiViewAdapter *)viewAdapter;         //!< 得到视图适配器对象
 - (GiCoreView *)coreView;               //!< 得到跨平台内核视图
 - (UIImage *)snapshot;                  //!< 得到静态图形的快照，自动释放
 - (BOOL)savePng:(NSString *)filename;   //!< 保存静态图形的快照到PNG文件
-
-@end
-
-//! iOS绘图视图类
-/*! \ingroup GROUP_IOS
- */
-@interface GiGraphView : GiBaseView
-
-@end
-
-//! iOS放大镜视图类
-/*! \ingroup GROUP_IOS
-    参照 GiGraphView 进行同步显示，必须先创建 GiGraphView 视图。
- */
-@interface GiMagnifierView : GiBaseView
-
-- (id)initWithFrame:(CGRect)frame refView:(GiGraphView *)refView;
 
 @end

@@ -140,7 +140,7 @@ public:
 
 #pragma mark - GiBaseView implementation
 
-@interface GiBaseView()<UIGestureRecognizerDelegate> {
+@interface GiGraphView()<UIGestureRecognizerDelegate> {
     NSTimeInterval          _timeBegan;     //!< 开始触摸时的时刻
     std::vector<CGPoint>    _points;        //!< 手势生效前的轨迹
     CGPoint                 _tapPoint;      //!< 点击位置
@@ -160,7 +160,7 @@ public:
 
 @end
 
-@implementation GiBaseView
+@implementation GiGraphView
 
 @synthesize panRecognizer, tapRecognizer, twoTapsRecognizer;
 @synthesize pressRecognizer, pinchRecognizer, rotationRecognizer;
@@ -171,15 +171,35 @@ public:
     [super dealloc];
 }
 
+- (void)initView:(BOOL)mainView
+{
+    self.opaque = NO;                               // 透明背景
+    self.multipleTouchEnabled = YES;                // 检测多个触点
+    
+    GiCoreView::setScreenDpi(GiQuartzCanvas::getScreenDpi());
+    [self setupGestureRecognizers];
+    
+    if (mainView) {
+        self.autoresizingMask = 0xFF;               // 自动适应大小
+        _adapter = new GiViewAdapter(self, NULL);   // 将创建文档对象
+        [self coreView]->createView(_adapter, 1);
+    }
+}
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
-    if (self) {
-        self.opaque = NO;                           // 透明背景
-        self.multipleTouchEnabled = YES;            // 检测多个触点
-        
-        GiCoreView::setScreenDpi(GiQuartzCanvas::getScreenDpi());
-        [self setupGestureRecognizers];
+    [self initView:YES];
+    return self;
+}
+
+- (id)initWithFrame:(CGRect)frame refView:(GiGraphView *)refView
+{
+    self = [super initWithFrame:frame];
+    [self initView:!refView];
+    if (self && refView) {
+        _adapter = new GiViewAdapter(self, [refView coreView]);     // 将引用文档对象
+        [self coreView]->createMagnifierView(_adapter, [refView viewAdapter]);
     }
     return self;
 }
@@ -526,41 +546,6 @@ public:
     return ([self gestureCheck:sender]
             && [self gesturePost:sender]
             && _adapter->twoFingersMove(sender));
-}
-
-@end
-
-#pragma mark - GiGraphView implementation
-
-@implementation GiGraphView
-
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        self.autoresizingMask = 0xFF;                   // 自动适应大小
-        _adapter = new GiViewAdapter(self, NULL);       // 将创建文档对象
-        [self coreView]->createView(_adapter, 1);
-    }
-    return self;
-}
-
-@end
-
-#pragma mark - GiMagnifierView implementation
-
-@implementation GiMagnifierView
-
-- (id)initWithFrame:(CGRect)frame { return nil; }
-
-- (id)initWithFrame:(CGRect)frame refView:(GiGraphView *)refView
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        _adapter = new GiViewAdapter(self, [refView coreView]);     // 将引用文档对象
-        [self coreView]->createMagnifierView(_adapter, [refView viewAdapter]);
-    }
-    return self;
 }
 
 @end

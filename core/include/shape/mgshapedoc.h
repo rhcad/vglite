@@ -51,6 +51,9 @@ public:
     //! 创建图形文档对象
     static MgShapeDoc* create();
     
+    //! 增加引用
+    void addRef();
+    
     //! 保存图形
     bool save(MgStorage* s, int startIndex = 0) const;
     
@@ -79,28 +82,28 @@ public:
     bool switchLayer(int index);
     
     //! 返回新图形的图形属性
-    GiContext* context() { return &_context; }
+    GiContext* context();
     
     //! 模型变换矩阵
-    Matrix2d& modelTransform() { return _xf; }
+    Matrix2d& modelTransform();
     
     //! 得到页面范围的世界坐标
-    Box2d getPageRectW() const { return _rectW; }
+    Box2d getPageRectW() const;
     
     //! 得到显示比例
-    float getViewScale() const { return _viewScale; }
+    float getViewScale() const;
     
     //! 设置页面范围的世界坐标
     void setPageRectW(const Box2d& rectW, float viewScale);
     
     //! 返回改变计数
-    int getChangeCount() const { return _changeCount; }
+    int getChangeCount() const;
     
     //! 改变完成后更新改变计数
     void afterChanged();
     
     //! 得到锁定数据对象以便读写锁定
-    virtual MgLockRW* getLockData() { return &_lock; }
+    virtual MgLockRW* getLockData();
     
 public:
     virtual MgObject* clone() const;
@@ -114,16 +117,9 @@ protected:
     MgShapeDoc();
     virtual ~MgShapeDoc();
     
-protected:
-    enum { kMaxLayers = 10 };
-    MgLayer*    _layers[kMaxLayers];
-    MgShapes*   _curShapes;
-    GiContext   _context;
-    Matrix2d    _xf;
-    Box2d       _rectW;
-    float       _viewScale;
-    long        _changeCount;
-    MgLockRW    _lock;
+private:
+    struct Impl;
+    Impl*  im;
 };
 
 //! 图形列表锁定辅助类
