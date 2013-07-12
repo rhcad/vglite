@@ -280,6 +280,7 @@ public:
 protected:
     bool isCurve() const { return true; }
     void _update();
+    void _clearCacheData();
     float _hitTest(const Point2d& pt, float tol, Point2d& nearpt, int& segment) const;
     bool _hitTestBox(const Box2d& rect) const;
 

@@ -88,6 +88,13 @@ void MgShapes::clear()
     im->shapes.clear();
 }
 
+void MgShapes::clearCacheData()
+{
+    for (I::iterator it = im->shapes.begin(); it != im->shapes.end(); ++it) {
+        (*it)->shape()->clearCacheData();
+    }
+}
+
 MgObject* MgShapes::getOwner() const
 {
     return this ? im->owner : NULL;

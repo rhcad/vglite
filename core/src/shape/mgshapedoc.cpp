@@ -125,6 +125,15 @@ void MgShapeDoc::clear()
     im->curShapes = im->layers[0];
 }
 
+void MgShapeDoc::clearCacheData()
+{
+    for (int i = 0; i < kMaxLayers; i++) {
+        if (im->layers[i]) {
+            im->layers[i]->clearCacheData();
+        }
+    }
+}
+
 Box2d MgShapeDoc::getExtent() const
 {
     Box2d rect;

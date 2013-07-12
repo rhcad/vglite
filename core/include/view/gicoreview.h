@@ -55,6 +55,9 @@ public:
     //! 传递双指移动手势(可放缩旋转)
     bool twoFingersMove(GiView* view, GiGestureState gestureState,
             float x1, float y1, float x2, float y2);
+    
+    //! 释放临时数据内存
+    void clearCacheData();
 
 private:
     GiCoreViewImpl* impl;

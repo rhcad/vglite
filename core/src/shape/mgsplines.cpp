@@ -15,18 +15,28 @@ MgSplines::MgSplines() : _knotvs(NULL), _bzcount(0)
 
 MgSplines::~MgSplines()
 {
-    if (_knotvs)
+    if (_knotvs) {
         delete[] _knotvs;
+    }
+}
+
+void MgSplines::_clearCacheData()
+{
+    __super::_clearCacheData();
+    _bzcount = 0;
+    if (_knotvs) {
+        delete[] _knotvs;
+    }
 }
 
 void MgSplines::_update()
 {
     __super::_update();
 
-    if (_bzcount < _count)
-    {
-        if (_knotvs)
+    if (_bzcount < _count) {
+        if (_knotvs) {
             delete[] _knotvs;
+        }
         _bzcount = _maxCount;
         _knotvs = new Vector2d[_bzcount];
     }

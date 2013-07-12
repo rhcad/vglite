@@ -61,6 +61,9 @@ public:
     
     //! 删除所有图形
     void clear();
+    
+    //! 释放临时数据内存
+    void clearCacheData();
 
     //! 复制(深拷贝)每一个图形
     void copyShapes(const MgShapes* src);

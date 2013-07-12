@@ -64,6 +64,14 @@ public:
         return false;
     }
     
+    void clearCacheData() {
+        if (_tmpshot) {
+            [_tmpshot release];
+            _tmpshot = nil;
+        }
+        _coreView->clearCacheData();
+    }
+    
     virtual void regenAll() {
         [_view setNeedsDisplay];
         [_dynview setNeedsDisplay];
@@ -246,6 +254,11 @@ public:
         }
         canvas.endPaint();
     }
+}
+
+- (void)clearCacheData
+{
+    _adapter->clearCacheData();
 }
 
 #pragma mark - GiBaseView gesture recognization

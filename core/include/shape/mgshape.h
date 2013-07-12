@@ -134,6 +134,9 @@ public:
 
     //! 清除图形数据
     virtual void clear() = 0;
+    
+    //! 释放临时数据内存
+    virtual void clearCacheData() = 0;
 
     //! 返回顶点个数
     virtual int getPointCount() const = 0;
@@ -217,6 +220,7 @@ protected:
     void _update();
     void _transform(const Matrix2d& mat);
     void _clear();
+    void _clearCacheData() {}
     bool _draw(int mode, GiGraphics& gs, const GiContext& ctx, int segment) const;
     bool _hitTestBox(const Box2d& rect) const;
     int _getHandleCount() const;
@@ -258,6 +262,7 @@ protected:                                                      \
     virtual void update();                                      \
     virtual void transform(const Matrix2d& mat);                \
     virtual void clear();                                       \
+    virtual void clearCacheData();                              \
     virtual int getPointCount() const;                          \
     virtual Point2d getPoint(int index) const;                  \
     virtual void setPoint(int index, const Point2d& pt);        \

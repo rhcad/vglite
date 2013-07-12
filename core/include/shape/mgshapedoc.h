@@ -63,6 +63,9 @@ public:
     //! 删除所有图形
     void clear();
     
+    //! 释放临时数据内存
+    void clearCacheData();
+    
     //! 显示所有图形
     int draw(GiGraphics& gs) const;
     
