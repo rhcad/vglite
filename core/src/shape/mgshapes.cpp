@@ -88,10 +88,10 @@ void MgShapes::clear()
     im->shapes.clear();
 }
 
-void MgShapes::clearCacheData()
+void MgShapes::clearCachedData()
 {
     for (I::iterator it = im->shapes.begin(); it != im->shapes.end(); ++it) {
-        (*it)->shape()->clearCacheData();
+        (*it)->shape()->clearCachedData();
     }
 }
 

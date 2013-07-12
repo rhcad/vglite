@@ -64,12 +64,12 @@ public:
         return false;
     }
     
-    void clearCacheData() {
+    void clearCachedData() {
         if (_tmpshot) {
             [_tmpshot release];
             _tmpshot = nil;
         }
-        _coreView->clearCacheData();
+        _coreView->clearCachedData();
     }
     
     virtual void regenAll() {
@@ -256,9 +256,9 @@ public:
     }
 }
 
-- (void)clearCacheData
+- (void)clearCachedData
 {
-    _adapter->clearCacheData();
+    _adapter->clearCachedData();
 }
 
 #pragma mark - GiBaseView gesture recognization

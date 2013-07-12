@@ -79,4 +79,8 @@ public class GiCoreView {
     return touchvgJNI.GiCoreView_twoFingersMove(swigCPtr, this, GiView.getCPtr(view), view, gestureState.swigValue(), x1, y1, x2, y2);
   }
 
+  public void clearCachedData() {
+    touchvgJNI.GiCoreView_clearCachedData(swigCPtr, this);
+  }
+
 }

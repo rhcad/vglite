@@ -48,7 +48,7 @@ protected:
     bool _setHandlePoint(int index, const Point2d& pt, float tol);
     bool _isHandleFixed(int index) const { return index > 0; }
     void _update();
-    void _clearCacheData();
+    void _clearCachedData();
     void _transform(const Matrix2d& mat);
     void _clear();
     float _hitTest(const Point2d& pt, float tol, Point2d& nearpt, int& segment) const;

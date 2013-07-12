@@ -125,11 +125,11 @@ void MgShapeDoc::clear()
     im->curShapes = im->layers[0];
 }
 
-void MgShapeDoc::clearCacheData()
+void MgShapeDoc::clearCachedData()
 {
     for (int i = 0; i < kMaxLayers; i++) {
         if (im->layers[i]) {
-            im->layers[i]->clearCacheData();
+            im->layers[i]->clearCachedData();
         }
     }
 }

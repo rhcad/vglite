@@ -1870,6 +1870,17 @@ SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1twoFingersMo
 }
 
 
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1clearCachedData(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  GiCoreView *arg1 = (GiCoreView *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiCoreView **)&jarg1; 
+  (arg1)->clearCachedData();
+}
+
+
 SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_TestCanvas_1initRand(JNIEnv *jenv, jclass jcls) {
   (void)jenv;
   (void)jcls;

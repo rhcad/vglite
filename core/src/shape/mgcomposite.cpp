@@ -59,6 +59,12 @@ int MgComposite::getShapeCount() const
     return _shapes->getShapeCount();
 }
 
+void MgComposite::_clearCachedData()
+{
+    __super::_clearCachedData();
+    _shapes->clearCachedData();
+}
+
 void MgComposite::_update()
 {
     void* it;

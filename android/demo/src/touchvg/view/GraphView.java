@@ -77,6 +77,14 @@ public class GraphView extends View {
         mEndPaintTime = android.os.SystemClock.uptimeMillis();
     }
     
+    public void clearCachedData() {
+    	mCoreView.clearCachedData();
+    	if (mCacheBitmap != null) {
+            mCacheBitmap.recycle();
+            mCacheBitmap = null;
+        }
+    }
+    
     private void autoBuildCache() {
         if (mCacheBitmap != null && (mCacheBitmap.getWidth() != getWidth()
                 || mCacheBitmap.getHeight() != getHeight())) {

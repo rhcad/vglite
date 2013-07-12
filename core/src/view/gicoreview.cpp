@@ -230,9 +230,9 @@ bool GiCoreView::twoFingersMove(GiView* view, GiGestureState gestureState,
     return aview && aview->twoFingersMove(gestureState, x1, y1, x2, y2);
 }
 
-void GiCoreView::clearCacheData()
+void GiCoreView::clearCachedData()
 {
-    impl->_doc->doc()->clearCacheData();
+    impl->_doc->doc()->clearCachedData();
 }
 
 // GcDummyView

@@ -63,7 +63,7 @@ public:
     void clear();
     
     //! 释放临时数据内存
-    void clearCacheData();
+    void clearCachedData();
 
     //! 复制(深拷贝)每一个图形
     void copyShapes(const MgShapes* src);

@@ -27,7 +27,7 @@
     void Cls::update() { _update(); }                           \
     void Cls::transform(const Matrix2d& mat) { _transform(mat); } \
     void Cls::clear() { _clear(); }                             \
-    void Cls::clearCacheData() { _clearCacheData(); }           \
+    void Cls::clearCachedData() { _clearCachedData(); }           \
     int Cls::getPointCount() const { return _getPointCount(); } \
     Point2d Cls::getPoint(int index) const { return _getPoint(index); }  \
     void Cls::setPoint(int index, const Point2d& pt) { _setPoint(index, pt); }  \

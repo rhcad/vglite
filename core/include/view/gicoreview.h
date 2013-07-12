@@ -57,7 +57,7 @@ public:
             float x1, float y1, float x2, float y2);
     
     //! 释放临时数据内存
-    void clearCacheData();
+    void clearCachedData();
 
 private:
     GiCoreViewImpl* impl;

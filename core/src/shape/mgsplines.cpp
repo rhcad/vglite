@@ -20,9 +20,9 @@ MgSplines::~MgSplines()
     }
 }
 
-void MgSplines::_clearCacheData()
+void MgSplines::_clearCachedData()
 {
-    __super::_clearCacheData();
+    __super::_clearCachedData();
     _bzcount = 0;
     if (_knotvs) {
         delete[] _knotvs;
