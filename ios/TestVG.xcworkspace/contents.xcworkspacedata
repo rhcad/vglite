@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:framework/TouchVG.xcodeproj">
+      location = "group:lib/TouchVG.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:tests/TestGesture/TestGesture.xcodeproj">

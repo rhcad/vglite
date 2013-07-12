@@ -22,11 +22,11 @@ public:
     bool lock(bool forWrite, int timeout = 200);
     long unlock(bool forWrite);
     
-    bool firstLocked();
-    bool lockedForRead();
-    bool lockedForWrite();
+    bool firstLocked() const;
+    bool lockedForRead() const;
+    bool lockedForWrite() const;
     
-    int getEditFlags() { return _editFlags; }
+    int getEditFlags() const { return _editFlags; }
     void setEditFlags(int flags) {
         _editFlags = flags ? (_editFlags | flags) : 0;
     }
@@ -139,11 +139,11 @@ public:
     MgShapesLock(MgShapeDoc* doc, int flags, int timeout = 200);
     ~MgShapesLock();
     
-    bool locked();
+    bool locked() const;
     static bool lockedForRead(MgShapeDoc* doc);
     static bool lockedForWrite(MgShapeDoc* doc);
     
-    int getEditFlags() { return doc->getLockData()->getEditFlags(); }
+    int getEditFlags() const { return doc->getLockData()->getEditFlags(); }
     void resetEditFlags() { doc->getLockData()->setEditFlags(0); }
     
 #ifndef SWIG
@@ -163,7 +163,7 @@ public:
     MgDynShapeLock(bool forWrite = true, int timeout = 200);
     ~MgDynShapeLock();
     
-    bool locked();
+    bool locked() const;
     static bool lockedForRead();
     static bool lockedForWrite();
 };

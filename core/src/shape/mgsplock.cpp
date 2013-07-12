@@ -57,17 +57,17 @@ long MgLockRW::unlock(bool forWrite)
     return giInterlockedDecrement(_counts);
 }
 
-bool MgLockRW::firstLocked()
+bool MgLockRW::firstLocked() const
 {
     return _counts[0] == 1;
 }
 
-bool MgLockRW::lockedForRead()
+bool MgLockRW::lockedForRead() const
 {
     return _counts[0] > 0;
 }
 
-bool MgLockRW::lockedForWrite()
+bool MgLockRW::lockedForWrite() const
 {
     return _counts[2] > 0;
 }
@@ -129,7 +129,7 @@ void MgShapesLock::unregisterObserver(ShapesLocked func, void* obj)
     }
 }
 
-bool MgShapesLock::locked()
+bool MgShapesLock::locked() const
 {
     return _mode != 0;
 }
@@ -159,7 +159,7 @@ MgDynShapeLock::~MgDynShapeLock()
     }
 }
 
-bool MgDynShapeLock::locked()
+bool MgDynShapeLock::locked() const
 {
     return _mode != 0;
 }
