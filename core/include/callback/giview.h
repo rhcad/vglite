@@ -22,6 +22,9 @@ public:
 
     //! 标记视图待更新显示
     virtual void redraw() = 0;
+
+    //! 使用手指(true)或鼠标(false)交互
+    virtual bool useFinger() { return true; }
 };
 
 #endif // VGLITE_CORE_GIVIEW_H

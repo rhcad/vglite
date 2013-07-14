@@ -18,23 +18,20 @@
 class GcDummyView : public GcBaseView
 {
 public:
-    GcDummyView(MgView* mgview, GiView *view)
-        : GcBaseView(mgview, view), _gestureState(kGiGestureCancel) {}
+    GcDummyView(MgView* mgview, GiView *view) : GcBaseView(mgview, view) {}
     virtual ~GcDummyView() {}
     
-    virtual void drawAll(GiCanvas* canvas);
-    virtual void drawAppend(GiCanvas* canvas);
-    virtual void dynDraw(GiCanvas* canvas);
+    virtual void drawAll(GiGraphics& gs);
+    virtual void drawAppend(GiGraphics& gs);
+    virtual void dynDraw(const MgMotion& motion, GiGraphics& gs);
     virtual void onSize(int dpi, int w, int h);
-    virtual bool onGesture(GiGestureType gestureType,
-                           GiGestureState gestureState, float x, float y);
-    virtual bool twoFingersMove(GiGestureState gestureState,
-                                float x1, float y1, float x2, float y2);
+    virtual bool onGesture(const MgMotion& motion);
+    virtual bool twoFingersMove(const MgMotion& motion);
+
 private:
     void drawPoints(GiCanvas* canvas);
     
     std::vector<float>   _pts;
-    GiGestureState  _gestureState;
 };
 
 // GiCoreView
@@ -47,9 +44,12 @@ public:
     MgCmdManager*   _cmds;
     GcBaseView*     curview;
     long            refcount;
-    int             state;
+    MgMotion        motion;
     
-    GiCoreViewImpl() : curview(NULL), refcount(1), state(0) {
+    GiCoreViewImpl() : curview(NULL), refcount(1) {
+        motion.view = this;
+        motion.gestureType = 0;
+        motion.gestureState = kMgGesturePossible;
         _doc = new GcShapeDoc();
         _cmds = new MgCmdManager();
     }
@@ -59,16 +59,19 @@ public:
         delete _cmds;
     }
     
+    MgCmdManager* cmds() { return _cmds; }
     GcShapeDoc* document() { return _doc; }
     MgShapeDoc* doc() { return _doc->doc(); }
     MgShapes* shapes() { return doc()->getCurrentShapes(); }
     GiContext* context() { return doc()->context(); }
-    MgGestureState gestureState() { return (MgGestureState)state; }
-    bool useFinger() { return true; }
-    MgCmdManager* cmds() { return _cmds; }
     
     GcBaseView* currentView() {
         return curview ? curview : _doc->firstView();
+    }
+
+    bool useFinger() {
+        GcBaseView* view = currentView();
+        return view ? view->deviceView()->useFinger() : true;
     }
     
     GiTransform* xform() {
@@ -103,7 +106,8 @@ public:
 
 static int _dpi = 1;
 
-GcBaseView::GcBaseView(MgView* mgview, GiView *view) : _mgview(mgview), _view(view), _gs(&_xf)
+GcBaseView::GcBaseView(MgView* mgview, GiView *view)
+    : _mgview(mgview), _view(view), _gs(&_xf)
 {
     mgview->document()->addView(this);
 }
@@ -160,6 +164,7 @@ void GiCoreView::createMagnifierView(GiView* newview, GiView* mainView)
 void GiCoreView::destoryView(GiView* view)
 {
     GcBaseView* aview = impl->_doc->findView(view);
+
     if (aview) {
         if (impl->curview == aview) {
             impl->curview = NULL;
@@ -171,32 +176,41 @@ void GiCoreView::destoryView(GiView* view)
 
 void GiCoreView::setScreenDpi(int dpi)
 {
-    _dpi = dpi;
+    if (_dpi != dpi) {
+        _dpi = dpi;
+    }
 }
 
 void GiCoreView::drawAll(GiView* view, GiCanvas* canvas)
 {
     GcBaseView* aview = impl->_doc->findView(view);
-    if (aview) {
-        aview->drawAll(canvas);
+
+    if (aview && aview->graph()->beginPaint(canvas)) {
+        aview->drawAll(*aview->graph());
+        aview->graph()->endPaint();
     }
 }
 
 bool GiCoreView::drawAppend(GiView* view, GiCanvas* canvas)
 {
     GcBaseView* aview = impl->_doc->findView(view);
-    if (aview) {
-        aview->drawAppend(canvas);
+
+    if (aview && aview->graph()->beginPaint(canvas)) {
+        aview->drawAppend(*aview->graph());
+        aview->graph()->endPaint();
         return true;
     }
+
     return false;
 }
 
 void GiCoreView::dynDraw(GiView* view, GiCanvas* canvas)
 {
     GcBaseView* aview = impl->_doc->findView(view);
-    if (aview) {
-        aview->dynDraw(canvas);
+
+    if (aview && aview->graph()->beginPaint(canvas)) {
+        aview->dynDraw(impl->motion, *aview->graph());
+        aview->graph()->endPaint();
     }
 }
 
@@ -212,22 +226,68 @@ bool GiCoreView::onGesture(GiView* view, GiGestureType gestureType,
                            GiGestureState gestureState, float x, float y)
 {
     GcBaseView* aview = impl->_doc->findView(view);
+    bool ret = false;
+
+    if (aview) {
+        impl->curview = aview;
+        impl->motion.gestureType = gestureType;
+        impl->motion.gestureState = (MgGestureState)gestureState;
+        impl->motion.point.set(x, y);
+        impl->motion.pointM = impl->motion.point * aview->xform()->displayToModel();
+        impl->motion.point2 = impl->motion.point;
+        impl->motion.point2M = impl->motion.pointM;
+
+        if (gestureState <= kGiGestureBegan) {
+            impl->motion.firstPt = impl->motion.point;
+            impl->motion.firstPtM = impl->motion.pointM;
+            impl->motion.lastPt = impl->motion.point;
+            impl->motion.lastPtM = impl->motion.pointM;
+            impl->motion.firstPt2 = impl->motion.point;
+            impl->motion.firstPt2M = impl->motion.pointM;
+        }
+
+        ret = (impl->_cmds->onGesture(impl->motion)
+            || aview->onGesture(impl->motion));
+
+        impl->motion.lastPt = impl->motion.point;
+        impl->motion.lastPtM = impl->motion.pointM;
+    }
     
-    impl->curview = aview;
-    impl->state = gestureState;
-    
-    return aview && aview->onGesture(gestureType, gestureState, x, y);
+    return ret;
 }
 
 bool GiCoreView::twoFingersMove(GiView* view, GiGestureState gestureState,
                                 float x1, float y1, float x2, float y2)
 {
     GcBaseView* aview = impl->_doc->findView(view);
+    bool ret = false;
+
+    if (aview) {
+        impl->curview = aview;
+        impl->motion.gestureType = kGiTwoFingersMove;
+        impl->motion.gestureState = (MgGestureState)gestureState;
+        impl->motion.point.set(x1, y1);
+        impl->motion.pointM = impl->motion.point * aview->xform()->displayToModel();
+        impl->motion.point2.set(x2, y2);
+        impl->motion.point2M = impl->motion.point2 * aview->xform()->displayToModel();
+
+        if (gestureState <= kGiGestureBegan) {
+            impl->motion.firstPt = impl->motion.point;
+            impl->motion.firstPtM = impl->motion.pointM;
+            impl->motion.lastPt = impl->motion.point;
+            impl->motion.lastPtM = impl->motion.pointM;
+            impl->motion.firstPt2 = impl->motion.point2;
+            impl->motion.firstPt2M = impl->motion.point2M;
+        }
+
+        ret = (impl->_cmds->twoFingersMove(impl->motion)
+            || aview->twoFingersMove(impl->motion));
+
+        impl->motion.lastPt = impl->motion.point;
+        impl->motion.lastPtM = impl->motion.pointM;
+    }
     
-    impl->curview = aview;
-    impl->state = gestureState;
-    
-    return aview && aview->twoFingersMove(gestureState, x1, y1, x2, y2);
+    return ret;
 }
 
 void GiCoreView::clearCachedData()
@@ -238,10 +298,10 @@ void GiCoreView::clearCachedData()
 // GcDummyView
 //
 
-void GcDummyView::drawAll(GiCanvas* canvas)
+void GcDummyView::drawAll(GiGraphics& gs)
 {
     int n = TestCanvas::randInt(900, 1000);
-    TestCanvas::test(canvas, 0x08, n, true);
+    TestCanvas::test(gs.getCanvas(), 0x08, n, true);
 }
 
 void GcDummyView::drawPoints(GiCanvas* canvas)
@@ -262,8 +322,9 @@ void GcDummyView::drawPoints(GiCanvas* canvas)
     }
 }
 
-void GcDummyView::drawAppend(GiCanvas* canvas)
+void GcDummyView::drawAppend(GiGraphics& gs)
 {
+    GiCanvas* canvas = gs.getCanvas();
     canvas->setPen(TestCanvas::randInt(20, 0xFF) << 24 | TestCanvas::randInt(0, 0xFFFFFF),
                   TestCanvas::randFloat(1, 10), -1, 0);
     canvas->setBrush(TestCanvas::randInt(10, 0xFF) << 24 | TestCanvas::randInt(0, 0xFFFFFF), 0);
@@ -271,10 +332,13 @@ void GcDummyView::drawAppend(GiCanvas* canvas)
     _pts.clear();
 }
 
-void GcDummyView::dynDraw(GiCanvas* canvas)
+void GcDummyView::dynDraw(const MgMotion& motion, GiGraphics& gs)
 {
-	if (_gestureState == kGiGestureBegan || _gestureState == kGiGestureMoved) {
+	if (motion.gestureState == kGiGestureBegan
+        || motion.gestureState == kGiGestureMoved) {
 		static float phase = 0;
+        GiCanvas* canvas = gs.getCanvas();
+
 		phase -= 1;
 		canvas->setPen(0, 0, 1, phase);
 		canvas->setBrush(0x80005500, 0);
@@ -296,17 +360,15 @@ void GcDummyView::onSize(int, int, int)
 {
 }
 
-bool GcDummyView::onGesture(GiGestureType gestureType,
-                            GiGestureState gestureState, float x, float y)
+bool GcDummyView::onGesture(const MgMotion& motion)
 {
-	_gestureState = gestureState;
-    if (gestureState == kGiGestureBegan) {
+    if (motion.gestureState == kGiGestureBegan) {
         _pts.clear();
     }
-    _pts.push_back(x);
-    _pts.push_back(y);
+    _pts.push_back(motion.point.x);
+    _pts.push_back(motion.point.y);
     
-    if (gestureType == kGiGesturePan && gestureState == kGiGestureEnded) {
+    if (motion.gestureType == kGiGesturePan && motion.gestureState == kGiGestureEnded) {
         deviceView()->regenAppend();
     }
     else {
@@ -315,12 +377,7 @@ bool GcDummyView::onGesture(GiGestureType gestureType,
     return true;
 }
 
-bool GcDummyView::twoFingersMove(GiGestureState gestureState,
-                                 float, float, float, float)
+bool GcDummyView::twoFingersMove(const MgMotion&)
 {
-	_gestureState = gestureState;
-    if (gestureState == kGiGestureMoved) {
-        deviceView()->redraw();
-    }
     return true;
 }

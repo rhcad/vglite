@@ -399,7 +399,7 @@ bool GiGdipCanvas::clipPath()
     return true;
 }
 
-void GiGdipCanvas::drawHandle(float x, float y, int type)
+void GiGdipCanvas::drawHandle(float x, float y, int)
 {
     Bitmap* bmp = new Bitmap(L"A:\\vgdot1.png");
     if (bmp) {
@@ -412,8 +412,8 @@ void GiGdipCanvas::drawHandle(float x, float y, int type)
     }
 }
 
-void GiGdipCanvas::drawBitmap(const char* name, float xc, float yc, 
-                              float w, float h, float angle)
+void GiGdipCanvas::drawBitmap(const char*, float, float, 
+                              float, float, float)
 {
     // TODO: drawBitmap
 }

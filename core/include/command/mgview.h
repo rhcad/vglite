@@ -40,7 +40,25 @@ public:
     virtual void redraw() = 0;                  //!< 标记视图待更新显示
     
     virtual bool useFinger() = 0;               //!< 使用手指或鼠标交互
-    virtual MgGestureState gestureState() = 0;  //!< 返回当前手势状态
+};
+
+//! 触摸动作参数
+/*! \ingroup GROUP_COMMAND
+ */
+struct MgMotion {
+    MgView*         view;
+    int             gestureType;
+    MgGestureState  gestureState;
+    Point2d         firstPt;
+    Point2d         firstPtM;
+    Point2d         lastPt;
+    Point2d         lastPtM;
+    Point2d         point;
+    Point2d         pointM;
+    Point2d         firstPt2;
+    Point2d         firstPt2M;
+    Point2d         point2;
+    Point2d         point2M;
 };
 
 #endif // VGLITE_CORE_COMMAND_VIEW_H

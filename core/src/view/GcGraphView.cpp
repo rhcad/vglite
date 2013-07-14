@@ -14,22 +14,17 @@ GcShapeView::~GcShapeView()
 {
 }
 
-void GcShapeView::drawAll(GiCanvas* canvas)
+void GcShapeView::drawAll(GiGraphics& gs)
 {
-    if (graph()->beginPaint(canvas)) {
-        cmdView()->doc()->draw(*graph());
-        graph()->endPaint();
-    }
+    doc()->draw(gs);
 }
 
-void GcShapeView::drawAppend(GiCanvas* canvas)
+void GcShapeView::drawAppend(GiGraphics&)
 {
-	if (canvas) {}
 }
 
-void GcShapeView::dynDraw(GiCanvas* canvas)
+void GcShapeView::dynDraw(const MgMotion&, GiGraphics&)
 {
-	if (canvas) {}
 }
 
 void GcShapeView::onSize(int dpi, int w, int h)
@@ -38,22 +33,18 @@ void GcShapeView::onSize(int dpi, int w, int h)
     xform()->setWndSize(w, h);
 }
 
-bool GcShapeView::onGesture(GiGestureType gestureType,
-                            GiGestureState gestureState, float x, float y)
+bool GcShapeView::onGesture(const MgMotion& motion)
 {
-    if (gestureType != kGiGesturePan)
+    if (motion.gestureType != kGiGesturePan){
         return false;
-    
-    if (gestureState == kGiGesturePossible) {
-        return true;
     }
-    if (gestureState == kGiGestureBegan) {
+    if (motion.gestureState == kGiGestureBegan) {
         _lastScale = xform()->getZoomValue(_lastCenter);
-        _startPt[0].set(x, y);
     }
-    if (gestureState == kGiGestureMoved) {
+    if (motion.gestureState == kGiGestureMoved) {
+        Vector2d vec(motion.point - motion.firstPt);
         xform()->zoom(_lastCenter, _lastScale);     // 先恢复
-        xform()->zoomPan(x - _startPt[0].x, y - _startPt[0].y); // 平移到当前点
+        xform()->zoomPan(vec.x, vec.y);             // 平移到当前点
         
         cmdView()->regenAll();
     }
@@ -61,23 +52,18 @@ bool GcShapeView::onGesture(GiGestureType gestureType,
     return true;
 }
 
-bool GcShapeView::twoFingersMove(GiGestureState gestureState,
-                                 float x1, float y1, float x2, float y2)
+bool GcShapeView::twoFingersMove(const MgMotion& motion)
 {
-    if (gestureState == kGiGesturePossible) {
-        return true;
-    }
-    if (gestureState == kGiGestureBegan) {
+    if (motion.gestureState == kGiGestureBegan) {
         _lastScale = xform()->getZoomValue(_lastCenter);
-        _startPt[0].set(x1, y1);
-        _startPt[1].set(x2, y2);
     }
-    if (gestureState == kGiGestureMoved && _startPt[0] != _startPt[1]
-        && Point2d(x1, y1) != Point2d(x2, y2)) {    // 双指变单指则忽略移动
-        Point2d at((_startPt[0] + _startPt[1]) / 2);
-        Point2d pt((x1 + x2) / 2, (y1 + y2) / 2);
-        float d1 = Point2d(x1, y1).distanceTo(Point2d(x2, y2));
-        float d0 = _startPt[0].distanceTo(_startPt[1]);
+    if (motion.gestureState == kGiGestureMoved
+        && motion.firstPt != motion.firstPt2
+        && motion.point != motion.point2) {         // 双指变单指则忽略移动
+        Point2d at((motion.firstPt + motion.firstPt2) / 2);
+        Point2d pt((motion.point + motion.point2) / 2);
+        float d1 = motion.point.distanceTo(motion.point2);
+        float d0 = motion.firstPt.distanceTo(motion.firstPt2);
         float scale = d1 / d0;
         
         xform()->zoom(_lastCenter, _lastScale);     // 先恢复

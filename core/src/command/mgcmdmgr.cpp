@@ -11,3 +11,17 @@ MgCmdManager::MgCmdManager()
 MgCmdManager::~MgCmdManager()
 {
 }
+
+void MgCmdManager::dynDraw(const MgMotion& motion, GiGraphics& gs)
+{
+}
+
+bool MgCmdManager::onGesture(const MgMotion& motion)
+{
+    return false;
+}
+
+bool MgCmdManager::twoFingersMove(const MgMotion& motion)
+{
+    return false;
+}
