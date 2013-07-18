@@ -14,7 +14,7 @@ void registerTransformCmd();
 typedef std::map<std::string, MgCommand* (*)()> Factories;
 static Factories    _factories;
 
-MgCommandManager* mgCreateCmdManager()
+MgCmdManager* mgCreateCmdManager()
 {
     return new MgCmdManagerImpl();
 }

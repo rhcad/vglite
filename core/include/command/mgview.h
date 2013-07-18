@@ -8,7 +8,7 @@
 #include "gigraph.h"
 #include "mgshapedoc.h"
 
-struct MgCommandManager;
+struct MgCmdManager;
 class GcShapeDoc;
 
 typedef enum {                  //!< 手势状态
@@ -28,7 +28,7 @@ public:
     virtual ~MgView() {}
     
     virtual GcShapeDoc* document() = 0;
-    virtual MgCommandManager* cmds() = 0;       //!< 返回命令管理器对象
+    virtual MgCmdManager* cmds() = 0;       //!< 返回命令管理器对象
     virtual GiTransform* xform() = 0;           //!< 得到坐标系对象
     virtual GiGraphics* graph() = 0;            //!< 得到图形显示对象
     virtual MgShapeDoc* doc() = 0;              //!< 得到图形文档
@@ -86,7 +86,7 @@ public:
         return gestureState >= kMgGestureBegan && gestureState <= kMgGestureMoved;
     }
     
-    MgCommandManager* cmds() const { return view->cmds(); }   //!< 返回命令管理器对象
+    MgCmdManager* cmds() const { return view->cmds(); }   //!< 返回命令管理器对象
     Point2d startCenter() const { return (startPt + startPt2) / 2; }
     Point2d center() const { return (point + point2) / 2; }
     float startDistance() const { return startPt.distanceTo(startPt2); }

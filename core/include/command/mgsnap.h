@@ -23,7 +23,7 @@ typedef enum {
 //! 图形特征点捕捉器接口
 /*! \ingroup CORE_COMMAND
     \interface MgSnap
-    \see MgCommandManager
+    \see MgCmdManager
 */
 struct MgSnap {
     //! 显示捕捉提示线

@@ -16,7 +16,7 @@
 /*! \ingroup CORE_COMMAND
 */
 class MgCmdManagerImpl
-    : public MgCommandManager
+    : public MgCmdManager
     , public MgSnap
     , public MgActionDispatcher
 {

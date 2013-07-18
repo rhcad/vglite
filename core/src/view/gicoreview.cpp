@@ -39,13 +39,13 @@ private:
 
 #define CALL_VIEW(func) if (curview) curview->func
 #define CALL_VIEW2(func, v) curview ? curview->func : v
-MgCommandManager* mgCreateCmdManager();
+MgCmdManager* mgCreateCmdManager();
 
 class GiCoreViewImpl : public MgView
 {
 public:
     GcShapeDoc*     _doc;
-    MgCommandManager*   _cmds;
+    MgCmdManager*   _cmds;
     GcBaseView*     curview;
     long            refcount;
     MgMotion        motion;
@@ -63,7 +63,7 @@ public:
         delete _doc;
     }
     
-    MgCommandManager* cmds() { return _cmds; }
+    MgCmdManager* cmds() { return _cmds; }
     GcShapeDoc* document() { return _doc; }
     MgShapeDoc* doc() { return _doc->doc(); }
     MgShapes* shapes() { return doc()->getCurrentShapes(); }

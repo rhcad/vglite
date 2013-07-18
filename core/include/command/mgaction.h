@@ -40,7 +40,7 @@ class MgShape;
 //! 上下文动作分发接口
 /*! \ingroup CORE_COMMAND
     \interface MgActionDispatcher
-    \see MgCommandManager, MgContextAction
+    \see MgCmdManager, MgContextAction
 */
 struct MgActionDispatcher {
     virtual bool showInSelect(const MgMotion* sender, int selState, const MgShape* shape, const Box2d& selbox) = 0;

@@ -93,10 +93,10 @@ protected:
 
 //! 命令管理器接口
 /*! \ingroup CORE_COMMAND
-    \interface MgCommandManager
+    \interface MgCmdManager
     \see mgGetCommandManager
 */
-struct MgCommandManager {
+struct MgCmdManager {
     virtual void release() = 0;                             //!< 销毁管理器
     
     virtual const char* getCommandName() = 0;               //!< 得到当前命令名称
