@@ -452,19 +452,19 @@
 				Name="view"
 				>
 				<File
-					RelativePath="..\..\core\include\view\GcBaseView.h"
+					RelativePath="..\..\core\src\view\GcBaseView.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\core\include\view\GcGraphView.h"
+					RelativePath="..\..\core\src\view\GcGraphView.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\core\include\view\GcMagnifierView.h"
+					RelativePath="..\..\core\src\view\GcMagnifierView.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\core\include\view\GcShapeDoc.h"
+					RelativePath="..\..\core\src\view\GcShapeDoc.h"
 					>
 				</File>
 				<File
