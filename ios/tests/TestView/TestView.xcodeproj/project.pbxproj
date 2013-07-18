@@ -116,10 +116,6 @@
 		AE1A766E1782E3D7007FB031 /* mgvector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mgvector.h; sourceTree = "<group>"; };
 		AE1A76701782E3D7007FB031 /* RandomShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RandomShape.h; sourceTree = "<group>"; };
 		AE1A76711782E3D7007FB031 /* testcanvas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testcanvas.h; sourceTree = "<group>"; };
-		AE1A76731782E3D7007FB031 /* GcBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GcBaseView.h; sourceTree = "<group>"; };
-		AE1A76741782E3D7007FB031 /* GcGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GcGraphView.h; sourceTree = "<group>"; };
-		AE1A76751782E3D7007FB031 /* GcMagnifierView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GcMagnifierView.h; sourceTree = "<group>"; };
-		AE1A76761782E3D7007FB031 /* GcShapeDoc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GcShapeDoc.h; sourceTree = "<group>"; };
 		AE1A76771782E3D7007FB031 /* gicoreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gicoreview.h; sourceTree = "<group>"; };
 		AE1A76781782E3D7007FB031 /* gigesture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gigesture.h; sourceTree = "<group>"; };
 		AE1A767B1782E3D7007FB031 /* mgcmdmgr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mgcmdmgr.cpp; sourceTree = "<group>"; };
@@ -165,6 +161,10 @@
 		AE1A76B71782E3D7007FB031 /* GcMagnifierView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GcMagnifierView.cpp; sourceTree = "<group>"; };
 		AE1A76B81782E3D7007FB031 /* GcShapeDoc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GcShapeDoc.cpp; sourceTree = "<group>"; };
 		AE1A76B91782E3D7007FB031 /* gicoreview.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gicoreview.cpp; sourceTree = "<group>"; };
+		AE2B50DD1797F108006A1E80 /* GcBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GcBaseView.h; sourceTree = "<group>"; };
+		AE2B50DE1797F108006A1E80 /* GcGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GcGraphView.h; sourceTree = "<group>"; };
+		AE2B50DF1797F108006A1E80 /* GcMagnifierView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GcMagnifierView.h; sourceTree = "<group>"; };
+		AE2B50E01797F108006A1E80 /* GcShapeDoc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GcShapeDoc.h; sourceTree = "<group>"; };
 		AE3341B316ECBDBE00F0E517 /* CalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalloutView.h; sourceTree = "<group>"; };
 		AE3341B416ECBDBE00F0E517 /* CalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalloutView.m; sourceTree = "<group>"; };
 		AE4D531C177AD9F200B766B6 /* vgdot3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vgdot3.png; sourceTree = "<group>"; };
@@ -380,10 +380,6 @@
 		AE1A76721782E3D7007FB031 /* view */ = {
 			isa = PBXGroup;
 			children = (
-				AE1A76731782E3D7007FB031 /* GcBaseView.h */,
-				AE1A76741782E3D7007FB031 /* GcGraphView.h */,
-				AE1A76751782E3D7007FB031 /* GcMagnifierView.h */,
-				AE1A76761782E3D7007FB031 /* GcShapeDoc.h */,
 				AE1A76771782E3D7007FB031 /* gicoreview.h */,
 				AE1A76781782E3D7007FB031 /* gigesture.h */,
 			);
@@ -526,6 +522,10 @@
 		AE1A76B51782E3D7007FB031 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				AE2B50DD1797F108006A1E80 /* GcBaseView.h */,
+				AE2B50DE1797F108006A1E80 /* GcGraphView.h */,
+				AE2B50DF1797F108006A1E80 /* GcMagnifierView.h */,
+				AE2B50E01797F108006A1E80 /* GcShapeDoc.h */,
 				AE1A76B61782E3D7007FB031 /* GcGraphView.cpp */,
 				AE1A76B71782E3D7007FB031 /* GcMagnifierView.cpp */,
 				AE1A76B81782E3D7007FB031 /* GcShapeDoc.cpp */,
