@@ -1,4 +1,4 @@
-//! \file GraphView.java
+﻿//! \file GraphView.java
 //! \brief Android绘图视图类
 // Copyright (c) 2012-2013, https://github.com/rhcad/vglite
 
@@ -25,7 +25,7 @@ public class GraphView extends View {
     private GiCoreView mCoreView;
     private Bitmap mCacheBitmap;
     private long mEndPaintTime;
-
+    
     public GraphView(Context context) {
         super(context);
         mCanvasAdapter = new CanvasAdapter(this);
@@ -40,15 +40,15 @@ public class GraphView extends View {
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     mCoreView.onGesture(mViewAdapter, GiGestureType.kGiGesturePan, 
-                            GiGestureState.kGiGestureBegan, event.getX(), event.getY());
+                                        GiGestureState.kGiGestureBegan, event.getX(), event.getY());
                 }
                 else if (event.getAction() == MotionEvent.ACTION_UP) {
                     mCoreView.onGesture(mViewAdapter, GiGestureType.kGiGesturePan, 
-                            GiGestureState.kGiGestureEnded, event.getX(), event.getY());
+                                        GiGestureState.kGiGestureEnded, event.getX(), event.getY());
                 }
                 else if (event.getEventTime() > mEndPaintTime) {
                 	mCoreView.onGesture(mViewAdapter, GiGestureType.kGiGesturePan, 
-                            GiGestureState.kGiGestureMoved, event.getX(), event.getY());
+                                        GiGestureState.kGiGestureMoved, event.getX(), event.getY());
                 }
                 return true;
             }
@@ -58,7 +58,7 @@ public class GraphView extends View {
     public GiCoreView getCoreView() {
         return mCoreView;
     }
-
+    
     @Override
     protected void onDraw(Canvas canvas) {
         autoBuildCache();
@@ -87,7 +87,7 @@ public class GraphView extends View {
     
     private void autoBuildCache() {
         if (mCacheBitmap != null && (mCacheBitmap.getWidth() != getWidth()
-                || mCacheBitmap.getHeight() != getHeight())) {
+                                     || mCacheBitmap.getHeight() != getHeight())) {
             mCacheBitmap.recycle();
             mCacheBitmap = null;
         }
@@ -106,7 +106,7 @@ public class GraphView extends View {
             }
         }
     }
-
+    
     @Override
     protected void onDetachedFromWindow() {
         if (mViewAdapter != null) {

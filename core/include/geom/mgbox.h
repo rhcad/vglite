@@ -18,6 +18,8 @@ typedef struct tagRECT2D
     float   right;  //!< 矩形右下角X坐标
     float   bottom; //!< 矩形右下角Y坐标
     tagRECT2D() : left(0), top(0), right(0), bottom(0) {}
+    float width() const { return right - left; }
+    float height() const { return bottom - top; }
 } RECT_2D;
 
 //! 矩形框类

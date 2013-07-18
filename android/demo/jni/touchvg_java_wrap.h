@@ -54,12 +54,13 @@ public:
     virtual void regenAll();
     virtual void regenAppend();
     virtual void redraw();
+    virtual bool useFinger();
 public:
     bool swig_overrides(int n) {
-      return (n < 3 ? swig_override[n] : false);
+      return (n < 4 ? swig_override[n] : false);
     }
 protected:
-    bool swig_override[3];
+    bool swig_override[4];
 };
 
 

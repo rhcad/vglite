@@ -126,8 +126,8 @@ bool GiGraphics::setClipBox(const RECT_2D& rc)
             m_impl->rectDrawM = m_impl->rectDraw * xf().displayToModel();
             m_impl->rectDrawW = m_impl->rectDrawM * xf().modelToWorld();
             SafeCall(m_impl->canvas, clipRect(m_impl->clipBox.left, m_impl->clipBox.top,
-                                              m_impl->clipBox.right - m_impl->clipBox.left,
-                                              m_impl->clipBox.bottom - m_impl->clipBox.top));
+                                              m_impl->clipBox.width(),
+                                              m_impl->clipBox.height()));
         }
         ret = true;
     }
@@ -154,8 +154,7 @@ bool GiGraphics::setClipWorld(const Box2d& rectWorld)
                 m_impl->rectDrawM = m_impl->rectDraw * xf().displayToModel();
                 m_impl->rectDrawW = m_impl->rectDrawM * xf().modelToWorld();
                 SafeCall(m_impl->canvas, clipRect(m_impl->clipBox.left, m_impl->clipBox.top,
-                                                  m_impl->clipBox.right - m_impl->clipBox.left,
-                                                  m_impl->clipBox.bottom - m_impl->clipBox.top));
+                                                  m_impl->clipBox.width(), m_impl->clipBox.height()));
             }
 
             ret = true;
@@ -173,6 +172,18 @@ bool GiGraphics::isGrayMode() const
 void GiGraphics::setGrayMode(bool gray)
 {
     m_impl->drawColors = gray ? 2 : 0;
+}
+
+GiColor GiGraphics::getBkColor() const
+{
+    return m_impl->bkcolor;
+}
+
+GiColor GiGraphics::setBkColor(const GiColor& color)
+{
+    GiColor old(m_impl->bkcolor);
+    m_impl->bkcolor = color;
+    return old;
 }
 
 GiColor GiGraphics::calcPenColor(const GiColor& color) const
@@ -1164,7 +1175,8 @@ bool GiGraphics::rawLineTo(float x, float y)
     return !!m_impl->canvas;
 }
 
-bool GiGraphics::rawBezierTo(float c1x, float c1y, float c2x, float c2y, float x, float y)
+bool GiGraphics::rawBezierTo(float c1x, float c1y, float c2x, 
+                             float c2y, float x, float y)
 {
     if (m_impl->canvas) {
         m_impl->canvas->bezierTo(c1x, c1y, c2x, c2y, x, y);
@@ -1189,10 +1201,20 @@ bool GiGraphics::rawText(const char* text, float x, float y, float h, int align)
     return false;
 }
 
-bool GiGraphics::rawImage(const char* name, float xc, float yc, float w, float h, float angle)
+bool GiGraphics::rawImage(const char* name, float xc, float yc, 
+                          float w, float h, float angle)
 {
     if (m_impl->canvas && name) {
         m_impl->canvas->drawBitmap(name, xc, yc, w, h, angle);
+        return true;
+    }
+    return false;
+}
+
+bool GiGraphics::drawHandle(const Point2d& pnt, int type)
+{
+    if (m_impl->canvas && type >= 0) {
+        m_impl->canvas->drawHandle(pnt.x, pnt.y, type);
         return true;
     }
     return false;

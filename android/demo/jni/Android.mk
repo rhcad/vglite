@@ -31,7 +31,18 @@ LOCAL_SRC_FILES  := $(CORESRC)/test/testcanvas.cpp \
                     $(CORESRC)/view/GcShapeDoc.cpp \
                     $(CORESRC)/view/GcGraphView.cpp \
                     $(CORESRC)/view/GcMagnifierView.cpp \
+                    $(CORESRC)/command/mgactions.cpp \
+                    $(CORESRC)/command/mgcmddraw.cpp \
+                    $(CORESRC)/command/mgcmderase.cpp \
                     $(CORESRC)/command/mgcmdmgr.cpp \
+                    $(CORESRC)/command/mgcmds.cpp \
+                    $(CORESRC)/command/mgcmdselect.cpp \
+                    $(CORESRC)/command/mgdrawline.cpp \
+                    $(CORESRC)/command/mgdrawlines.cpp \
+                    $(CORESRC)/command/mgdrawrect.cpp \
+                    $(CORESRC)/command/mgdrawsplines.cpp \
+                    $(CORESRC)/command/mgdrawtriang.cpp \
+                    $(CORESRC)/command/TransformCmd.cpp \
                     $(CORESRC)/json/mgjsonstorage.cpp \
                     $(CORESRC)/shape/mgcomposite.cpp \
                     $(CORESRC)/shape/mgellipse.cpp \

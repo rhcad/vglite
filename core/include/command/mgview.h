@@ -8,7 +8,7 @@
 #include "gigraph.h"
 #include "mgshapedoc.h"
 
-class MgCmdManager;
+struct MgCommandManager;
 class GcShapeDoc;
 
 typedef enum {                  //!< 手势状态
@@ -28,7 +28,7 @@ public:
     virtual ~MgView() {}
     
     virtual GcShapeDoc* document() = 0;
-    virtual MgCmdManager* cmds() = 0;           //!< 返回命令管理器对象
+    virtual MgCommandManager* cmds() = 0;       //!< 返回命令管理器对象
     virtual GiTransform* xform() = 0;           //!< 得到坐标系对象
     virtual GiGraphics* graph() = 0;            //!< 得到图形显示对象
     virtual MgShapeDoc* doc() = 0;              //!< 得到图形文档
@@ -40,25 +40,57 @@ public:
     virtual void redraw() = 0;                  //!< 标记视图待更新显示
     
     virtual bool useFinger() = 0;               //!< 使用手指或鼠标交互
+    virtual void selChanged() = 0;              //!< 选择集改变的通知
+    
+    virtual bool shapeWillAdded(MgShape* shape) = 0;    //!< 通知将添加图形
+    virtual void shapeAdded(MgShape* shape) = 0;        //!< 通知已添加图形，由视图重新构建显示
+    virtual bool shapeWillDeleted(MgShape* shape) = 0;  //!< 通知将删除图形
+    virtual bool removeShape(MgShape* shape) = 0;       //!< 删除图形
+    virtual bool shapeCanRotated(MgShape* shape) = 0;   //!< 通知是否能旋转图形
+    virtual bool shapeCanTransform(MgShape* shape) = 0; //!< 通知是否能对图形变形
+    virtual void shapeMoved(MgShape* shape, int segment) = 0;   //!< 通知图形已拖动
+    virtual void commandChanged() = 0;                  //!< 命令改变
+    
+    virtual bool isContextActionsVisible() = 0;         //!< 返回上下文菜单是否已显示
+#ifndef SWIG
+    virtual bool showContextActions(int selState, const int* actions,
+            const Box2d& selbox, const MgShape* shape) = 0; //!< 显示上下文菜单
+#endif
 };
 
 //! 触摸动作参数
 /*! \ingroup GROUP_COMMAND
  */
-struct MgMotion {
+class MgMotion
+{
+public:
     MgView*         view;
     int             gestureType;
     MgGestureState  gestureState;
-    Point2d         firstPt;
-    Point2d         firstPtM;
+    bool            pressDrag;
+    Point2d         startPt;
+    Point2d         startPtM;
     Point2d         lastPt;
     Point2d         lastPtM;
     Point2d         point;
     Point2d         pointM;
-    Point2d         firstPt2;
-    Point2d         firstPt2M;
+    Point2d         startPt2;
+    Point2d         startPt2M;
     Point2d         point2;
     Point2d         point2M;
+    
+    MgMotion() : view(NULL), gestureType(0)
+        , gestureState(kMgGesturePossible), pressDrag(false) {}
+    
+    bool dragging() const {                             //!< 是否正按下拖动
+        return gestureState >= kMgGestureBegan && gestureState <= kMgGestureMoved;
+    }
+    
+    MgCommandManager* cmds() const { return view->cmds(); }   //!< 返回命令管理器对象
+    Point2d startCenter() const { return (startPt + startPt2) / 2; }
+    Point2d center() const { return (point + point2) / 2; }
+    float startDistance() const { return startPt.distanceTo(startPt2); }
+    float distance() const { return point.distanceTo(point2); }
 };
 
 #endif // VGLITE_CORE_COMMAND_VIEW_H

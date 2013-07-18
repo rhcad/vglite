@@ -154,7 +154,83 @@
 				Name="command"
 				>
 				<File
+					RelativePath="..\..\core\src\command\mgactions.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\command\mgcmddraw.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\command\mgcmderase.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\command\mgcmderase.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\core\src\command\mgcmdmgr.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\command\mgcmdmgr.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\command\mgcmds.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\command\mgcmdselect.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\command\mgcmdselect.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\command\mgdrawline.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\command\mgdrawline.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\command\mgdrawlines.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\command\mgdrawlines.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\command\mgdrawrect.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\command\mgdrawrect.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\command\mgdrawsplines.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\command\mgdrawsplines.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\command\mgdrawtriang.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\command\mgdrawtriang.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\command\TransformCmd.cpp"
 					>
 				</File>
 			</Filter>
@@ -344,7 +420,27 @@
 				Name="command"
 				>
 				<File
-					RelativePath="..\..\core\include\command\mgcmdmgr.h"
+					RelativePath="..\..\core\include\command\mgaction.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\include\command\mgcmd.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\include\command\mgcmddraw.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\include\command\mglog.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\include\command\mgselect.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\include\command\mgsnap.h"
 					>
 				</File>
 				<File

@@ -62,6 +62,10 @@ public class GiView {
     touchvgJNI.GiView_redraw(swigCPtr, this);
   }
 
+  public boolean useFinger() {
+    return (getClass() == GiView.class) ? touchvgJNI.GiView_useFinger(swigCPtr, this) : touchvgJNI.GiView_useFingerSwigExplicitGiView(swigCPtr, this);
+  }
+
   public GiView() {
     this(touchvgJNI.new_GiView(), true);
     touchvgJNI.GiView_director_connect(this, swigCPtr, swigCMemOwn, true);

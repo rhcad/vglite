@@ -75,6 +75,12 @@ public:
 
     //! 设置颜色模式
     void setGrayMode(bool gray);
+    
+    //! 返回背景色(打印或打印预览时为白色)
+    GiColor getBkColor() const;
+    
+    //! 设置新的背景色，返回原来的背景色
+    GiColor setBkColor(const GiColor& color);
 
     //! 计算画笔颜色
     /*! 根据颜色模式和设备属性调整显示颜色。\n
@@ -289,6 +295,14 @@ public:
     */
     bool drawClosedBSplines(const GiContext* ctx, 
         int count, const Point2d* ctlpts, bool modelUnit = true);
+    
+    //! 在给定中心位置显示特殊符号
+    /*!
+        \param pnt 符号中心位置
+        \param type 符号类型，0-顶点或控制点，1-活动点，2-左旋，3-右旋
+        \return 是否显示成功
+     */
+    bool drawHandle(const Point2d& pnt, int type);
 
 #ifndef SWIG
     //! 返回当前绘图画布对象

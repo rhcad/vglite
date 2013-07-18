@@ -420,7 +420,7 @@ namespace Swig {
 namespace Swig {
   namespace {
     jclass jclass_touchvgJNI = NULL;
-    jmethodID director_methids[23];
+    jmethodID director_methids[24];
   }
 }
 
@@ -1135,6 +1135,28 @@ void SwigDirector_GiView::redraw() {
   if (swigjobj) jenv->DeleteLocalRef(swigjobj);
 }
 
+bool SwigDirector_GiView::useFinger() {
+  bool c_result = SwigValueInit< bool >() ;
+  jboolean jresult = 0 ;
+  JNIEnvWrapper swigjnienv(this) ;
+  JNIEnv * jenv = swigjnienv.getJNIEnv() ;
+  jobject swigjobj = (jobject) NULL ;
+  
+  if (!swig_override[3]) {
+    return GiView::useFinger();
+  }
+  swigjobj = swig_get_self(jenv);
+  if (swigjobj && jenv->IsSameObject(swigjobj, NULL) == JNI_FALSE) {
+    jresult = (jboolean) jenv->CallStaticBooleanMethod(Swig::jclass_touchvgJNI, Swig::director_methids[23], swigjobj);
+    if (jenv->ExceptionCheck() == JNI_TRUE) return c_result;
+    c_result = jresult ? true : false; 
+  } else {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null upcall object");
+  }
+  if (swigjobj) jenv->DeleteLocalRef(swigjobj);
+  return c_result;
+}
+
 void SwigDirector_GiView::swig_connect_director(JNIEnv *jenv, jobject jself, jclass jcls, bool swig_mem_own, bool weak_global) {
   static struct {
     const char *mname;
@@ -1149,6 +1171,9 @@ void SwigDirector_GiView::swig_connect_director(JNIEnv *jenv, jobject jself, jcl
     },
     {
       "redraw", "()V", NULL 
+    },
+    {
+      "useFinger", "()Z", NULL 
     }
   };
   
@@ -1161,7 +1186,7 @@ void SwigDirector_GiView::swig_connect_director(JNIEnv *jenv, jobject jself, jcl
       baseclass = (jclass) jenv->NewGlobalRef(baseclass);
     }
     bool derived = (jenv->IsSameObject(baseclass, jcls) ? false : true);
-    for (int i = 0; i < 3; ++i) {
+    for (int i = 0; i < 4; ++i) {
       if (!methods[i].base_methid) {
         methods[i].base_methid = jenv->GetMethodID(baseclass, methods[i].mname, methods[i].mdesc);
         if (!methods[i].base_methid) return;
@@ -1626,6 +1651,36 @@ SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiView_1redraw(JNIEnv *jenv,
   (void)jarg1_;
   arg1 = *(GiView **)&jarg1; 
   (arg1)->redraw();
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiView_1useFinger(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  GiView *arg1 = (GiView *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiView **)&jarg1; 
+  result = (bool)(arg1)->useFinger();
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiView_1useFingerSwigExplicitGiView(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  GiView *arg1 = (GiView *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiView **)&jarg1; 
+  result = (bool)(arg1)->GiView::useFinger();
+  jresult = (jboolean)result; 
+  return jresult;
 }
 
 
@@ -2121,7 +2176,7 @@ SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_swig_1module_1init(JNIEnv *j
   static struct {
     const char *method;
     const char *signature;
-  } methods[23] = {
+  } methods[24] = {
     {
       "SwigDirector_GiCanvas_setPen", "(Ltouchvg/jni/GiCanvas;IFIF)V" 
     },
@@ -2190,6 +2245,9 @@ SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_swig_1module_1init(JNIEnv *j
     },
     {
       "SwigDirector_GiView_redraw", "(Ltouchvg/jni/GiView;)V" 
+    },
+    {
+      "SwigDirector_GiView_useFinger", "(Ltouchvg/jni/GiView;)Z" 
     }
   };
   Swig::jclass_touchvgJNI = (jclass) jenv->NewGlobalRef(jcls);

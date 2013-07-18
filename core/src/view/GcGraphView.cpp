@@ -38,11 +38,11 @@ bool GcShapeView::onGesture(const MgMotion& motion)
     if (motion.gestureType != kGiGesturePan){
         return false;
     }
-    if (motion.gestureState == kGiGestureBegan) {
+    if (motion.gestureState == kMgGestureBegan) {
         _lastScale = xform()->getZoomValue(_lastCenter);
     }
-    if (motion.gestureState == kGiGestureMoved) {
-        Vector2d vec(motion.point - motion.firstPt);
+    if (motion.gestureState == kMgGestureMoved) {
+        Vector2d vec(motion.point - motion.startPt);
         xform()->zoom(_lastCenter, _lastScale);     // 先恢复
         xform()->zoomPan(vec.x, vec.y);             // 平移到当前点
         
@@ -54,16 +54,16 @@ bool GcShapeView::onGesture(const MgMotion& motion)
 
 bool GcShapeView::twoFingersMove(const MgMotion& motion)
 {
-    if (motion.gestureState == kGiGestureBegan) {
+    if (motion.gestureState == kMgGestureBegan) {
         _lastScale = xform()->getZoomValue(_lastCenter);
     }
-    if (motion.gestureState == kGiGestureMoved
-        && motion.firstPt != motion.firstPt2
+    if (motion.gestureState == kMgGestureMoved
+        && motion.startPt != motion.startPt2
         && motion.point != motion.point2) {         // 双指变单指则忽略移动
-        Point2d at((motion.firstPt + motion.firstPt2) / 2);
+        Point2d at((motion.startPt + motion.startPt2) / 2);
         Point2d pt((motion.point + motion.point2) / 2);
         float d1 = motion.point.distanceTo(motion.point2);
-        float d0 = motion.firstPt.distanceTo(motion.firstPt2);
+        float d0 = motion.startPt.distanceTo(motion.startPt2);
         float scale = d1 / d0;
         
         xform()->zoom(_lastCenter, _lastScale);     // 先恢复
