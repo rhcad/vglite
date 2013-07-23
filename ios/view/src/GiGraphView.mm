@@ -308,37 +308,29 @@ public:
 }
 
 // 手势即将开始，在 touchesBegan 后发生，即将调用本类的相应手势响应函数
-- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)recognizer
 {
     BOOL allow = YES;
-    NSTimeInterval seconds = [[NSProcessInfo processInfo]systemUptime] - _timeBegan;
-    
-    // 从按下到开始移动经过的秒数超过阀值，就向当前命令触发长按动作，当前命令响应长按操作时手势取消
-    if (gestureRecognizer != pressRecognizer && seconds > 0.8) {
-        if ([self pressHandler:(UILongPressGestureRecognizer *)gestureRecognizer]) {
-            return NO;
-        }
-    }
     
     // 将状态为 UIGestureRecognizerStatePossible 的手势传递到内核，看是否允许此手势
     //
-    if (gestureRecognizer == pinchRecognizer) {
-        allow = [self pinchHandler:(UIPinchGestureRecognizer *)gestureRecognizer];
+    if (recognizer == pinchRecognizer) {
+        allow = [self pinchHandler:(UIPinchGestureRecognizer *)recognizer];
     }
-    else if (gestureRecognizer == rotationRecognizer) {
-        allow = [self rotationHandler:(UIRotationGestureRecognizer *)gestureRecognizer];
+    else if (recognizer == rotationRecognizer) {
+        allow = [self rotationHandler:(UIRotationGestureRecognizer *)recognizer];
     }
-    else if (gestureRecognizer == panRecognizer) {
-        allow = [self panHandler:(UIPanGestureRecognizer *)gestureRecognizer];
+    else if (recognizer == panRecognizer) {
+        allow = [self panHandler:(UIPanGestureRecognizer *)recognizer];
     }
-    else if (gestureRecognizer == tapRecognizer) {
-        allow = [self tapHandler:(UITapGestureRecognizer *)gestureRecognizer];
+    else if (recognizer == tapRecognizer) {
+        allow = [self tapHandler:(UITapGestureRecognizer *)recognizer];
     }
-    else if (gestureRecognizer == twoTapsRecognizer) {
-        allow = [self twoTapsHandler:(UITapGestureRecognizer *)gestureRecognizer];
+    else if (recognizer == twoTapsRecognizer) {
+        allow = [self twoTapsHandler:(UITapGestureRecognizer *)recognizer];
     }
-    else if (gestureRecognizer == pressRecognizer) {
-        allow = [self pressHandler:(UILongPressGestureRecognizer *)gestureRecognizer];
+    else if (recognizer == pressRecognizer) {
+        allow = [self pressHandler:(UILongPressGestureRecognizer *)recognizer];
     }
     
     return allow;
@@ -351,13 +343,12 @@ public:
     CGPoint pt = [touch locationInView:touch.view];
     
     _points.clear();
-    if (_timeBegan < 0.1 && [touches count] == 1) {     // 是第一个触点
+    if (_timeBegan < 0.1) {                             // 是第一个触点
         _timeBegan = touch.timestamp;                   // 记下第一个触点的时刻
-        _points.push_back(pt);                          // 记下起始点
-        _moved = NO;
-        if (_tapCount == 1) {
-            [self delayTap];
+        if ([touches count] == 1) {
+            _points.push_back(pt);                      // 记下起始点
         }
+        _moved = NO;
     }
     else if (_moved) {
         _moved = NO;
@@ -421,13 +412,17 @@ public:
 {
     UITouch *touch = [touches anyObject];
     
-    if (!_points.empty() && _moved) {   // 手势未生效，取消已分发的模拟手势
-        _adapter->dispatchGesture(kGiGesturePan, kGiGestureCancel, _points.back());
+    if (!_points.empty()) {
+        if (_moved) {
+            _adapter->dispatchGesture(kGiGesturePan, kGiGestureEnded, _points.back());
+        }
+        else {
+            _adapter->dispatchGesture(kGiGestureTap, kGiGestureEnded, _points.back());
+        }
     }
     
     _timeBegan = 0;
     _points.clear();
-    _moved = NO;
     
     if (!touch || touch.view == self) {
         [super touchesCancelled:touches withEvent:event];
@@ -438,17 +433,22 @@ public:
 
 - (BOOL)gestureCheck:(UIGestureRecognizer*)sender
 {
+    if (_tapCount == 1 && sender != twoTapsRecognizer) {
+        [self delayTap];
+    }
     return YES;
 }
 
 - (BOOL)gesturePost:(UIGestureRecognizer*)sender
 {
-    if (sender.state == UIGestureRecognizerStateBegan
-        || sender.state >= UIGestureRecognizerStateEnded) {
-        _timeBegan = 0;
+    if (sender.state == UIGestureRecognizerStateBegan) {
         _points.clear();
-        _moved = NO;
+    }
+    else if (sender.state >= UIGestureRecognizerStateEnded) {
+        _timeBegan = 0;
         _touchCount = 0;
+        _moved = NO;
+        _points.clear();
     }
     
     return YES;
@@ -462,6 +462,7 @@ public:
     
     CGPoint pt = [sender locationInView:sender.view];
     const int touchCount = [sender numberOfTouches];
+    BOOL ret = YES;
     
     // 检查手势的有效性
     if (sender.state == UIGestureRecognizerStatePossible) {
@@ -470,12 +471,12 @@ public:
                 : _adapter->dispatchGesture(kGiGesturePan, kGiGesturePossible, pt));
     }
     // 在 touchesMoved 中已经分发了开始状态，就转为移动状态分发
-    if (sender.state == UIGestureRecognizerStateBegan && _moved) {
+    if (sender.state <= UIGestureRecognizerStateChanged && _moved && 1 == _touchCount) {
         _tapPoint = pt;
-        return _adapter->dispatchGesture(kGiGesturePan, kGiGestureMoved, pt);
+        ret = _adapter->dispatchGesture(kGiGesturePan, kGiGestureMoved, pt);
     }
     // 切换单指与双指模式，就结束前一模式
-    if (_touchCount != touchCount
+    else if (_touchCount != touchCount
         && sender.state == UIGestureRecognizerStateChanged) {
         if (_moved && _touchCount > 0) {
             _moved = NO;
@@ -502,9 +503,10 @@ public:
             _adapter->dispatchGesture(kGiGesturePan, state, pt);
         }
     }
+    
     _tapPoint = pt;
     
-    return [self gesturePost:sender];
+    return [self gesturePost:sender] && ret;
 }
 
 - (BOOL)tapHandler:(UITapGestureRecognizer *)sender

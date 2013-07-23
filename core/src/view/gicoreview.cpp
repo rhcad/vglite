@@ -13,6 +13,7 @@
 #include "GcGraphView.h"
 #include "GcMagnifierView.h"
 #include "mgcmd.h"
+#include <RandomShape.h>
 
 //! 测试视图
 class GcDummyView : public GcBaseView
@@ -22,7 +23,7 @@ public:
     virtual ~GcDummyView() {}
     
     virtual void drawAll(GiGraphics& gs);
-    virtual void drawAppend(GiGraphics& gs);
+    virtual void drawAppend(const int* newids, GiGraphics& gs);
     virtual void dynDraw(const MgMotion& motion, GiGraphics& gs);
     virtual void onSize(int dpi, int w, int h);
     virtual bool onGesture(const MgMotion& motion);
@@ -340,6 +341,12 @@ void GiCoreView::clearCachedData()
     impl->_doc->doc()->clearCachedData();
 }
 
+void GiCoreView::addShapesForTest()
+{
+    RandomParam(200).addShapes(impl->shapes());
+    impl->regenAll();
+}
+
 bool GiCoreViewImpl::dynDraw(const MgMotion& motion, GiGraphics& gs)
 {
     return _cmds->draw(&motion, &gs);
@@ -411,7 +418,7 @@ void GcDummyView::drawPoints(GiCanvas* canvas)
     }
 }
 
-void GcDummyView::drawAppend(GiGraphics& gs)
+void GcDummyView::drawAppend(const int*, GiGraphics& gs)
 {
     GiCanvas* canvas = gs.getCanvas();
     canvas->setPen(TestCanvas::randInt(20, 0xFF) << 24 | TestCanvas::randInt(0, 0xFFFFFF),

@@ -64,6 +64,9 @@ public:
     
     //! 释放临时数据内存
     void clearCachedData();
+    
+    //! 添加测试图形
+    void addShapesForTest();
 
 private:
     GiCoreViewImpl* impl;

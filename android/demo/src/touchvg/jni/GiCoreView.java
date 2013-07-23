@@ -79,8 +79,20 @@ public class GiCoreView {
     return touchvgJNI.GiCoreView_twoFingersMove(swigCPtr, this, GiView.getCPtr(view), view, gestureState.swigValue(), x1, y1, x2, y2);
   }
 
+  public String command() {
+    return touchvgJNI.GiCoreView_command(swigCPtr, this);
+  }
+
+  public boolean setCommand(GiView view, String name) {
+    return touchvgJNI.GiCoreView_setCommand(swigCPtr, this, GiView.getCPtr(view), view, name);
+  }
+
   public void clearCachedData() {
     touchvgJNI.GiCoreView_clearCachedData(swigCPtr, this);
+  }
+
+  public void addShapesForTest() {
+    touchvgJNI.GiCoreView_addShapesForTest(swigCPtr, this);
   }
 
 }

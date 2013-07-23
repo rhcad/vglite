@@ -8,6 +8,7 @@ import touchvg.jni.GiCoreView;
 import touchvg.jni.GiGestureState;
 import touchvg.jni.GiGestureType;
 import touchvg.jni.GiView;
+import touchvg.jni.touchvgJNI;
 import touchvg.view.CanvasAdapter;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -59,6 +60,29 @@ public class GraphView extends View {
         return mCoreView;
     }
     
+    public void clearCachedData() {
+    	mCoreView.clearCachedData();
+    	if (mCacheBitmap != null) {
+            mCacheBitmap.recycle();
+            mCacheBitmap = null;
+        }
+    }
+    
+    //! 返回当前命令名称
+    public String command() {
+    	return mCoreView.command();
+    }
+    
+    //! 启动命令
+    public boolean setCommand(String name) {
+    	return mCoreView.setCommand(mViewAdapter, name);
+    }
+    
+    //! 添加测试图形
+    public void addShapesForTest() {
+    	mCoreView.addShapesForTest();
+    }
+    
     @Override
     protected void onDraw(Canvas canvas) {
         autoBuildCache();
@@ -75,14 +99,6 @@ public class GraphView extends View {
             mCanvasAdapter.endPaint();
         }
         mEndPaintTime = android.os.SystemClock.uptimeMillis();
-    }
-    
-    public void clearCachedData() {
-    	mCoreView.clearCachedData();
-    	if (mCacheBitmap != null) {
-            mCacheBitmap.recycle();
-            mCacheBitmap = null;
-        }
     }
     
     private void autoBuildCache() {

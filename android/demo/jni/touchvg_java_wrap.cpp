@@ -1925,6 +1925,46 @@ SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1twoFingersMo
 }
 
 
+SWIGEXPORT jstring JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1command(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jstring jresult = 0 ;
+  GiCoreView *arg1 = (GiCoreView *) 0 ;
+  char *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiCoreView **)&jarg1; 
+  result = (char *)((GiCoreView const *)arg1)->command();
+  if (result) jresult = jenv->NewStringUTF((const char *)result);
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1setCommand(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jstring jarg3) {
+  jboolean jresult = 0 ;
+  GiCoreView *arg1 = (GiCoreView *) 0 ;
+  GiView *arg2 = (GiView *) 0 ;
+  char *arg3 = (char *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(GiCoreView **)&jarg1; 
+  arg2 = *(GiView **)&jarg2; 
+  arg3 = 0;
+  if (jarg3) {
+    arg3 = (char *)jenv->GetStringUTFChars(jarg3, 0);
+    if (!arg3) return 0;
+  }
+  result = (bool)(arg1)->setCommand(arg2,(char const *)arg3);
+  jresult = (jboolean)result; 
+  if (arg3) jenv->ReleaseStringUTFChars(jarg3, (const char *)arg3);
+  return jresult;
+}
+
+
 SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1clearCachedData(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   GiCoreView *arg1 = (GiCoreView *) 0 ;
   
@@ -1933,6 +1973,17 @@ SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1clearCachedData(
   (void)jarg1_;
   arg1 = *(GiCoreView **)&jarg1; 
   (arg1)->clearCachedData();
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1addShapesForTest(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  GiCoreView *arg1 = (GiCoreView *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiCoreView **)&jarg1; 
+  (arg1)->addShapesForTest();
 }
 
 

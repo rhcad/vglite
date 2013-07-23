@@ -47,7 +47,7 @@ bool GiQuartzCanvas::beginPaint(CGContextRef context)
     _fill = false;
     
     CGContextSetShouldAntialias(_ctx, true);        // 两者都为true才反走样
-    CGContextSetAllowsAntialiasing(_ctx, [UIScreen mainScreen].scale < 1.5f);   // 高清屏不反走样
+    CGContextSetAllowsAntialiasing(_ctx, true);
     CGContextSetFlatness(_ctx, 3);                  // 平滑度为3达到精确和速度的平衡点
     
     CGContextSetLineCap(_ctx, kCGLineCapRound);     // 圆端

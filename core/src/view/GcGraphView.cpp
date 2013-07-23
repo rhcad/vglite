@@ -3,11 +3,10 @@
 // Copyright (c) 2012-2013, https://github.com/rhcad/vglite
 
 #include "GcGraphView.h"
-#include <RandomShape.h>
+#include <mgshape.h>
 
 GcShapeView::GcShapeView(MgView* mgview, GiView *view) : GcBaseView(mgview, view)
 {
-    RandomParam(200).addShapes(mgview->shapes());
 }
 
 GcShapeView::~GcShapeView()
