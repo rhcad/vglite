@@ -102,6 +102,12 @@ public:
         }
     }
     
+    void setView(GcBaseView* view) {
+        if (curview != view) {
+            curview = view;
+        }
+    }
+    
     bool dynDraw(const MgMotion& motion, GiGraphics& gs);
     bool onGesture(const MgMotion& motion);
 };
@@ -236,7 +242,7 @@ bool GiCoreView::onGesture(GiView* view, GiGestureType gestureType,
     bool ret = false;
 
     if (aview) {
-        impl->curview = aview;
+        impl->setView(aview);
         impl->motion.gestureType = gestureType;
         impl->motion.gestureState = (MgGestureState)gestureState;
         impl->motion.point.set(x, y);
@@ -270,7 +276,7 @@ bool GiCoreView::twoFingersMove(GiView* view, GiGestureState gestureState,
     bool ret = false;
 
     if (aview) {
-        impl->curview = aview;
+        impl->setView(aview);
         impl->motion.gestureType = kGiTwoFingersMove;
         impl->motion.gestureState = (MgGestureState)gestureState;
         impl->motion.point.set(x1, y1);
@@ -292,6 +298,24 @@ bool GiCoreView::twoFingersMove(GiView* view, GiGestureState gestureState,
 
         impl->motion.lastPt = impl->motion.point;
         impl->motion.lastPtM = impl->motion.pointM;
+    }
+    
+    return ret;
+}
+
+const char* GiCoreView::command() const
+{
+    return impl->_cmds->getCommandName();
+}
+
+bool GiCoreView::setCommand(GiView* view, const char* name)
+{
+    GcBaseView* aview = impl->_doc->findView(view);
+    bool ret = false;
+    
+    if (aview) {
+        impl->setView(aview);
+        ret = impl->_cmds->setCommand(&impl->motion, name);
     }
     
     return ret;

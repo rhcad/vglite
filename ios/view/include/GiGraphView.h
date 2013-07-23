@@ -21,15 +21,17 @@ class GiCoreView;
 @property(nonatomic, readonly) UIPinchGestureRecognizer *pinchRecognizer;       //!< 放缩
 @property(nonatomic, readonly) UIRotationGestureRecognizer *rotationRecognizer; //!< 旋转
 
+@property(nonatomic) const char* command;   //!< 返回当前命令名称
+
 //! 初始化放大镜视图. refView为nil或调用 initWithFrame:(CGRect)frame 函数则创建普通绘图视图
 - (id)initWithFrame:(CGRect)frame refView:(GiGraphView *)refView;
 
-- (GiViewAdapter *)viewAdapter;         //!< 得到视图适配器对象
-- (GiCoreView *)coreView;               //!< 得到跨平台内核视图
+- (GiViewAdapter *)viewAdapter;             //!< 得到视图适配器对象
+- (GiCoreView *)coreView;                   //!< 得到跨平台内核视图
 
-- (UIImage *)snapshot;                  //!< 得到静态图形的快照，自动释放
-- (BOOL)savePng:(NSString *)filename;   //!< 保存静态图形的快照到PNG文件
+- (UIImage *)snapshot;                      //!< 得到静态图形的快照，自动释放
+- (BOOL)savePng:(NSString *)filename;       //!< 保存静态图形的快照到PNG文件
 
-- (void)clearCachedData;                 //!< 释放临时数据内存
+- (void)clearCachedData;                    //!< 释放临时数据内存
 
 @end

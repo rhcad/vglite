@@ -56,6 +56,12 @@ public:
     bool twoFingersMove(GiView* view, GiGestureState gestureState,
             float x1, float y1, float x2, float y2);
     
+    //! 返回当前命令名称
+    const char* command() const;
+    
+    //! 启动命令
+    bool setCommand(GiView* view, const char* name);
+    
     //! 释放临时数据内存
     void clearCachedData();
 

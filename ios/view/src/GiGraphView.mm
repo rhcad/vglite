@@ -172,6 +172,7 @@ public:
 
 @synthesize panRecognizer, tapRecognizer, twoTapsRecognizer;
 @synthesize pressRecognizer, pinchRecognizer, rotationRecognizer;
+@synthesize command;
 
 - (void)dealloc
 {
@@ -259,6 +260,16 @@ public:
 - (void)clearCachedData
 {
     _adapter->clearCachedData();
+}
+
+- (const char*)command
+{
+    return [self coreView]->command();
+}
+
+- (void)setCommand:(const char *)name
+{
+    [self coreView]->setCommand(_adapter, name);
 }
 
 #pragma mark - GiBaseView gesture recognization
