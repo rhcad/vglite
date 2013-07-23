@@ -150,9 +150,28 @@ bool MgCmdDrawSplines::doubleClick(const MgMotion* sender)
             _addshape(sender);
             _delayClear();
         }
-        return true;
     }
-    return click(sender);
+    else {
+        MgShapeT<MgLine> line(*sender->view->context());
+        Vector2d vec(Vector2d(1.f, 1.f) * sender->view->xform()->displayToModel());
+        
+        line.shape()->setPoint(0, sender->pointM);
+        line.shape()->setPoint(1, sender->pointM + vec);
+        
+        if (sender->view->shapeWillAdded(&line)) {
+            _addshape(sender, &line);
+        }
+        
+        if (sender->pointM.distanceTo(sender->startPtM) > vec.length()) {
+        	line.shape()->setPoint(0, sender->startPtM);
+            line.shape()->setPoint(1, sender->startPtM + vec);
+            if (sender->view->shapeWillAdded(&line)) {
+                _addshape(sender, &line);
+            }
+        }
+    }
+    
+    return true;
 }
 
 bool MgCmdDrawSplines::cancel(const MgMotion* sender)
@@ -182,12 +201,7 @@ bool MgCmdDrawSplines::canAddPoint(const MgMotion* sender, bool ended)
 bool MgCmdDrawSplines::click(const MgMotion* sender)
 {
     if (m_freehand) {
-        MgShapeT<MgLine> line;
-        
-        if (sender->view->context()) {
-            *line.context() = *sender->view->context();
-        }
-        
+        MgShapeT<MgLine> line(*sender->view->context());
         Point2d pt (sender->pointM);
         
         if (sender->point.distanceTo(sender->startPt) < 1.f) {

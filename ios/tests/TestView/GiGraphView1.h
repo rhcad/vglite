@@ -21,4 +21,7 @@ class GiCoreView;
 @end
 
 @interface GiGraphView2 : GiGraphView
+
+- (id)initWithFrame:(CGRect)frame withType:(int)type;
+
 @end

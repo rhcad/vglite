@@ -33,5 +33,6 @@ class GiCoreView;
 - (BOOL)savePng:(NSString *)filename;       //!< 保存静态图形的快照到PNG文件
 
 - (void)clearCachedData;                    //!< 释放临时数据内存
+- (void)addShapesForTest;                   //!< 添加测试图形
 
 @end

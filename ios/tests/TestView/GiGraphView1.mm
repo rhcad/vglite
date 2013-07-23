@@ -210,11 +210,17 @@ public:
 
 @implementation GiGraphView2
 
-- (id)initWithFrame:(CGRect)frame
+- (id)initWithFrame:(CGRect)frame withType:(int)type
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.command = "splines";
+        if (type == 1) {
+            self.command = "splines";
+        }
+        else if (type == 2) {
+            [self addShapesForTest];
+            self.command = "select";
+        }
     }
     return self;
 }
