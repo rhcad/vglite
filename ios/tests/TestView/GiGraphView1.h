@@ -2,7 +2,7 @@
 //! \brief 定义iOS绘图视图类 GiGraphView1
 // Copyright (c) 2012-2013, https://github.com/rhcad/vglite
 
-#import <UIKit/UIKit.h>
+#import "GiGraphView.h"
 
 class ViewAdapter1;
 class GiCoreView;
@@ -18,4 +18,7 @@ class GiCoreView;
 - (UIImage *)snapshot;                  //!< 得到静态图形的快照，自动释放
 - (BOOL)savePng:(NSString *)filename;   //!< 保存静态图形的快照到PNG文件
 
+@end
+
+@interface GiGraphView2 : GiGraphView
 @end

@@ -49,7 +49,9 @@ public:
     GcBaseView*     curview;
     long            refcount;
     MgMotion        motion;
+    std::vector<int>    newids;
     
+public:
     GiCoreViewImpl() : curview(NULL), refcount(1) {
         motion.view = this;
         motion.gestureType = 0;
@@ -74,7 +76,6 @@ public:
     bool useFinger() { return CALL_VIEW2(deviceView()->useFinger(), true); }
     void selChanged() {}
     bool shapeWillAdded(MgShape*) { return true; }
-    void shapeAdded(MgShape*) {}
     bool shapeWillDeleted(MgShape*) { return true; }
     bool removeShape(MgShape*) { return true; }
     bool shapeCanRotated(MgShape*) { return true; }
@@ -86,11 +87,22 @@ public:
     bool showContextActions(int, const int*,
                             const Box2d&, const MgShape*) { return false; }
     
+    void shapeAdded(MgShape* sp) {
+        if (sp && (newids.empty() || newids.back() != 0)) {
+            newids.push_back(sp->getID());
+            regenAppend();
+        }
+        else {
+            regenAll();
+        }
+    }
+    
     void redraw() {
         CALL_VIEW(deviceView()->redraw());
     }
     
     void regenAll() {
+        newids.clear();
         for (int i = 0; i < _doc->getViewCount(); i++) {
             _doc->getView(i)->deviceView()->regenAll();
         }
@@ -206,8 +218,10 @@ bool GiCoreView::drawAppend(GiView* view, GiCanvas* canvas)
     GcBaseView* aview = impl->_doc->findView(view);
     GiGraphics* gs = aview->graph();
 
-    if (aview && gs->beginPaint(canvas)) {
-        aview->drawAppend(*gs);
+    if (aview && !impl->newids.empty()
+        && gs->beginPaint(canvas)) {
+        impl->newids.push_back(0);
+        aview->drawAppend(&impl->newids.front(), *gs);
         gs->endPaint();
         return true;
     }

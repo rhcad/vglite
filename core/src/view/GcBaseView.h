@@ -39,6 +39,9 @@ public:
 
     //! 显示新图形，在 GiView.regenAppend() 后调用
     virtual void drawAppend(GiGraphics& gs) = 0;
+    virtual void drawAppend(const int* newids, GiGraphics& gs) {
+        if (newids) drawAppend(gs);
+    }
     
     //! 显示动态图形
     virtual void dynDraw(const MgMotion& motion, GiGraphics& gs) = 0;

@@ -2,7 +2,6 @@
 // Copyright (c) 2012-2013, https://github.com/rhcad/vglite
 
 #import "GiGraphView1.h"
-#import "GiGraphView.h"
 #import "LargeView1.h"
 
 static UIViewController *_tmpController = nil;
@@ -46,7 +45,7 @@ static void addGraphView(NSMutableArray *arr, NSUInteger &i, NSUInteger index,
             v = [[GiGraphView1 alloc]initWithFrame:wrapview.bounds];
         }
         else {
-            v = [[GiGraphView alloc]initWithFrame:wrapview.bounds];
+            v = [[GiGraphView2 alloc]initWithFrame:wrapview.bounds];
         }
         [wrapview addSubview:v];
         [v release];

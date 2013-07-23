@@ -19,8 +19,14 @@ void GcShapeView::drawAll(GiGraphics& gs)
     doc()->draw(gs);
 }
 
-void GcShapeView::drawAppend(GiGraphics&)
+void GcShapeView::drawAppend(const int* newids, GiGraphics& gs)
 {
+    for (; *newids; newids++) {
+        MgShape* sp = shapes()->findShape(*newids);
+        if (sp) {
+            sp->draw(0, gs);
+        }
+    }
 }
 
 void GcShapeView::dynDraw(const MgMotion&, GiGraphics&)

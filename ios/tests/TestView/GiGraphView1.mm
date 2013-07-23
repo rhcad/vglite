@@ -207,3 +207,16 @@ public:
 }
 
 @end
+
+@implementation GiGraphView2
+
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        self.command = "splines";
+    }
+    return self;
+}
+
+@end
