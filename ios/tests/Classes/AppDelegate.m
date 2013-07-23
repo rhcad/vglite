@@ -27,7 +27,7 @@
 {
     _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+    if (ISPHONE) {
         _masterController = [[MasterViewController alloc] init];
         _navigationController = [[UINavigationController alloc] initWithRootViewController:_masterController];
         [_masterController release];

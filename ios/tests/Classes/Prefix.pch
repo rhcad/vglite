@@ -8,4 +8,8 @@
     #import <UIKit/UIKit.h>
     #import <CoreGraphics/CoreGraphics.h>
     #import <Foundation/Foundation.h>
+
+//UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone
+#define ISPHONE 1
+
 #endif

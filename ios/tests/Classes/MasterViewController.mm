@@ -21,7 +21,7 @@ UIViewController *createTestView(NSUInteger index, CGRect frame);
     self = [super init];
     if (self) {
         self.title = @"Demos";
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        if (!ISPHONE) {
             self.clearsSelectionOnViewWillAppear = NO;
             self.contentSizeForViewInPopover = CGSizeMake(320.0, 600.0);
         }
@@ -90,7 +90,7 @@ UIViewController *createTestView(NSUInteger index, CGRect frame);
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                        reuseIdentifier:CellIdentifier] autorelease];
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        if (ISPHONE) {
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
     }
@@ -103,7 +103,7 @@ UIViewController *createTestView(NSUInteger index, CGRect frame);
 {
     UIViewController *controller;
     
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+    if (ISPHONE) {
 	    if (!_detailController) {
 	        _detailController = [[DetailViewController alloc] init];
             [self setNavigationButtons];
