@@ -40,6 +40,7 @@ public:
         drawColors = 0;
         isPrint = false;
         ctxused = 0;
+        bkcolor = GiColor::White();
         maxPenWidth = 100;
         minPenWidth = 1;
     }

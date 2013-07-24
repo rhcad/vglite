@@ -196,6 +196,12 @@ void GiCoreView::destoryView(GiView* view)
     }
 }
 
+int GiCoreView::setBkColor(GiView* view, int argb)
+{
+    GcBaseView* aview = impl->_doc->findView(view);
+    return aview ? aview->graph()->setBkColor(GiColor(argb)).getARGB() : 0;
+}
+
 void GiCoreView::setScreenDpi(int dpi)
 {
     if (_dpi != dpi) {

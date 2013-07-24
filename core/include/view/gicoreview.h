@@ -42,6 +42,9 @@ public:
     
     //! 显示动态图形
     void dynDraw(GiView* view, GiCanvas* canvas);
+    
+    //! 设置背景颜色
+    int setBkColor(GiView* view, int argb);
 
     //! 设置屏幕的点密度
     static void setScreenDpi(int dpi);
