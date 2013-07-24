@@ -275,10 +275,11 @@ public:
     }
     
     //! 判断宽或高的绝对值是否为零
-    bool isEmpty(const Tol& tol = Tol::gTol()) const
+    bool isEmpty(const Tol& tol = Tol::gTol(), bool useOr = true) const
     {
-        return fabsf(xmax - xmin) < tol.equalPoint()
-            || fabsf(ymax - ymin) < tol.equalPoint();
+        bool c1 = fabsf(xmax - xmin) < tol.equalPoint();
+        bool c2 = fabsf(ymax - ymin) < tol.equalPoint();
+        return useOr ? (c1 || c2) : (c1 && c2);
     }
     
     //! 判断宽或高是否接近或小于零

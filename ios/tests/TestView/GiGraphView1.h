@@ -23,5 +23,6 @@ class GiCoreView;
 @interface GiGraphView2 : GiGraphView
 
 - (id)initWithFrame:(CGRect)frame withType:(int)type;
+- (BOOL)savePng:(NSString *)filename;
 
 @end

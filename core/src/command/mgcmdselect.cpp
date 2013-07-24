@@ -619,8 +619,9 @@ Box2d MgCmdSelect::getBoundingBox(const MgMotion* sender)
     
     for (size_t i = 0; i < m_selIds.size(); i++) {
         MgShape* shape = getShape(m_selIds[i], sender);
-        if (shape)
+        if (shape) {
             selbox.unionWith(shape->shape()->getExtent());
+        }
     }
 
     float minDist = sender->view->xform()->displayToModel(8, true);
@@ -635,10 +636,14 @@ Box2d MgCmdSelect::getBoundingBox(const MgMotion* sender)
                        sender->view->xform()->getHeight() )
                  * sender->view->xform()->displayToModel());
     
-    rcview.deflate(mgDisplayMmToModel(12, sender));
+    rcview.deflate(mgDisplayMmToModel(1, sender));
     selbox.intersectWith(rcview);
     
-    return selbox;
+    Box2d selbox2(selbox);
+    rcview.deflate(mgDisplayMmToModel(12, sender));
+    selbox2.intersectWith(rcview);
+    
+    return selbox2.isEmpty(mgDisplayMmToModel(5, sender)) ? selbox : selbox2;
 }
 
 bool MgCmdSelect::canTransform(MgShape* shape, const MgMotion* sender)

@@ -49,7 +49,7 @@ public:
         \param tolPoint 长度容差值，正数
         \param tolVector 矢量容差值，正数，一般取小于0.1的数
     */
-    Tol(float tolPoint, float tolVector = 1e-4f)
+    Tol(float tolPoint, float tolVector = 1e-4f) : mTolPoint(1e-5f)
     {
         setEqualPoint(tolPoint);
         setEqualVector(tolVector);

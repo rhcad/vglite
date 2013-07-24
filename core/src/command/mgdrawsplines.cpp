@@ -99,7 +99,11 @@ bool MgCmdDrawSplines::touchMoved(const MgMotion* sender)
 bool MgCmdDrawSplines::touchEnded(const MgMotion* sender)
 {
     if (m_freehand) {
-        if (m_step > 1) {
+        dynshape()->shape()->setPoint(m_step, sender->pointM);
+        dynshape()->shape()->update();
+        
+        Tol tol(mgDisplayMmToModel(1.f, sender));
+        if (m_step > 0 && !dynshape()->shape()->getExtent().isEmpty(tol, false)) {
             //MgSplines* splines = (MgSplines*)dynshape()->shape();
             //splines->smooth(mgLineHalfWidthModel(m_shape, sender) + mgDisplayMmToModel(1, sender));
             _addshape(sender);
@@ -184,16 +188,16 @@ bool MgCmdDrawSplines::cancel(const MgMotion* sender)
     return MgCommandDraw::cancel(sender);
 }
 
-bool MgCmdDrawSplines::canAddPoint(const MgMotion* sender, bool ended)
+bool MgCmdDrawSplines::canAddPoint(const MgMotion*, bool ended)
 {
     if (!m_freehand && !ended)
         return false;
     
-    if (m_step > 0) {
-        float dist = sender->pointM.distanceTo(dynshape()->shape()->getPoint(m_step - 1));
-        if (dist < mgDisplayMmToModel(ended ? 0.2f : 0.5f, sender))
-            return false;
-    }
+    //if (m_step > 0) {
+    //    float dist = sender->pointM.distanceTo(dynshape()->shape()->getPoint(m_step - 1));
+    //    if (dist < mgDisplayMmToModel(ended ? 0.2f : 0.5f, sender))
+    //        return false;
+    //}
     
     return true;
 }
@@ -213,6 +217,7 @@ bool MgCmdDrawSplines::click(const MgMotion* sender)
         if (sender->view->shapeWillAdded(&line)) {
             _addshape(sender, &line);
         }
+        dynshape()->shape()->clear();
         
         return true;
     }

@@ -18,6 +18,8 @@
 #include "giview.h"
 #include "gicoreview.h"
 #include "testcanvas.h"
+#include "mgjsonstorage.h"
+#include "mgstorage.h"
 %}
 
 %feature("director") GiCanvas;
@@ -29,6 +31,9 @@
 %include "gigesture.h"
 %include "gicoreview.h"
 %include "testcanvas.h"
+
+%include "mgstorage.h"
+%include "mgjsonstorage.h"
 
 #ifdef SWIGJAVA
 %{

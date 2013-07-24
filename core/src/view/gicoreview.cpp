@@ -22,8 +22,8 @@ public:
     GcDummyView(MgView* mgview, GiView *view) : GcBaseView(mgview, view) {}
     virtual ~GcDummyView() {}
     
-    virtual void drawAll(GiGraphics& gs);
-    virtual void drawAppend(const int* newids, GiGraphics& gs);
+    virtual int drawAll(GiGraphics& gs);
+    virtual int drawAppend(const int* newids, GiGraphics& gs);
     virtual void dynDraw(const MgMotion& motion, GiGraphics& gs);
     virtual void onSize(int dpi, int w, int h);
     virtual bool onGesture(const MgMotion& motion);
@@ -203,31 +203,34 @@ void GiCoreView::setScreenDpi(int dpi)
     }
 }
 
-void GiCoreView::drawAll(GiView* view, GiCanvas* canvas)
+int GiCoreView::drawAll(GiView* view, GiCanvas* canvas)
 {
     GcBaseView* aview = impl->_doc->findView(view);
     GiGraphics* gs = aview->graph();
+    int n = 0;
 
     if (aview && gs->beginPaint(canvas)) {
-        aview->drawAll(*gs);
+        n = aview->drawAll(*gs);
         gs->endPaint();
     }
+    
+    return n;
 }
 
 bool GiCoreView::drawAppend(GiView* view, GiCanvas* canvas)
 {
     GcBaseView* aview = impl->_doc->findView(view);
     GiGraphics* gs = aview->graph();
+    int n = 0;
 
     if (aview && !impl->newids.empty()
         && gs->beginPaint(canvas)) {
         impl->newids.push_back(0);
-        aview->drawAppend(&impl->newids.front(), *gs);
+        n = aview->drawAppend(&impl->newids.front(), *gs);
         gs->endPaint();
-        return true;
     }
 
-    return false;
+    return n > 0;
 }
 
 void GiCoreView::dynDraw(GiView* view, GiCanvas* canvas)
@@ -338,12 +341,29 @@ bool GiCoreView::setCommand(GiView* view, const char* name)
 
 void GiCoreView::clearCachedData()
 {
-    impl->_doc->doc()->clearCachedData();
+    impl->doc()->clearCachedData();
 }
 
 void GiCoreView::addShapesForTest()
 {
     RandomParam(200).addShapes(impl->shapes());
+    impl->regenAll();
+}
+
+bool GiCoreView::loadShapes(MgStorage* s)
+{
+    return impl->doc()->load(s);
+}
+
+bool GiCoreView::saveShapes(MgStorage* s)
+{
+    return impl->doc()->save(s);
+}
+
+void GiCoreView::zoomToExtent()
+{
+    Box2d rect(impl->doc()->getExtent() * impl->xform()->modelToWorld());
+    impl->xform()->zoomTo(rect);
     impl->regenAll();
 }
 
@@ -394,10 +414,11 @@ bool GiCoreViewImpl::onGesture(const MgMotion& motion)
 // GcDummyView
 //
 
-void GcDummyView::drawAll(GiGraphics& gs)
+int GcDummyView::drawAll(GiGraphics& gs)
 {
     int n = TestCanvas::randInt(900, 1000);
     TestCanvas::test(gs.getCanvas(), 0x08, n, true);
+    return n;
 }
 
 void GcDummyView::drawPoints(GiCanvas* canvas)
@@ -418,7 +439,7 @@ void GcDummyView::drawPoints(GiCanvas* canvas)
     }
 }
 
-void GcDummyView::drawAppend(const int*, GiGraphics& gs)
+int GcDummyView::drawAppend(const int*, GiGraphics& gs)
 {
     GiCanvas* canvas = gs.getCanvas();
     canvas->setPen(TestCanvas::randInt(20, 0xFF) << 24 | TestCanvas::randInt(0, 0xFFFFFF),
@@ -426,6 +447,7 @@ void GcDummyView::drawAppend(const int*, GiGraphics& gs)
     canvas->setBrush(TestCanvas::randInt(10, 0xFF) << 24 | TestCanvas::randInt(0, 0xFFFFFF), 0);
     drawPoints(canvas);
     _pts.clear();
+    return 1;
 }
 
 void GcDummyView::dynDraw(const MgMotion& motion, GiGraphics& gs)

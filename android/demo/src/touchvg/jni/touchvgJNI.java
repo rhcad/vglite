@@ -47,7 +47,7 @@ public class touchvgJNI {
   public final static native void GiCoreView_createView(long jarg1, GiCoreView jarg1_, long jarg2, GiView jarg2_, int jarg3);
   public final static native void GiCoreView_createMagnifierView(long jarg1, GiCoreView jarg1_, long jarg2, GiView jarg2_, long jarg3, GiView jarg3_);
   public final static native void GiCoreView_destoryView(long jarg1, GiCoreView jarg1_, long jarg2, GiView jarg2_);
-  public final static native void GiCoreView_drawAll(long jarg1, GiCoreView jarg1_, long jarg2, GiView jarg2_, long jarg3, GiCanvas jarg3_);
+  public final static native int GiCoreView_drawAll(long jarg1, GiCoreView jarg1_, long jarg2, GiView jarg2_, long jarg3, GiCanvas jarg3_);
   public final static native boolean GiCoreView_drawAppend(long jarg1, GiCoreView jarg1_, long jarg2, GiView jarg2_, long jarg3, GiCanvas jarg3_);
   public final static native void GiCoreView_dynDraw(long jarg1, GiCoreView jarg1_, long jarg2, GiView jarg2_, long jarg3, GiCanvas jarg3_);
   public final static native void GiCoreView_setScreenDpi(int jarg1);
@@ -58,6 +58,9 @@ public class touchvgJNI {
   public final static native boolean GiCoreView_setCommand(long jarg1, GiCoreView jarg1_, long jarg2, GiView jarg2_, String jarg3);
   public final static native void GiCoreView_clearCachedData(long jarg1, GiCoreView jarg1_);
   public final static native void GiCoreView_addShapesForTest(long jarg1, GiCoreView jarg1_);
+  public final static native boolean GiCoreView_loadShapes(long jarg1, GiCoreView jarg1_, long jarg2, MgStorage jarg2_);
+  public final static native boolean GiCoreView_saveShapes(long jarg1, GiCoreView jarg1_, long jarg2, MgStorage jarg2_);
+  public final static native void GiCoreView_zoomToExtent(long jarg1, GiCoreView jarg1_);
   public final static native void TestCanvas_initRand();
   public final static native int TestCanvas_randInt(int jarg1, int jarg2);
   public final static native float TestCanvas_randFloat(float jarg1, float jarg2);
@@ -76,6 +79,24 @@ public class touchvgJNI {
   public final static native void TestCanvas_testTextAt(long jarg1, GiCanvas jarg1_, int jarg2);
   public final static native long new_TestCanvas();
   public final static native void delete_TestCanvas(long jarg1);
+  public final static native boolean MgStorage_readNode(long jarg1, MgStorage jarg1_, String jarg2, int jarg3, boolean jarg4);
+  public final static native boolean MgStorage_writeNode(long jarg1, MgStorage jarg1_, String jarg2, int jarg3, boolean jarg4);
+  public final static native boolean MgStorage_readBool(long jarg1, MgStorage jarg1_, String jarg2, boolean jarg3);
+  public final static native float MgStorage_readFloat(long jarg1, MgStorage jarg1_, String jarg2, float jarg3);
+  public final static native void MgStorage_writeBool(long jarg1, MgStorage jarg1_, String jarg2, boolean jarg3);
+  public final static native void MgStorage_writeFloat(long jarg1, MgStorage jarg1_, String jarg2, float jarg3);
+  public final static native void MgStorage_writeString(long jarg1, MgStorage jarg1_, String jarg2, String jarg3);
+  public final static native int MgStorage_readInt(long jarg1, MgStorage jarg1_, String jarg2, int jarg3);
+  public final static native void MgStorage_writeInt(long jarg1, MgStorage jarg1_, String jarg2, int jarg3);
+  public final static native void MgStorage_writeUInt(long jarg1, MgStorage jarg1_, String jarg2, int jarg3);
+  public final static native boolean MgStorage_setError(long jarg1, MgStorage jarg1_, String jarg2);
+  public final static native void delete_MgStorage(long jarg1);
+  public final static native long new_MgJsonStorage();
+  public final static native void delete_MgJsonStorage(long jarg1);
+  public final static native long MgJsonStorage_storageForRead(long jarg1, MgJsonStorage jarg1_, String jarg2);
+  public final static native long MgJsonStorage_storageForWrite(long jarg1, MgJsonStorage jarg1_);
+  public final static native String MgJsonStorage_stringify(long jarg1, MgJsonStorage jarg1_, boolean jarg2);
+  public final static native String MgJsonStorage_getParseError(long jarg1, MgJsonStorage jarg1_);
 
   public static void SwigDirector_GiCanvas_setPen(GiCanvas self, int argb, float width, int style, float phase) {
     self.setPen(argb, width, style, phase);

@@ -10,6 +10,7 @@
 class GiView;
 class GiCanvas;
 class GiCoreViewImpl;
+struct MgStorage;
 
 //! 内核视图分发器类
 /*! 本对象拥有图形文档对象，负责显示和手势动作的分发。
@@ -34,7 +35,7 @@ public:
     void destoryView(GiView* view);
     
     //! 显示所有图形
-    void drawAll(GiView* view, GiCanvas* canvas);
+    int drawAll(GiView* view, GiCanvas* canvas);
 
     //! 显示新图形，在 GiView.regenAppend() 后调用
     bool drawAppend(GiView* view, GiCanvas* canvas);
@@ -67,6 +68,15 @@ public:
     
     //! 添加测试图形
     void addShapesForTest();
+    
+    //! 从指定的数据来源中加载图形
+    bool loadShapes(MgStorage* s);
+    
+    //! 保存图形到指定的数据来源中
+    bool saveShapes(MgStorage* s);
+    
+    //! 放缩显示全部内容
+    void zoomToExtent();
 
 private:
     GiCoreViewImpl* impl;

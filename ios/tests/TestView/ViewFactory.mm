@@ -60,6 +60,7 @@ static void gatherTestView(NSMutableArray *arr, NSUInteger index, CGRect frame)
     addLargeView1(arr, i, index, @"GiGraphView1 in large view", frame, 0);
     addGraphView(arr, i, index, @"GiGraphView draw", frame, 1);
     addGraphView(arr, i, index, @"GiGraphView select", frame, 2);
+    addGraphView(arr, i, index, @"GiGraphView fireGesture", frame, 3);
     addLargeView1(arr, i, index, @"GiGraphView in large view", frame, 1);
 }
 

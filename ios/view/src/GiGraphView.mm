@@ -30,10 +30,12 @@ private:
     UIView      *_dynview;
     GiCoreView  *_coreView;
     UIImage     *_tmpshot;
+    long        _drawnTimes;
     
 public:
+    
     GiViewAdapter(UIView *mainView, GiCoreView *coreView)
-    : _view(mainView), _dynview(nil), _tmpshot(nil) {
+    : _view(mainView), _dynview(nil), _tmpshot(nil), _drawnTimes(0) {
         _coreView = new GiCoreView(coreView);
     }
     
@@ -46,15 +48,23 @@ public:
         return _coreView;
     }
     
-    UIImage *snapshot() {
+    UIImage *snapshot(bool autoDraw) {
+        long oldTimes = _drawnTimes;
+        UIImage *image = nil;
+        
         UIGraphicsBeginImageContextWithOptions(_view.bounds.size, _view.opaque, 0);
         [_view.layer renderInContext:UIGraphicsGetCurrentContext()];
-        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+        
+        if (autoDraw || oldTimes == _drawnTimes) {
+            image = UIGraphicsGetImageFromCurrentImageContext();
+        }
         UIGraphicsEndImageContext();
+        
         return image;
     }
     
     bool drawAppend(GiQuartzCanvas* canvas) {
+        _drawnTimes++;
         if (_tmpshot) {
             [_tmpshot drawAtPoint:CGPointZero];
             [_tmpshot release];
@@ -80,7 +90,7 @@ public:
     virtual void regenAppend() {
         [_tmpshot release];
         _tmpshot = nil;                 // renderInContext可能会调用drawRect
-        _tmpshot = snapshot();
+        _tmpshot = snapshot(false);     // 获取现有绘图快照
         [_tmpshot retain];
         
         [_view setNeedsDisplay];
@@ -98,11 +108,15 @@ public:
     }
     
     bool dispatchGesture(GiGestureType gestureType, GiGestureState gestureState, CGPoint pt) {
+        static const NSString *gestureNames[] = { @"?", @"pan", @"tap", @"2tap", @"press", @"2move" };
+        NSLog(@"dispatchGesture: %@, %d (%.0f, %.0f)", 
+              gestureNames[gestureType], gestureState, pt.x, pt.y);
         return _coreView->onGesture(this, gestureType, gestureState, pt.x, pt.y);
     }
     
     bool twoFingersMove(UIGestureRecognizer *sender, int state = -1) {
         CGPoint pt1, pt2;
+        NSLog(@"twoFingersMove: %d, %d", state, (int)[sender numberOfTouches]);
         
         if ([sender numberOfTouches] == 2) {
             pt1 = [sender locationOfTouch:0 inView:sender.view];
@@ -152,6 +166,7 @@ public:
     NSTimeInterval          _timeBegan;     //!< 开始触摸时的时刻
     std::vector<CGPoint>    _points;        //!< 手势生效前的轨迹
     CGPoint                 _startPt;       //!< 开始位置
+    CGPoint                 _lastPt;        //!< 上次位置
     CGPoint                 _tapPoint;      //!< 点击位置
     int                     _tapCount;      //!< 点击次数
     int                     _touchCount;    //!< 触点个数
@@ -226,14 +241,13 @@ public:
 
 - (UIImage *)snapshot
 {
-    return _adapter->snapshot();
+    return _adapter->snapshot(true);
 }
 
 - (BOOL)savePng:(NSString *)filename
 {
     BOOL ret = NO;
-    UIImage *image = [self snapshot];
-    NSData* imageData = UIImagePNGRepresentation(image);
+    NSData* imageData = UIImagePNGRepresentation([self snapshot]);
     
     if (imageData) {
         ret = [imageData writeToFile:filename atomically:NO];
@@ -266,6 +280,28 @@ public:
 - (void)addShapesForTest
 {
     [self coreView]->addShapesForTest();
+}
+
+- (void)fireGesture:(int)type state:(int)state x:(float)x y:(float)y
+{
+    [self coreView]->onGesture(_adapter, (GiGestureType)type, (GiGestureState)state, x, y);
+}
+
+- (void)zoomToExtent
+{
+    [self coreView]->zoomToExtent();
+}
+
+- (BOOL)loadShapes:(MgStorage*)s
+{
+    bool ret = [self coreView]->loadShapes(s);
+    _adapter->regenAll();
+    return ret;
+}
+
+- (BOOL)saveShapes:(MgStorage*)s
+{
+    return [self coreView]->saveShapes(s);
 }
 
 - (const char*)command
@@ -305,7 +341,7 @@ public:
     
     recognizers[i++] = pressRecognizer =
     [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(pressHandler:)];
-    pressRecognizer.minimumPressDuration = 0.8;                     // 默认0.8秒
+    pressRecognizer.minimumPressDuration = 1;
     
     for (i--; i >= 0; i--) {
         recognizers[i].delegate = self;
@@ -317,6 +353,7 @@ public:
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)recognizer
 {
     BOOL allow = YES;
+    NSLog(@"gestureRecognizerShouldBegin: %@", [[recognizer description] substringToIndex:16]);
     
     // 将状态为 UIGestureRecognizerStatePossible 的手势传递到内核，看是否允许此手势
     //
@@ -348,6 +385,8 @@ public:
     UITouch *touch = [touches anyObject];
     CGPoint pt = [touch locationInView:touch.view];
     
+    NSLog(@"touchesBegan: %d", (int)[touches count]);
+    
     _points.clear();
     if (_timeBegan < 0.1) {                             // 是第一个触点
         _timeBegan = touch.timestamp;                   // 记下第一个触点的时刻
@@ -373,11 +412,14 @@ public:
     UITouch *touch = [touches anyObject];
     CGPoint pt = [touch locationInView:touch.view];
     
+    NSLog(@"touchesMoved: %d", (int)_points.size());
+    
     if ([touches count] == 1 && !_points.empty()) {
         if (_tapCount == 1) {
             _adapter->dispatchGesture(kGiGestureTap, kGiGestureEnded, _tapPoint);
             _tapCount = 0;
         }
+        
         _points.push_back(pt);
         if (!_moved) {                                  // 分发拖动开始
             _moved = YES;
@@ -397,6 +439,7 @@ public:
     UITouch *touch = [touches anyObject];
     CGPoint pt = [touch locationInView:touch.view];
     
+    NSLog(@"touchesEnded: %d", (int)_points.size());
     if (!_points.empty()) {         // 手势未生效，模拟分发手势
         if ([touches count] != 1) {
             pt = _points.back();
@@ -422,6 +465,7 @@ public:
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
     UITouch *touch = [touches anyObject];
+    NSLog(@"touchesCancelled: %d", (int)_points.size());
     
     if (!_points.empty() && _tapCount == 0) {
         if (_moved) {
@@ -445,7 +489,9 @@ public:
 
 - (BOOL)gestureCheck:(UIGestureRecognizer*)sender
 {
-    if (_tapCount == 1 && sender != twoTapsRecognizer) {
+    NSLog(@"gestureCheck: %@, %d, %d pt", [[sender description] substringToIndex:16], 
+          sender.state, (int)[sender numberOfTouches]);
+    if (_tapCount == 1 && sender != tapRecognizer && sender != twoTapsRecognizer) {
         _adapter->dispatchGesture(kGiGestureTap, kGiGestureEnded, _tapPoint);
         _tapCount = 0;
     }
@@ -488,11 +534,11 @@ public:
     if (sender.state == UIGestureRecognizerStatePossible) {
         _touchCount = touchCount;
         return (touchCount > 1 ? _adapter->twoFingersMove(sender)
-                : _adapter->dispatchGesture(kGiGesturePan, kGiGesturePossible, _startPt));
+                : (_moved || _adapter->dispatchGesture(kGiGesturePan, kGiGesturePossible, _startPt)));
     }
     // 在 touchesMoved 中已经分发了开始状态，就转为移动状态分发
     if (sender.state <= UIGestureRecognizerStateChanged && _moved && 1 == _touchCount) {
-        _tapPoint = pt;
+        _lastPt = pt;
         ret = _adapter->dispatchGesture(kGiGesturePan, kGiGestureMoved, pt);
     }
     // 切换单指与双指模式，就结束前一模式
@@ -504,7 +550,7 @@ public:
                 _adapter->twoFingersMove(sender, kGiGestureEnded);
             }
             else {                          // 单指变为双指
-                _adapter->dispatchGesture(kGiGesturePan, kGiGestureEnded, _tapPoint);
+                _adapter->dispatchGesture(kGiGesturePan, kGiGestureEnded, _lastPt);
             }
         }
         _touchCount = touchCount;
@@ -512,9 +558,10 @@ public:
     else {
         GiGestureState state = (GiGestureState)sender.state;
         
-        if (!_moved && sender.state == UIGestureRecognizerStateChanged) {
+        if (!_moved && sender.state <= UIGestureRecognizerStateChanged) {
             _moved = YES;
             state = kGiGestureBegan;
+            pt = _startPt;
         }
         if (_touchCount > 1) {
             _adapter->twoFingersMove(sender, state);
@@ -524,39 +571,48 @@ public:
         }
     }
     
-    _tapPoint = pt;
+    _lastPt = pt;
     
     return [self gesturePost:sender] && ret;
 }
 
 - (BOOL)tapHandler:(UITapGestureRecognizer *)sender
 {
-    if (![self gestureCheck:sender] || _tapCount != 0) {
+    CGPoint pt = [sender locationInView:sender.view];
+    
+    if (![self gestureCheck:sender]) {
         return NO;
     }
-    
     if (sender.state == UIGestureRecognizerStatePossible) {
-        return _adapter->dispatchGesture(kGiGestureTap, kGiGesturePossible, _startPt);
+        return (_tapCount == 1 ||
+                _adapter->dispatchGesture(kGiGestureTap, kGiGesturePossible, _startPt));
+    }
+    if (_tapCount == 1) {
+        _adapter->dispatchGesture(kGiGestureTap, kGiGestureEnded, _tapPoint);
+        _adapter->dispatchGesture(kGiGestureTap, kGiGesturePossible, pt);
     }
     
     _tapCount = 1;
-    _tapPoint = [sender locationInView:sender.view];
-    [self performSelector:@selector(delayTap) withObject:sender afterDelay:0.5];
+    _tapPoint = pt;
+    
+    [self performSelector:@selector(delayTap) withObject:nil afterDelay:0.5];
     
     return [self gesturePost:sender];
 }
 
 - (void)delayTap
 {
-    if (_moved && !_points.empty()) {
-        _adapter->dispatchGesture(kGiGesturePan, kGiGestureEnded, _points.back());
-    }
-    else if (_tapCount == 1) {
+    NSLog(@"delayTap: %d", (int)_points.size());
+    
+    if (_tapCount == 1) {
         _adapter->dispatchGesture(kGiGestureTap, kGiGestureEnded, _tapPoint);
+        _tapCount = 0;
+        if (_moved && !_points.empty()) {
+            _adapter->dispatchGesture(kGiGesturePan, kGiGestureEnded, _points.back());
+            _moved = NO;
+            _points.clear();
+        }
     }
-    _tapCount = 0;
-    _moved = NO;
-    _points.clear();
 }
 
 - (BOOL)twoTapsHandler:(UITapGestureRecognizer *)sender
@@ -565,15 +621,15 @@ public:
         return NO;
     }
     
-    _tapCount = 0;
-    _tapPoint = [sender locationInView:sender.view];
-    
     if (sender.state == UIGestureRecognizerStatePossible) {
         return _adapter->dispatchGesture(kGiGestureDblTap, kGiGesturePossible, _startPt);
     }
     
+    _tapCount = 0;
+    
     return ([self gesturePost:sender] 
-            && _adapter->dispatchGesture(kGiGestureDblTap, kGiGestureEnded, _tapPoint));
+            && _adapter->dispatchGesture(kGiGestureDblTap, kGiGestureEnded, 
+                                         [sender locationInView:sender.view]));
 }
 
 - (BOOL)pressHandler:(UILongPressGestureRecognizer *)sender

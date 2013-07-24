@@ -428,6 +428,8 @@ namespace Swig {
 #include "giview.h"
 #include "gicoreview.h"
 #include "testcanvas.h"
+#include "mgjsonstorage.h"
+#include "mgstorage.h"
 
 
 struct TmpJOBJ {
@@ -1788,10 +1790,12 @@ SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1destoryView(JNIE
 }
 
 
-SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1drawAll(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_) {
+SWIGEXPORT jint JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1drawAll(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_) {
+  jint jresult = 0 ;
   GiCoreView *arg1 = (GiCoreView *) 0 ;
   GiView *arg2 = (GiView *) 0 ;
   GiCanvas *arg3 = (GiCanvas *) 0 ;
+  int result;
   
   (void)jenv;
   (void)jcls;
@@ -1801,7 +1805,9 @@ SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1drawAll(JNIEnv *
   arg1 = *(GiCoreView **)&jarg1; 
   arg2 = *(GiView **)&jarg2; 
   arg3 = *(GiCanvas **)&jarg3; 
-  (arg1)->drawAll(arg2,arg3);
+  result = (int)(arg1)->drawAll(arg2,arg3);
+  jresult = (jint)result; 
+  return jresult;
 }
 
 
@@ -1984,6 +1990,53 @@ SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1addShapesForTest
   (void)jarg1_;
   arg1 = *(GiCoreView **)&jarg1; 
   (arg1)->addShapesForTest();
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1loadShapes(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  jboolean jresult = 0 ;
+  GiCoreView *arg1 = (GiCoreView *) 0 ;
+  MgStorage *arg2 = (MgStorage *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(GiCoreView **)&jarg1; 
+  arg2 = *(MgStorage **)&jarg2; 
+  result = (bool)(arg1)->loadShapes(arg2);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1saveShapes(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  jboolean jresult = 0 ;
+  GiCoreView *arg1 = (GiCoreView *) 0 ;
+  MgStorage *arg2 = (MgStorage *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(GiCoreView **)&jarg1; 
+  arg2 = *(MgStorage **)&jarg2; 
+  result = (bool)(arg1)->saveShapes(arg2);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1zoomToExtent(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  GiCoreView *arg1 = (GiCoreView *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiCoreView **)&jarg1; 
+  (arg1)->zoomToExtent();
 }
 
 
@@ -2218,6 +2271,358 @@ SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_delete_1TestCanvas(JNIEnv *j
   (void)jcls;
   arg1 = *(TestCanvas **)&jarg1; 
   delete arg1;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_MgStorage_1readNode(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2, jint jarg3, jboolean jarg4) {
+  jboolean jresult = 0 ;
+  MgStorage *arg1 = (MgStorage *) 0 ;
+  char *arg2 = (char *) 0 ;
+  int arg3 ;
+  bool arg4 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(MgStorage **)&jarg1; 
+  arg2 = 0;
+  if (jarg2) {
+    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
+    if (!arg2) return 0;
+  }
+  arg3 = (int)jarg3; 
+  arg4 = jarg4 ? true : false; 
+  result = (bool)(arg1)->readNode((char const *)arg2,arg3,arg4);
+  jresult = (jboolean)result; 
+  if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_MgStorage_1writeNode(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2, jint jarg3, jboolean jarg4) {
+  jboolean jresult = 0 ;
+  MgStorage *arg1 = (MgStorage *) 0 ;
+  char *arg2 = (char *) 0 ;
+  int arg3 ;
+  bool arg4 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(MgStorage **)&jarg1; 
+  arg2 = 0;
+  if (jarg2) {
+    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
+    if (!arg2) return 0;
+  }
+  arg3 = (int)jarg3; 
+  arg4 = jarg4 ? true : false; 
+  result = (bool)(arg1)->writeNode((char const *)arg2,arg3,arg4);
+  jresult = (jboolean)result; 
+  if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_MgStorage_1readBool(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2, jboolean jarg3) {
+  jboolean jresult = 0 ;
+  MgStorage *arg1 = (MgStorage *) 0 ;
+  char *arg2 = (char *) 0 ;
+  bool arg3 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(MgStorage **)&jarg1; 
+  arg2 = 0;
+  if (jarg2) {
+    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
+    if (!arg2) return 0;
+  }
+  arg3 = jarg3 ? true : false; 
+  result = (bool)(arg1)->readBool((char const *)arg2,arg3);
+  jresult = (jboolean)result; 
+  if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
+  return jresult;
+}
+
+
+SWIGEXPORT jfloat JNICALL Java_touchvg_jni_touchvgJNI_MgStorage_1readFloat(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2, jfloat jarg3) {
+  jfloat jresult = 0 ;
+  MgStorage *arg1 = (MgStorage *) 0 ;
+  char *arg2 = (char *) 0 ;
+  float arg3 ;
+  float result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(MgStorage **)&jarg1; 
+  arg2 = 0;
+  if (jarg2) {
+    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
+    if (!arg2) return 0;
+  }
+  arg3 = (float)jarg3; 
+  result = (float)(arg1)->readFloat((char const *)arg2,arg3);
+  jresult = (jfloat)result; 
+  if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_MgStorage_1writeBool(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2, jboolean jarg3) {
+  MgStorage *arg1 = (MgStorage *) 0 ;
+  char *arg2 = (char *) 0 ;
+  bool arg3 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(MgStorage **)&jarg1; 
+  arg2 = 0;
+  if (jarg2) {
+    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
+    if (!arg2) return ;
+  }
+  arg3 = jarg3 ? true : false; 
+  (arg1)->writeBool((char const *)arg2,arg3);
+  if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_MgStorage_1writeFloat(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2, jfloat jarg3) {
+  MgStorage *arg1 = (MgStorage *) 0 ;
+  char *arg2 = (char *) 0 ;
+  float arg3 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(MgStorage **)&jarg1; 
+  arg2 = 0;
+  if (jarg2) {
+    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
+    if (!arg2) return ;
+  }
+  arg3 = (float)jarg3; 
+  (arg1)->writeFloat((char const *)arg2,arg3);
+  if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_MgStorage_1writeString(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2, jstring jarg3) {
+  MgStorage *arg1 = (MgStorage *) 0 ;
+  char *arg2 = (char *) 0 ;
+  char *arg3 = (char *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(MgStorage **)&jarg1; 
+  arg2 = 0;
+  if (jarg2) {
+    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
+    if (!arg2) return ;
+  }
+  arg3 = 0;
+  if (jarg3) {
+    arg3 = (char *)jenv->GetStringUTFChars(jarg3, 0);
+    if (!arg3) return ;
+  }
+  (arg1)->writeString((char const *)arg2,(char const *)arg3);
+  if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
+  if (arg3) jenv->ReleaseStringUTFChars(jarg3, (const char *)arg3);
+}
+
+
+SWIGEXPORT jint JNICALL Java_touchvg_jni_touchvgJNI_MgStorage_1readInt(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2, jint jarg3) {
+  jint jresult = 0 ;
+  MgStorage *arg1 = (MgStorage *) 0 ;
+  char *arg2 = (char *) 0 ;
+  int arg3 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(MgStorage **)&jarg1; 
+  arg2 = 0;
+  if (jarg2) {
+    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
+    if (!arg2) return 0;
+  }
+  arg3 = (int)jarg3; 
+  result = (int)(arg1)->readInt((char const *)arg2,arg3);
+  jresult = (jint)result; 
+  if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_MgStorage_1writeInt(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2, jint jarg3) {
+  MgStorage *arg1 = (MgStorage *) 0 ;
+  char *arg2 = (char *) 0 ;
+  int arg3 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(MgStorage **)&jarg1; 
+  arg2 = 0;
+  if (jarg2) {
+    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
+    if (!arg2) return ;
+  }
+  arg3 = (int)jarg3; 
+  (arg1)->writeInt((char const *)arg2,arg3);
+  if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_MgStorage_1writeUInt(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2, jint jarg3) {
+  MgStorage *arg1 = (MgStorage *) 0 ;
+  char *arg2 = (char *) 0 ;
+  int arg3 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(MgStorage **)&jarg1; 
+  arg2 = 0;
+  if (jarg2) {
+    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
+    if (!arg2) return ;
+  }
+  arg3 = (int)jarg3; 
+  (arg1)->writeUInt((char const *)arg2,arg3);
+  if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_MgStorage_1setError(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+  jboolean jresult = 0 ;
+  MgStorage *arg1 = (MgStorage *) 0 ;
+  char *arg2 = (char *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(MgStorage **)&jarg1; 
+  arg2 = 0;
+  if (jarg2) {
+    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
+    if (!arg2) return 0;
+  }
+  result = (bool)(arg1)->setError((char const *)arg2);
+  jresult = (jboolean)result; 
+  if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_delete_1MgStorage(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  MgStorage *arg1 = (MgStorage *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(MgStorage **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_touchvg_jni_touchvgJNI_new_1MgJsonStorage(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  MgJsonStorage *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (MgJsonStorage *)new MgJsonStorage();
+  *(MgJsonStorage **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_delete_1MgJsonStorage(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  MgJsonStorage *arg1 = (MgJsonStorage *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(MgJsonStorage **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_touchvg_jni_touchvgJNI_MgJsonStorage_1storageForRead(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+  jlong jresult = 0 ;
+  MgJsonStorage *arg1 = (MgJsonStorage *) 0 ;
+  char *arg2 = (char *) 0 ;
+  MgStorage *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(MgJsonStorage **)&jarg1; 
+  arg2 = 0;
+  if (jarg2) {
+    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
+    if (!arg2) return 0;
+  }
+  result = (MgStorage *)(arg1)->storageForRead((char const *)arg2);
+  *(MgStorage **)&jresult = result; 
+  if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_touchvg_jni_touchvgJNI_MgJsonStorage_1storageForWrite(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  MgJsonStorage *arg1 = (MgJsonStorage *) 0 ;
+  MgStorage *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(MgJsonStorage **)&jarg1; 
+  result = (MgStorage *)(arg1)->storageForWrite();
+  *(MgStorage **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jstring JNICALL Java_touchvg_jni_touchvgJNI_MgJsonStorage_1stringify(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  jstring jresult = 0 ;
+  MgJsonStorage *arg1 = (MgJsonStorage *) 0 ;
+  bool arg2 ;
+  char *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(MgJsonStorage **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  result = (char *)(arg1)->stringify(arg2);
+  if (result) jresult = jenv->NewStringUTF((const char *)result);
+  return jresult;
+}
+
+
+SWIGEXPORT jstring JNICALL Java_touchvg_jni_touchvgJNI_MgJsonStorage_1getParseError(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jstring jresult = 0 ;
+  MgJsonStorage *arg1 = (MgJsonStorage *) 0 ;
+  char *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(MgJsonStorage **)&jarg1; 
+  result = (char *)(arg1)->getParseError();
+  if (result) jresult = jenv->NewStringUTF((const char *)result);
+  return jresult;
 }
 
 

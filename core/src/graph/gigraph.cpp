@@ -592,7 +592,8 @@ bool GiGraphics::_drawPolygon(const GiContext* ctx, int count, const Point2d* po
         pt2 = points[i];
         if (m2d)
             pt2 *= matD;
-        if (i == 0 || fabsf(pt1.x - pt2.x) > 2
+        if (i == 0 || count <= 4
+            || fabsf(pt1.x - pt2.x) > 2
             || fabsf(pt1.y - pt2.y) > 2) {
             pt1 = pt2;
             pxs[n++] = pt1;

@@ -13,19 +13,21 @@ GcShapeView::~GcShapeView()
 {
 }
 
-void GcShapeView::drawAll(GiGraphics& gs)
+int GcShapeView::drawAll(GiGraphics& gs)
 {
-    doc()->draw(gs);
+    return doc()->draw(gs);
 }
 
-void GcShapeView::drawAppend(const int* newids, GiGraphics& gs)
+int GcShapeView::drawAppend(const int* newids, GiGraphics& gs)
 {
+    int n = 0;
     for (; *newids; newids++) {
         MgShape* sp = shapes()->findShape(*newids);
-        if (sp) {
-            sp->draw(0, gs);
+        if (sp && sp->draw(0, gs)) {
+            n++;
         }
     }
+    return n;
 }
 
 void GcShapeView::dynDraw(const MgMotion&, GiGraphics&)

@@ -17,8 +17,8 @@ public:
     GcShapeView(MgView* mgview, GiView *view);
     virtual ~GcShapeView();
     
-    virtual void drawAll(GiGraphics& gs);
-    virtual void drawAppend(const int* newids, GiGraphics& gs);
+    virtual int drawAll(GiGraphics& gs);
+    virtual int drawAppend(const int* newids, GiGraphics& gs);
     virtual void dynDraw(const MgMotion& motion, GiGraphics& gs);
     virtual void onSize(int dpi, int w, int h);
     virtual bool onGesture(const MgMotion& motion);

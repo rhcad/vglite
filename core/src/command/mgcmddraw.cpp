@@ -135,6 +135,7 @@ bool MgCommandDraw::_touchBegan(const MgMotion* sender)
 {
     *m_shape->context() = *sender->view->context();
     sender->view->redraw();
+    m_needClear = false;
     
     return true;
 }

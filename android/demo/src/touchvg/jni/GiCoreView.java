@@ -51,8 +51,8 @@ public class GiCoreView {
     touchvgJNI.GiCoreView_destoryView(swigCPtr, this, GiView.getCPtr(view), view);
   }
 
-  public void drawAll(GiView view, GiCanvas canvas) {
-    touchvgJNI.GiCoreView_drawAll(swigCPtr, this, GiView.getCPtr(view), view, GiCanvas.getCPtr(canvas), canvas);
+  public int drawAll(GiView view, GiCanvas canvas) {
+    return touchvgJNI.GiCoreView_drawAll(swigCPtr, this, GiView.getCPtr(view), view, GiCanvas.getCPtr(canvas), canvas);
   }
 
   public boolean drawAppend(GiView view, GiCanvas canvas) {
@@ -93,6 +93,18 @@ public class GiCoreView {
 
   public void addShapesForTest() {
     touchvgJNI.GiCoreView_addShapesForTest(swigCPtr, this);
+  }
+
+  public boolean loadShapes(MgStorage s) {
+    return touchvgJNI.GiCoreView_loadShapes(swigCPtr, this, MgStorage.getCPtr(s), s);
+  }
+
+  public boolean saveShapes(MgStorage s) {
+    return touchvgJNI.GiCoreView_saveShapes(swigCPtr, this, MgStorage.getCPtr(s), s);
+  }
+
+  public void zoomToExtent() {
+    touchvgJNI.GiCoreView_zoomToExtent(swigCPtr, this);
   }
 
 }

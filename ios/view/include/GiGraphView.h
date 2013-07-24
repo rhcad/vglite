@@ -6,6 +6,7 @@
 
 class GiViewAdapter;
 class GiCoreView;
+struct MgStorage;
 
 //! iOS绘图视图类
 /*! \ingroup GROUP_IOS
@@ -34,5 +35,10 @@ class GiCoreView;
 
 - (void)clearCachedData;                    //!< 释放临时数据内存
 - (void)addShapesForTest;                   //!< 添加测试图形
+- (void)fireGesture:(int)type state:(int)state x:(float)x y:(float)y;
+- (void)zoomToExtent;                       //!< 放缩显示全部内容
+
+- (BOOL)loadShapes:(MgStorage*)s;           //!< 从指定的数据来源中加载图形
+- (BOOL)saveShapes:(MgStorage*)s;           //!< 保存图形到指定的数据来源中
 
 @end

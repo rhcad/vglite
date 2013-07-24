@@ -8,7 +8,7 @@ import touchvg.jni.GiCoreView;
 import touchvg.jni.GiGestureState;
 import touchvg.jni.GiGestureType;
 import touchvg.jni.GiView;
-import touchvg.jni.touchvgJNI;
+import touchvg.jni.MgStorage;
 import touchvg.view.CanvasAdapter;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -82,6 +82,21 @@ public class GraphView extends View {
     public void addShapesForTest() {
     	mCoreView.addShapesForTest();
     }
+    
+    //! 从指定的数据来源中加载图形, s从 MgJsonStorage.storageForRead() 得到
+    public boolean loadShapes(MgStorage s) {
+    	return mCoreView.loadShapes(s);
+    }
+    
+	//! 保存图形到指定的数据来源中, s从 MgJsonStorage.storageForWrite() 得到
+	public boolean saveShapes(MgStorage s) {
+		return mCoreView.saveShapes(s);
+	}
+	
+	//! 放缩显示全部内容
+	public void zoomToExtent() {
+		mCoreView.zoomToExtent();
+	}
     
     @Override
     protected void onDraw(Canvas canvas) {
