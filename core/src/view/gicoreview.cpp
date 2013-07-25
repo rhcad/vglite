@@ -51,9 +51,10 @@ public:
     long            refcount;
     MgMotion        motion;
     std::vector<int>    newids;
+    int             gestureHandler;
     
 public:
-    GiCoreViewImpl() : curview(NULL), refcount(1) {
+    GiCoreViewImpl() : curview(NULL), refcount(1), gestureHandler(0) {
         motion.view = this;
         motion.gestureType = 0;
         motion.gestureState = kMgGesturePossible;
@@ -282,9 +283,20 @@ bool GiCoreView::onGesture(GiView* view, GiGestureType gestureType,
             impl->motion.startPt2 = impl->motion.point;
             impl->motion.startPt2M = impl->motion.pointM;
         }
-
-        ret = (impl->onGesture(impl->motion)
-            || aview->onGesture(impl->motion));
+        
+        if (gestureState <= kGiGestureBegan) {
+            impl->gestureHandler = (impl->onGesture(impl->motion) ? 1 :
+                                    aview->onGesture(impl->motion) ? 2 : 0);
+        }
+        else if (impl->gestureHandler > 0) {
+            if (impl->gestureHandler == 1) {
+                impl->onGesture(impl->motion);
+            }
+            else {
+                aview->onGesture(impl->motion);
+            }
+        }
+        ret = (impl->gestureHandler > 0);
 
         impl->motion.lastPt = impl->motion.point;
         impl->motion.lastPtM = impl->motion.pointM;
@@ -317,8 +329,19 @@ bool GiCoreView::twoFingersMove(GiView* view, GiGestureState gestureState,
             impl->motion.startPt2M = impl->motion.point2M;
         }
 
-        ret = (impl->onGesture(impl->motion)
-            || aview->twoFingersMove(impl->motion));
+        if (gestureState <= kGiGestureBegan) {
+            impl->gestureHandler = (impl->onGesture(impl->motion) ? 1 :
+                                    aview->twoFingersMove(impl->motion) ? 2 : 0);
+        }
+        else if (impl->gestureHandler > 0) {
+            if (impl->gestureHandler == 1) {
+                impl->onGesture(impl->motion);
+            }
+            else {
+                aview->twoFingersMove(impl->motion);
+            }
+        }
+        ret = (impl->gestureHandler > 0);
 
         impl->motion.lastPt = impl->motion.point;
         impl->motion.lastPtM = impl->motion.pointM;

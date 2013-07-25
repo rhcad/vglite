@@ -26,11 +26,11 @@
 class GiViewAdapter : public GiView
 {
 private:
-    UIView      *_view;
-    UIView      *_dynview;
-    GiCoreView  *_coreView;
-    UIImage     *_tmpshot;
-    long        _drawCount;
+    UIView      *_view;         //!< 静态图形视图, GiGraphView
+    UIView      *_dynview;      //!< 动态图形视图, DynDrawView
+    GiCoreView  *_coreView;     //!< 内核视图分发器
+    UIImage     *_tmpshot;      //!< 用于增量绘图的临时快照
+    long        _drawCount;     //!< 用于增量绘图的计数
     
 public:
     
@@ -56,7 +56,7 @@ public:
         UIGraphicsBeginImageContextWithOptions(_view.bounds.size, _view.opaque, 0);
         [_view.layer renderInContext:UIGraphicsGetCurrentContext()];
         
-        if (autoDraw || oldCount == _drawCount) {
+        if (autoDraw || oldCount == _drawCount) {   // 不允许renderInContext触发drawRect时返回nil
             image = UIGraphicsGetImageFromCurrentImageContext();
         }
         UIGraphicsEndImageContext();
@@ -65,12 +65,15 @@ public:
     }
     
     bool drawAppend(GiQuartzCanvas* canvas) {
-        _drawCount++;
+        if (_drawCount > 0) {   // 还在regenAppend调用中
+            _drawCount++;       // 让snapshot函数返回nil
+            return true;        // 不需要绘图，反正regenAppend调用snapshot将得到nil
+        }
         if (_tmpshot) {
-            [_tmpshot drawAtPoint:CGPointZero];
+            [_tmpshot drawAtPoint:CGPointZero];         // 先绘制原来的内容
             [_tmpshot release];
             _tmpshot = nil;
-            return _coreView->drawAppend(this, canvas);
+            return _coreView->drawAppend(this, canvas); // 然后绘制增量图形
         }
         return false;
     }
@@ -89,11 +92,13 @@ public:
     }
     
     virtual void regenAppend() {
+        _drawCount = 1;
         [_tmpshot release];
         _tmpshot = nil;                 // renderInContext可能会调用drawRect
         _tmpshot = snapshot(false);     // 获取现有绘图快照
         [_tmpshot retain];
         
+        _drawCount = 0;
         [_view setNeedsDisplay];
         [_dynview setNeedsDisplay];
     }
@@ -110,7 +115,7 @@ public:
     
     bool dispatchGesture(GiGestureType gestureType, GiGestureState gestureState, CGPoint pt) {
         static const NSString *gestureNames[] = { @"?", @"pan", @"tap", @"2tap", @"press", @"2move" };
-        NSLog(@"dispatchGesture(%@): %d x:%.0f y:%.0f", 
+        NSLog(@"dispatchGesture(%@) state:%d x:%.0f y:%.0f", 
               gestureNames[gestureType], gestureState, pt.x, pt.y);
         return _coreView->onGesture(this, gestureType, gestureState, pt.x, pt.y);
     }
@@ -388,7 +393,7 @@ public:
     UITouch *touch = [touches anyObject];
     CGPoint pt = [touch locationInView:touch.view];
     
-    NSLog(@"touchesBegan: %d", (int)[touches count]);
+    NSLog(@"touchesBegan: %d touches", (int)[touches count]);
     
     _points.clear();
     if (_timeBegan < 0.1) {                             // 是第一个触点
@@ -415,7 +420,7 @@ public:
     UITouch *touch = [touches anyObject];
     CGPoint pt = [touch locationInView:touch.view];
     
-    NSLog(@"touchesMoved: %d", (int)_points.size());
+    NSLog(@"touchesMoved: %d touches", (int)_points.size());
     
     if ([touches count] == 1 && !_points.empty()) {
         if (_tapCount == 1) {
@@ -442,7 +447,7 @@ public:
     UITouch *touch = [touches anyObject];
     CGPoint pt = [touch locationInView:touch.view];
     
-    NSLog(@"touchesEnded: %d", (int)_points.size());
+    NSLog(@"touchesEnded: %d touches", (int)_points.size());
     if (!_points.empty()) {         // 手势未生效，模拟分发手势
         if ([touches count] != 1) {
             pt = _points.back();
@@ -468,7 +473,7 @@ public:
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
     UITouch *touch = [touches anyObject];
-    NSLog(@"touchesCancelled: %d", (int)_points.size());
+    NSLog(@"touchesCancelled tapCount:%d", _tapCount);
     
     if (!_points.empty() && _tapCount == 0) {
         if (_moved) {
@@ -492,7 +497,7 @@ public:
 
 - (BOOL)gestureCheck:(UIGestureRecognizer*)sender
 {
-    NSLog(@"gestureCheck: %@, %d, %d pt", [[sender description] substringToIndex:16], 
+    NSLog(@"gestureCheck: %@ state:%d touches:%d", [[sender description] substringToIndex:16], 
           sender.state, (int)[sender numberOfTouches]);
     if (_tapCount == 1 && sender != tapRecognizer && sender != twoTapsRecognizer) {
         _adapter->dispatchGesture(kGiGestureTap, kGiGestureEnded, _tapPoint);
@@ -605,7 +610,7 @@ public:
 
 - (void)delayTap
 {
-    NSLog(@"delayTap: %d", (int)_points.size());
+    NSLog(@"delayTap: tapCount:%d points:%d", _tapCount, (int)_points.size());
     
     if (_tapCount == 1) {
         _adapter->dispatchGesture(kGiGestureTap, kGiGestureEnded, _tapPoint);
