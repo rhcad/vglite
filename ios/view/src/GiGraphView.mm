@@ -30,17 +30,18 @@ private:
     UIView      *_dynview;
     GiCoreView  *_coreView;
     UIImage     *_tmpshot;
-    long        _drawnTimes;
+    long        _drawCount;
     
 public:
     
     GiViewAdapter(UIView *mainView, GiCoreView *coreView)
-    : _view(mainView), _dynview(nil), _tmpshot(nil), _drawnTimes(0) {
+    : _view(mainView), _dynview(nil), _tmpshot(nil), _drawCount(0) {
         _coreView = new GiCoreView(coreView);
     }
     
     virtual ~GiViewAdapter() {
         _coreView->destoryView(this);
+        delete _coreView;
         [_tmpshot release];
     }
     
@@ -49,13 +50,13 @@ public:
     }
     
     UIImage *snapshot(bool autoDraw) {
-        long oldTimes = _drawnTimes;
+        long oldCount = _drawCount;
         UIImage *image = nil;
         
         UIGraphicsBeginImageContextWithOptions(_view.bounds.size, _view.opaque, 0);
         [_view.layer renderInContext:UIGraphicsGetCurrentContext()];
         
-        if (autoDraw || oldTimes == _drawnTimes) {
+        if (autoDraw || oldCount == _drawCount) {
             image = UIGraphicsGetImageFromCurrentImageContext();
         }
         UIGraphicsEndImageContext();
@@ -64,7 +65,7 @@ public:
     }
     
     bool drawAppend(GiQuartzCanvas* canvas) {
-        _drawnTimes++;
+        _drawCount++;
         if (_tmpshot) {
             [_tmpshot drawAtPoint:CGPointZero];
             [_tmpshot release];
@@ -109,14 +110,13 @@ public:
     
     bool dispatchGesture(GiGestureType gestureType, GiGestureState gestureState, CGPoint pt) {
         static const NSString *gestureNames[] = { @"?", @"pan", @"tap", @"2tap", @"press", @"2move" };
-        NSLog(@"dispatchGesture: %@, %d (%.0f, %.0f)", 
+        NSLog(@"dispatchGesture(%@): %d x:%.0f y:%.0f", 
               gestureNames[gestureType], gestureState, pt.x, pt.y);
         return _coreView->onGesture(this, gestureType, gestureState, pt.x, pt.y);
     }
     
     bool twoFingersMove(UIGestureRecognizer *sender, int state = -1) {
         CGPoint pt1, pt2;
-        NSLog(@"twoFingersMove: %d, %d", state, (int)[sender numberOfTouches]);
         
         if ([sender numberOfTouches] == 2) {
             pt1 = [sender locationOfTouch:0 inView:sender.view];
@@ -128,6 +128,9 @@ public:
         }
         
         state = state < 0 ? sender.state : state;
+        NSLog(@"twoFingersMove: %d x1:%.0f y1:%.0f x2:%.0f y2:%.0f", 
+              state, pt1.x, pt1.y, pt2.x, pt2.y);
+        
         return _coreView->twoFingersMove(this, (GiGestureState)state, 
                                          pt1.x, pt1.y, pt2.x, pt2.y);
     }
