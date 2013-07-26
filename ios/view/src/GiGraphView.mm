@@ -196,7 +196,6 @@ public:
 
 @synthesize panRecognizer, tapRecognizer, twoTapsRecognizer;
 @synthesize pressRecognizer, pinchRecognizer, rotationRecognizer;
-@synthesize command;
 
 - (void)dealloc
 {
@@ -237,7 +236,7 @@ public:
     return self;
 }
 
-- (GiViewAdapter *)viewAdapter
+- (GiView *)viewAdapter
 {
     return _adapter;
 }
@@ -283,43 +282,6 @@ public:
 - (void)clearCachedData
 {
     _adapter->clearCachedData();
-}
-
-- (void)addShapesForTest
-{
-    [self coreView]->addShapesForTest();
-}
-
-- (void)fireGesture:(int)type state:(int)state x:(float)x y:(float)y
-{
-    [self coreView]->onGesture(_adapter, (GiGestureType)type, (GiGestureState)state, x, y);
-}
-
-- (void)zoomToExtent
-{
-    [self coreView]->zoomToExtent();
-}
-
-- (BOOL)loadShapes:(MgStorage*)s
-{
-    bool ret = [self coreView]->loadShapes(s);
-    _adapter->regenAll();
-    return ret;
-}
-
-- (BOOL)saveShapes:(MgStorage*)s
-{
-    return [self coreView]->saveShapes(s);
-}
-
-- (const char*)command
-{
-    return [self coreView]->command();
-}
-
-- (void)setCommand:(const char *)name
-{
-    [self coreView]->setCommand(_adapter, name);
 }
 
 #pragma mark - GiBaseView gesture recognization

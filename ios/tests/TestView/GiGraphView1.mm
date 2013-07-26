@@ -7,7 +7,7 @@
 #include "GiQuartzCanvas.h"
 #include "giview.h"
 #include "gicoreview.h"
-#include "mgjsonstorage.h"
+#import "GiViewHelper.h"
 
 //! 动态图形的绘图视图类
 @interface DynDrawView1 : UIView {
@@ -211,48 +211,10 @@ public:
 
 @implementation GiGraphView2
 
-- (id)initWithFrame:(CGRect)frame withType:(int)type
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        if (type == 1) {
-            self.command = "splines";
-        }
-        else if (type == 2) {
-            [self addShapesForTest];
-            self.command = "select";
-        }
-        else if (type == 3) {
-            self.command = "splines";
-            [self fireGesture:1 state:0 x:786 y:434];
-            [self fireGesture:1 state:1 x:786 y:434];
-            [self fireGesture:1 state:2 x:828 y:444];
-            [self fireGesture:1 state:2 x:828 y:444];
-            [self fireGesture:1 state:3 x:828 y:444];
-            [self fireGesture:1 state:0 x:819 y:408];
-            [self fireGesture:1 state:1 x:819 y:408];
-            [self fireGesture:1 state:3 x:806 y:444];
-            self.command = "select";
-            [self zoomToExtent];
-        }
-    }
-    return self;
-}
-
 - (BOOL)savePng:(NSString *)filename
 {
-    MgJsonStorage s;
-    
-    if ([self saveShapes:s.storageForWrite()]) {
-        const char* content = s.stringify(true);
-        NSData* data = [NSData dataWithBytesNoCopy:(void*)content length:strlen(content)];
-        
-        if (data) {
-            NSString *vgfile = [[filename stringByDeletingPathExtension]
-                                stringByAppendingPathExtension:@"vg"];
-            [data writeToFile:vgfile atomically:NO];
-        }
-    }
+    [GiViewHelper saveToFile:[[filename stringByDeletingPathExtension]
+                              stringByAppendingPathExtension:@"vg"]];
     return [super savePng:filename];
 }
 

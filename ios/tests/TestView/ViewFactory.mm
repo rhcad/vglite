@@ -3,6 +3,7 @@
 
 #import "GiGraphView1.h"
 #import "LargeView1.h"
+#import "GiViewHelper.h"
 
 static UIViewController *_tmpController = nil;
 
@@ -45,7 +46,29 @@ static void addGraphView(NSMutableArray *arr, NSUInteger &i, NSUInteger index,
             v = [[GiGraphView1 alloc]initWithFrame:wrapview.bounds];
         }
         else {
-            v = [[GiGraphView2 alloc]initWithFrame:wrapview.bounds withType:type];
+            v = [[GiGraphView2 alloc]initWithFrame:wrapview.bounds];
+            [GiViewHelper setView:v];
+            
+            if (type == 1) {
+                [GiViewHelper setCommand:@"splines"];
+            }
+            else if (type == 2) {
+                [GiViewHelper addShapesForTest];
+                [GiViewHelper setCommand:@"select"];
+            }
+            else if (type == 3) {
+                [GiViewHelper setCommand:@"splines"];
+                [GiViewHelper fireGesture:1 state:0 x:786 y:434];
+                [GiViewHelper fireGesture:1 state:1 x:786 y:434];
+                [GiViewHelper fireGesture:1 state:2 x:828 y:444];
+                [GiViewHelper fireGesture:1 state:2 x:828 y:444];
+                [GiViewHelper fireGesture:1 state:3 x:828 y:444];
+                [GiViewHelper fireGesture:1 state:0 x:819 y:408];
+                [GiViewHelper fireGesture:1 state:1 x:819 y:408];
+                [GiViewHelper fireGesture:1 state:3 x:806 y:444];
+                [GiViewHelper setCommand:@"select"];
+                [GiViewHelper zoomToExtent];
+            }
         }
         [wrapview addSubview:v];
         [v release];

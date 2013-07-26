@@ -129,6 +129,8 @@
 		AE2B50EE1797F151006A1E80 /* GcGraphView.h in Headers */ = {isa = PBXBuildFile; fileRef = AE2B50EA1797F151006A1E80 /* GcGraphView.h */; };
 		AE2B50EF1797F151006A1E80 /* GcMagnifierView.h in Headers */ = {isa = PBXBuildFile; fileRef = AE2B50EB1797F151006A1E80 /* GcMagnifierView.h */; };
 		AE2B50F01797F151006A1E80 /* GcShapeDoc.h in Headers */ = {isa = PBXBuildFile; fileRef = AE2B50EC1797F151006A1E80 /* GcShapeDoc.h */; };
+		C995CA6717A255E8005F7E87 /* GiViewHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = C995CA6617A255E8005F7E87 /* GiViewHelper.mm */; };
+		C995CA6917A255F4005F7E87 /* GiViewHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = C995CA6817A255F4005F7E87 /* GiViewHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -274,6 +276,8 @@
 		AE2B50EA1797F151006A1E80 /* GcGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GcGraphView.h; sourceTree = "<group>"; };
 		AE2B50EB1797F151006A1E80 /* GcMagnifierView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GcMagnifierView.h; sourceTree = "<group>"; };
 		AE2B50EC1797F151006A1E80 /* GcShapeDoc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GcShapeDoc.h; sourceTree = "<group>"; };
+		C995CA6617A255E8005F7E87 /* GiViewHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = GiViewHelper.mm; path = ../../view/src/GiViewHelper.mm; sourceTree = "<group>"; };
+		C995CA6817A255F4005F7E87 /* GiViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GiViewHelper.h; path = ../../view/include/GiViewHelper.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -339,6 +343,8 @@
 		AE2A3A61178FC5AB000194AE /* view */ = {
 			isa = PBXGroup;
 			children = (
+				C995CA6817A255F4005F7E87 /* GiViewHelper.h */,
+				C995CA6617A255E8005F7E87 /* GiViewHelper.mm */,
 				AE2A3A65178FC608000194AE /* GiGraphView.h */,
 				AE2A3A6A178FC617000194AE /* GiGraphView.mm */,
 				AE2A3A66178FC608000194AE /* GiQuartzCanvas.h */,
@@ -629,6 +635,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C995CA6917A255F4005F7E87 /* GiViewHelper.h in Headers */,
 				AE2A3B01178FC63D000194AE /* mgjsonstorage.h in Headers */,
 				AE2A3B09178FC63D000194AE /* mgshapetype.h in Headers */,
 				AE2A3B13178FC63D000194AE /* gicoreview.h in Headers */,
@@ -850,6 +857,7 @@
 				AE2B50D317977C7F006A1E80 /* mgdrawsplines.cpp in Sources */,
 				AE2B50D517977C7F006A1E80 /* mgdrawtriang.cpp in Sources */,
 				AE2B50D717977C7F006A1E80 /* TransformCmd.cpp in Sources */,
+				C995CA6717A255E8005F7E87 /* GiViewHelper.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

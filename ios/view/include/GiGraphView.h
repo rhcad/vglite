@@ -6,6 +6,7 @@
 
 class GiViewAdapter;
 class GiCoreView;
+class GiView;
 struct MgStorage;
 
 //! iOS绘图视图类
@@ -22,23 +23,14 @@ struct MgStorage;
 @property(nonatomic, readonly) UIPinchGestureRecognizer *pinchRecognizer;       //!< 放缩
 @property(nonatomic, readonly) UIRotationGestureRecognizer *rotationRecognizer; //!< 旋转
 
-@property(nonatomic) const char* command;   //!< 返回当前命令名称
-
 //! 初始化放大镜视图. refView为nil或调用 initWithFrame:(CGRect)frame 函数则创建普通绘图视图
 - (id)initWithFrame:(CGRect)frame refView:(GiGraphView *)refView;
 
-- (GiViewAdapter *)viewAdapter;             //!< 得到视图适配器对象
+- (GiView *)viewAdapter;                    //!< 得到视图适配器对象
 - (GiCoreView *)coreView;                   //!< 得到跨平台内核视图
 
 - (UIImage *)snapshot;                      //!< 得到静态图形的快照，自动释放
 - (BOOL)savePng:(NSString *)filename;       //!< 保存静态图形的快照到PNG文件
-
 - (void)clearCachedData;                    //!< 释放临时数据内存
-- (void)addShapesForTest;                   //!< 添加测试图形
-- (void)fireGesture:(int)type state:(int)state x:(float)x y:(float)y;
-- (void)zoomToExtent;                       //!< 放缩显示全部内容
-
-- (BOOL)loadShapes:(MgStorage*)s;           //!< 从指定的数据来源中加载图形
-- (BOOL)saveShapes:(MgStorage*)s;           //!< 保存图形到指定的数据来源中
 
 @end

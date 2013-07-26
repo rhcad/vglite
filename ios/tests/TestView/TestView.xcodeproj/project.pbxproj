@@ -70,6 +70,7 @@
 		AEF2D56F1609B67200DDB7F2 /* app57.png in Resources */ = {isa = PBXBuildFile; fileRef = AEF2D56D1609B67200DDB7F2 /* app57.png */; };
 		AEF2D5701609B67200DDB7F2 /* app72.png in Resources */ = {isa = PBXBuildFile; fileRef = AEF2D56E1609B67200DDB7F2 /* app72.png */; };
 		AEF2D5B01609BF7D00DDB7F2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF2D5AD1609BF7D00DDB7F2 /* main.m */; };
+		C937447517A23A700017DF7E /* GiViewHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = C937447417A23A700017DF7E /* GiViewHelper.mm */; };
 		C98E70C41783E96A009F0C98 /* mgspfactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C98E70C21783E96A009F0C98 /* mgspfactory.cpp */; };
 		C98E70C51783E96A009F0C98 /* mgsplock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C98E70C31783E96A009F0C98 /* mgsplock.cpp */; };
 		C9A6534916E058BA00343CA3 /* vgdot1.png in Resources */ = {isa = PBXBuildFile; fileRef = C9A6534516E058BA00343CA3 /* vgdot1.png */; };
@@ -223,6 +224,8 @@
 		AEF2D5AD1609BF7D00DDB7F2 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		AEF2D5AE1609BF7D00DDB7F2 /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
 		AEF2D5B81609C1A900DDB7F2 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C937447217A23A620017DF7E /* GiViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GiViewHelper.h; path = ../../view/include/GiViewHelper.h; sourceTree = "<group>"; };
+		C937447417A23A700017DF7E /* GiViewHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = GiViewHelper.mm; path = ../../view/src/GiViewHelper.mm; sourceTree = "<group>"; };
 		C98E70C21783E96A009F0C98 /* mgspfactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mgspfactory.cpp; sourceTree = "<group>"; };
 		C98E70C31783E96A009F0C98 /* mgsplock.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mgsplock.cpp; sourceTree = "<group>"; };
 		C9A6534516E058BA00343CA3 /* vgdot1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vgdot1.png; sourceTree = "<group>"; };
@@ -537,6 +540,8 @@
 		AEB27EE9178568D300761059 /* ios */ = {
 			isa = PBXGroup;
 			children = (
+				C937447217A23A620017DF7E /* GiViewHelper.h */,
+				C937447417A23A700017DF7E /* GiViewHelper.mm */,
 				AEE59F8016EA200500CBC04B /* GiQuartzCanvas.mm */,
 				AEE59F7F16EA1FFA00CBC04B /* GiQuartzCanvas.h */,
 				AE537523177D51480050CC4F /* GiGraphView.h */,
@@ -747,6 +752,7 @@
 				AEF20B7D17953B3E00CC6FD5 /* mgdrawsplines.cpp in Sources */,
 				AEF20B7E17953B3E00CC6FD5 /* mgdrawtriang.cpp in Sources */,
 				AEF20B7F17953B3E00CC6FD5 /* TransformCmd.cpp in Sources */,
+				C937447517A23A700017DF7E /* GiViewHelper.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
