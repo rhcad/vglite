@@ -830,7 +830,7 @@ bool MgCmdSelect::touchMoved(const MgMotion* sender)
                     if (t > 1) {                            // 是拖动多个图形的第一遍
                         if (!snapvec.isZeroVector() && minsnap.length() > snapvec.length()) {
                             minsnap = snapvec;              // 找捕捉距离最近的点
-                            snapindex = i;
+                            snapindex = (int)i;
                         }
                     }
                 }

@@ -79,6 +79,14 @@
 				RelativePath="..\..\ios\view\src\GiQuartzCanvas.mm"
 				>
 			</File>
+			<File
+				RelativePath="..\..\ios\view\include\GiViewHelper.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\ios\view\src\GiViewHelper.mm"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="tests"

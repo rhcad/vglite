@@ -323,7 +323,7 @@ bool MgShapes::save(MgStorage* s, int startIndex) const
         ret = saveExtra(s);
         rect = getExtent();
         s->writeFloatArray("extent", &rect.xmin, 4);
-        s->writeUInt32("count", im->shapes.size() - (int)startIndex);
+        s->writeUInt32("count", (int)im->shapes.size() - startIndex);
         
         for (I::citerator it = im->shapes.begin();
              ret && it != im->shapes.end(); ++it, ++index)

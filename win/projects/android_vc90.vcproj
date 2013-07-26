@@ -162,6 +162,10 @@
 					RelativePath="..\..\android\demo\src\touchvg\view\GraphView.java"
 					>
 				</File>
+				<File
+					RelativePath="..\..\android\demo\src\touchvg\view\GraphViewHelper.java"
+					>
+				</File>
 			</Filter>
 		</Filter>
 	</Files>

@@ -12,6 +12,10 @@ static std::vector<ShapeObserver>  s_shapeObservers;
 static MgLockRW s_dynLock;
 
 #ifdef _WIN32
+#ifndef _WINDOWS_
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#endif
 void giSleep(int ms) { Sleep(ms); }
 #else
 #include <unistd.h>
