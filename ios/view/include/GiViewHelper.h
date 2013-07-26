@@ -4,20 +4,18 @@
 
 #import <UIKit/UIKit.h>
 
-@class GiGraphView;
-
 //! iOS绘图视图辅助类
 /*! \ingroup GROUP_IOS
  */
 @interface GiViewHelper
 
-+ (UIView *)createGraphView:(CGRect)frame;
++ (UIView *)createGraphView:(CGRect)frame;  //!< 创建普通图形视图
 + (UIView *)createMagnifierView:(CGRect)frame refView:(UIView *)refView;
 
-+ (void)setView:(UIView *)view;
++ (void)setView:(UIView *)view;             //!< 设置当前图形视图，供下列函数使用
 
-+ (NSString *)command;
-+ (BOOL)setCommand:(NSString *)name;
++ (NSString *)command;                      //!< 得到当前命令名称
++ (BOOL)setCommand:(NSString *)name;        //!< 启动指定名称的命令
 
 + (UIImage *)snapshot;                      //!< 得到静态图形的快照，自动释放
 + (BOOL)savePng:(NSString *)filename;       //!< 保存静态图形的快照到PNG文件
