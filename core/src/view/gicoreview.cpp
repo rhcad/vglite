@@ -379,6 +379,11 @@ void GiCoreView::addShapesForTest()
     impl->regenAll();
 }
 
+int GiCoreView::getShapeCount()
+{
+    return impl->doc()->getShapeCount();
+}
+
 bool GiCoreView::loadShapes(MgStorage* s)
 {
     return impl->doc()->load(s);
@@ -427,6 +432,7 @@ bool GiCoreViewImpl::onGesture(const MgMotion& motion)
         default:
             return cmd->touchEnded(&motion);
         }
+        break;
     case kGiGestureTap:
         return cmd->click(&motion);
     case kGiGestureDblTap:
@@ -481,26 +487,26 @@ int GcDummyView::drawAppend(const int*, GiGraphics& gs)
 
 void GcDummyView::dynDraw(const MgMotion& motion, GiGraphics& gs)
 {
-	if (motion.gestureState == kMgGestureBegan
+    if (motion.gestureState == kMgGestureBegan
         || motion.gestureState == kMgGestureMoved) {
-		static float phase = 0;
+        static float phase = 0;
         GiCanvas* canvas = gs.getCanvas();
 
-		phase -= 1;
-		canvas->setPen(0, 0, 1, phase);
-		canvas->setBrush(0x80005500, 0);
-		drawPoints(canvas);
+        phase -= 1;
+        canvas->setPen(0, 0, 1, phase);
+        canvas->setBrush(0x80005500, 0);
+        drawPoints(canvas);
 
         float x = _pts[_pts.size() - 2];
         float y = _pts.back();
-		char text[40] = "";
+        char text[40] = "";
 #if defined(_MSC_VER) && _MSC_VER >= 1400 // VC8
-		sprintf_s(text, sizeof(text), "%.1f, %.1f", x, y);
+        sprintf_s(text, sizeof(text), "%.1f, %.1f", x, y);
 #else
         sprintf(text, "%.1f, %.1f", x, y);
 #endif
-		canvas->drawTextAt(text, x < 80 ? 80 : x, y < 80 ? 80 : y - 70, 20, 1);
-	}
+        canvas->drawTextAt(text, x < 80 ? 80 : x, y < 80 ? 80 : y - 70, 20, 1);
+    }
 }
 
 void GcDummyView::onSize(int, int, int)

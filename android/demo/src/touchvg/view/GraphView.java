@@ -8,8 +8,6 @@ import touchvg.jni.GiCoreView;
 import touchvg.jni.GiGestureState;
 import touchvg.jni.GiGestureType;
 import touchvg.jni.GiView;
-import touchvg.jni.MgStorage;
-import touchvg.view.CanvasAdapter;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -27,12 +25,25 @@ public class GraphView extends View {
     private Bitmap mCacheBitmap;
     private long mEndPaintTime;
     
+    //! 普通绘图视图的构造函数
     public GraphView(Context context) {
         super(context);
-        mCanvasAdapter = new CanvasAdapter(this);
-        mViewAdapter = new ViewAdapter();
+        initView(context);
         mCoreView = new GiCoreView(null);
         mCoreView.createView(mViewAdapter, 1);
+    }
+    
+    //! 放大镜视图的构造函数
+    public GraphView(Context context, GraphView mainView) {
+        super(context);
+        initView(context);
+        mCoreView = new GiCoreView(mainView.getCoreView());
+        mCoreView.createMagnifierView(mViewAdapter, mainView.mViewAdapter);
+    }
+    
+    private void initView(Context context) {
+        mCanvasAdapter = new CanvasAdapter(this);
+        mViewAdapter = new ViewAdapter();
         
         DisplayMetrics dm = context.getApplicationContext().getResources().getDisplayMetrics();
         GiCoreView.setScreenDpi(dm.densityDpi);
@@ -48,7 +59,7 @@ public class GraphView extends View {
                                         GiGestureState.kGiGestureEnded, event.getX(), event.getY());
                 }
                 else if (event.getEventTime() > mEndPaintTime) {
-                	mCoreView.onGesture(mViewAdapter, GiGestureType.kGiGesturePan, 
+                    mCoreView.onGesture(mViewAdapter, GiGestureType.kGiGesturePan, 
                                         GiGestureState.kGiGestureMoved, event.getX(), event.getY());
                 }
                 return true;
@@ -60,43 +71,17 @@ public class GraphView extends View {
         return mCoreView;
     }
     
+    public GiView getViewAdapter() {
+        return mViewAdapter;
+    }
+    
     public void clearCachedData() {
-    	mCoreView.clearCachedData();
-    	if (mCacheBitmap != null) {
+        mCoreView.clearCachedData();
+        if (mCacheBitmap != null) {
             mCacheBitmap.recycle();
             mCacheBitmap = null;
         }
     }
-    
-    //! 返回当前命令名称
-    public String command() {
-    	return mCoreView.command();
-    }
-    
-    //! 启动命令
-    public boolean setCommand(String name) {
-    	return mCoreView.setCommand(mViewAdapter, name);
-    }
-    
-    //! 添加测试图形
-    public void addShapesForTest() {
-    	mCoreView.addShapesForTest();
-    }
-    
-    //! 从指定的数据来源中加载图形, s从 MgJsonStorage.storageForRead() 得到
-    public boolean loadShapes(MgStorage s) {
-    	return mCoreView.loadShapes(s);
-    }
-    
-	//! 保存图形到指定的数据来源中, s从 MgJsonStorage.storageForWrite() 得到
-	public boolean saveShapes(MgStorage s) {
-		return mCoreView.saveShapes(s);
-	}
-	
-	//! 放缩显示全部内容
-	public void zoomToExtent() {
-		mCoreView.zoomToExtent();
-	}
     
     @Override
     protected void onDraw(Canvas canvas) {
@@ -183,7 +168,7 @@ public class GraphView extends View {
         
         @Override
         public void redraw() {
-        	invalidate();
+            invalidate();
         }
     }
 }

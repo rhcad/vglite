@@ -63,6 +63,10 @@ public class GiCoreView {
     touchvgJNI.GiCoreView_dynDraw(swigCPtr, this, GiView.getCPtr(view), view, GiCanvas.getCPtr(canvas), canvas);
   }
 
+  public int setBkColor(GiView view, int argb) {
+    return touchvgJNI.GiCoreView_setBkColor(swigCPtr, this, GiView.getCPtr(view), view, argb);
+  }
+
   public static void setScreenDpi(int dpi) {
     touchvgJNI.GiCoreView_setScreenDpi(dpi);
   }
@@ -93,6 +97,10 @@ public class GiCoreView {
 
   public void addShapesForTest() {
     touchvgJNI.GiCoreView_addShapesForTest(swigCPtr, this);
+  }
+
+  public int getShapeCount() {
+    return touchvgJNI.GiCoreView_getShapeCount(swigCPtr, this);
   }
 
   public boolean loadShapes(MgStorage s) {

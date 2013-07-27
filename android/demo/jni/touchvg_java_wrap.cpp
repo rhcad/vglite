@@ -1849,6 +1849,26 @@ SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1dynDraw(JNIEnv *
 }
 
 
+SWIGEXPORT jint JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1setBkColor(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jint jarg3) {
+  jint jresult = 0 ;
+  GiCoreView *arg1 = (GiCoreView *) 0 ;
+  GiView *arg2 = (GiView *) 0 ;
+  int arg3 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(GiCoreView **)&jarg1; 
+  arg2 = *(GiView **)&jarg2; 
+  arg3 = (int)jarg3; 
+  result = (int)(arg1)->setBkColor(arg2,arg3);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
 SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1setScreenDpi(JNIEnv *jenv, jclass jcls, jint jarg1) {
   int arg1 ;
   
@@ -1990,6 +2010,21 @@ SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1addShapesForTest
   (void)jarg1_;
   arg1 = *(GiCoreView **)&jarg1; 
   (arg1)->addShapesForTest();
+}
+
+
+SWIGEXPORT jint JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1getShapeCount(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  GiCoreView *arg1 = (GiCoreView *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiCoreView **)&jarg1; 
+  result = (int)(arg1)->getShapeCount();
+  jresult = (jint)result; 
+  return jresult;
 }
 
 

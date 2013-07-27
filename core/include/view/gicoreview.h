@@ -72,6 +72,9 @@ public:
     //! 添加测试图形
     void addShapesForTest();
     
+    //! 返回图形总数
+    int getShapeCount();
+
     //! 从指定的数据来源中加载图形
     bool loadShapes(MgStorage* s);
     
