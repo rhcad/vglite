@@ -390,10 +390,11 @@ public:
         
         _points.push_back(pt);
         if (!_moved) {                                  // 分发拖动开始
-            _moved = YES;
-            _adapter->dispatchGesture(kGiGesturePan, kGiGestureBegan, _points.front());
+            _moved = _adapter->dispatchGesture(kGiGesturePan, kGiGestureBegan, _startPt);
         }
-        _adapter->dispatchGesture(kGiGesturePan, kGiGestureMoved, pt);  // 分发拖动
+        if (_moved) {
+            _adapter->dispatchGesture(kGiGesturePan, kGiGestureMoved, pt);  // 分发拖动
+        }
     }
     
     [super touchesMoved:touches withEvent:event];
