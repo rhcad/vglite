@@ -123,7 +123,7 @@ public:
     }
     
     bool dynDraw(const MgMotion& motion, GiGraphics& gs);
-    bool onGesture(const MgMotion& motion);
+    bool gestureToCommand(const MgMotion& motion);
 };
 
 static int _dpi = 1;
@@ -285,16 +285,14 @@ bool GiCoreView::onGesture(GiView* view, GiGestureType gestureType,
         }
         
         if (gestureState <= kGiGestureBegan) {
-            impl->gestureHandler = (impl->onGesture(impl->motion) ? 1 :
-                                    aview->onGesture(impl->motion) ? 2 : 0);
+            impl->gestureHandler = (impl->gestureToCommand(impl->motion) ? 1
+                                    : (aview->onGesture(impl->motion) ? 2 : 0));
         }
-        else if (impl->gestureHandler > 0) {
-            if (impl->gestureHandler == 1) {
-                impl->onGesture(impl->motion);
-            }
-            else {
-                aview->onGesture(impl->motion);
-            }
+        else if (impl->gestureHandler == 1) {
+            impl->gestureToCommand(impl->motion);
+        }
+        else if (impl->gestureHandler == 2) {
+            aview->onGesture(impl->motion);
         }
         ret = (impl->gestureHandler > 0);
 
@@ -330,16 +328,14 @@ bool GiCoreView::twoFingersMove(GiView* view, GiGestureState gestureState,
         }
 
         if (gestureState <= kGiGestureBegan) {
-            impl->gestureHandler = (impl->onGesture(impl->motion) ? 1 :
-                                    aview->twoFingersMove(impl->motion) ? 2 : 0);
+            impl->gestureHandler = (impl->gestureToCommand(impl->motion) ? 1
+                                    : (aview->twoFingersMove(impl->motion) ? 2 : 0));
         }
-        else if (impl->gestureHandler > 0) {
-            if (impl->gestureHandler == 1) {
-                impl->onGesture(impl->motion);
-            }
-            else {
-                aview->twoFingersMove(impl->motion);
-            }
+        else if (impl->gestureHandler == 1) {
+            impl->gestureToCommand(impl->motion);
+        }
+        else if (impl->gestureHandler == 2) {
+            aview->twoFingersMove(impl->motion);
         }
         ret = (impl->gestureHandler > 0);
 
@@ -406,7 +402,7 @@ bool GiCoreViewImpl::dynDraw(const MgMotion& motion, GiGraphics& gs)
     return _cmds->draw(&motion, &gs);
 }
 
-bool GiCoreViewImpl::onGesture(const MgMotion& motion)
+bool GiCoreViewImpl::gestureToCommand(const MgMotion& motion)
 {
     bool forTouch = (motion.gestureState >= kMgGestureBegan
                      && motion.gestureState <= kMgGestureEnded);

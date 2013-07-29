@@ -371,9 +371,7 @@ public:
         _adapter->dispatchGesture(kGiGesturePan, kGiGestureCancel, pt);
     }
     
-    if (touch.view == self) {
-        [super touchesBegan:touches withEvent:event];
-    }
+    [super touchesBegan:touches withEvent:event];
 }
 
 // 手势生效前会触发本事件
@@ -398,9 +396,7 @@ public:
         _adapter->dispatchGesture(kGiGesturePan, kGiGestureMoved, pt);  // 分发拖动
     }
     
-    if (touch.view == self) {
-        [super touchesMoved:touches withEvent:event];
-    }
+    [super touchesMoved:touches withEvent:event];
 }
 
 // 手势没有生效、手指松开时会触发本事件
@@ -426,15 +422,12 @@ public:
     _points.clear();
     _moved = NO;
     
-    if (touch.view == self) {
-        [super touchesEnded:touches withEvent:event];
-    }
+    [super touchesEnded:touches withEvent:event];
 }
 
 // 手势生效时会触发本事件
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    UITouch *touch = [touches anyObject];
     NSLog(@"touchesCancelled tapCount:%d", _tapCount);
     
     if (!_points.empty() && _tapCount == 0) {
@@ -450,9 +443,7 @@ public:
     }
     _timeBegan = 0;
     
-    if (!touch || touch.view == self) {
-        [super touchesCancelled:touches withEvent:event];
-    }
+    [super touchesCancelled:touches withEvent:event];
 }
 
 #pragma mark - GiBaseView gesture handlers
