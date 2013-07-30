@@ -5,13 +5,12 @@
 package touchvg.view;
 
 import touchvg.jni.GiCoreView;
-import touchvg.jni.GiGestureState;
-import touchvg.jni.GiGestureType;
 import touchvg.jni.GiView;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.util.DisplayMetrics;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -23,7 +22,8 @@ public class GraphView extends View {
     private ViewAdapter mViewAdapter;       // 视图回调适配器
     private GiCoreView mCoreView;           // 内核视图分发器
     private Bitmap mCachedBitmap;           // 用于增量绘图的快照
-    private long mEndPaintTime;             // 重绘结束时刻，用于忽略多余触摸移动消息
+    private GestureDetector mDetector;      // 手势识别器
+    private PaintGestureListener mGestureListener;
     
     //! 普通绘图视图的构造函数
     public GraphView(Context context) {
@@ -44,27 +44,12 @@ public class GraphView extends View {
     private void initView(Context context) {
         mCanvasAdapter = new CanvasAdapter(this);
         mViewAdapter = new ViewAdapter();
+        mGestureListener = new PaintGestureListener(mCoreView, mViewAdapter);
+        mDetector = new GestureDetector(context, mGestureListener);
+        setDisallowInterceptTouchEvent(true);
         
         final DisplayMetrics dm = context.getApplicationContext().getResources().getDisplayMetrics();
         GiCoreView.setScreenDpi(dm.densityDpi);
-        
-        this.setOnTouchListener(new OnTouchListener() {
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    mCoreView.onGesture(mViewAdapter, GiGestureType.kGiGesturePan, 
-                                        GiGestureState.kGiGestureBegan, event.getX(), event.getY());
-                }
-                else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    mCoreView.onGesture(mViewAdapter, GiGestureType.kGiGesturePan, 
-                                        GiGestureState.kGiGestureEnded, event.getX(), event.getY());
-                }
-                else if (event.getEventTime() > mEndPaintTime) {
-                    mCoreView.onGesture(mViewAdapter, GiGestureType.kGiGesturePan, 
-                                        GiGestureState.kGiGestureMoved, event.getX(), event.getY());
-                }
-                return true;
-            }
-        });
     }
     
     //! 返回内核视图分发器对象
@@ -86,6 +71,23 @@ public class GraphView extends View {
         }
     }
     
+    public void setGestureEnable(boolean enable) {
+    	mGestureListener.setGestureEnable(enable);
+    }
+    
+    public void setDisallowInterceptTouchEvent(boolean enable) {
+    	mGestureListener.setGestureEnable(enable);
+    	if (!enable) {
+            this.setOnTouchListener(null);
+        } else {
+        	this.setOnTouchListener(new OnTouchListener() {
+                public boolean onTouch(View v, MotionEvent event) {
+                    return mGestureListener.onTouch(v, event) || mDetector.onTouchEvent(event);
+                }
+            });
+        }
+    }
+    
     @Override
     protected void onDraw(Canvas canvas) {
         autoBuildCache();
@@ -94,14 +96,13 @@ public class GraphView extends View {
         if (mCanvasAdapter.beginPaint(canvas)) {
             if (mCachedBitmap != null) {
                 canvas.drawBitmap(mCachedBitmap, 0, 0, null);
-            }
-            else {
+            } else {
                 mCoreView.drawAll(mViewAdapter, mCanvasAdapter);
             }
             mCoreView.dynDraw(mViewAdapter, mCanvasAdapter);
             mCanvasAdapter.endPaint();
         }
-        mEndPaintTime = android.os.SystemClock.uptimeMillis();
+        mGestureListener.setEndPaintTime(android.os.SystemClock.uptimeMillis());
     }
     
     private void autoBuildCache() {
@@ -118,8 +119,7 @@ public class GraphView extends View {
                 canvas.drawColor(0);							// 透明背景
                 mCoreView.drawAll(mViewAdapter, mCanvasAdapter);
                 mCanvasAdapter.endPaint();
-            }
-            else {
+            } else {
                 mCachedBitmap.recycle();
                 mCachedBitmap = null;
             }
@@ -144,6 +144,11 @@ public class GraphView extends View {
             mCachedBitmap.recycle();
             mCachedBitmap = null;
         }
+        if (mGestureListener != null) {
+        	mGestureListener.release();
+        	mGestureListener = null;
+        }
+        mDetector = null;
         super.onDetachedFromWindow();
     }
     
