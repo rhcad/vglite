@@ -26,7 +26,7 @@ public:
     ~GiCoreView();
     
     //! 创建内核视图
-    void createView(GiView* view, int type);
+    void createView(GiView* view, int type = 1);
     
     //! 创建放大镜视图
     void createMagnifierView(GiView* newview, GiView* mainView);

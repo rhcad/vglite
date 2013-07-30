@@ -44,7 +44,8 @@ public class touchvgJNI {
   public final static native void GiView_change_ownership(GiView obj, long cptr, boolean take_or_release);
   public final static native long new_GiCoreView(long jarg1, GiCoreView jarg1_);
   public final static native void delete_GiCoreView(long jarg1);
-  public final static native void GiCoreView_createView(long jarg1, GiCoreView jarg1_, long jarg2, GiView jarg2_, int jarg3);
+  public final static native void GiCoreView_createView__SWIG_0(long jarg1, GiCoreView jarg1_, long jarg2, GiView jarg2_, int jarg3);
+  public final static native void GiCoreView_createView__SWIG_1(long jarg1, GiCoreView jarg1_, long jarg2, GiView jarg2_);
   public final static native void GiCoreView_createMagnifierView(long jarg1, GiCoreView jarg1_, long jarg2, GiView jarg2_, long jarg3, GiView jarg3_);
   public final static native void GiCoreView_destoryView(long jarg1, GiCoreView jarg1_, long jarg2, GiView jarg2_);
   public final static native int GiCoreView_drawAll(long jarg1, GiCoreView jarg1_, long jarg2, GiView jarg2_, long jarg3, GiCanvas jarg3_);

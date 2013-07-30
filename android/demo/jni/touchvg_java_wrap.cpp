@@ -1743,7 +1743,7 @@ SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_delete_1GiCoreView(JNIEnv *j
 }
 
 
-SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1createView(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jint jarg3) {
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1createView_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jint jarg3) {
   GiCoreView *arg1 = (GiCoreView *) 0 ;
   GiView *arg2 = (GiView *) 0 ;
   int arg3 ;
@@ -1756,6 +1756,20 @@ SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1createView(JNIEn
   arg2 = *(GiView **)&jarg2; 
   arg3 = (int)jarg3; 
   (arg1)->createView(arg2,arg3);
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1createView_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  GiCoreView *arg1 = (GiCoreView *) 0 ;
+  GiView *arg2 = (GiView *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(GiCoreView **)&jarg1; 
+  arg2 = *(GiView **)&jarg2; 
+  (arg1)->createView(arg2);
 }
 
 

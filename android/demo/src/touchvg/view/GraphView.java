@@ -19,18 +19,18 @@ import android.view.View;
 /*! \ingroup GROUP_ANDROID
  */
 public class GraphView extends View {
-    private CanvasAdapter mCanvasAdapter;
-    private ViewAdapter mViewAdapter;
-    private GiCoreView mCoreView;
-    private Bitmap mCacheBitmap;
-    private long mEndPaintTime;
+    private CanvasAdapter mCanvasAdapter;   // 画布适配器
+    private ViewAdapter mViewAdapter;       // 视图回调适配器
+    private GiCoreView mCoreView;           // 内核视图分发器
+    private Bitmap mCachedBitmap;           // 用于增量绘图的快照
+    private long mEndPaintTime;             // 重绘结束时刻，用于忽略多余触摸移动消息
     
     //! 普通绘图视图的构造函数
     public GraphView(Context context) {
         super(context);
         initView(context);
         mCoreView = new GiCoreView(null);
-        mCoreView.createView(mViewAdapter, 1);
+        mCoreView.createView(mViewAdapter);
     }
     
     //! 放大镜视图的构造函数
@@ -38,14 +38,14 @@ public class GraphView extends View {
         super(context);
         initView(context);
         mCoreView = new GiCoreView(mainView.getCoreView());
-        mCoreView.createMagnifierView(mViewAdapter, mainView.mViewAdapter);
+        mCoreView.createMagnifierView(mViewAdapter, mainView.getViewAdapter());
     }
     
     private void initView(Context context) {
         mCanvasAdapter = new CanvasAdapter(this);
         mViewAdapter = new ViewAdapter();
         
-        DisplayMetrics dm = context.getApplicationContext().getResources().getDisplayMetrics();
+        final DisplayMetrics dm = context.getApplicationContext().getResources().getDisplayMetrics();
         GiCoreView.setScreenDpi(dm.densityDpi);
         
         this.setOnTouchListener(new OnTouchListener() {
@@ -67,30 +67,33 @@ public class GraphView extends View {
         });
     }
     
+    //! 返回内核视图分发器对象
     public GiCoreView getCoreView() {
         return mCoreView;
     }
     
+    //! 返回视图回调适配器对象
     public GiView getViewAdapter() {
         return mViewAdapter;
     }
     
+    //! 释放临时缓存
     public void clearCachedData() {
         mCoreView.clearCachedData();
-        if (mCacheBitmap != null) {
-            mCacheBitmap.recycle();
-            mCacheBitmap = null;
+        if (mCachedBitmap != null) {
+            mCachedBitmap.recycle();
+            mCachedBitmap = null;
         }
     }
     
     @Override
     protected void onDraw(Canvas canvas) {
         autoBuildCache();
-        mCoreView.onSize(mViewAdapter, this.getWidth(), this.getHeight());
+        mCoreView.onSize(mViewAdapter, getWidth(), getHeight());
         
         if (mCanvasAdapter.beginPaint(canvas)) {
-            if (mCacheBitmap != null) {
-                canvas.drawBitmap(mCacheBitmap, 0, 0, null);
+            if (mCachedBitmap != null) {
+                canvas.drawBitmap(mCachedBitmap, 0, 0, null);
             }
             else {
                 mCoreView.drawAll(mViewAdapter, mCanvasAdapter);
@@ -102,23 +105,23 @@ public class GraphView extends View {
     }
     
     private void autoBuildCache() {
-        if (mCacheBitmap != null && (mCacheBitmap.getWidth() != getWidth()
-                                     || mCacheBitmap.getHeight() != getHeight())) {
-            mCacheBitmap.recycle();
-            mCacheBitmap = null;
+        if (mCachedBitmap != null && (mCachedBitmap.getWidth() != getWidth()
+                                     || mCachedBitmap.getHeight() != getHeight())) {
+            mCachedBitmap.recycle();			// 视图宽高改变后就销毁快照
+            mCachedBitmap = null;
         }
-        if (mCacheBitmap == null) {
-            mCacheBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
-            Canvas canvas = new Canvas(mCacheBitmap);
+        if (mCachedBitmap == null) {
+            mCachedBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
+            final Canvas canvas = new Canvas(mCachedBitmap);	// 重建快照
             
             if (mCanvasAdapter.beginPaint(canvas)) {
-                canvas.drawColor(0);
+                canvas.drawColor(0);							// 透明背景
                 mCoreView.drawAll(mViewAdapter, mCanvasAdapter);
                 mCanvasAdapter.endPaint();
             }
             else {
-                mCacheBitmap.recycle();
-                mCacheBitmap = null;
+                mCachedBitmap.recycle();
+                mCachedBitmap = null;
             }
         }
     }
@@ -137,27 +140,28 @@ public class GraphView extends View {
             mCanvasAdapter.delete();
             mCanvasAdapter = null;
         }
-        if (mCacheBitmap != null) {
-            mCacheBitmap.recycle();
-            mCacheBitmap = null;
+        if (mCachedBitmap != null) {
+            mCachedBitmap.recycle();
+            mCachedBitmap = null;
         }
         super.onDetachedFromWindow();
     }
     
+    //! 视图回调适配器
     private class ViewAdapter extends GiView {
         @Override
         public void regenAll() {
-            if (mCacheBitmap != null) {
-                mCacheBitmap.recycle();
-                mCacheBitmap = null;
+            if (mCachedBitmap != null) {
+                mCachedBitmap.recycle();
+                mCachedBitmap = null;
             }
             invalidate();
         }
         
         @Override
         public void regenAppend() {
-            if (mCacheBitmap != null) {
-                Canvas canvas = new Canvas(mCacheBitmap);
+            if (mCachedBitmap != null) {
+                final Canvas canvas = new Canvas(mCachedBitmap);
                 if (mCanvasAdapter.beginPaint(canvas)) {
                     mCoreView.drawAppend(mViewAdapter, mCanvasAdapter);
                     mCanvasAdapter.endPaint();

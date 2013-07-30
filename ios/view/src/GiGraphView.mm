@@ -214,7 +214,7 @@ public:
     if (mainView) {
         self.autoresizingMask = 0xFF;               // 自动适应大小
         _adapter = new GiViewAdapter(self, NULL);   // 将创建文档对象
-        [self coreView]->createView(_adapter, 1);
+        [self coreView]->createView(_adapter);
     }
 }
 
