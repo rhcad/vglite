@@ -29,22 +29,27 @@ public class GraphView extends View {
     //! 普通绘图视图的构造函数
     public GraphView(Context context) {
         super(context);
-        initView(context);
+        createAdapter(context);
         mCoreView = new GiCoreView(null);
         mCoreView.createView(mViewAdapter);
+        initView(context);
     }
 
     //! 放大镜视图的构造函数
     public GraphView(Context context, GraphView mainView) {
         super(context);
-        initView(context);
+        createAdapter(context);
         mCoreView = new GiCoreView(mainView.getCoreView());
         mCoreView.createMagnifierView(mViewAdapter, mainView.getViewAdapter());
+        initView(context);
+    }
+    
+    private void createAdapter(Context context) {
+    	mCanvasAdapter = new CanvasAdapter(this);
+        mViewAdapter = new ViewAdapter();
     }
 
     private void initView(Context context) {
-        mCanvasAdapter = new CanvasAdapter(this);
-        mViewAdapter = new ViewAdapter();
         mGestureListener = new PaintGestureListener(mCoreView, mViewAdapter);
         mDetector = new GestureDetector(context, mGestureListener);
 
