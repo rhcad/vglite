@@ -3,144 +3,137 @@ package touchvg.view;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.GestureDetector.SimpleOnGestureListener;
-import android.view.View.OnTouchListener;
 import touchvg.jni.GiCoreView;
 import touchvg.jni.GiGestureState;
 import touchvg.jni.GiGestureType;
 import touchvg.jni.GiView;
 
 public class PaintGestureListener extends SimpleOnGestureListener {
-	private GiCoreView mCoreView;                   // 内核视图分发器
-	private GiView mAdapter;                        // 视图回调适配器
-	private long mEndPaintTime = 0;                 // 重绘结束时刻，用于忽略多余触摸移动消息
-	private boolean mGestureEnable = true;
+    private GiCoreView mCoreView;                   // 内核视图分发器
+    private GiView mAdapter;                        // 视图回调适配器
+    private long mEndPaintTime = 0;                 // 重绘结束时刻，用于忽略多余触摸移动消息
     private GiGestureState mGestureState = GiGestureState.kGiGesturePossible;
     private GiGestureType mGestureType = GiGestureType.kGiGestureUnknown;
-    private int mFingerCount;
-    private float mX = 1;
-    private float mY = 1;
-    private float mX1 = 1;
-    private float mY1 = 1;
-    private boolean mMoving = false;
-    
+    private boolean mIsMoving = false;
+    private int mFingerCount = 0;
+    private float mLastX;
+    private float mLastY;
+
     public PaintGestureListener(GiCoreView coreView, GiView adapter) {
-    	mCoreView = coreView;
-    	mAdapter = adapter;
+        mCoreView = coreView;
+        mAdapter = adapter;
     }
-    
+
     public void release() {
-    	mCoreView = null;
-    	mAdapter = null;
+        mCoreView = null;
+        mAdapter = null;
     }
-    
+
     public void setGestureEnable(boolean enable) {
-        mGestureEnable = enable;
-        if (!enable && mGestureState == GiGestureState.kGiGestureMoved) {
-            mGestureState = GiGestureState.kGiGestureCancel;
-            mCoreView.onGesture(mAdapter, mGestureType, mGestureState, 0, 0);
-        }
         if (!enable) {
-        	mCoreView.setCommand(mAdapter, null);
+        	if (mGestureState == GiGestureState.kGiGestureMoved) {
+                mGestureState = GiGestureState.kGiGestureCancel;
+                mCoreView.onGesture(mAdapter, mGestureType, mGestureState, 0, 0);
+            }
+            mCoreView.setCommand(mAdapter, null);
         }
     }
-    
+
     public void setEndPaintTime(long endTime) {
-    	mEndPaintTime = endTime;
+        mEndPaintTime = endTime;
     }
-    
+
     public boolean onTouch(View v, MotionEvent event) {
-    	if (!mGestureEnable) {
-            return true;
+        final int action = event.getAction() & MotionEvent.ACTION_MASK;
+        final float x1 = event.getPointerCount() > 0 ? event.getX(0) : 0;
+        final float y1 = event.getPointerCount() > 0 ? event.getY(0) : 0;
+        final float x2 = event.getPointerCount() > 1 ? event.getX(1) : x1;
+        final float y2 = event.getPointerCount() > 1 ? event.getY(1) : y1;
+
+        // 按下后不允许父视图拦截触摸事件，松开后允许
+        if (action == MotionEvent.ACTION_UP
+                || action == MotionEvent.ACTION_CANCEL) {
+            v.getParent().requestDisallowInterceptTouchEvent(false);
         }
-    	
-    	if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
-    		v.getParent().requestDisallowInterceptTouchEvent(false);	// 松开后允许父视图拦截触摸事件
-    	}
-    	else {
-    		v.getParent().requestDisallowInterceptTouchEvent(true);		// 按下后不允许父视图拦截触摸事件
-    	}
-    	
-    	switch (event.getAction()) {
+        else {
+            v.getParent().requestDisallowInterceptTouchEvent(true);
+        }
+
+        switch (action) {
         case MotionEvent.ACTION_DOWN:
             mFingerCount = event.getPointerCount();
-            mX = event.getX(0);
-            mY = event.getY(0);
-            if (mFingerCount > 1) {
-                mX1 = event.getX(1);
-                mY1 = event.getY(1);
-            } // call mCoreView.onGesture in onTouch() after later.
-            break;
+            break;  // call onGesture in onTouch() after later.
+
         case MotionEvent.ACTION_MOVE:
             if ((mGestureState == GiGestureState.kGiGestureBegan)
-                    && !mMoving
-                    && Math.hypot(mX - event.getX(0),
-                            mY - event.getY(0)) > 10) {
-                mMoving = true;
+                    && !mIsMoving
+                    && Math.hypot(mLastX - x1, mLastY - y1) > 10) {
+                mIsMoving = true;
             }
-            if (!mMoving) {
+            if (!mIsMoving || event.getEventTime() < mEndPaintTime) {
                 break;
             }
 
             if (event.getPointerCount() == 2 && mFingerCount == 1) {
                 mGestureState = GiGestureState.kGiGestureEnded;
-                mCoreView.twoFingersMove(mAdapter, mGestureState, mX, mY, mX1, mY1);
+                mCoreView.twoFingersMove(mAdapter, mGestureState, x1, y1, x2, y2);
                 mGestureType = GiGestureType.kGiGestureUnknown;
                 mFingerCount = event.getPointerCount();
-                mX = event.getX(0);
-                mY = event.getY(0);
-                mX1 = event.getX(1);
-                mY1 = event.getY(1);
                 mGestureState = GiGestureState.kGiGestureBegan;
-
             }
             if (mGestureState == GiGestureState.kGiGestureBegan) {
-                mGestureType = mFingerCount > 1 ? GiGestureType.kZoomRotatePan
-                        : GiGestureType.kSinglePan;
-                mCoreView.onGesture(mAdapter, mGestureType, mGestureState, mFingerCount,
-                        mX, mY, mX1, mY1);
+                mGestureType = mFingerCount > 1 ? GiGestureType.kGiTwoFingersMove
+                        : GiGestureType.kGiGesturePan;
+                if (mFingerCount > 1) {
+                    mCoreView.twoFingersMove(mAdapter, mGestureState, x1, y1, x2, y2);
+                } else {
+                    mCoreView.onGesture(mAdapter, mGestureType, mGestureState, x1, y1);
+                }
             }
             mGestureState = GiGestureState.kGiGestureMoved;
-            mMoving = true;
-            mX = event.getX(0);
-            mY = event.getY(0);
-            if (event.getPointerCount() > 1) {
-                mX1 = event.getX(1);
-                mY1 = event.getY(1);
-            }
+            mIsMoving = true;
             if (event.getPointerCount() >= mFingerCount) {
-                mCoreView.onGesture(mAdapter, mGestureType, mGestureState, mFingerCount,
-                        mX, mY, mX1, mY1);
+                if (mFingerCount > 1) {
+                    mCoreView.twoFingersMove(mAdapter, mGestureState, x1, y1, x2, y2);
+                } else {
+                    mCoreView.onGesture(mAdapter, mGestureType, mGestureState, x1, y1);
+                }
             }
             break;
 
         case MotionEvent.ACTION_UP:
-            if (mMoving) {
-                mMoving = false;
+            if (mIsMoving) {
+                mIsMoving = false;
                 mGestureState = GiGestureState.kGiGestureEnded;
-                mCoreView.onGesture(mAdapter, mGestureType, mGestureState, mFingerCount,
-                        mX, mY, mX1, mY1);
+                if (mFingerCount > 1) {
+                    mCoreView.twoFingersMove(mAdapter, mGestureState, x1, y1, x2, y2);
+                } else {
+                    mCoreView.onGesture(mAdapter, mGestureType, mGestureState, x1, y1);
+                }
                 mGestureType = GiGestureType.kGiGestureUnknown;
                 mFingerCount = 0;
             }
             break;
         }
-    	
+
+        mLastX = x1;
+        mLastY = y1;
+
         return false;
     }
-    
+
     @Override
     public boolean onSingleTapConfirmed(MotionEvent e) {
-        mCoreView.onGesture(mAdapter, GiGestureType.kSingleTap,
-                GiGestureState.kGiGestureBegan, 1, e.getX(), e.getY(), 0, 0);
+        mCoreView.onGesture(mAdapter, GiGestureType.kGiGestureTap,
+                GiGestureState.kGiGestureBegan, e.getX(), e.getY());
         return true;
     }
 
     @Override
     public void onLongPress(MotionEvent e) {
         if (mGestureState == GiGestureState.kGiGestureBegan) {
-            mCoreView.onGesture(mAdapter, GiGestureType.kLongPress,
-                    GiGestureState.kGiGestureBegan, 1, e.getX(), e.getY(), 0,
-                    0);
+            mCoreView.onGesture(mAdapter, GiGestureType.kGiGesturePress,
+                    GiGestureState.kGiGestureBegan, e.getX(), e.getY());
         }
     }
 
@@ -152,17 +145,16 @@ public class PaintGestureListener extends SimpleOnGestureListener {
 
     @Override
     public boolean onDoubleTap(MotionEvent e) {
-        mCoreView.onGesture(mAdapter, GiGestureType.kDoubleTap,
-                GiGestureState.kGiGestureBegan, 1, e.getX(), e.getY(), 0, 0);
+        mCoreView.onGesture(mAdapter, GiGestureType.kGiGestureDblTap,
+                GiGestureState.kGiGestureBegan, e.getX(), e.getY());
         return true;
     }
 
     @Override
-    public boolean onScroll(MotionEvent e1, MotionEvent e2, float dx,
-            float dy) {
-        if (e2.getAction() == MotionEvent.ACTION_CANCEL) {
+    public boolean onScroll(MotionEvent downEv, MotionEvent ev, float dx, float dy) {
+        if (ev.getAction() == MotionEvent.ACTION_CANCEL) {
             mGestureState = GiGestureState.kGiGestureCancel;
-            mCoreView.onGesture(mAdapter, mGestureType, mGestureState, 0, 0, 0, 0, 0);
+            mCoreView.onGesture(mAdapter, mGestureType, mGestureState, 0, 0);
         }
         return true;
     }
