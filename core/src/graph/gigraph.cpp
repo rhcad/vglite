@@ -1212,10 +1212,11 @@ bool GiGraphics::rawImage(const char* name, float xc, float yc,
     return false;
 }
 
-bool GiGraphics::drawHandle(const Point2d& pnt, int type)
+bool GiGraphics::drawHandle(const Point2d& pnt, int type, bool modelUnit)
 {
     if (m_impl->canvas && type >= 0) {
-        m_impl->canvas->drawHandle(pnt.x, pnt.y, type);
+        Point2d ptd(pnt * S2D(xf(), modelUnit));
+        m_impl->canvas->drawHandle(ptd.x, ptd.y, type);
         return true;
     }
     return false;

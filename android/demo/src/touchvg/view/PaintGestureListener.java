@@ -140,7 +140,7 @@ public class PaintGestureListener extends SimpleOnGestureListener {
 
         case MotionEvent.ACTION_UP:
         case MotionEvent.ACTION_CANCEL:
-        	if (action == MotionEvent.ACTION_UP && !mPoints.isEmpty()) {
+        	if (action == MotionEvent.ACTION_UP && mPoints.size() > 2) {
         		if (applyPendingPoints()) {
         			mMoving = MOVING;
         		}

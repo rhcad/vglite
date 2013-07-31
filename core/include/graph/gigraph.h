@@ -302,7 +302,7 @@ public:
         \param type 符号类型，0-顶点或控制点，1-活动点，2-左旋，3-右旋
         \return 是否显示成功
      */
-    bool drawHandle(const Point2d& pnt, int type);
+    bool drawHandle(const Point2d& pnt, int type, bool modelUnit = true);
 
 #ifndef SWIG
     //! 返回当前绘图画布对象
