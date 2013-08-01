@@ -7,58 +7,58 @@
 #include "gicoreview.h"
 #include "mgjsonstorage.h"
 
-static GiGraphView  *_view = nil;
+static GiGraphView  *_curview = nil;
 
 @implementation GiViewHelper
 
 + (UIView *)createGraphView:(CGRect)frame {
-    _view = [[GiGraphView alloc]initWithFrame:frame];
-    return _view;
+    _curview = [[GiGraphView alloc]initWithFrame:frame];
+    return _curview;
 }
 
 + (UIView *)createMagnifierView:(CGRect)frame refView:(UIView *)refView {
     [GiViewHelper setView:refView];
-    _view = _view ? [[GiGraphView alloc]initWithFrame:frame refView:_view] : nil;
-    return _view;
+    _curview = _curview ? [[GiGraphView alloc]initWithFrame:frame refView:_curview] : nil;
+    return _curview;
 }
 
 + (void)setView:(UIView *)view {
-    _view = [view isKindOfClass:[GiGraphView class]] ? (GiGraphView *)view : nil;
+    _curview = [view isKindOfClass:[GiGraphView class]] ? (GiGraphView *)view : nil;
 }
 
 + (NSString *)command {
-    return _view ? [NSString stringWithCString:[_view coreView]->command()
+    return _curview ? [NSString stringWithCString:[_curview coreView]->command()
                                       encoding:NSUTF8StringEncoding] : nil;
 }
 
 + (BOOL)setCommand:(NSString *)name {
-    return _view && [_view coreView]->setCommand([_view viewAdapter], [name UTF8String]);
+    return _curview && [_curview coreView]->setCommand([_curview viewAdapter], [name UTF8String]);
 }
 
 + (UIImage *)snapshot {
-    return [_view snapshot];
+    return [_curview snapshot];
 }
 
 + (BOOL)savePng:(NSString *)filename {
-    return _view && [_view savePng:filename];
+    return _curview && [_curview savePng:filename];
 }
 
 + (void)addShapesForTest {
-    if (_view) {
-        [_view coreView]->addShapesForTest();
+    if (_curview) {
+        [_curview coreView]->addShapesForTest();
     }
 }
 
 + (void)fireGesture:(int)type state:(int)state x:(float)x y:(float)y {
-    if (_view) {
-        [_view coreView]->onGesture([_view viewAdapter], (GiGestureType)type, 
+    if (_curview) {
+        [_curview coreView]->onGesture([_curview viewAdapter], (GiGestureType)type, 
                                     (GiGestureState)state, x, y);
     }
 }
 
 + (void)zoomToExtent {
-    if (_view) {
-        [_view coreView]->zoomToExtent();
+    if (_curview) {
+        [_curview coreView]->zoomToExtent();
     }
 }
 
@@ -66,7 +66,7 @@ static GiGraphView  *_view = nil;
     MgJsonStorage s;
     const char* content = "";
     
-    if (_view && [_view coreView]->saveShapes(s.storageForWrite())) {
+    if (_curview && [_curview coreView]->saveShapes(s.storageForWrite())) {
         content = s.stringify(true);
     }
     
@@ -75,7 +75,7 @@ static GiGraphView  *_view = nil;
 
 + (BOOL)setContent:(NSString *)content {
     MgJsonStorage s;
-    return _view && [_view coreView]->loadShapes(s.storageForRead([content UTF8String]));
+    return _curview && [_curview coreView]->loadShapes(s.storageForRead([content UTF8String]));
 }
 
 + (BOOL)loadFromFile:(NSString *)vgfile {
@@ -87,7 +87,7 @@ static GiGraphView  *_view = nil;
 + (BOOL)saveToFile:(NSString *)vgfile {
     MgJsonStorage s;
     
-    if (_view && [_view coreView]->saveShapes(s.storageForWrite())) {
+    if (_curview && [_curview coreView]->saveShapes(s.storageForWrite())) {
         const char* content = s.stringify(true);
         NSData* data = [NSData dataWithBytesNoCopy:(void*)content length:strlen(content)];
         

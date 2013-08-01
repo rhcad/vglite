@@ -7,7 +7,7 @@
 //! iOS绘图视图辅助类
 /*! \ingroup GROUP_IOS
  */
-@interface GiViewHelper
+@interface GiViewHelper : NSObject
 
 + (UIView *)createGraphView:(CGRect)frame;  //!< 创建普通图形视图
 + (UIView *)createMagnifierView:(CGRect)frame refView:(UIView *)refView;
