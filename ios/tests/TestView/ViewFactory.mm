@@ -31,8 +31,8 @@ static void addLargeView1(NSMutableArray *arr, NSUInteger &i, NSUInteger index,
     addView(arr, title, view);
 }
 
-static void addGraphView(NSMutableArray *arr, NSUInteger &i, NSUInteger index,
-                         NSString* title, CGRect frame, int type)
+static UIView* addGraphView(NSMutableArray *arr, NSUInteger &i, NSUInteger index,
+                            NSString* title, CGRect frame, int type)
 {
     UIView *v, *wrapview = nil;
     
@@ -73,6 +73,22 @@ static void addGraphView(NSMutableArray *arr, NSUInteger &i, NSUInteger index,
         [wrapview addSubview:v];
         [v release];
     }
+    
+    return wrapview;
+}
+
+static void testMagnifierView(NSMutableArray *arr, NSUInteger &i, NSUInteger index,
+                              NSString* title, CGRect frame, int type)
+{
+    UIView *wrapview = addGraphView(arr, i, index, title, frame, type);
+    
+    if (wrapview) {
+        CGRect magframe = CGRectMake(10, 10, 200, 200);
+        UIView *v = [GiViewHelper createMagnifierView:magframe refView:nil];
+        [wrapview addSubview:v];
+        [v release];
+        v.backgroundColor = [UIColor greenColor];
+    }
 }
 
 static void gatherTestView(NSMutableArray *arr, NSUInteger index, CGRect frame)
@@ -85,6 +101,7 @@ static void gatherTestView(NSMutableArray *arr, NSUInteger index, CGRect frame)
     addGraphView(arr, i, index, @"GiGraphView select", frame, 2);
     addGraphView(arr, i, index, @"GiGraphView fireGesture", frame, 3);
     addLargeView1(arr, i, index, @"GiGraphView in large view", frame, 1);
+    testMagnifierView(arr, i, index, @"MagnifierView", frame, 1);
 }
 
 void getTestViewTitles(NSMutableArray *arr)

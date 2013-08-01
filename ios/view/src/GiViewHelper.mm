@@ -17,7 +17,9 @@ static GiGraphView  *_curview = nil;
 }
 
 + (UIView *)createMagnifierView:(CGRect)frame refView:(UIView *)refView {
-    [GiViewHelper setView:refView];
+    if (refView) {
+        [GiViewHelper setView:refView];
+    }
     _curview = _curview ? [[GiGraphView alloc]initWithFrame:frame refView:_curview] : nil;
     return _curview;
 }
