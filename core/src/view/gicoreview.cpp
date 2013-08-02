@@ -369,10 +369,11 @@ void GiCoreView::clearCachedData()
     impl->doc()->clearCachedData();
 }
 
-void GiCoreView::addShapesForTest()
+int GiCoreView::addShapesForTest()
 {
-    RandomParam(200).addShapes(impl->shapes());
+    int n = RandomParam(200).addShapes(impl->shapes());
     impl->regenAll();
+    return n;
 }
 
 int GiCoreView::getShapeCount()
@@ -390,11 +391,14 @@ bool GiCoreView::saveShapes(MgStorage* s)
     return impl->doc()->save(s);
 }
 
-void GiCoreView::zoomToExtent()
+bool GiCoreView::zoomToExtent()
 {
     Box2d rect(impl->doc()->getExtent() * impl->xform()->modelToWorld());
-    impl->xform()->zoomTo(rect);
-    impl->regenAll();
+    bool ret = impl->xform()->zoomTo(rect);
+    if (ret) {
+        impl->regenAll();
+    }
+    return ret;
 }
 
 bool GiCoreViewImpl::dynDraw(const MgMotion& motion, GiGraphics& gs)

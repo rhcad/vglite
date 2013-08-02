@@ -25,6 +25,7 @@ public class GraphView extends View {
     private GestureDetector mDetector;      // 手势识别器
     private PaintGestureListener mGestureListener;
     private boolean mGestureEnable = true;  // 是否允许交互
+    private static GraphView mActiveView;   // 当前激活视图
 
     //! 普通绘图视图的构造函数
     public GraphView(Context context) {
@@ -32,6 +33,7 @@ public class GraphView extends View {
         createAdapter(context);
         mCoreView = new GiCoreView(null);
         mCoreView.createView(mViewAdapter);
+        mActiveView = this;
         initView(context);
     }
 
@@ -39,6 +41,7 @@ public class GraphView extends View {
     public GraphView(Context context, GraphView mainView) {
         super(context);
         createAdapter(context);
+        mainView = mainView != null ? mainView : mActiveView;
         mCoreView = new GiCoreView(mainView.getCoreView());
         mCoreView.createMagnifierView(mViewAdapter, mainView.getViewAdapter());
         initView(context);
@@ -58,10 +61,16 @@ public class GraphView extends View {
         
         this.setOnTouchListener(new OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
+            	mActiveView = GraphView.this;
                 return mGestureEnable && (mGestureListener.onTouch(v, event)
                 		|| mDetector.onTouchEvent(event));
             }
         });
+    }
+    
+    //! 返回当前激活视图
+    public static GraphView activeView() {
+    	return mActiveView;
     }
 
     //! 返回内核视图分发器对象
@@ -129,6 +138,9 @@ public class GraphView extends View {
 
     @Override
     protected void onDetachedFromWindow() {
+    	if (mActiveView == this) {
+    		mActiveView = null;
+    	}
         if (mViewAdapter != null) {
             mViewAdapter.delete();
             mViewAdapter = null;

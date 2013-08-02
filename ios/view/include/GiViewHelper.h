@@ -4,29 +4,29 @@
 
 #import <UIKit/UIKit.h>
 
+@class GiGraphView;
+
 //! iOS绘图视图辅助类
 /*! \ingroup GROUP_IOS
  */
 @interface GiViewHelper : NSObject
 
-+ (UIView *)createGraphView:(CGRect)frame;  //!< 创建普通图形视图
-+ (UIView *)createMagnifierView:(CGRect)frame refView:(UIView *)refView;
++ (GiGraphView *)createGraphView:(CGRect)frame;  //!< 创建普通图形视图
++ (GiGraphView *)createMagnifierView:(CGRect)frame refView:(GiGraphView *)refView; //!< 创建放大镜视图
 
-+ (void)setView:(UIView *)view;             //!< 设置当前图形视图，供下列函数使用
++ (NSString *)command:(GiGraphView *)v;                     //!< 得到当前命令名称
++ (BOOL)setCommand:(GiGraphView *)v :(NSString *)name;      //!< 启动指定名称的命令
 
-+ (NSString *)command;                      //!< 得到当前命令名称
-+ (BOOL)setCommand:(NSString *)name;        //!< 启动指定名称的命令
++ (UIImage *)snapshot:(GiGraphView *)v;                     //!< 得到静态图形的快照，自动释放
++ (BOOL)savePng:(GiGraphView *)v :(NSString *)filename;     //!< 保存静态图形的快照到PNG文件
 
-+ (UIImage *)snapshot;                      //!< 得到静态图形的快照，自动释放
-+ (BOOL)savePng:(NSString *)filename;       //!< 保存静态图形的快照到PNG文件
++ (int)addShapesForTest:(GiGraphView *)v;                   //!< 添加测试图形
++ (BOOL)fireGesture:(GiGraphView *)v type:(int)type state:(int)state x:(float)x y:(float)y;
++ (BOOL)zoomToExtent:(GiGraphView *)v;                      //!< 放缩显示全部内容
 
-+ (void)addShapesForTest;                   //!< 添加测试图形
-+ (void)fireGesture:(int)type state:(int)state x:(float)x y:(float)y;
-+ (void)zoomToExtent;                       //!< 放缩显示全部内容
-
-+ (NSString *)content;                      //!< 保存图形到JSON内容
-+ (BOOL)setContent:(NSString *)content;     //!< 从JSON内容中加载图形
-+ (BOOL)loadFromFile:(NSString *)vgfile;    //!< 从JSON文件中加载图形
-+ (BOOL)saveToFile:(NSString *)vgfile;      //!< 保存图形到JSON文件
++ (NSString *)content:(GiGraphView *)v;                     //!< 保存图形到JSON内容
++ (BOOL)setContent:(GiGraphView *)v :(NSString *)content;   //!< 从JSON内容中加载图形
++ (BOOL)loadFromFile:(GiGraphView *)v :(NSString *)vgfile;  //!< 从JSON文件中加载图形
++ (BOOL)saveToFile:(GiGraphView *)v :(NSString *)vgfile;    //!< 保存图形到JSON文件
 
 @end

@@ -18,12 +18,12 @@ float RandomParam::RandF(float dMin, float dMax)
     return (rand() % mgRound((dMax - dMin) * 10)) * 0.1f + dMin;
 }
 
-long RandomParam::RandInt(long nMin, long nMax)
+int RandomParam::RandInt(int nMin, int nMax)
 {
     return rand() % (nMax - nMin + 1) + nMin;
 }
 
-unsigned char RandomParam::RandUInt8(long nMin, long nMax)
+unsigned char RandomParam::RandUInt8(int nMin, int nMax)
 {
     return (unsigned char)RandInt(nMin, nMax);
 }
@@ -36,9 +36,11 @@ void RandomParam::setShapeProp(GiContext* context)
     context->setFillColor(GiColor(RandUInt8(0, 255), RandUInt8(0, 255), RandUInt8(0, 255), RandUInt8(32, 240)));
 }
 
-void RandomParam::addShapes(MgShapes* shapes)
+int RandomParam::addShapes(MgShapes* shapes)
 {
-    for (long n = getShapeCount(); n > 0; n--)
+    int ret = 0;
+    
+    for (int n = getShapeCount(); n > 0; n--)
     {
         int type = RandInt(0, 2);
         MgShape* sp = NULL;
@@ -61,6 +63,7 @@ void RandomParam::addShapes(MgShapes* shapes)
             shape._shape.resize(RandInt(3, 20));
             sp = shapes->addShape(shape);
             curveCount--;
+            ret++;
             
             setShapeProp(sp->context());
             for (int i = 0; i < sp->shape()->getPointCount(); i++)
@@ -98,6 +101,7 @@ void RandomParam::addShapes(MgShapes* shapes)
             shape._shape.setRect2P(rect.leftTop(), rect.rightBottom());
             sp = shapes->addShape(shape);
             rectCount--;
+            ret++;
             
             setShapeProp(sp->context());
         }
@@ -111,6 +115,7 @@ void RandomParam::addShapes(MgShapes* shapes)
             MgShapeT<MgLine> shape;
 
             sp = shapes->addShape(shape);
+            ret++;
             setShapeProp(sp->context());
             sp->shape()->setPoint(0, Point2d(RandF(-1000, 1000), RandF(-1000, 1000)));
             sp->shape()->setPoint(1, Point2d(RandF(-1000, 1000), RandF(-1000, 1000)));
@@ -118,4 +123,6 @@ void RandomParam::addShapes(MgShapes* shapes)
 
         sp->shape()->update();
     }
+    
+    return ret;
 }

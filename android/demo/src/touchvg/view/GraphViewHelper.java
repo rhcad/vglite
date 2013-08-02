@@ -18,7 +18,7 @@ import android.content.Context;
 public class GraphViewHelper {
     private GraphView mView;
     
-    //! 默认构造函数，还未设置视图
+    //! 默认构造函数，还未设置视图(setView)
     public GraphViewHelper() {
     }
     
@@ -33,9 +33,14 @@ public class GraphViewHelper {
         return mView;
     }
     
-    //! 创建放大镜视图，并记下此视图
+    /**
+     * @brief 创建放大镜视图，并记下此视图
+     * @param context 视图上下文对象
+     * @param mainView 参照的主视图对象，如果为null则取本对象的视图或当前激活视图
+     * @return 创建的新视图对象
+     */
     public GraphView createMagnifierView(Context context, GraphView mainView) {
-        mView = new GraphView(context, mainView);
+        mView = new GraphView(context, mainView != null ? mainView : mView);
         return mView;
     }
     
@@ -55,13 +60,13 @@ public class GraphViewHelper {
     }
     
     //! 添加测试图形
-    public void addShapesForTest() {
-        mView.getCoreView().addShapesForTest();
+    public int addShapesForTest() {
+        return mView.getCoreView().addShapesForTest();
     }
     
     //! 放缩显示全部内容
-    public void zoomToExtent() {
-        mView.getCoreView().zoomToExtent();
+    public boolean zoomToExtent() {
+        return mView.getCoreView().zoomToExtent();
     }
     
     //! 返回图形总数

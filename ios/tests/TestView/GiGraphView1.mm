@@ -213,8 +213,8 @@ public:
 
 - (BOOL)savePng:(NSString *)filename
 {
-    [GiViewHelper saveToFile:[[filename stringByDeletingPathExtension]
-                              stringByAppendingPathExtension:@"vg"]];
+    [GiViewHelper saveToFile:self :[[filename stringByDeletingPathExtension]
+                                    stringByAppendingPathExtension:@"vg"]];
     return [super savePng:filename];
 }
 

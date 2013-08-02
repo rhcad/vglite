@@ -2016,14 +2016,18 @@ SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1clearCachedData(
 }
 
 
-SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1addShapesForTest(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jint JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1addShapesForTest(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
   GiCoreView *arg1 = (GiCoreView *) 0 ;
+  int result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(GiCoreView **)&jarg1; 
-  (arg1)->addShapesForTest();
+  result = (int)(arg1)->addShapesForTest();
+  jresult = (jint)result; 
+  return jresult;
 }
 
 
@@ -2078,14 +2082,18 @@ SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1saveShapes(J
 }
 
 
-SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1zoomToExtent(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1zoomToExtent(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
   GiCoreView *arg1 = (GiCoreView *) 0 ;
+  bool result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(GiCoreView **)&jarg1; 
-  (arg1)->zoomToExtent();
+  result = (bool)(arg1)->zoomToExtent();
+  jresult = (jboolean)result; 
+  return jresult;
 }
 
 

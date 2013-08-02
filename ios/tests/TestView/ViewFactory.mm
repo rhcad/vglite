@@ -46,28 +46,28 @@ static UIView* addGraphView(NSMutableArray *arr, NSUInteger &i, NSUInteger index
             v = [[GiGraphView1 alloc]initWithFrame:wrapview.bounds];
         }
         else {
-            v = [[GiGraphView2 alloc]initWithFrame:wrapview.bounds];
-            [GiViewHelper setView:v];
+            GiGraphView2 *v2 = [[GiGraphView2 alloc]initWithFrame:wrapview.bounds];
+            v = v2;
             
             if (type == 1) {
-                [GiViewHelper setCommand:@"splines"];
+                [GiViewHelper setCommand:v2 :@"splines"];
             }
             else if (type == 2) {
-                [GiViewHelper addShapesForTest];
-                [GiViewHelper setCommand:@"select"];
+                [GiViewHelper addShapesForTest:v2];
+                [GiViewHelper setCommand:v2 :@"select"];
             }
             else if (type == 3) {
-                [GiViewHelper setCommand:@"splines"];
-                [GiViewHelper fireGesture:1 state:0 x:786 y:434];
-                [GiViewHelper fireGesture:1 state:1 x:786 y:434];
-                [GiViewHelper fireGesture:1 state:2 x:828 y:444];
-                [GiViewHelper fireGesture:1 state:2 x:828 y:444];
-                [GiViewHelper fireGesture:1 state:3 x:828 y:444];
-                [GiViewHelper fireGesture:1 state:0 x:819 y:408];
-                [GiViewHelper fireGesture:1 state:1 x:819 y:408];
-                [GiViewHelper fireGesture:1 state:3 x:806 y:444];
-                [GiViewHelper setCommand:@"select"];
-                [GiViewHelper zoomToExtent];
+                [GiViewHelper setCommand:v2 :@"splines"];
+                [GiViewHelper fireGesture:v2 type:1 state:0 x:786 y:434];
+                [GiViewHelper fireGesture:v2 type:1 state:1 x:786 y:434];
+                [GiViewHelper fireGesture:v2 type:1 state:2 x:828 y:444];
+                [GiViewHelper fireGesture:v2 type:1 state:2 x:828 y:444];
+                [GiViewHelper fireGesture:v2 type:1 state:3 x:828 y:444];
+                [GiViewHelper fireGesture:v2 type:1 state:0 x:819 y:408];
+                [GiViewHelper fireGesture:v2 type:1 state:1 x:819 y:408];
+                [GiViewHelper fireGesture:v2 type:1 state:3 x:806 y:444];
+                [GiViewHelper setCommand:v2 :@"select"];
+                [GiViewHelper zoomToExtent:v2];
             }
         }
         [wrapview addSubview:v];

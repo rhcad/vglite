@@ -114,9 +114,6 @@ public:
     }
     
     bool dispatchGesture(GiGestureType gestureType, GiGestureState gestureState, CGPoint pt) {
-        static const NSString *gestureNames[] = { @"?", @"pan", @"tap", @"2tap", @"press", @"2move" };
-        NSLog(@"dispatchGesture(%@) state:%d x:%.0f y:%.0f", 
-              gestureNames[gestureType], gestureState, pt.x, pt.y);
         return _coreView->onGesture(this, gestureType, gestureState, pt.x, pt.y);
     }
     
@@ -132,10 +129,7 @@ public:
             pt2 = pt1;
         }
         
-        state = state < 0 ? sender.state : state;
-        NSLog(@"twoFingersMove: %d x1:%.0f y1:%.0f x2:%.0f y2:%.0f", 
-              state, pt1.x, pt1.y, pt2.x, pt2.y);
-        
+        state = state < 0 ? sender.state : state;        
         return _coreView->twoFingersMove(this, (GiGestureState)state, 
                                          pt1.x, pt1.y, pt2.x, pt2.y);
     }
@@ -192,6 +186,8 @@ public:
 
 @end
 
+static GiGraphView* _activeGraphView = nil;
+
 @implementation GiGraphView
 
 @synthesize panRecognizer, tapRecognizer, twoTapsRecognizer;
@@ -199,6 +195,8 @@ public:
 
 - (void)dealloc
 {
+    if (_activeGraphView == self)
+        _activeGraphView = nil;
     delete _adapter;
     [super dealloc];
 }
@@ -215,6 +213,7 @@ public:
         self.autoresizingMask = 0xFF;               // 自动适应大小
         _adapter = new GiViewAdapter(self, NULL);   // 将创建文档对象
         [self coreView]->createView(_adapter);
+        _activeGraphView = self;
     }
 }
 
@@ -234,6 +233,11 @@ public:
         [self coreView]->createMagnifierView(_adapter, [refView viewAdapter]);
     }
     return self;
+}
+
++ (GiGraphView *)activeView
+{
+    return _activeGraphView;
 }
 
 - (GiView *)viewAdapter
@@ -323,7 +327,6 @@ public:
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)recognizer
 {
     BOOL allow = YES;
-    NSLog(@"gestureRecognizerShouldBegin: %@", [[recognizer description] substringToIndex:16]);
     
     // 将状态为 UIGestureRecognizerStatePossible 的手势传递到内核，看是否允许此手势
     //
@@ -354,9 +357,7 @@ public:
 {
     UITouch *touch = [touches anyObject];
     CGPoint pt = [touch locationInView:touch.view];
-    
-    NSLog(@"touchesBegan: %d touches", (int)[touches count]);
-    
+        
     _points.clear();
     if (_timeBegan < 0.1) {                             // 是第一个触点
         _timeBegan = touch.timestamp;                   // 记下第一个触点的时刻
@@ -371,6 +372,7 @@ public:
         _adapter->dispatchGesture(kGiGesturePan, kGiGestureCancel, pt);
     }
     
+    _activeGraphView = self;
     [super touchesBegan:touches withEvent:event];
 }
 
@@ -379,9 +381,7 @@ public:
 {
     UITouch *touch = [touches anyObject];
     CGPoint pt = [touch locationInView:touch.view];
-    
-    NSLog(@"touchesMoved: %d touches", (int)_points.size());
-    
+        
     if ([touches count] == 1 && !_points.empty()) {
         if (_tapCount == 1) {
             _adapter->dispatchGesture(kGiGestureTap, kGiGestureEnded, _tapPoint);
@@ -406,7 +406,6 @@ public:
     UITouch *touch = [touches anyObject];
     CGPoint pt = [touch locationInView:touch.view];
     
-    NSLog(@"touchesEnded: %d touches", (int)_points.size());
     if (!_points.empty()) {         // 手势未生效，模拟分发手势
         if ([touches count] != 1) {
             pt = _points.back();
@@ -428,9 +427,7 @@ public:
 
 // 手势生效时会触发本事件
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    NSLog(@"touchesCancelled tapCount:%d", _tapCount);
-    
+{    
     if (!_points.empty() && _tapCount == 0) {
         if (_moved) {
             _adapter->dispatchGesture(kGiGesturePan, kGiGestureEnded, _points.back());
@@ -451,8 +448,6 @@ public:
 
 - (BOOL)gestureCheck:(UIGestureRecognizer*)sender
 {
-    NSLog(@"gestureCheck: %@ state:%d touches:%d", [[sender description] substringToIndex:16], 
-          sender.state, (int)[sender numberOfTouches]);
     if (_tapCount == 1 && sender != tapRecognizer && sender != twoTapsRecognizer) {
         _adapter->dispatchGesture(kGiGestureTap, kGiGestureEnded, _tapPoint);
         _tapCount = 0;
@@ -564,8 +559,6 @@ public:
 
 - (void)delayTap
 {
-    NSLog(@"delayTap: tapCount:%d points:%d", _tapCount, (int)_points.size());
-    
     if (_tapCount == 1) {
         _adapter->dispatchGesture(kGiGestureTap, kGiGestureEnded, _tapPoint);
         _tapCount = 0;

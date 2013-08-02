@@ -70,7 +70,7 @@ public:
     void clearCachedData();
     
     //! 添加测试图形
-    void addShapesForTest();
+    int addShapesForTest();
     
     //! 返回图形总数
     int getShapeCount();
@@ -82,7 +82,7 @@ public:
     bool saveShapes(MgStorage* s);
     
     //! 放缩显示全部内容
-    void zoomToExtent();
+    bool zoomToExtent();
 
 private:
     GiCoreViewImpl* impl;

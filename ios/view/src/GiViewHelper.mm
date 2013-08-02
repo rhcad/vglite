@@ -7,89 +7,73 @@
 #include "gicoreview.h"
 #include "mgjsonstorage.h"
 
-static GiGraphView  *_curview = nil;
-
 @implementation GiViewHelper
 
-+ (UIView *)createGraphView:(CGRect)frame {
-    _curview = [[GiGraphView alloc]initWithFrame:frame];
-    return _curview;
++ (GiGraphView *)createGraphView:(CGRect)frame {
+    return [[GiGraphView alloc]initWithFrame:frame];
 }
 
-+ (UIView *)createMagnifierView:(CGRect)frame refView:(UIView *)refView {
-    if (refView) {
-        [GiViewHelper setView:refView];
-    }
-    _curview = _curview ? [[GiGraphView alloc]initWithFrame:frame refView:_curview] : nil;
-    return _curview;
++ (GiGraphView *)createMagnifierView:(CGRect)frame refView:(GiGraphView *)refView {
+    refView = refView ? refView : [GiGraphView activeView];
+    return [[GiGraphView alloc]initWithFrame:frame refView:refView];
 }
 
-+ (void)setView:(UIView *)view {
-    _curview = [view isKindOfClass:[GiGraphView class]] ? (GiGraphView *)view : nil;
-}
-
-+ (NSString *)command {
-    return _curview ? [NSString stringWithCString:[_curview coreView]->command()
++ (NSString *)command:(GiGraphView *)v {
+    return v ? [NSString stringWithCString:[v coreView]->command()
                                       encoding:NSUTF8StringEncoding] : nil;
 }
 
-+ (BOOL)setCommand:(NSString *)name {
-    return _curview && [_curview coreView]->setCommand([_curview viewAdapter], [name UTF8String]);
++ (BOOL)setCommand:(GiGraphView *)v :(NSString *)name {
+    return v && [v coreView]->setCommand([v viewAdapter], [name UTF8String]);
 }
 
-+ (UIImage *)snapshot {
-    return [_curview snapshot];
++ (UIImage *)snapshot:(GiGraphView *)v {
+    return [v snapshot];
 }
 
-+ (BOOL)savePng:(NSString *)filename {
-    return _curview && [_curview savePng:filename];
++ (BOOL)savePng:(GiGraphView *)v :(NSString *)filename {
+    return v && [v savePng:filename];
 }
 
-+ (void)addShapesForTest {
-    if (_curview) {
-        [_curview coreView]->addShapesForTest();
-    }
++ (int)addShapesForTest:(GiGraphView *)v {
+    return v ? [v coreView]->addShapesForTest() : 0;
 }
 
-+ (void)fireGesture:(int)type state:(int)state x:(float)x y:(float)y {
-    if (_curview) {
-        [_curview coreView]->onGesture([_curview viewAdapter], (GiGestureType)type, 
-                                    (GiGestureState)state, x, y);
-    }
++ (BOOL)fireGesture:(GiGraphView *)v type:(int)type state:(int)state x:(float)x y:(float)y {
+    return v && [v coreView]->onGesture([v viewAdapter], (GiGestureType)type, 
+                                        (GiGestureState)state, x, y);
 }
 
-+ (void)zoomToExtent {
-    if (_curview) {
-        [_curview coreView]->zoomToExtent();
-    }
++ (BOOL)zoomToExtent:(GiGraphView *)v {
+    return v && [v coreView]->zoomToExtent();
 }
 
-+ (NSString *)content {
++ (NSString *)content:(GiGraphView *)v {
     MgJsonStorage s;
     const char* content = "";
     
-    if (_curview && [_curview coreView]->saveShapes(s.storageForWrite())) {
+    if (v && [v coreView]->saveShapes(s.storageForWrite())) {
         content = s.stringify(true);
     }
     
     return [NSString stringWithCString:content encoding:NSUTF8StringEncoding];
 }
 
-+ (BOOL)setContent:(NSString *)content {
++ (BOOL)setContent:(GiGraphView *)v :(NSString *)content {
     MgJsonStorage s;
-    return _curview && [_curview coreView]->loadShapes(s.storageForRead([content UTF8String]));
+    return v && [v coreView]->loadShapes(s.storageForRead([content UTF8String]));
 }
 
-+ (BOOL)loadFromFile:(NSString *)vgfile {
++ (BOOL)loadFromFile:(GiGraphView *)v :(NSString *)vgfile {
     NSString *content = [NSString stringWithContentsOfFile:vgfile
                                                   encoding:NSUTF8StringEncoding error:nil];
-    return [GiViewHelper setContent:content];
+    return [GiViewHelper setContent:v :content];
 }
 
-+ (BOOL)saveToFile:(NSString *)vgfile {
++ (BOOL)saveToFile:(GiGraphView *)v :(NSString *)vgfile {
     MgJsonStorage s;
     
-    if (_curview && [_curview coreView]->saveShapes(s.storageForWrite())) {
+    if (v && [v coreView]->saveShapes(s.storageForWrite())) {
         const char* content = s.stringify(true);
         NSData* data = [NSData dataWithBytesNoCopy:(void*)content length:strlen(content)];
         

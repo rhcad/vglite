@@ -99,8 +99,8 @@ public class GiCoreView {
     touchvgJNI.GiCoreView_clearCachedData(swigCPtr, this);
   }
 
-  public void addShapesForTest() {
-    touchvgJNI.GiCoreView_addShapesForTest(swigCPtr, this);
+  public int addShapesForTest() {
+    return touchvgJNI.GiCoreView_addShapesForTest(swigCPtr, this);
   }
 
   public int getShapeCount() {
@@ -115,8 +115,8 @@ public class GiCoreView {
     return touchvgJNI.GiCoreView_saveShapes(swigCPtr, this, MgStorage.getCPtr(s), s);
   }
 
-  public void zoomToExtent() {
-    touchvgJNI.GiCoreView_zoomToExtent(swigCPtr, this);
+  public boolean zoomToExtent() {
+    return touchvgJNI.GiCoreView_zoomToExtent(swigCPtr, this);
   }
 
 }

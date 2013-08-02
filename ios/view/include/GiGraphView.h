@@ -26,6 +26,7 @@ struct MgStorage;
 //! 初始化放大镜视图. refView为nil或调用 initWithFrame:(CGRect)frame 函数则创建普通绘图视图
 - (id)initWithFrame:(CGRect)frame refView:(GiGraphView *)refView;
 
++ (GiGraphView *)activeView;                //!< 得到当前激活的绘图视图
 - (GiView *)viewAdapter;                    //!< 得到视图适配器对象
 - (GiCoreView *)coreView;                   //!< 得到跨平台内核视图
 

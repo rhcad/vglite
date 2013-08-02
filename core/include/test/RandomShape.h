@@ -6,24 +6,24 @@
 
 struct RandomParam
 {
-    long lineCount;
-    long rectCount;
-    long arcCount;
-    long curveCount;
+    int lineCount;
+    int rectCount;
+    int arcCount;
+    int curveCount;
     bool randomLineStyle;
     
     static void init();
 
-    RandomParam(long curve = 10) : lineCount(10), rectCount(0), arcCount(10)
+    RandomParam(int curve = 10) : lineCount(10), rectCount(0), arcCount(10)
     , curveCount(curve), randomLineStyle(true) {}
 
-    long getShapeCount() const { return lineCount + rectCount + arcCount + curveCount; }
-    void addShapes(MgShapes* shapes);
+    int getShapeCount() const { return lineCount + rectCount + arcCount + curveCount; }
+    int addShapes(MgShapes* shapes);
     void setShapeProp(GiContext* context);
 
     static float RandF(float dMin, float dMax);
-    static long RandInt(long nMin, long nMax);
-    static unsigned char RandUInt8(long nMin, long nMax);
+    static int RandInt(int nMin, int nMax);
+    static unsigned char RandUInt8(int nMin, int nMax);
 };
 
 #endif // _TEST_RANDOMSHAPE_H
