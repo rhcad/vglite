@@ -74,7 +74,7 @@ public class GraphSfView extends SurfaceView {
         });
     }
     
-    public GiCoreView getCoreView() {
+    public GiCoreView coreView() {
         return mCoreView;
     }
     

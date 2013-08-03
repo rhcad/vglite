@@ -67,7 +67,7 @@ public class GraphViewCached extends View {
         });
     }
     
-    public GiCoreView getCoreView() {
+    public GiCoreView coreView() {
         return mCoreView;
     }
     

@@ -51,33 +51,33 @@ public class GraphViewHelper {
     
     //! 得到当前命令名称
     public String command() {
-        return mView.getCoreView().command();
+        return mView.coreView().command();
     }
     
     //! 启动指定名称的命令
     public boolean setCommand(String name) {
-        return mView.getCoreView().setCommand(mView.getViewAdapter(), name);
+        return mView.coreView().setCommand(mView.viewAdapter(), name);
     }
     
     //! 添加测试图形
     public int addShapesForTest() {
-        return mView.getCoreView().addShapesForTest();
+        return mView.coreView().addShapesForTest();
     }
     
     //! 放缩显示全部内容
     public boolean zoomToExtent() {
-        return mView.getCoreView().zoomToExtent();
+        return mView.coreView().zoomToExtent();
     }
     
     //! 返回图形总数
     public int getShapeCount() {
-        return mView.getCoreView().getShapeCount();
+        return mView.coreView().getShapeCount();
     }
     
     //! 保存图形到JSON内容
     public String getContent() {
         final MgJsonStorage s = new MgJsonStorage();
-        mView.getCoreView().saveShapes(s.storageForWrite());
+        mView.coreView().saveShapes(s.storageForWrite());
         final String content = s.stringify(true);
         s.delete();
         return content;
@@ -86,7 +86,7 @@ public class GraphViewHelper {
     //! 从JSON内容中加载图形
     public boolean setContent(String content) {
         final MgJsonStorage s = new MgJsonStorage();
-        boolean ret = mView.getCoreView().loadShapes(s.storageForRead(content));
+        boolean ret = mView.coreView().loadShapes(s.storageForRead(content));
         s.delete();
         return ret;
     }
@@ -95,7 +95,7 @@ public class GraphViewHelper {
     public boolean loadFromFile(String vgfile) {
         final MgJsonStorage s = new MgJsonStorage();
         final String content = readFile(vgfile);
-        boolean ret = mView.getCoreView().loadShapes(s.storageForRead(content));
+        boolean ret = mView.coreView().loadShapes(s.storageForRead(content));
         s.delete();
         return ret;
     }

@@ -48,6 +48,10 @@
     return v && [v coreView]->zoomToExtent();
 }
 
++ (int)getShapeCount:(GiGraphView *)v {
+    return v ? [v coreView]->getShapeCount() : 0;
+}
+
 + (NSString *)content:(GiGraphView *)v {
     MgJsonStorage s;
     const char* content = "";

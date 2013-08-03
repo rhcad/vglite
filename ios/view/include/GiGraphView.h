@@ -33,5 +33,6 @@ struct MgStorage;
 - (UIImage *)snapshot;                      //!< 得到静态图形的快照，自动释放
 - (BOOL)savePng:(NSString *)filename;       //!< 保存静态图形的快照到PNG文件
 - (void)clearCachedData;                    //!< 释放临时数据内存
+- (void)setGestureEnable:(BOOL)enabled;     //!< 设置是否允许触摸交互
 
 @end

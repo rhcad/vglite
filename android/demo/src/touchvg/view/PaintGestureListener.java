@@ -38,8 +38,8 @@ public class PaintGestureListener extends SimpleOnGestureListener {
         mAdapter = null;
     }
     
-    public void setGestureEnable(boolean enable) {
-        if (!enable) {
+    public void setGestureEnable(boolean enabled) {
+        if (!enabled) {
         	if (mMoving == MOVING) {
         		mMoving = STOPPED;
         		onMove(GiGestureState.kGiGestureCancel, mFingerCount, 0, 0, 0, 0);

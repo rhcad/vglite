@@ -166,6 +166,10 @@
 					RelativePath="..\..\android\demo\src\touchvg\view\GraphViewHelper.java"
 					>
 				</File>
+				<File
+					RelativePath="..\..\android\demo\src\touchvg\view\PaintGestureListener.java"
+					>
+				</File>
 			</Filter>
 		</Filter>
 	</Files>

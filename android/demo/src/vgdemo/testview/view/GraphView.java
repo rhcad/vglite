@@ -65,7 +65,7 @@ public class GraphView extends View {
         });
     }
     
-    public GiCoreView getCoreView() {
+    public GiCoreView coreView() {
         return mCoreView;
     }
     

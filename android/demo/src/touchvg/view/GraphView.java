@@ -42,8 +42,8 @@ public class GraphView extends View {
         super(context);
         createAdapter(context);
         mainView = mainView != null ? mainView : mActiveView;
-        mCoreView = new GiCoreView(mainView.getCoreView());
-        mCoreView.createMagnifierView(mViewAdapter, mainView.getViewAdapter());
+        mCoreView = new GiCoreView(mainView.coreView());
+        mCoreView.createMagnifierView(mViewAdapter, mainView.viewAdapter());
         initView(context);
     }
     
@@ -74,12 +74,12 @@ public class GraphView extends View {
     }
 
     //! 返回内核视图分发器对象
-    public GiCoreView getCoreView() {
+    public GiCoreView coreView() {
         return mCoreView;
     }
 
     //! 返回视图回调适配器对象
-    public GiView getViewAdapter() {
+    public GiView viewAdapter() {
         return mViewAdapter;
     }
 
@@ -93,9 +93,9 @@ public class GraphView extends View {
     }
 
     //! 设置是否允许触摸交互
-    public void setGestureEnable(boolean enable) {
-        mGestureEnable = enable;
-        mGestureListener.setGestureEnable(enable);
+    public void setGestureEnable(boolean enabled) {
+        mGestureEnable = enabled;
+        mGestureListener.setGestureEnable(enabled);
     }
 
     @Override
