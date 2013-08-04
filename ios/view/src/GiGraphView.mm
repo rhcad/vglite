@@ -323,6 +323,18 @@ static GiGraphView* _activeGraphView = nil;
     }
 }
 
+- (void)setGestureEnable:(BOOL)enabled
+{
+    UIGestureRecognizer *recognizers[] = {
+        pinchRecognizer, rotationRecognizer, panRecognizer, 
+        tapRecognizer, twoTapsRecognizer, pressRecognizer, nil
+    };
+    for (int i = 0; recognizers[i]; i++) {
+        recognizers[i].enabled = enabled;
+    }
+    self.userInteractionEnabled = enabled;
+}
+
 // 手势即将开始，在 touchesBegan 后发生，即将调用本类的相应手势响应函数
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)recognizer
 {
