@@ -90,29 +90,32 @@ public:
                             const Box2d&, const MgShape*) { return false; }
     
     void shapeAdded(MgShape* sp) {
-        if (sp && (newids.empty() || newids.back() != 0)) {
-            newids.push_back(sp->getID());
-            regenAppend();
+        if (sp && newids.empty()) {
+            newids.push_back(sp->getID());      // 记下新图形的ID
+            regenAppend();                      // 通知视图获取快照并增量重绘
         }
-        else {
+        else if (sp && newids.back() != 0) {    // 已经regenAppend，但视图还未重绘
+            newids.push_back(sp->getID());      // 记下更多的ID
+        }
+        else {                                  // 已经regenAppend并增量重绘
             regenAll();
         }
     }
     
     void redraw() {
-        CALL_VIEW(deviceView()->redraw());
+        CALL_VIEW(deviceView()->redraw());                  // 将调用dynDraw
     }
     
     void regenAll() {
         newids.clear();
         for (int i = 0; i < _doc->getViewCount(); i++) {
-            _doc->getView(i)->deviceView()->regenAll();
+            _doc->getView(i)->deviceView()->regenAll();     // 将调用drawAll
         }
     }
     
     void regenAppend() {
         for (int i = 0; i < _doc->getViewCount(); i++) {
-            _doc->getView(i)->deviceView()->regenAppend();
+            _doc->getView(i)->deviceView()->regenAppend();  // 将调用drawAppend
         }
     }
     
@@ -122,6 +125,7 @@ public:
         }
     }
     
+    void checkDrawAppendEnded();
     bool dynDraw(const MgMotion& motion, GiGraphics& gs);
     bool gestureToCommand(const MgMotion& motion);
 };
@@ -210,6 +214,20 @@ void GiCoreView::setScreenDpi(int dpi)
     }
 }
 
+void GiCoreViewImpl::checkDrawAppendEnded()
+{
+    int n = 0;
+    
+    for (size_t i = 0; i < newids.size(); i++) {
+        if (newids[i] == 0) {
+            n++;
+        }
+    }
+    if (n >= _doc->getViewCount()) {
+        newids.clear();
+    }
+}
+
 int GiCoreView::drawAll(GiView* view, GiCanvas* canvas)
 {
     GcBaseView* aview = impl->_doc->findView(view);
@@ -219,6 +237,10 @@ int GiCoreView::drawAll(GiView* view, GiCanvas* canvas)
     if (aview && gs->beginPaint(canvas)) {
         n = aview->drawAll(*gs);
         gs->endPaint();
+        if (!impl->newids.empty()) {
+            impl->newids.push_back(0);
+        }
+        impl->checkDrawAppendEnded();
     }
     
     return n;
@@ -235,6 +257,7 @@ bool GiCoreView::drawAppend(GiView* view, GiCanvas* canvas)
         impl->newids.push_back(0);
         n = aview->drawAppend(&impl->newids.front(), *gs);
         gs->endPaint();
+        impl->checkDrawAppendEnded();
     }
 
     return n > 0;
