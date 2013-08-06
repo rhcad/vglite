@@ -165,7 +165,6 @@ public:
 #pragma mark - GiBaseView implementation
 
 @interface GiGraphView()<UIGestureRecognizerDelegate> {
-    NSTimeInterval          _timeBegan;     //!< 开始触摸时的时刻
     std::vector<CGPoint>    _points;        //!< 手势生效前的轨迹
     CGPoint                 _startPt;       //!< 开始位置
     CGPoint                 _lastPt;        //!< 上次位置
@@ -173,6 +172,7 @@ public:
     int                     _tapCount;      //!< 点击次数
     int                     _touchCount;    //!< 触点个数
     BOOL                    _moved;         //!< 是否已移动触点
+    UIGestureRecognizerState    _state;     //!< 当前手势状态
 }
 
 - (void)setupGestureRecognizers;
@@ -183,6 +183,8 @@ public:
 - (BOOL)pinchHandler:(UIPinchGestureRecognizer *)sender;
 - (BOOL)rotationHandler:(UIRotationGestureRecognizer *)sender;
 - (void)delayTap;
+- (void)dispatchTapPending;
+- (BOOL)gestureNotRecognized;
 
 @end
 
@@ -270,12 +272,11 @@ static GiGraphView* _activeGraphView = nil;
 - (void)drawRect:(CGRect)rect
 {
     GiCoreView *coreView = _adapter->coreView();
-    CGContextRef context = UIGraphicsGetCurrentContext();
     GiQuartzCanvas canvas;
     
     coreView->onSize(_adapter, self.bounds.size.width, self.bounds.size.height);
     
-    if (canvas.beginPaint(context)) {
+    if (canvas.beginPaint(UIGraphicsGetCurrentContext())) {
         if (!_adapter->drawAppend(&canvas)) {
             coreView->drawAll(_adapter, &canvas);
         }
@@ -369,22 +370,19 @@ static GiGraphView* _activeGraphView = nil;
 {
     UITouch *touch = [touches anyObject];
     CGPoint pt = [touch locationInView:touch.view];
+    
+    if ([self gestureNotRecognized]) {
+        _activeGraphView = self;                            // 设置为当前激活的视图
+        _touchCount += [touches count];                     // 累计触点
+        _moved = NO;
+        _points.clear();                                    // 清除触摸轨迹
         
-    _points.clear();
-    if (_timeBegan < 0.1) {                             // 是第一个触点
-        _timeBegan = touch.timestamp;                   // 记下第一个触点的时刻
-        if ([touches count] == 1) {
-            _startPt = pt;
-            _points.push_back(pt);                      // 记下起始点
+        if (_touchCount == 1) {                             // 是第一个触点
+            _startPt = pt;                                  // 记下起始点
+            _points.push_back(pt);
         }
-        _moved = NO;
-    }
-    else if (_moved) {
-        _moved = NO;
-        _adapter->dispatchGesture(kGiGesturePan, kGiGestureCancel, pt);
     }
     
-    _activeGraphView = self;
     [super touchesBegan:touches withEvent:event];
 }
 
@@ -393,20 +391,9 @@ static GiGraphView* _activeGraphView = nil;
 {
     UITouch *touch = [touches anyObject];
     CGPoint pt = [touch locationInView:touch.view];
-        
-    if ([touches count] == 1 && !_points.empty()) {
-        if (_tapCount == 1) {
-            _adapter->dispatchGesture(kGiGestureTap, kGiGestureEnded, _tapPoint);
-            _tapCount = 0;
-        }
-        
-        _points.push_back(pt);
-        if (!_moved) {                                  // 分发拖动开始
-            _moved = _adapter->dispatchGesture(kGiGesturePan, kGiGestureBegan, _startPt);
-        }
-        if (_moved) {
-            _adapter->dispatchGesture(kGiGesturePan, kGiGestureMoved, pt);  // 分发拖动
-        }
+    
+    if ([self gestureNotRecognized] && !_points.empty()) {
+        _points.push_back(pt);                          // 记录轨迹
     }
     
     [super touchesMoved:touches withEvent:event];
@@ -418,51 +405,47 @@ static GiGraphView* _activeGraphView = nil;
     UITouch *touch = [touches anyObject];
     CGPoint pt = [touch locationInView:touch.view];
     
-    if (!_points.empty()) {         // 手势未生效，模拟分发手势
-        if ([touches count] != 1) {
-            pt = _points.back();
-        }
-        if (_moved) {
-            _adapter->dispatchGesture(kGiGesturePan, kGiGestureEnded, pt);
-        }
-        else {
-            _adapter->dispatchGesture(kGiGestureTap, kGiGestureEnded, pt);
+    if ([self gestureNotRecognized]) {
+        _touchCount -= [touches count];
+        
+        if (!_points.empty()) {                             // 手势未生效，模拟分发手势
+            [self dispatchTapPending];                      // 分发挂起的单击手势
+            
+            if ([touches count] != 1) {
+                pt = _points.back();
+            }
+            if (_points.size() > 1 || !CGPointEqualToPoint(_startPt, pt)) {
+                if (_adapter->dispatchGesture(kGiGesturePan, kGiGestureBegan, _startPt)) {
+                    for (size_t i = 1; i < _points.size(); i++) {
+                        _adapter->dispatchGesture(kGiGesturePan, kGiGestureMoved, _points[i]);
+                    }
+                    _adapter->dispatchGesture(kGiGesturePan, kGiGestureEnded, pt);
+                }
+            }
+            else {
+                _adapter->dispatchGesture(kGiGestureTap, kGiGestureEnded, pt);
+            }
+            _points.clear();
+            _moved = NO;
         }
     }
-    
-    _timeBegan = 0;
-    _points.clear();
-    _moved = NO;
     
     [super touchesEnded:touches withEvent:event];
 }
 
-// 手势生效时会触发本事件
-- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
-{    
-    if (!_points.empty() && _tapCount == 0) {
-        if (_moved) {
-            _adapter->dispatchGesture(kGiGesturePan, kGiGestureEnded, _points.back());
-        }
-        else {
-            _adapter->dispatchGesture(kGiGestureTap, kGiGestureEnded, _points.back());
-        }
-    }
-    if (_tapCount == 0) {
-        _points.clear();
-    }
-    _timeBegan = 0;
-    
-    [super touchesCancelled:touches withEvent:event];
+- (BOOL)gestureNotRecognized
+{
+    return (_state < UIGestureRecognizerStateBegan
+            || _state > UIGestureRecognizerStateEnded);
 }
 
 #pragma mark - GiBaseView gesture handlers
 
 - (BOOL)gestureCheck:(UIGestureRecognizer*)sender
 {
-    if (_tapCount == 1 && sender != tapRecognizer && sender != twoTapsRecognizer) {
-        _adapter->dispatchGesture(kGiGestureTap, kGiGestureEnded, _tapPoint);
-        _tapCount = 0;
+    _state = sender.state;
+    if (sender != tapRecognizer && sender != twoTapsRecognizer) {
+        [self dispatchTapPending];                  // 分发挂起的单击手势
     }
     return YES;
 }
@@ -476,11 +459,10 @@ static GiGraphView* _activeGraphView = nil;
             _points.clear();
         }
     }
-    else if (sender.state == UIGestureRecognizerStateBegan) {
+    if (sender.state == UIGestureRecognizerStateBegan) {
         _points.clear();
     }
     else if (sender.state >= UIGestureRecognizerStateEnded) {
-        _timeBegan = 0;
         _touchCount = 0;
         _moved = NO;
         _points.clear();
@@ -503,15 +485,10 @@ static GiGraphView* _activeGraphView = nil;
     if (sender.state == UIGestureRecognizerStatePossible) {
         _touchCount = touchCount;
         return (touchCount > 1 ? _adapter->twoFingersMove(sender)
-                : (_moved || _adapter->dispatchGesture(kGiGesturePan, kGiGesturePossible, _startPt)));
-    }
-    // 在 touchesMoved 中已经分发了开始状态，就转为移动状态分发
-    if (sender.state <= UIGestureRecognizerStateChanged && _moved && 1 == _touchCount) {
-        _lastPt = pt;
-        ret = _adapter->dispatchGesture(kGiGesturePan, kGiGestureMoved, pt);
+                : _adapter->dispatchGesture(kGiGesturePan, kGiGesturePossible, _startPt));
     }
     // 切换单指与双指模式，就结束前一模式
-    else if (_touchCount != touchCount
+    if (_touchCount != touchCount
         && sender.state == UIGestureRecognizerStateChanged) {
         if (_moved && _touchCount > 0) {
             _moved = NO;
@@ -525,6 +502,15 @@ static GiGraphView* _activeGraphView = nil;
         _touchCount = touchCount;
     }
     else {
+        if (_points.size() > 1 || !CGPointEqualToPoint(_startPt, pt)) {
+            if (_adapter->dispatchGesture(kGiGesturePan, kGiGestureBegan, _startPt)) {
+                for (size_t i = 1; i < _points.size(); i++) {
+                    _adapter->dispatchGesture(kGiGesturePan, kGiGestureMoved, _points[i]);
+                }
+                _adapter->dispatchGesture(kGiGesturePan, kGiGestureEnded, pt);
+            }
+        }
+        
         GiGestureState state = (GiGestureState)sender.state;
         
         if (!_moved && sender.state <= UIGestureRecognizerStateChanged) {
@@ -579,6 +565,15 @@ static GiGraphView* _activeGraphView = nil;
             _moved = NO;
             _points.clear();
         }
+    }
+}
+
+- (void)dispatchTapPending
+{
+    if (_tapCount == 1) {                           // 单击还未分发
+        _tapCount = 0;
+        _adapter->dispatchGesture(kGiGestureTap, kGiGestureEnded, _tapPoint);
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(delayTap) object:nil];
     }
 }
 
