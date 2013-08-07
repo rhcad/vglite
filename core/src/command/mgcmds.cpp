@@ -99,7 +99,7 @@ MgShape* mgAddImageShape(const MgMotion* sender, const char* name, float width, 
 //! 返回选择包络框，显示坐标
 void mgGetBoundingViewBox(Box2d& box, const MgMotion* sender)
 {
-    MgCommand* cmd = sender->cmds()->getCommand(sender->view, false);
+    MgCommand* cmd = sender->cmds()->getCommand();
     Box2d selbox;
     
     if (cmd && strcmp(cmd->getName(), MgCmdSelect::Name()) == 0) {

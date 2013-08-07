@@ -100,11 +100,10 @@ struct MgCmdManager {
     virtual void release() = 0;                             //!< 销毁管理器
     
     virtual const char* getCommandName() = 0;               //!< 得到当前命令名称
-    virtual MgCommand* getCommand(MgView* view, bool forTouch) = 0;    //!< 得到当前命令
+    virtual MgCommand* getCommand() = 0;                    //!< 得到当前命令
     virtual bool setCommand(const MgMotion* sender, const char* name) = 0;  //!< 启动命令
     virtual bool cancel(const MgMotion* sender) = 0;        //!< 取消当前命令
     virtual void unloadCommands() = 0;                      //!< 退出时卸载命令
-    virtual bool draw(const MgMotion* sender, GiGraphics* gs) = 0;  //!< 绘制动态图形
     
     //! 得到当前选择的图形
     /*!

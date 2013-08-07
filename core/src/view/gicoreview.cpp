@@ -126,7 +126,7 @@ public:
     }
     
     void checkDrawAppendEnded();
-    bool dynDraw(const MgMotion& motion, GiGraphics& gs);
+    bool drawCommand(GcBaseView* view, const MgMotion& motion, GiGraphics& gs);
     bool gestureToCommand(const MgMotion& motion);
 };
 
@@ -269,7 +269,7 @@ void GiCoreView::dynDraw(GiView* view, GiCanvas* canvas)
     GiGraphics* gs = aview->graph();
 
     if (aview && gs->beginPaint(canvas)) {
-        impl->dynDraw(impl->motion, *gs);
+        impl->drawCommand(aview, impl->motion, *gs);
         aview->dynDraw(impl->motion, *gs);
         gs->endPaint();
     }
@@ -284,7 +284,7 @@ void GiCoreView::onSize(GiView* view, int w, int h)
 }
 
 bool GiCoreView::onGesture(GiView* view, GiGestureType gestureType,
-                           GiGestureState gestureState, float x, float y)
+                           GiGestureState gestureState, float x, float y, bool switchGesture)
 {
     GcBaseView* aview = impl->_doc->findView(view);
     bool ret = false;
@@ -293,6 +293,8 @@ bool GiCoreView::onGesture(GiView* view, GiGestureType gestureType,
         impl->setView(aview);
         impl->motion.gestureType = gestureType;
         impl->motion.gestureState = (MgGestureState)gestureState;
+        impl->motion.pressDrag = (gestureType == kGiGesturePress && gestureState < kGiGestureEnded);
+        impl->motion.switchGesture = switchGesture;
         impl->motion.point.set(x, y);
         impl->motion.pointM = impl->motion.point * aview->xform()->displayToModel();
         impl->motion.point2 = impl->motion.point;
@@ -305,9 +307,6 @@ bool GiCoreView::onGesture(GiView* view, GiGestureType gestureType,
             impl->motion.lastPtM = impl->motion.pointM;
             impl->motion.startPt2 = impl->motion.point;
             impl->motion.startPt2M = impl->motion.pointM;
-        }
-        
-        if (gestureState <= kGiGestureBegan) {
             impl->gestureHandler = (impl->gestureToCommand(impl->motion) ? 1
                                     : (aview->onGesture(impl->motion) ? 2 : 0));
         }
@@ -327,7 +326,7 @@ bool GiCoreView::onGesture(GiView* view, GiGestureType gestureType,
 }
 
 bool GiCoreView::twoFingersMove(GiView* view, GiGestureState gestureState,
-                                float x1, float y1, float x2, float y2)
+                                float x1, float y1, float x2, float y2, bool switchGesture)
 {
     GcBaseView* aview = impl->_doc->findView(view);
     bool ret = false;
@@ -336,6 +335,8 @@ bool GiCoreView::twoFingersMove(GiView* view, GiGestureState gestureState,
         impl->setView(aview);
         impl->motion.gestureType = kGiTwoFingersMove;
         impl->motion.gestureState = (MgGestureState)gestureState;
+        impl->motion.pressDrag = false;
+        impl->motion.switchGesture = switchGesture;
         impl->motion.point.set(x1, y1);
         impl->motion.pointM = impl->motion.point * aview->xform()->displayToModel();
         impl->motion.point2.set(x2, y2);
@@ -348,9 +349,6 @@ bool GiCoreView::twoFingersMove(GiView* view, GiGestureState gestureState,
             impl->motion.lastPtM = impl->motion.pointM;
             impl->motion.startPt2 = impl->motion.point2;
             impl->motion.startPt2M = impl->motion.point2M;
-        }
-
-        if (gestureState <= kGiGestureBegan) {
             impl->gestureHandler = (impl->gestureToCommand(impl->motion) ? 1
                                     : (aview->twoFingersMove(impl->motion) ? 2 : 0));
         }
@@ -424,46 +422,48 @@ bool GiCoreView::zoomToExtent()
     return ret;
 }
 
-bool GiCoreViewImpl::dynDraw(const MgMotion& motion, GiGraphics& gs)
+bool GiCoreViewImpl::drawCommand(GcBaseView* view, const MgMotion& motion, GiGraphics& gs)
 {
-    return _cmds->draw(&motion, &gs);
+    if (view == curview) {
+        MgCommand* cmd = _cmds->getCommand();
+        return cmd && cmd->draw(&motion, &gs);
+    }
+    return false;
 }
 
 bool GiCoreViewImpl::gestureToCommand(const MgMotion& motion)
 {
-    bool forTouch = (motion.gestureState >= kMgGestureBegan
-                     && motion.gestureState <= kMgGestureEnded);
-    MgCommand* cmd = _cmds->getCommand(motion.view, forTouch);
+    MgCommand* cmd = _cmds->getCommand();
 
-    if (motion.gestureState == kMgGestureCancel) {
+    if (motion.gestureState == kMgGestureCancel || !cmd) {
         return cmd && cmd->cancel(&motion);
     }
-    if (!forTouch || !cmd) {    // kMgGesturePossible
-        return !!cmd;
+    if (motion.gestureState == kMgGesturePossible
+        && motion.gestureType != kGiTwoFingersMove
+        && motion.gestureType != kGiGesturePan) {
+        return true;
     }
 
-    switch (motion.gestureType)
-    {
-    case kGiGesturePan:
-        switch (motion.gestureState)
-        {
-        case kMgGestureBegan:
-            return cmd->touchBegan(&motion);
-        case kMgGestureMoved:
-            return cmd->touchMoved(&motion);
-        case kMgGestureEnded:
-        default:
-            return cmd->touchEnded(&motion);
-        }
-        break;
-    case kGiGestureTap:
-        return cmd->click(&motion);
-    case kGiGestureDblTap:
-        return cmd->doubleClick(&motion);
-    case kGiGesturePress:
-        return cmd->longPress(&motion);
-    case kGiTwoFingersMove:
-        return cmd->twoFingersMove(&motion);
+    switch (motion.gestureType) {
+        case kGiTwoFingersMove:
+            return cmd->twoFingersMove(&motion);
+        case kGiGesturePan:
+            switch (motion.gestureState) {
+                case kMgGestureBegan:
+                    return cmd->touchBegan(&motion);
+                case kMgGestureMoved:
+                    return cmd->touchMoved(&motion);
+                case kMgGestureEnded:
+                default:
+                    return cmd->touchEnded(&motion);
+            }
+            break;
+        case kGiGestureTap:
+            return cmd->click(&motion);
+        case kGiGestureDblTap:
+            return cmd->doubleClick(&motion);
+        case kGiGesturePress:
+            return cmd->longPress(&motion);
     }
 
     return false;

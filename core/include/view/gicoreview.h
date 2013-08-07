@@ -54,11 +54,11 @@ public:
     
     //! 传递单指触摸手势消息
     bool onGesture(GiView* view, GiGestureType gestureType,
-            GiGestureState gestureState, float x, float y);
+            GiGestureState gestureState, float x, float y, bool switchGesture = false);
 
     //! 传递双指移动手势(可放缩旋转)
     bool twoFingersMove(GiView* view, GiGestureState gestureState,
-            float x1, float y1, float x2, float y2);
+            float x1, float y1, float x2, float y2, bool switchGesture = false);
     
     //! 返回当前命令名称
     const char* command() const;

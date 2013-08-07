@@ -27,11 +27,10 @@ public:
 private:
     virtual void release() { delete this; }
     virtual const char* getCommandName();
-    virtual MgCommand* getCommand(MgView* view, bool forTouch);
+    virtual MgCommand* getCommand();
     virtual bool setCommand(const MgMotion* sender, const char* name);
     virtual bool cancel(const MgMotion* sender);
     virtual void unloadCommands();
-    virtual bool draw(const MgMotion* sender, GiGraphics* gs);
     virtual int getSelection(MgView* view, int count, MgShape** shapes, bool forChange = false);
     virtual bool dynamicChangeEnded(MgView* view, bool apply);
     virtual MgSelection* getSelection(MgView* view);

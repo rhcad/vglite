@@ -201,7 +201,7 @@ void MgCmdManagerImpl::doAction(const MgMotion* sender, int action)
             break;
             
         default: {
-            MgCommand* cmd = getCommand(sender->view, true);
+            MgCommand* cmd = getCommand();
             ret = cmd && cmd->doContextAction(sender, action);
             if (!ret) {
                 const char* name = _drawcmd.c_str();

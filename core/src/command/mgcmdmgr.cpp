@@ -49,34 +49,14 @@ void MgCmdManagerImpl::unloadCommands()
 
 const char* MgCmdManagerImpl::getCommandName()
 {
-    MgCommand* cmd = getCommand(NULL, false);
+    MgCommand* cmd = getCommand();
     return cmd ? cmd->getName() : "";
 }
 
-static MgView* _touchedView = NULL;
-
-MgCommand* MgCmdManagerImpl::getCommand(MgView* view, bool forTouch)
+MgCommand* MgCmdManagerImpl::getCommand()
 {
     CMDS::iterator it = _cmds.find(_cmdname);
-    MgCommand* cmd = (it != _cmds.end()) ? it->second : NULL;
-    
-    if (cmd && forTouch) {
-        _touchedView = view;
-    }
-    
-    return cmd;
-}
-
-bool MgCmdManagerImpl::draw(const MgMotion* sender, GiGraphics* gs)
-{
-    bool ret = false;
-    
-    if (sender && sender->view && sender->view == _touchedView) {
-        MgCommand* cmd = getCommand(NULL, false);
-        ret = cmd && cmd->draw(sender, gs);
-    }
-    
-    return ret;
+    return (it != _cmds.end()) ? it->second : NULL;
 }
 
 MgCommand* MgCmdManagerImpl::findCommand(const char* name)
@@ -184,7 +164,7 @@ bool MgCmdManagerImpl::cancel(const MgMotion* sender)
 int MgCmdManagerImpl::getSelection(MgView* view, int count, MgShape** shapes, bool forChange)
 {
     if (_cmdname == MgCmdSelect::Name() && view) {
-        MgCmdSelect* sel = (MgCmdSelect*)getCommand(view, true);
+        MgCmdSelect* sel = (MgCmdSelect*)getCommand();
         return sel ? sel->getSelection(view, count, shapes, forChange) : 0;
     }
     return 0;
@@ -194,7 +174,7 @@ bool MgCmdManagerImpl::dynamicChangeEnded(MgView* view, bool apply)
 {
     bool changed = false;
     if (_cmdname == MgCmdSelect::Name() && view) {
-        MgCmdSelect* sel = (MgCmdSelect*)getCommand(view, true);
+        MgCmdSelect* sel = (MgCmdSelect*)getCommand();
         changed = sel && sel->dynamicChangeEnded(view, apply);
     }
     return changed;

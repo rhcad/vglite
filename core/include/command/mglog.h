@@ -1,3 +1,5 @@
+// mglog.h
+
 #ifndef TOUCHVG_LOG_H
 #define TOUCHVG_LOG_H
 

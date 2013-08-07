@@ -1911,7 +1911,35 @@ SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1onSize(JNIEnv *j
 }
 
 
-SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1onGesture(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jint jarg3, jint jarg4, jfloat jarg5, jfloat jarg6) {
+SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1onGesture_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jint jarg3, jint jarg4, jfloat jarg5, jfloat jarg6, jboolean jarg7) {
+  jboolean jresult = 0 ;
+  GiCoreView *arg1 = (GiCoreView *) 0 ;
+  GiView *arg2 = (GiView *) 0 ;
+  GiGestureType arg3 ;
+  GiGestureState arg4 ;
+  float arg5 ;
+  float arg6 ;
+  bool arg7 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(GiCoreView **)&jarg1; 
+  arg2 = *(GiView **)&jarg2; 
+  arg3 = (GiGestureType)jarg3; 
+  arg4 = (GiGestureState)jarg4; 
+  arg5 = (float)jarg5; 
+  arg6 = (float)jarg6; 
+  arg7 = jarg7 ? true : false; 
+  result = (bool)(arg1)->onGesture(arg2,arg3,arg4,arg5,arg6,arg7);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1onGesture_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jint jarg3, jint jarg4, jfloat jarg5, jfloat jarg6) {
   jboolean jresult = 0 ;
   GiCoreView *arg1 = (GiCoreView *) 0 ;
   GiView *arg2 = (GiView *) 0 ;
@@ -1937,7 +1965,37 @@ SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1onGesture(JN
 }
 
 
-SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1twoFingersMove(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jint jarg3, jfloat jarg4, jfloat jarg5, jfloat jarg6, jfloat jarg7) {
+SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1twoFingersMove_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jint jarg3, jfloat jarg4, jfloat jarg5, jfloat jarg6, jfloat jarg7, jboolean jarg8) {
+  jboolean jresult = 0 ;
+  GiCoreView *arg1 = (GiCoreView *) 0 ;
+  GiView *arg2 = (GiView *) 0 ;
+  GiGestureState arg3 ;
+  float arg4 ;
+  float arg5 ;
+  float arg6 ;
+  float arg7 ;
+  bool arg8 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(GiCoreView **)&jarg1; 
+  arg2 = *(GiView **)&jarg2; 
+  arg3 = (GiGestureState)jarg3; 
+  arg4 = (float)jarg4; 
+  arg5 = (float)jarg5; 
+  arg6 = (float)jarg6; 
+  arg7 = (float)jarg7; 
+  arg8 = jarg8 ? true : false; 
+  result = (bool)(arg1)->twoFingersMove(arg2,arg3,arg4,arg5,arg6,arg7,arg8);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1twoFingersMove_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jint jarg3, jfloat jarg4, jfloat jarg5, jfloat jarg6, jfloat jarg7) {
   jboolean jresult = 0 ;
   GiCoreView *arg1 = (GiCoreView *) 0 ;
   GiView *arg2 = (GiView *) 0 ;

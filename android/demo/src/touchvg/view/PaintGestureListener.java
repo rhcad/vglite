@@ -42,7 +42,7 @@ public class PaintGestureListener extends SimpleOnGestureListener {
         if (!enabled) {
         	if (mMoving == MOVING) {
         		mMoving = STOPPED;
-        		onMove(GiGestureState.kGiGestureCancel, mFingerCount, 0, 0, 0, 0);
+        		onMoved(GiGestureState.kGiGestureCancel, mFingerCount, 0, 0, 0, 0, false);
             }
             mCoreView.setCommand(mAdapter, null);
         }
@@ -50,15 +50,6 @@ public class PaintGestureListener extends SimpleOnGestureListener {
     
     public void setEndPaintTime(long endTime) {
         mEndPaintTime = endTime;
-    }
-    
-    private boolean onMove(GiGestureState state, int fingerCount, 
-                           float x1, float y1, float x2, float y2) {
-    	if (fingerCount > 1) {
-            return mCoreView.twoFingersMove(mAdapter, state, x1, y1, x2, y2);
-        } else {
-        	return mCoreView.onGesture(mAdapter, GiGestureType.kGiGesturePan, state, x1, y1);
-        }
     }
     
     @Override
@@ -80,18 +71,6 @@ public class PaintGestureListener extends SimpleOnGestureListener {
         return mMoving == READY_MOVE || mMoving == MOVING;
     }
     
-    private boolean applyPendingPoints() {
-    	boolean ret = onMove(GiGestureState.kGiGestureBegan, mFingerCount, 
-                             mPoints.get(0).floatValue(), 
-                             mPoints.get(1).floatValue(), 0, 0);
-		for (int i = 2; i < mPoints.size() && ret; i += 2) {
-			onMove(GiGestureState.kGiGestureMoved, mFingerCount, 
-                   mPoints.get(0).floatValue(), 
-                   mPoints.get(1).floatValue(), 0, 0);
-		}
-		return ret;
-    }
-    
     public boolean onTouch(View v, MotionEvent e) {
         final int action = e.getAction();
         final float x1 = e.getPointerCount() > 0 ? e.getX(0) : 0;
@@ -110,52 +89,81 @@ public class PaintGestureListener extends SimpleOnGestureListener {
         
         switch (action) {
             case MotionEvent.ACTION_MOVE:
-                if (mMoving == READY_MOVE) {
-                    mFingerCount = e.getPointerCount();
-                    
-                    if (mFingerCount == 1 && !mPoints.isEmpty()) {
-                        mMoving = applyPendingPoints() ? MOVING : ENDMOVE;
-                    }
-                    else {
-                        mMoving = onMove(GiGestureState.kGiGestureBegan, mFingerCount, x1, y1, x2, y2) ? MOVING : ENDMOVE;
-                    }
-                    mPoints.clear();
-                }
-                else if (mMoving == STOPPED && e.getPointerCount() == 1 && !mPoints.isEmpty()) {
-                    mPoints.add(Float.valueOf(x1));
-                    mPoints.add(Float.valueOf(y1));
-                }
-                if (mMoving != MOVING || e.getEventTime() < mEndPaintTime) {
-                    break;
-                }
-                
-                if ((e.getPointerCount() > 1) != (mFingerCount > 1)) {
-                    onMove(GiGestureState.kGiGestureEnded, mFingerCount, x1, y1, x2, y2);
-                    mFingerCount = e.getPointerCount();
-                    onMove(GiGestureState.kGiGestureBegan, mFingerCount, x1, y1, x2, y2);
-                } else {
-                    onMove(GiGestureState.kGiGestureMoved, mFingerCount, x1, y1, x2, y2);
-                }
+            	onTouchMoved(e, x1, y1, x2, y2);
                 break;
                 
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
-                if (action == MotionEvent.ACTION_UP && mPoints.size() > 2) {
-                    if (applyPendingPoints()) {
-                        mMoving = MOVING;
-                    }
-                }
-                if (mMoving == MOVING) {
-                    onMove(action == MotionEvent.ACTION_UP ? GiGestureState.kGiGestureEnded
-                           : GiGestureState.kGiGestureCancel, mFingerCount, x1, y1, x2, y2);
-                }
-                mMoving = STOPPED;
-                mFingerCount = 0;
-                mPoints.clear();
+            	onTouchEnded(e.getAction() == MotionEvent.ACTION_UP, x1, y1, x2, y2);
                 break;
         }
         
         return false;	// to call GestureDetector.onTouchEvent
+    }
+    
+    private void onTouchMoved(MotionEvent e, float x1, float y1, float x2, float y2) {
+    	final int fingerCount = e.getPointerCount();
+    	
+    	if (mMoving == READY_MOVE) {
+            mFingerCount = fingerCount;
+            
+            if (mFingerCount == 1 && !mPoints.isEmpty()) {
+                mMoving = applyPendingPoints() ? MOVING : ENDMOVE;
+            }
+            else {
+                mMoving = onMoved(GiGestureState.kGiGestureBegan, mFingerCount,
+                		x1, y1, x2, y2, false) ? MOVING : ENDMOVE;
+            }
+            mPoints.clear();
+        }
+        else if (mMoving == STOPPED && fingerCount == 1 && !mPoints.isEmpty()) {
+            mPoints.add(Float.valueOf(x1));
+            mPoints.add(Float.valueOf(y1));
+        }
+        if (mMoving != MOVING || e.getEventTime() < mEndPaintTime) {
+            return;
+        }
+        
+        if (fingerCount != mFingerCount) {
+            onMoved(GiGestureState.kGiGestureEnded, mFingerCount, x1, y1, x2, y2, true);
+            mFingerCount = e.getPointerCount();
+            onMoved(GiGestureState.kGiGestureBegan, mFingerCount, x1, y1, x2, y2, true);
+        } else {
+            onMoved(GiGestureState.kGiGestureMoved, mFingerCount, x1, y1, x2, y2, false);
+        }
+    }
+    
+    private void onTouchEnded(boolean submit, float x1, float y1, float x2, float y2) {
+    	if (submit && mPoints.size() > 2) {
+            if (applyPendingPoints()) {
+                mMoving = MOVING;
+            }
+        }
+        if (mMoving == MOVING) {
+            onMoved(submit ? GiGestureState.kGiGestureEnded
+            		: GiGestureState.kGiGestureCancel, mFingerCount, x1, y1, x2, y2, false);
+        }
+        mMoving = STOPPED;
+        mFingerCount = 0;
+        mPoints.clear();
+    }
+    
+    private boolean applyPendingPoints() {
+    	boolean ret = onMoved(GiGestureState.kGiGestureBegan, mFingerCount, 
+    			mPoints.get(0).floatValue(), 
+                mPoints.get(1).floatValue(), 0, 0, false);
+		for (int i = 2; i + 1 < mPoints.size() && ret; i += 2) {
+			onMoved(GiGestureState.kGiGestureMoved, mFingerCount, 
+                   mPoints.get(i).floatValue(), 
+                   mPoints.get(i + 1).floatValue(), 0, 0, false);
+		}
+		return ret;
+    }
+    
+    private boolean onMoved(GiGestureState state, int fingerCount, 
+            float x1, float y1, float x2, float y2, boolean s) {
+    	return fingerCount > 1 ? mCoreView.twoFingersMove(mAdapter, state, x1, y1, x2, y2, s)
+				: mCoreView.onGesture(mAdapter, GiGestureType.kGiGesturePan, state, x1, y1, s);
     }
     
     @Override
@@ -164,28 +172,22 @@ public class PaintGestureListener extends SimpleOnGestureListener {
                                 GiGestureState.kGiGestureBegan, e.getX(), e.getY())) {
     		mPoints.clear();
     	}
-    	else if (mMoving == STOPPED) {
-    		mMoving = READY_MOVE;
+    	else if (mMoving == STOPPED) {	// onDown 后还未移动
+    		mMoving = READY_MOVE;		// onTouch 中将开始移动
     	}
     }
     
     @Override
     public boolean onSingleTapConfirmed(MotionEvent e) {
-        if (mCoreView.onGesture(mAdapter, GiGestureType.kGiGestureTap,
-                                GiGestureState.kGiGestureBegan, e.getX(), e.getY())) {
-        	mPoints.clear();
-        	return true;
-        }
-        return false;
+    	mPoints.clear();
+    	return mCoreView.onGesture(mAdapter, GiGestureType.kGiGestureTap,
+    			GiGestureState.kGiGestureBegan, e.getX(), e.getY());
     }
     
     @Override
     public boolean onDoubleTap(MotionEvent e) {
-        if (mCoreView.onGesture(mAdapter, GiGestureType.kGiGestureDblTap,
-                                GiGestureState.kGiGestureBegan, e.getX(), e.getY())) {
-        	mPoints.clear();
-        	return true;
-        }
-        return false;
+    	mPoints.clear();
+        return mCoreView.onGesture(mAdapter, GiGestureType.kGiGestureDblTap,
+        		GiGestureState.kGiGestureBegan, e.getX(), e.getY());
     }
 }

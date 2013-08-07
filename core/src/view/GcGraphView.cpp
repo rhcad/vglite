@@ -4,6 +4,7 @@
 
 #include "GcGraphView.h"
 #include <mgshape.h>
+#include "mglog.h"
 
 GcShapeView::GcShapeView(MgView* mgview, GiView *view) : GcBaseView(mgview, view)
 {
@@ -36,12 +37,14 @@ void GcShapeView::dynDraw(const MgMotion&, GiGraphics&)
 
 void GcShapeView::onSize(int dpi, int w, int h)
 {
+    LOGD("GcShapeView::onSize %d, %d, %d", dpi, w, h);
     xform()->setResolution((float)dpi);
     xform()->setWndSize(w, h);
 }
 
 bool GcShapeView::onGesture(const MgMotion& motion)
 {
+    LOGD("GcShapeView::onGesture %d, %d", motion.gestureType, motion.gestureState);
     if (motion.gestureType != kGiGesturePan){
         return false;
     }
@@ -61,6 +64,7 @@ bool GcShapeView::onGesture(const MgMotion& motion)
 
 bool GcShapeView::twoFingersMove(const MgMotion& motion)
 {
+    LOGD("GcShapeView::twoFingersMove %d, %d", motion.gestureType, motion.gestureState);
     if (motion.gestureState == kMgGestureBegan) {
         _lastScale = xform()->getZoomValue(_lastCenter);
     }

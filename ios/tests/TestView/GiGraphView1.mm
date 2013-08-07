@@ -209,13 +209,22 @@ public:
 
 @end
 
+static char _lastVgFile[128] = { 0 };
+
 @implementation GiGraphView2
 
 - (BOOL)savePng:(NSString *)filename
 {
-    [GiViewHelper saveToFile:self :[[filename stringByDeletingPathExtension]
-                                    stringByAppendingPathExtension:@"vg"]];
+    NSString *vgfile = [[filename stringByDeletingPathExtension]
+                        stringByAppendingPathExtension:@"vg"];
+    [GiViewHelper saveToFile:self :vgfile];
+    strncpy(_lastVgFile, [vgfile UTF8String], sizeof(_lastVgFile));
     return [super savePng:filename];
+}
+
++ (NSString *)lastFileName
+{
+    return [NSString stringWithUTF8String:_lastVgFile];
 }
 
 @end

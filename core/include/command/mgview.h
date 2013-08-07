@@ -68,6 +68,7 @@ public:
     int             gestureType;
     MgGestureState  gestureState;
     bool            pressDrag;
+    bool            switchGesture;
     Point2d         startPt;
     Point2d         startPtM;
     Point2d         lastPt;
@@ -79,18 +80,18 @@ public:
     Point2d         point2;
     Point2d         point2M;
     
-    MgMotion() : view(NULL), gestureType(0)
-        , gestureState(kMgGesturePossible), pressDrag(false) {}
+    MgMotion() : view(NULL), gestureType(0), gestureState(kMgGesturePossible)
+        , pressDrag(false), switchGesture(false) {}
     
     bool dragging() const {                             //!< 是否正按下拖动
         return gestureState >= kMgGestureBegan && gestureState <= kMgGestureMoved;
     }
     
     MgCmdManager* cmds() const { return view->cmds(); }   //!< 返回命令管理器对象
-    Point2d startCenter() const { return (startPt + startPt2) / 2; }
-    Point2d center() const { return (point + point2) / 2; }
-    float startDistance() const { return startPt.distanceTo(startPt2); }
-    float distance() const { return point.distanceTo(point2); }
+    Point2d startCenterM() const { return (startPtM + startPt2M) / 2; }
+    Point2d centerM() const { return (pointM + point2M) / 2; }
+    float startDistanceM() const { return startPtM.distanceTo(startPt2M); }
+    float distanceM() const { return pointM.distanceTo(point2M); }
 };
 
 #endif // VGLITE_CORE_COMMAND_VIEW_H

@@ -544,21 +544,23 @@ bool MgCmdSelect::longPress(const MgMotion* sender)
 
 bool MgCmdSelect::touchBegan(const MgMotion* sender)
 {
-    Point2d nearpt;
-    int segment;
-    MgShape* newshape = hitTestAll(sender, nearpt, segment);
-    MgShape* oldshape = getSelectedShape(sender);
-    
-    if (newshape && newshape->getID() != m_id
-        && (!oldshape || !canSelect(oldshape, sender))) {
-        m_ptNear = nearpt;
-        m_segment = segment;
-        m_id = newshape->getID();
-        m_selIds.clear();
-        m_selIds.push_back(m_id);
-        m_handleIndex = 0;
-        m_rotateHandle = 0;
-        sender->view->selChanged();
+    if (!sender->switchGesture) {
+        Point2d nearpt;
+        int segment;
+        MgShape* newshape = hitTestAll(sender, nearpt, segment);
+        MgShape* oldshape = getSelectedShape(sender);
+        
+        if (newshape && newshape->getID() != m_id
+            && (!oldshape || !canSelect(oldshape, sender))) {
+            m_ptNear = nearpt;
+            m_segment = segment;
+            m_id = newshape->getID();
+            m_selIds.clear();
+            m_selIds.push_back(m_id);
+            m_handleIndex = 0;
+            m_rotateHandle = 0;
+            sender->view->selChanged();
+        }
     }
     
     cloneShapes(sender->view);
@@ -919,7 +921,7 @@ bool MgCmdSelect::touchEnded(const MgMotion* sender)
             sender->view->selChanged();
     }
     
-    return longPress(sender);
+    return sender->switchGesture || longPress(sender);
 }
 
 void MgCmdSelect::cloneShapes(MgView* view)
@@ -1364,52 +1366,53 @@ bool MgCmdSelect::overturnPolygon(const MgMotion* sender)
 bool MgCmdSelect::twoFingersMove(const MgMotion* sender)
 {
     if (sender->gestureState == kMgGesturePossible) {
-        return !m_selIds.empty() && !mgIsZero(sender->distance());
+        return !m_selIds.empty() && !mgIsZero(sender->distanceM());  // 选择了图形，且双指未重合
     }
-    else if (sender->gestureState == kMgGestureBegan) {
-        if (m_selIds.empty())
+    if (sender->gestureState == kMgGestureBegan) {
+        if (m_selIds.empty()) {                     // 没有选择图形
             return false;
+        }
         cloneShapes(sender->view);
-        return m_clones.size() == m_selIds.size() && !mgIsZero(sender->distance());
+        return m_clones.size() == m_selIds.size() && !mgIsZero(sender->distanceM());
     }
-    else if (sender->gestureState == kMgGestureMoved    // 正在移动
-             && !mgIsZero(sender->distance())) {
+    if (sender->gestureState == kMgGestureMoved    // 正在移动
+             && !mgIsZero(sender->distanceM())) {
         for (size_t i = 0; i < m_clones.size(); i++) {
             MgBaseShape* shape = m_clones[i]->shape();
             MgShape* basesp = getShape(m_selIds[i], sender);
             
             if (!basesp || shape->getFlag(kMgShapeLocked))
                 continue;
-            shape->copy(*basesp->shape());              // 先重置为原始形状
+            shape->copy(*basesp->shape());                  // 先重置为原始形状
             
-            float dist0 = sender->startDistance();      // 起始触点距离
-            float a0 = (sender->startPt2 - sender->startPt).angle2();     // 起始触点角度
-            Matrix2d mat (Matrix2d::translation(sender->point - sender->startPt));   // 平移起点
+            float dist0 = sender->startDistanceM();         // 起始触点距离
+            float a0 = (sender->startPt2M - sender->startPtM).angle2(); // 起始触点角度
+            Matrix2d mat (Matrix2d::translation(sender->pointM - sender->startPtM));    // 平移起点
             
             if ((m_editMode || shape->isKindOf(kMgShapeImage))
-                && !shape->getFlag(kMgFixedLength)) {   // 比例放缩
+                && !shape->getFlag(kMgFixedLength)) {       // 比例放缩
                 
-                float a = fabsf(a0) / _M_PI_2;          // [0,2]
+                float a = fabsf(a0) / _M_PI_2;              // [0,2]
                 if (!canRotate(basesp, sender) && fabsf(a - floorf(a + 0.5f)) < 0.3f) {
-                    float d0x = fabsf(sender->startPt.x - sender->startPt2.x);
-                    float d0y = fabsf(sender->startPt.y - sender->startPt2.y);
-                    float d1x = fabsf(sender->point.x - sender->point2.x);
-                    float d1y = fabsf(sender->point.y - sender->point2.y);
+                    float d0x = fabsf(sender->startPtM.x - sender->startPt2M.x);
+                    float d0y = fabsf(sender->startPtM.y - sender->startPt2M.y);
+                    float d1x = fabsf(sender->pointM.x - sender->point2M.x);
+                    float d1y = fabsf(sender->pointM.y - sender->point2M.y);
                     bool vert = mgRound(a) % 2 == 1;
                     float sx = (vert || mgIsZero(d0x) || mgIsZero(d1x)) ? 1.f : d1x / d0x;
                     float sy = (!vert || mgIsZero(d0y) || mgIsZero(d1y)) ? 1.f : d1y / d0y;
                     
                     // 忽略平移，以初始中点为中心单方向放缩
-                    mat = Matrix2d::scaling(sx, sy, sender->startCenter() / 2);
+                    mat = Matrix2d::scaling(sx, sy, sender->startCenterM() / 2);
                 }
                 else {
-                    mat *= Matrix2d::scaling(sender->distance() / dist0, sender->point);
+                    mat *= Matrix2d::scaling(sender->distanceM() / dist0, sender->pointM);
                 }
             }
             if (canRotate(basesp, sender)) {            // 以新起点为中心旋转
-                a0 = (sender->point2 - sender->point).angle2() - a0;
-                a0 = mgDeg2Rad((float)mgRound(mgRad2Deg(a0))); // 整度变化
-                mat *= Matrix2d::rotation(a0, sender->point);
+                a0 = (sender->point2M - sender->pointM).angle2() - a0;
+                a0 = mgDeg2Rad(mgRoundReal(mgRad2Deg(a0), 0));  // 整度变化
+                mat *= Matrix2d::rotation(a0, sender->pointM);
             }
             
             shape->transform(mat);                      // 应用变形矩阵
@@ -1424,7 +1427,9 @@ bool MgCmdSelect::twoFingersMove(const MgMotion* sender)
     }
     else {
         applyCloneShapes(sender->view, sender->gestureState == kMgGestureEnded);
-        longPress(sender);
+        if (!sender->switchGesture) {
+            longPress(sender);
+        }
     }
     
     return true;

@@ -23,5 +23,6 @@ class GiCoreView;
 @interface GiGraphView2 : GiGraphView
 
 - (BOOL)savePng:(NSString *)filename;
++ (NSString *)lastFileName;
 
 @end

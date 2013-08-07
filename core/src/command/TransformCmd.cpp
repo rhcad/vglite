@@ -157,7 +157,7 @@ bool TransformCmd::cancel(const MgMotion* sender)
 
 bool TransformCmd::initialize(const MgMotion* sender)
 {
-    MgCommand* lastCmd = sender->cmds()->getCommand(sender->view, true);
+    MgCommand* lastCmd = sender->cmds()->getCommand();
     if (lastCmd != this) {
         _lastCmd = lastCmd;
     }
