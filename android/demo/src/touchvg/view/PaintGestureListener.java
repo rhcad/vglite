@@ -9,6 +9,7 @@ import touchvg.jni.GiCoreView;
 import touchvg.jni.GiGestureState;
 import touchvg.jni.GiGestureType;
 import touchvg.jni.GiView;
+import android.util.Log;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.view.View;
 /*! \ingroup GROUP_ANDROID
  */
 public class PaintGestureListener extends SimpleOnGestureListener {
+	private static String TAG = "PaintGesture";
 	private static final int STOPPED = 0;
     private static final int READY_MOVE = 1;
     private static final int MOVING = 2;
@@ -28,6 +30,8 @@ public class PaintGestureListener extends SimpleOnGestureListener {
     private ArrayList<Float> mPoints = new ArrayList<Float>();    // 待分发的移动轨迹
     private float mLastX;
     private float mLastY;
+    private float mLastX2;
+    private float mLastY2;
     
     public PaintGestureListener(GiCoreView coreView, GiView adapter) {
         mCoreView = coreView;
@@ -51,29 +55,68 @@ public class PaintGestureListener extends SimpleOnGestureListener {
     
     @Override
     public boolean onDown(MotionEvent e) {
+    	//Log.e(TAG, "onDown n=" + e.getPointerCount() + " x=" + e.getX(0) + " y=" + e.getY(0));
     	mMoving = STOPPED;
     	mPoints.clear();
     	if (e.getPointerCount() == 1) {
-    		mPoints.add(Float.valueOf(e.getX(0)));
-    		mPoints.add(Float.valueOf(e.getY(0)));
+    		mLastX = Float.valueOf(e.getX(0));
+            mLastY = Float.valueOf(e.getY(0));
+    		mPoints.add(mLastX);
+    		mPoints.add(mLastY);
+    		mLastX2 = mLastX;
+            mLastY2 = mLastY;
     	}
         return true;
     }
     
     @Override
     public boolean onScroll(MotionEvent downEv, MotionEvent e, float dx, float dy) {
+    	//Log.e(TAG, "onScroll n=" + e.getPointerCount() + " x=" + e.getX(0) + " y=" + e.getY(0));
     	if (mMoving == STOPPED) {
     		mMoving = READY_MOVE;
     	}
         return mMoving == READY_MOVE || mMoving == MOVING;
     }
     
+    private static String actionToString(int action) {
+        switch (action) {
+            case MotionEvent.ACTION_DOWN:
+                return "DOWN";
+            case MotionEvent.ACTION_UP:
+                return "UP";
+            case MotionEvent.ACTION_CANCEL:
+                return "CANCEL";
+            case MotionEvent.ACTION_OUTSIDE:
+                return "OUTSIDE";
+            case MotionEvent.ACTION_MOVE:
+                return "MOVE";
+            case MotionEvent.ACTION_HOVER_MOVE:
+                return "HOVER_MOVE";
+            case MotionEvent.ACTION_SCROLL:
+                return "SCROLL";
+            case MotionEvent.ACTION_HOVER_ENTER:
+                return "HOVER_ENTER";
+            case MotionEvent.ACTION_HOVER_EXIT:
+                return "HOVER_EXIT";
+        }
+        int index = (action & MotionEvent.ACTION_POINTER_INDEX_MASK) >> MotionEvent.ACTION_POINTER_INDEX_SHIFT;
+        switch (action & MotionEvent.ACTION_MASK) {
+            case MotionEvent.ACTION_POINTER_DOWN:
+                return "POINTER_DOWN(" + index + ")";
+            case MotionEvent.ACTION_POINTER_UP:
+                return "POINTER_UP(" + index + ")";
+            default:
+                return Integer.toString(action);
+        }
+    }
+    
     public boolean onTouch(View v, MotionEvent e) {
-        final int action = e.getAction();
+        final int action = e.getActionMasked();
         final float x1 = e.getPointerCount() > 0 ? e.getX(0) : 0;
         final float y1 = e.getPointerCount() > 0 ? e.getY(0) : 0;
         final float x2 = e.getPointerCount() > 1 ? e.getX(1) : x1;
         final float y2 = e.getPointerCount() > 1 ? e.getY(1) : y1;
+        Log.e(TAG, "onTouch n=" + e.getPointerCount() + " " + actionToString(action) + " x=" + x1 + " y=" + y1);
         
         // 按下后不允许父视图拦截触摸事件，松开后允许
         if (action == MotionEvent.ACTION_UP
@@ -98,13 +141,25 @@ public class PaintGestureListener extends SimpleOnGestureListener {
         return false;	// to call GestureDetector.onTouchEvent
     }
     
-    private void onTouchMoved(int fingerCount, float x1, float y1, float x2, float y2) {    	
-    	if (mMoving == READY_MOVE) {
+    private void onTouchMoved(int fingerCount, float x1, float y1, float x2, float y2) {
+    	if (fingerCount == 1 && Math.abs(mLastX - x1) < 1 && Math.abs(mLastY - y1) < 1) {
+    		return;
+    	}
+    	if (fingerCount == 2 && Math.abs(mLastX - x1) < 1 && Math.abs(mLastY - y1) < 1
+    			&& Math.abs(mLastX2 - x2) < 1 && Math.abs(mLastY2 - y2) < 1) {
+    		return;
+    	}
+    	if (mMoving == READY_MOVE || (mMoving == STOPPED && fingerCount == 2)) {
             mFingerCount = fingerCount;
             mLastX = x1;
             mLastY = y1;
+            mLastX2 = x2;
+            mLastY2 = y2;
             
-            if (fingerCount == 1 && !mPoints.isEmpty()) {
+            if (mMoving == STOPPED) {
+            	mMoving = READY_MOVE;
+            }
+            else if (fingerCount == 1 && !mPoints.isEmpty()) {
                 mMoving = applyPendingPoints() ? MOVING : ENDMOVE;
             }
             else {
@@ -121,18 +176,19 @@ public class PaintGestureListener extends SimpleOnGestureListener {
             return;
         }
         
-        if (mFingerCount != fingerCount
-        		&& onMoved(GiGestureState.kGiGesturePossible, fingerCount, x1, y1, x2, y2, true)) {
-        	if (mFingerCount == 1) {		// 单指变为双指
-        		onMoved(GiGestureState.kGiGestureEnded, mFingerCount, mLastX, mLastY, 0, 0, true);
-        	}
-        	else {
-        		onMoved(GiGestureState.kGiGestureEnded, mFingerCount, x1, y1, x2, y2, true);
-        	}
-            mFingerCount = fingerCount;
-            onMoved(GiGestureState.kGiGestureBegan, mFingerCount, x1, y1, x2, y2, true);
-        }
-        else if (mFingerCount == fingerCount) {
+        if (mFingerCount != fingerCount) {
+    		if (onMoved(GiGestureState.kGiGesturePossible, fingerCount, x1, y1, x2, y2, true)) {
+    			if (mFingerCount == 1) {		// 单指变为双指
+    				onMoved(GiGestureState.kGiGestureEnded, mFingerCount, mLastX, mLastY, 0, 0, true);
+    	    	}
+    	    	else {
+    	    		onMoved(GiGestureState.kGiGestureEnded, mFingerCount, x1, y1, x2, y2, true);
+    	    	}
+    	        mFingerCount = fingerCount;
+    	        onMoved(GiGestureState.kGiGestureBegan, mFingerCount, x1, y1, x2, y2, true);
+    	    }
+    	}
+        else {
             onMoved(GiGestureState.kGiGestureMoved, mFingerCount, x1, y1, x2, y2, false);
             mLastX = x1;
             mLastY = y1;
@@ -140,7 +196,7 @@ public class PaintGestureListener extends SimpleOnGestureListener {
     }
     
     private void onTouchEnded(boolean submit, float x1, float y1, float x2, float y2) {
-    	if (submit && mPoints.size() > 1) {
+    	if (submit && mPoints.size() > 2) {
             if (applyPendingPoints()) {
                 mMoving = MOVING;
             }
@@ -151,7 +207,6 @@ public class PaintGestureListener extends SimpleOnGestureListener {
         }
         mMoving = STOPPED;
         mFingerCount = 0;
-        mPoints.clear();
     }
     
     private boolean applyPendingPoints() {
@@ -168,12 +223,14 @@ public class PaintGestureListener extends SimpleOnGestureListener {
     
     private boolean onMoved(GiGestureState state, int fingerCount, 
             float x1, float y1, float x2, float y2, boolean s) {
+    	//Log.e(TAG, "onMoved n=" + fingerCount + " state=" + state + " x=" + x1 + " y=" + y1);
     	return fingerCount > 1 ? mCoreView.twoFingersMove(mAdapter, state, x1, y1, x2, y2, s)
     			: mCoreView.onGesture(mAdapter, GiGestureType.kGiGesturePan, state, x1, y1, s);
     }
     
     @Override
     public void onLongPress(MotionEvent e) {
+    	//Log.e(TAG, "onLongPress n=" + e.getPointerCount() + " x=" + e.getX(0) + " y=" + e.getY(0));
     	boolean ret = (mPoints.size() > 1);
     	if (ret) {
     		float x = mPoints.get(0).floatValue();
@@ -194,6 +251,7 @@ public class PaintGestureListener extends SimpleOnGestureListener {
     
     @Override
     public boolean onSingleTapConfirmed(MotionEvent e) {
+    	//Log.e(TAG, "onTap n=" + e.getPointerCount() + " x=" + e.getX(0) + " y=" + e.getY(0));
     	boolean ret = mPoints.size() > 1;
     	if (ret) {
     		float x = mPoints.get(0).floatValue();
@@ -209,6 +267,7 @@ public class PaintGestureListener extends SimpleOnGestureListener {
     
     @Override
     public boolean onDoubleTap(MotionEvent e) {
+    	//Log.e(TAG, "onDoubleTap n=" + e.getPointerCount() + " x=" + e.getX(0) + " y=" + e.getY(0));
     	boolean ret = mPoints.size() > 1;
     	if (ret) {
     		float x = mPoints.get(0).floatValue();
