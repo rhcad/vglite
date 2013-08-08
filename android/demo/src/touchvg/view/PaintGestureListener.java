@@ -23,10 +23,11 @@ public class PaintGestureListener extends SimpleOnGestureListener {
     private static final int ENDMOVE = 3;
     private GiCoreView mCoreView;                   // 内核视图分发器
     private GiView mAdapter;                        // 视图回调适配器
-    private long mEndPaintTime = 0;                 // 重绘结束时刻，用于忽略多余触摸移动消息
     private int mMoving = STOPPED;                  // 移动状态
     private int mFingerCount;                       // 上一次的触摸点数
     private ArrayList<Float> mPoints = new ArrayList<Float>();    // 待分发的移动轨迹
+    private float mLastX;
+    private float mLastY;
     
     public PaintGestureListener(GiCoreView coreView, GiView adapter) {
         mCoreView = coreView;
@@ -46,10 +47,6 @@ public class PaintGestureListener extends SimpleOnGestureListener {
             }
             mCoreView.setCommand(mAdapter, null);
         }
-    }
-    
-    public void setEndPaintTime(long endTime) {
-        mEndPaintTime = endTime;
     }
     
     @Override
@@ -89,7 +86,7 @@ public class PaintGestureListener extends SimpleOnGestureListener {
         
         switch (action) {
             case MotionEvent.ACTION_MOVE:
-            	onTouchMoved(e, x1, y1, x2, y2);
+            	onTouchMoved(e.getPointerCount(), x1, y1, x2, y2);
                 break;
                 
             case MotionEvent.ACTION_UP:
@@ -101,13 +98,13 @@ public class PaintGestureListener extends SimpleOnGestureListener {
         return false;	// to call GestureDetector.onTouchEvent
     }
     
-    private void onTouchMoved(MotionEvent e, float x1, float y1, float x2, float y2) {
-    	final int fingerCount = e.getPointerCount();
-    	
+    private void onTouchMoved(int fingerCount, float x1, float y1, float x2, float y2) {    	
     	if (mMoving == READY_MOVE) {
             mFingerCount = fingerCount;
+            mLastX = x1;
+            mLastY = y1;
             
-            if (mFingerCount == 1 && !mPoints.isEmpty()) {
+            if (fingerCount == 1 && !mPoints.isEmpty()) {
                 mMoving = applyPendingPoints() ? MOVING : ENDMOVE;
             }
             else {
@@ -120,21 +117,30 @@ public class PaintGestureListener extends SimpleOnGestureListener {
             mPoints.add(Float.valueOf(x1));
             mPoints.add(Float.valueOf(y1));
         }
-        if (mMoving != MOVING || e.getEventTime() < mEndPaintTime) {
+        if (mMoving != MOVING) {
             return;
         }
         
-        if (fingerCount != mFingerCount) {
-            onMoved(GiGestureState.kGiGestureEnded, mFingerCount, x1, y1, x2, y2, true);
-            mFingerCount = e.getPointerCount();
+        if (mFingerCount != fingerCount
+        		&& onMoved(GiGestureState.kGiGesturePossible, fingerCount, x1, y1, x2, y2, true)) {
+        	if (mFingerCount == 1) {		// 单指变为双指
+        		onMoved(GiGestureState.kGiGestureEnded, mFingerCount, mLastX, mLastY, 0, 0, true);
+        	}
+        	else {
+        		onMoved(GiGestureState.kGiGestureEnded, mFingerCount, x1, y1, x2, y2, true);
+        	}
+            mFingerCount = fingerCount;
             onMoved(GiGestureState.kGiGestureBegan, mFingerCount, x1, y1, x2, y2, true);
-        } else {
+        }
+        else if (mFingerCount == fingerCount) {
             onMoved(GiGestureState.kGiGestureMoved, mFingerCount, x1, y1, x2, y2, false);
+            mLastX = x1;
+            mLastY = y1;
         }
     }
     
     private void onTouchEnded(boolean submit, float x1, float y1, float x2, float y2) {
-    	if (submit && mPoints.size() > 2) {
+    	if (submit && mPoints.size() > 1) {
             if (applyPendingPoints()) {
                 mMoving = MOVING;
             }
@@ -163,14 +169,23 @@ public class PaintGestureListener extends SimpleOnGestureListener {
     private boolean onMoved(GiGestureState state, int fingerCount, 
             float x1, float y1, float x2, float y2, boolean s) {
     	return fingerCount > 1 ? mCoreView.twoFingersMove(mAdapter, state, x1, y1, x2, y2, s)
-				: mCoreView.onGesture(mAdapter, GiGestureType.kGiGesturePan, state, x1, y1, s);
+    			: mCoreView.onGesture(mAdapter, GiGestureType.kGiGesturePan, state, x1, y1, s);
     }
     
     @Override
     public void onLongPress(MotionEvent e) {
-    	if (mCoreView.onGesture(mAdapter, GiGestureType.kGiGesturePress,
-                                GiGestureState.kGiGestureBegan, e.getX(), e.getY())) {
+    	boolean ret = (mPoints.size() > 1);
+    	if (ret) {
+    		float x = mPoints.get(0).floatValue();
+    		float y = mPoints.get(1).floatValue();
+    		ret = mCoreView.onGesture(mAdapter, GiGestureType.kGiGesturePress,
+            		GiGestureState.kGiGesturePossible, x, y)
+            		&& mCoreView.onGesture(mAdapter, GiGestureType.kGiGestureTap,
+            				GiGestureState.kGiGestureBegan, e.getX(), e.getY());
+    	}
+    	if (ret) {
     		mPoints.clear();
+    		mMoving = STOPPED;
     	}
     	else if (mMoving == STOPPED) {	// onDown 后还未移动
     		mMoving = READY_MOVE;		// onTouch 中将开始移动
@@ -179,15 +194,31 @@ public class PaintGestureListener extends SimpleOnGestureListener {
     
     @Override
     public boolean onSingleTapConfirmed(MotionEvent e) {
-    	mPoints.clear();
-    	return mCoreView.onGesture(mAdapter, GiGestureType.kGiGestureTap,
-    			GiGestureState.kGiGestureBegan, e.getX(), e.getY());
+    	boolean ret = mPoints.size() > 1;
+    	if (ret) {
+    		float x = mPoints.get(0).floatValue();
+    		float y = mPoints.get(1).floatValue();
+    		ret = mCoreView.onGesture(mAdapter, GiGestureType.kGiGestureTap,
+            		GiGestureState.kGiGesturePossible, x, y)
+            		&& mCoreView.onGesture(mAdapter, GiGestureType.kGiGestureTap,
+            				GiGestureState.kGiGestureEnded, e.getX(), e.getY());
+    		mPoints.clear();
+    	}
+    	return ret;
     }
     
     @Override
     public boolean onDoubleTap(MotionEvent e) {
-    	mPoints.clear();
-        return mCoreView.onGesture(mAdapter, GiGestureType.kGiGestureDblTap,
-        		GiGestureState.kGiGestureBegan, e.getX(), e.getY());
+    	boolean ret = mPoints.size() > 1;
+    	if (ret) {
+    		float x = mPoints.get(0).floatValue();
+    		float y = mPoints.get(1).floatValue();
+    		ret = mCoreView.onGesture(mAdapter, GiGestureType.kGiGestureDblTap,
+            		GiGestureState.kGiGesturePossible, x, y)
+            		&& mCoreView.onGesture(mAdapter, GiGestureType.kGiGestureDblTap,
+            				GiGestureState.kGiGestureEnded, e.getX(), e.getY());
+    		mPoints.clear();
+    	}
+        return ret;
     }
 }

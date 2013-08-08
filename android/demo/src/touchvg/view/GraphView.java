@@ -112,7 +112,6 @@ public class GraphView extends View {
             mCoreView.dynDraw(mViewAdapter, mCanvasAdapter);
             mCanvasAdapter.endPaint();
         }
-        mGestureListener.setEndPaintTime(android.os.SystemClock.uptimeMillis());
     }
 
     private void autoBuildCache() {
