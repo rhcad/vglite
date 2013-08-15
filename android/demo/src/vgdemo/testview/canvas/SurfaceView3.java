@@ -40,7 +40,7 @@ public class SurfaceView3 extends SurfaceView {
 
         setZOrderOnTop(true);
         if ((mCreateFlags & 0x1000) == 0) {
-        	getHolder().setFormat(PixelFormat.TRANSLUCENT);
+            getHolder().setFormat(PixelFormat.TRANSLUCENT);
         }
 
         this.setOnTouchListener(new OnTouchListener() {
@@ -94,12 +94,12 @@ public class SurfaceView3 extends SurfaceView {
     protected void onDraw(Canvas canvas) {
         long ms = SystemClock.currentThreadTimeMillis();
         if (mCanvas.beginPaint(canvas)) {
-        	if ((mCreateFlags & 0x1000) == 0) {
-        		canvas.drawColor(Color.TRANSPARENT, Mode.CLEAR);
-        	}
-        	else {
-        		canvas.drawColor(Color.WHITE);
-        	}
+            if ((mCreateFlags & 0x1000) == 0) {
+                canvas.drawColor(Color.TRANSPARENT, Mode.CLEAR);
+            }
+            else {
+                canvas.drawColor(Color.WHITE);
+            }
             TestCanvas.test(mCanvas, mCreateFlags);
             dynDraw(mCanvas);
             mCanvas.endPaint();

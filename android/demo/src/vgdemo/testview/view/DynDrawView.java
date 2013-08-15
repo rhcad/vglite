@@ -9,7 +9,7 @@ import touchvg.jni.GiView;
 
 //! 动态绘图视图接口
 public interface DynDrawView {
-	
+    
     //! 设置内核视图对象
     public void setCoreView(GiView viewAdapter, GiCoreView coreView);
     

@@ -30,13 +30,13 @@ public class DummyActivity extends Activity {
             e.printStackTrace();
         }
         
-        if ((flags & 0x100000) != 0) {		// 有底部SurfaceView
-        	this.setContentView(view);
+        if ((flags & 0x100000) != 0) {      // 有底部SurfaceView
+            this.setContentView(view);
         }
         else {
-        	LinearLayout layout = new LinearLayout(this);
-        	layout.setOrientation(LinearLayout.VERTICAL);
-        	layout.setBackgroundResource(R.drawable.translucent_bg);    // 测试图片平铺
+            LinearLayout layout = new LinearLayout(this);
+            layout.setOrientation(LinearLayout.VERTICAL);
+            layout.setBackgroundResource(R.drawable.translucent_bg);    // 测试图片平铺
             this.setContentView(layout);
             
             if (view != null) {

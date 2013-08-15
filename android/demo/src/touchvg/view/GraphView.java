@@ -18,6 +18,7 @@ import android.view.View;
 /*! \ingroup GROUP_ANDROID
  */
 public class GraphView extends View {
+    private DynDrawView mDynDrawView;       // 动态绘图视图
     private CanvasAdapter mCanvasAdapter;   // 画布适配器
     private ViewAdapter mViewAdapter;       // 视图回调适配器
     private GiCoreView mCoreView;           // 内核视图分发器
@@ -48,7 +49,7 @@ public class GraphView extends View {
     }
     
     private void createAdapter(Context context) {
-    	mCanvasAdapter = new CanvasAdapter(this);
+        mCanvasAdapter = new CanvasAdapter(this);
         mViewAdapter = new ViewAdapter();
     }
 
@@ -61,16 +62,24 @@ public class GraphView extends View {
         
         this.setOnTouchListener(new OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
-            	mActiveView = GraphView.this;
+                mActiveView = GraphView.this;
                 return mGestureEnable && (mGestureListener.onTouch(v, event)
-                		|| mDetector.onTouchEvent(event));
+                        || mDetector.onTouchEvent(event));
             }
         });
     }
     
     //! 返回当前激活视图
     public static GraphView activeView() {
-    	return mActiveView;
+        return mActiveView;
+    }
+    
+    //! 创建动态图形视图
+    public View createDynDrawView(Context context) {
+        if (mDynDrawView == null) {
+            mDynDrawView = new DynDrawView(context, viewAdapter(), coreView());
+        }
+        return mDynDrawView;
     }
 
     //! 返回内核视图分发器对象
@@ -115,9 +124,9 @@ public class GraphView extends View {
 
     @Override
     protected void onDetachedFromWindow() {
-    	if (mActiveView == this) {
-    		mActiveView = null;
-    	}
+        if (mActiveView == this) {
+            mActiveView = null;
+        }
         if (mViewAdapter != null) {
             mViewAdapter.delete();
             mViewAdapter = null;
@@ -136,7 +145,9 @@ public class GraphView extends View {
         }
         mDetector = null;
         mCachedBitmap = null;
+        mDynDrawView = null;
         this.destroyDrawingCache();
+        
         super.onDetachedFromWindow();
     }
 
@@ -144,14 +155,14 @@ public class GraphView extends View {
     private class ViewAdapter extends GiView {
         @Override
         public void regenAll() {
-        	mCachedBitmap = null;
+            mCachedBitmap = null;
             invalidate();
         }
 
         @Override
         public void regenAppend() {
-        	buildDrawingCache();
-        	mCachedBitmap = getDrawingCache();
+            buildDrawingCache();
+            mCachedBitmap = getDrawingCache();
             if (mCachedBitmap != null) {
                 final Canvas canvas = new Canvas(mCachedBitmap);
                 if (mCanvasAdapter.beginPaint(canvas)) {
@@ -164,7 +175,12 @@ public class GraphView extends View {
 
         @Override
         public void redraw() {
-            invalidate();
+            if (mDynDrawView != null) {
+                mDynDrawView.invalidate();
+            }
+            else {
+                invalidate();
+            }
         }
     }
 }

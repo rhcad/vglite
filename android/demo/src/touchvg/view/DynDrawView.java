@@ -1,12 +1,11 @@
-//! \file DynDrawSfView.java
+//! \file DynDrawView.java
 //! \brief 基于SurfaceView的动态绘图视图类
 // Copyright (c) 2012-2013, https://github.com/rhcad/vglite
 
-package vgdemo.testview.view;
+package touchvg.view;
 
 import touchvg.jni.GiCoreView;
 import touchvg.jni.GiView;
-import touchvg.view.CanvasAdapter;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -18,34 +17,24 @@ import android.view.SurfaceView;
 //! 基于SurfaceView的动态绘图视图类
 /*! \ingroup GROUP_ANDROID
  */
-public class DynDrawSfView extends SurfaceView implements DynDrawView {
+public class DynDrawView extends SurfaceView {
     private CanvasAdapter mCanvasAdapter;
     private GiView mViewAdapter;
     private GiCoreView mCoreView;
-    private long mDrawnTime;
-    private long mEndPaintTime;
-    private long mBeginTime;
 
-    public DynDrawSfView(Context context) {
+    private DynDrawView(Context context) {
         super(context);
+    }
+    
+    public DynDrawView(Context context, GiView viewAdapter, GiCoreView coreView) {
+        super(context);
+        mViewAdapter = viewAdapter;
+        mCoreView = coreView;
         mCanvasAdapter = new CanvasAdapter(this);
         
         getHolder().addCallback(new SurfaceCallback());
         setZOrderOnTop(true);
         getHolder().setFormat(PixelFormat.TRANSLUCENT);
-    }
-    
-    public void setCoreView(GiView viewAdapter, GiCoreView coreView) {
-        mViewAdapter = viewAdapter;
-        mCoreView = coreView;
-    }
-    
-    public long getDrawnTime() {
-        return mDrawnTime;
-    }
-    
-    public long getEndPaintTime() {
-        return mEndPaintTime;
     }
     
     public boolean isDrawing() {
@@ -74,7 +63,6 @@ public class DynDrawSfView extends SurfaceView implements DynDrawView {
     
     public void doDraw() {
         if (!mCanvasAdapter.isDrawing()) {
-            mBeginTime = android.os.SystemClock.uptimeMillis();
             new Thread(new DrawThread()).start();
         }
     }
@@ -95,7 +83,6 @@ public class DynDrawSfView extends SurfaceView implements DynDrawView {
         public void run() {
             Canvas canvas = null;
             try {
-                mEndPaintTime = Integer.MAX_VALUE;
                 canvas = getHolder().lockCanvas();
                 if (canvas != null) {
                     draw(canvas);
@@ -107,8 +94,6 @@ public class DynDrawSfView extends SurfaceView implements DynDrawView {
                     getHolder().unlockCanvasAndPost(canvas);
                 }
             }
-            mEndPaintTime = android.os.SystemClock.uptimeMillis();
-            mDrawnTime = mEndPaintTime - mBeginTime;
         }
     }
 }

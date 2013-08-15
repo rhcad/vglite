@@ -28,7 +28,7 @@ public class DynDrawStdView extends View implements DynDrawView {
     }
     
     public void setCoreView(GiView viewAdapter, GiCoreView coreView) {
-    	mViewAdapter = viewAdapter;
+        mViewAdapter = viewAdapter;
         mCoreView = coreView;
     }
     
@@ -45,7 +45,7 @@ public class DynDrawStdView extends View implements DynDrawView {
     }
     
     public void doDraw() {
-    	mBeginTime = android.os.SystemClock.uptimeMillis();
+        mBeginTime = android.os.SystemClock.uptimeMillis();
         this.invalidate();
     }
 

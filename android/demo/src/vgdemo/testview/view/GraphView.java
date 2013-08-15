@@ -40,25 +40,25 @@ public class GraphView extends View {
         
         this.setOnTouchListener(new OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
-            	if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     mCoreView.onGesture(mViewAdapter, GiGestureType.kGiGesturePan, 
                             GiGestureState.kGiGestureBegan, event.getX(), event.getY());
                 }
-            	else if (event.getAction() == MotionEvent.ACTION_UP) {
+                else if (event.getAction() == MotionEvent.ACTION_UP) {
                     mCoreView.onGesture(mViewAdapter, GiGestureType.kGiGesturePan, 
                             GiGestureState.kGiGestureEnded, event.getX(), event.getY());
                     showTime();
                 }
-            	else if (mDynDrawView != null
+                else if (mDynDrawView != null
                         && event.getEventTime() > mDynDrawView.getEndPaintTime()) {
-                	mCoreView.onGesture(mViewAdapter, GiGestureType.kGiGesturePan, 
+                    mCoreView.onGesture(mViewAdapter, GiGestureType.kGiGesturePan, 
                             GiGestureState.kGiGestureMoved, event.getX(), event.getY());
-                	showTime();
+                    showTime();
                 }
                 else if (mDynDrawView == null && event.getEventTime() > mEndPaintTime) {
-                	mCoreView.onGesture(mViewAdapter, GiGestureType.kGiGesturePan, 
+                    mCoreView.onGesture(mViewAdapter, GiGestureType.kGiGesturePan, 
                             GiGestureState.kGiGestureMoved, event.getX(), event.getY());
-                	showTime();
+                    showTime();
                 }
                 return true;
             }
@@ -92,14 +92,14 @@ public class GraphView extends View {
     }
     
     private void doDraw() {
-    	mBeginTime = android.os.SystemClock.uptimeMillis();
-    	invalidate();
+        mBeginTime = android.os.SystemClock.uptimeMillis();
+        invalidate();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-    	mCoreView.onSize(mViewAdapter, this.getWidth(), this.getHeight());
-    	
+        mCoreView.onSize(mViewAdapter, this.getWidth(), this.getHeight());
+        
         if (mCanvasAdapter.beginPaint(canvas)) {
             mCoreView.drawAll(mViewAdapter, mCanvasAdapter);
             if (mDynDrawView == null) {
@@ -135,7 +135,7 @@ public class GraphView extends View {
     private class ViewAdapter extends GiView {
         @Override
         public void regenAll() {
-        	doDraw();
+            doDraw();
             if (mDynDrawView != null) {
                 mDynDrawView.doDraw();
             }
@@ -152,7 +152,7 @@ public class GraphView extends View {
                 mDynDrawView.doDraw();
             }
             else {
-            	doDraw();
+                doDraw();
             }
         }
     }

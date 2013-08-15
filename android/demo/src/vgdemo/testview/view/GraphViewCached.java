@@ -53,14 +53,14 @@ public class GraphViewCached extends View {
                 }
                 else if (mDynDrawView != null
                         && event.getEventTime() > mDynDrawView.getEndPaintTime()) {
-                	mCoreView.onGesture(mViewAdapter, GiGestureType.kGiGesturePan, 
+                    mCoreView.onGesture(mViewAdapter, GiGestureType.kGiGesturePan, 
                             GiGestureState.kGiGestureMoved, event.getX(), event.getY());
-                	showTime();
+                    showTime();
                 }
                 else if (mDynDrawView == null && event.getEventTime() > mEndPaintTime) {
-                	mCoreView.onGesture(mViewAdapter, GiGestureType.kGiGesturePan, 
+                    mCoreView.onGesture(mViewAdapter, GiGestureType.kGiGesturePan, 
                             GiGestureState.kGiGestureMoved, event.getX(), event.getY());
-                	showTime();
+                    showTime();
                 }
                 return true;
             }
@@ -94,8 +94,8 @@ public class GraphViewCached extends View {
     }
     
     private void doDraw() {
-    	mBeginTime = android.os.SystemClock.uptimeMillis();
-    	invalidate();
+        mBeginTime = android.os.SystemClock.uptimeMillis();
+        invalidate();
     }
 
     @Override
@@ -197,7 +197,7 @@ public class GraphViewCached extends View {
                 mDynDrawView.doDraw();
             }
             else {
-            	doDraw();
+                doDraw();
             }
         }
     }

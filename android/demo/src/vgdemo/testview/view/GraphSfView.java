@@ -49,25 +49,25 @@ public class GraphSfView extends SurfaceView {
         
         this.setOnTouchListener(new OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
-            	if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     mCoreView.onGesture(mViewAdapter, GiGestureType.kGiGesturePan, 
                             GiGestureState.kGiGestureBegan, event.getX(), event.getY());
                 }
-            	else if (event.getAction() == MotionEvent.ACTION_UP) {
+                else if (event.getAction() == MotionEvent.ACTION_UP) {
                     mCoreView.onGesture(mViewAdapter, GiGestureType.kGiGesturePan, 
                             GiGestureState.kGiGestureEnded, event.getX(), event.getY());
                     showTime();
                 }
-            	else if (mDynDrawView != null
+                else if (mDynDrawView != null
                         && event.getEventTime() > mDynDrawView.getEndPaintTime()) {
-                	mCoreView.onGesture(mViewAdapter, GiGestureType.kGiGesturePan, 
+                    mCoreView.onGesture(mViewAdapter, GiGestureType.kGiGesturePan, 
                             GiGestureState.kGiGestureMoved, event.getX(), event.getY());
-                	showTime();
+                    showTime();
                 }
                 else if (mDynDrawView == null && event.getEventTime() > mEndPaintTime) {
-                	mCoreView.onGesture(mViewAdapter, GiGestureType.kGiGesturePan, 
+                    mCoreView.onGesture(mViewAdapter, GiGestureType.kGiGesturePan, 
                             GiGestureState.kGiGestureMoved, event.getX(), event.getY());
-                	showTime();
+                    showTime();
                 }
                 return true;
             }
@@ -153,7 +153,7 @@ public class GraphSfView extends SurfaceView {
     }
     
     private void doDraw() {
-    	mBeginTime = android.os.SystemClock.uptimeMillis();
+        mBeginTime = android.os.SystemClock.uptimeMillis();
         new Thread(new DrawThread()).start();
     }
     
@@ -163,7 +163,7 @@ public class GraphSfView extends SurfaceView {
         }
 
         public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-        	mCoreView.onSize(mViewAdapter, width, height);
+            mCoreView.onSize(mViewAdapter, width, height);
         }
 
         public void surfaceDestroyed(SurfaceHolder holder) {
@@ -176,7 +176,7 @@ public class GraphSfView extends SurfaceView {
             Canvas canvas = null;
             
             try {
-            	mEndPaintTime = Integer.MAX_VALUE;
+                mEndPaintTime = Integer.MAX_VALUE;
                 canvas = getHolder().lockCanvas();
                 if (canvas != null) {
                     drawShapes(canvas);
