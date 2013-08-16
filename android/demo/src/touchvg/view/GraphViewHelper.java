@@ -11,8 +11,6 @@ import java.io.IOException;
 import org.apache.http.util.EncodingUtils;
 import touchvg.jni.MgJsonStorage;
 import android.content.Context;
-import android.widget.FrameLayout;
-import android.widget.FrameLayout.LayoutParams;
 
 //! Android绘图视图辅助类
 /*! \ingroup GROUP_ANDROID
@@ -44,27 +42,6 @@ public class GraphViewHelper {
     public GraphView createMagnifierView(Context context, GraphView mainView) {
         mView = new GraphView(context, mainView != null ? mainView : mView);
         return mView;
-    }
-    
-    //! 创建带有动态图形视图的绘图布局视图
-    public FrameLayout createFrameLayout(Context context) {
-        final FrameLayout frame = new FrameLayout(context);
-        final LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-        
-        frame.addView(mView, params);
-        frame.addView(mView.createDynDrawView(context), params);
-        
-        return frame;
-    }
-    
-    //! 为布局视图指定绘图视图和创建动态图形视图
-    public FrameLayout addViewsToLayout(FrameLayout frame, Context context) {
-        final LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-        
-        frame.addView(mView, params);
-        frame.addView(mView.createDynDrawView(context), params);
-        
-        return frame;
     }
     
     //! 设置当前图形视图，供下列函数使用

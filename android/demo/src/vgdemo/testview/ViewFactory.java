@@ -33,8 +33,6 @@ public class ViewFactory {
     static {
         addItem("vgdemo.testview.view.GraphView1", 1, "GraphView draw");
         addItem("vgdemo.testview.view.GraphView1", 2, "GraphView select");
-        addItem("vgdemo.testview.view.GraphView2", 1, "GraphView draw with dynview");
-        addItem("vgdemo.testview.view.GraphView2", 2, "GraphView select with dynview");
         addItem("vgdemo.testview.view.TestMagnifier1", 1, "TestMagnifier");
         addItem("vgdemo.testview.view.TestMagnifier1", 16|1, "TestMagnifier, 2 views");
         
