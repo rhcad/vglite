@@ -37,7 +37,6 @@ void GcShapeView::dynDraw(const MgMotion&, GiGraphics&)
 
 void GcShapeView::onSize(int dpi, int w, int h)
 {
-    LOGD("GcShapeView::onSize %d, %d, %d", dpi, w, h);
     xform()->setResolution((float)dpi);
     xform()->setWndSize(w, h);
 }

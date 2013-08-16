@@ -14,6 +14,7 @@
 #include "GcMagnifierView.h"
 #include "mgcmd.h"
 #include <RandomShape.h>
+#include <mglog.h>
 
 //! 测试视图
 class GcDummyView : public GcBaseView
@@ -95,7 +96,7 @@ public:
             regenAppend();                      // 通知视图获取快照并增量重绘
         }
         else if (sp && newids.back() != 0) {    // 已经regenAppend，但视图还未重绘
-            newids.push_back(sp->getID());      // 记下更多的ID
+            newids.insert(newids.begin(), sp->getID()); // 记下更多的ID
         }
         else {                                  // 已经regenAppend并增量重绘
             regenAll();
@@ -237,11 +238,11 @@ int GiCoreView::drawAll(GiView* view, GiCanvas* canvas)
     if (aview && gs->beginPaint(canvas)) {
         n = aview->drawAll(*gs);
         gs->endPaint();
-        if (!impl->newids.empty()) {
-            impl->newids.push_back(0);
-        }
-        impl->checkDrawAppendEnded();
     }
+    if (!impl->newids.empty()) {
+        impl->newids.push_back(0);
+    }
+    impl->checkDrawAppendEnded();
     
     return n;
 }
@@ -254,11 +255,13 @@ bool GiCoreView::drawAppend(GiView* view, GiCanvas* canvas)
 
     if (aview && !impl->newids.empty()
         && gs->beginPaint(canvas)) {
-        impl->newids.push_back(0);
         n = aview->drawAppend(&impl->newids.front(), *gs);
         gs->endPaint();
-        impl->checkDrawAppendEnded();
     }
+    if (!impl->newids.empty()) {
+        impl->newids.push_back(0);
+    }
+    impl->checkDrawAppendEnded();
 
     return n > 0;
 }
@@ -392,7 +395,7 @@ void GiCoreView::clearCachedData()
 
 int GiCoreView::addShapesForTest()
 {
-    int n = RandomParam(200).addShapes(impl->shapes());
+    int n = RandomParam(1000).addShapes(impl->shapes());
     impl->regenAll();
     return n;
 }

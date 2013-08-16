@@ -13,7 +13,7 @@ public class GraphView2 extends FrameLayout {
         
         final GraphViewHelper helper = new GraphViewHelper();
         
-        helper.createGraphView(context);
+        helper.setView(new GraphView1(context));
         helper.addViewsToLayout(this, context);
     }
 }
