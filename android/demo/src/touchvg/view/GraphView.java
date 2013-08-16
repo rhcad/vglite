@@ -210,12 +210,16 @@ public class GraphView extends View {
                     mCanvasAdapter.endPaint();
                 }
             }
-            invalidate();
+            if (!mRegenning) {
+                invalidate();
+            }
         }
 
         @Override
         public void redraw() {
-            invalidate();
+            if (!mRegenning) {
+                invalidate();
+            }
         }
     }
 }
