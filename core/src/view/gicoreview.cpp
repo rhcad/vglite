@@ -488,13 +488,9 @@ void GcDummyView::drawPoints(GiCanvas* canvas)
         canvas->drawEllipse(_pts[_pts.size() - 2] - 50.f,
                            _pts.back() - 50.f, 100, 100, true, true);
         canvas->beginPath();
-        for (size_t i = 0; i + 1 < _pts.size(); i += 2) {
-            if (i == 0) {
-                canvas->moveTo(_pts[i], _pts[i+1]);
-            }
-            else {
-                canvas->lineTo(_pts[i], _pts[i+1]);
-            }
+        canvas->moveTo(_pts[0], _pts[1]);
+        for (size_t i = 2; i + 1 < _pts.size(); i += 2) {
+            canvas->lineTo(_pts[i], _pts[i+1]);
         }
         canvas->drawPath(true, false);
     }

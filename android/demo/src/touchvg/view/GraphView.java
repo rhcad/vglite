@@ -20,13 +20,14 @@ import android.view.View;
  */
 public class GraphView extends View {
     private CanvasAdapter mCanvasAdapter;   // 画布适配器
+    private CanvasAdapter mCanvasRegen;     // 画布适配器
     private ViewAdapter mViewAdapter;       // 视图回调适配器
     private GiCoreView mCoreView;           // 内核视图分发器
-    private Bitmap mCachedBitmap;           // 用于增量绘图的快照
     private GestureDetector mDetector;      // 手势识别器
     private PaintGestureListener mGestureListener;
     private boolean mGestureEnable = true;  // 是否允许交互
     private boolean mRegenning = false;     // 是否正在regenAll
+    private Bitmap mCachedBitmap;           // 缓存快照
     private static GraphView mActiveView;   // 当前激活视图
 
     //! 普通绘图视图的构造函数
@@ -49,6 +50,7 @@ public class GraphView extends View {
     
     private void createAdapter(Context context) {
         mCanvasAdapter = new CanvasAdapter(this);
+        mCanvasRegen = new CanvasAdapter(this);
         mViewAdapter = new ViewAdapter();
     }
 
@@ -103,33 +105,39 @@ public class GraphView extends View {
     protected void onDraw(Canvas canvas) {
         mCoreView.onSize(mViewAdapter, getWidth(), getHeight());
         if (mCachedBitmap != null) {
-            drawShapes(canvas, true);
+            drawShapes(canvas);
         } else {
             mViewAdapter.regenAll(canvas);
             if (mCachedBitmap == null) {
-                drawShapes(canvas, true);
+                drawShapes(canvas);
             }
         }
     }
     
-    private void drawShapes(Canvas canvas, boolean dyndraw) {
-        if (mCanvasAdapter.beginPaint(canvas)) {
-            if (mCachedBitmap == null || (mRegenning && !dyndraw)) {
+    private void drawShapes(Canvas canvas) {
+        drawShapes(canvas, mCanvasAdapter);
+    }
+    
+    private void drawShapes(Canvas canvas, CanvasAdapter adapter) {
+        if (adapter.beginPaint(canvas)) {
+            if (mCachedBitmap == null || adapter != mCanvasAdapter) {
                 if (this.getBackground() != null) {
                     this.getBackground().draw(canvas);
                 } else {
                     canvas.drawColor(Color.WHITE);
                 }
-                mCoreView.drawAll(mViewAdapter, mCanvasAdapter);
+                mCoreView.drawAll(mViewAdapter, adapter);
             }
-            else if (mCachedBitmap != null && !mRegenning) {
-                canvas.drawBitmap(mCachedBitmap, 0, 0, null);
+            else if (mCachedBitmap != null) {
+                synchronized(mCachedBitmap) {
+                    canvas.drawBitmap(mCachedBitmap, 0, 0, null);
+                }
             }
             
-            if (dyndraw) {
-                mCoreView.dynDraw(mViewAdapter, mCanvasAdapter);
+            if (adapter == mCanvasAdapter) {
+                mCoreView.dynDraw(mViewAdapter, adapter);
             }
-            mCanvasAdapter.endPaint();
+            adapter.endPaint();
         }
     }
 
@@ -150,6 +158,10 @@ public class GraphView extends View {
             mCanvasAdapter.delete();
             mCanvasAdapter = null;
         }
+        if (mCanvasRegen != null) {
+            mCanvasRegen.delete();
+            mCanvasRegen = null;
+        }
         if (mGestureListener != null) {
             mGestureListener.release();
             mGestureListener = null;
@@ -166,6 +178,9 @@ public class GraphView extends View {
     //! 视图回调适配器
     private class ViewAdapter extends GiView {
         public void regenAll(Canvas canvas) {
+            if (getWidth() < 1 || getHeight() < 1 || mRegenning) {
+                return;
+            }
             try {
                 if (mCachedBitmap == null) {
                     mCachedBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
@@ -178,7 +193,9 @@ public class GraphView extends View {
                 mRegenning = true;
                 new Thread(new Runnable() {
                     public void run() {
-                        drawShapes(new Canvas(mCachedBitmap), false);
+                        synchronized(mCachedBitmap) {
+                            drawShapes(new Canvas(mCachedBitmap), mCanvasRegen);
+                        }
                         mRegenning = false;
                         postInvalidate();
                     }
@@ -191,9 +208,6 @@ public class GraphView extends View {
         
         @Override
         public void regenAll() {
-            if (getWidth() < 1 || getHeight() < 1 || mRegenning) {
-                return;
-            }
             if (mCachedBitmap != null && (mCachedBitmap.getWidth() != getWidth()
                     || mCachedBitmap.getHeight() != getHeight())) {
                 mCachedBitmap.recycle();
@@ -205,21 +219,19 @@ public class GraphView extends View {
         @Override
         public void regenAppend() {
             if (mCachedBitmap != null && !mRegenning) {
-                if (mCanvasAdapter.beginPaint(new Canvas(mCachedBitmap))) {
-                    mCoreView.drawAppend(mViewAdapter, mCanvasAdapter);
-                    mCanvasAdapter.endPaint();
+                synchronized(mCachedBitmap) {
+                    if (mCanvasAdapter.beginPaint(new Canvas(mCachedBitmap))) {
+                        mCoreView.drawAppend(mViewAdapter, mCanvasAdapter);
+                        mCanvasAdapter.endPaint();
+                    }
                 }
             }
-            if (!mRegenning) {
-                invalidate();
-            }
+            invalidate();
         }
 
         @Override
         public void redraw() {
-            if (!mRegenning) {
-                invalidate();
-            }
+            invalidate();
         }
     }
 }

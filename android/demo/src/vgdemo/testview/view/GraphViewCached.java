@@ -127,7 +127,7 @@ public class GraphViewCached extends View {
         }
         if (mCacheBitmap == null) {
             mCacheBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
-            Canvas canvas = new Canvas(mCacheBitmap);
+            final Canvas canvas = new Canvas(mCacheBitmap);
             
             if (mCanvasAdapter.beginPaint(canvas)) {
                 canvas.drawColor(0);
@@ -179,7 +179,7 @@ public class GraphViewCached extends View {
         @Override
         public void regenAppend() {
             if (mCacheBitmap != null) {
-                Canvas canvas = new Canvas(mCacheBitmap);
+                final Canvas canvas = new Canvas(mCacheBitmap);
                 if (mCanvasAdapter.beginPaint(canvas)) {
                     mCoreView.drawAppend(mViewAdapter, mCanvasAdapter);
                     mCanvasAdapter.endPaint();
