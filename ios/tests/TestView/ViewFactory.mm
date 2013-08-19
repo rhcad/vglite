@@ -88,9 +88,7 @@ static void testMagnifierView(NSMutableArray *arr, NSUInteger &i, NSUInteger ind
     
     if (wrapview) {
         CGRect magframe = CGRectMake(10, 10, 200, 200);
-        UIView *v = [GiViewHelper createMagnifierView:magframe refView:nil];
-        [wrapview addSubview:v];
-        [v release];
+        UIView *v = [GiViewHelper createMagnifierView:magframe refView:nil parentView:wrapview];
         v.backgroundColor = [UIColor greenColor];
     }
 }

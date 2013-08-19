@@ -121,7 +121,7 @@ bool MgCmdManagerImpl::showInSelect(const MgMotion* sender, int selState, const 
     return sender->view->showContextActions(selState, actions, box, shape);
 }
 
-void MgCmdManagerImpl::doAction(const MgMotion* sender, int action)
+bool MgCmdManagerImpl::doAction(const MgMotion* sender, int action)
 {
     MgView* view = sender->view;
     MgSelection *sel = getSelection(view);
@@ -129,7 +129,7 @@ void MgCmdManagerImpl::doAction(const MgMotion* sender, int action)
     
     switch (action) {
         case kMgActionSelAll:
-            if (sel) sel->selectAll(sender);
+            ret = sel && sel->selectAll(sender);
             break;
             
         case kMgActionSelReset:
@@ -137,80 +137,67 @@ void MgCmdManagerImpl::doAction(const MgMotion* sender, int action)
             break;
             
         case kMgActionDraw:
-            setCommand(sender, "@draw");
+            ret = setCommand(sender, "@draw");
             break;
             
         case kMgActionCancel:
-            setCommand(sender, "select");
+            ret = setCommand(sender, "select");
             break;
             
         case kMgActionDelete:
-            if (sel) sel->deleteSelection(sender);
+            ret = sel && sel->deleteSelection(sender);
             break;
             
         case kMgActionClone:
-            if (sel) sel->cloneSelection(sender);
+            ret = sel && sel->cloneSelection(sender);
             break;
 
         case kMgActionGroup:
-            if (sel) sel->groupSelection(sender);
+            ret = sel && sel->groupSelection(sender);
             break;
 
         case kMgActionUngroup:
-            if (sel) sel->ungroupSelection(sender);
-            break;
-            
-        case kMgActionBreak:
-            setCommand(sender, "break");
-            break;
-            
-        case kMgActionCorner:
-            setCommand(sender, "corner");
+            ret = sel && sel->ungroupSelection(sender);
             break;
             
         case kMgActionFixedLength:
         case kMgActionFreeLength:
-            if (sel) sel->setFixedLength(sender, !sel->isFixedLength(view));
+            ret = sel && sel->setFixedLength(sender, !sel->isFixedLength(view));
             break;
             
         case kMgActionLocked:
         case kMgActionUnlocked:
-            if (sel) sel->setLocked(sender, !sel->isLocked(view));
+            ret = sel && sel->setLocked(sender, !sel->isLocked(view));
             break;
             
         case kMgActionEditVertex:
         case kMgActionHideVertex:
-            if (sel) sel->setEditMode(sender, !sel->isEditMode(view));
+            ret = sel && sel->setEditMode(sender, !sel->isEditMode(view));
             break;
             
         case kMgActionClosed:
         case kMgActionOpened:
-            if (sel) sel->switchClosed(sender);
+            ret = sel && sel->switchClosed(sender);
             break;
             
         case kMgActionAddVertex:
-            if (sel) sel->insertVertext(sender);
+            ret = sel && sel->insertVertext(sender);
             break;
             
         case kMgActionDelVertex:
-            if (sel) sel->deleteVertext(sender);
+            ret = sel && sel->deleteVertext(sender);
             break;
             
         case kMgActionOverturn:
-            if (sel) sel->overturnPolygon(sender);
+            ret = sel && sel->overturnPolygon(sender);
             break;
             
         default: {
             MgCommand* cmd = getCommand();
             ret = cmd && cmd->doContextAction(sender, action);
-            if (!ret) {
-                const char* name = _drawcmd.c_str();
-                if (kMgAction3Views == action)
-                    name = "cube";
-                cmd = findCommand(name);
-                ret = cmd && cmd->doContextAction(sender, action);
-            }
             break;
         }
     }
+    
+    return ret;
 }

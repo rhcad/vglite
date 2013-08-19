@@ -19,8 +19,8 @@ class MgLockRW
 {
 public:
     MgLockRW();
-    bool lock(bool forWrite, int timeout = 200);
-    long unlock(bool forWrite);
+    bool lockData(bool forWrite, int timeout = 200);
+    long unlockData(bool forWrite);
     
     bool firstLocked() const;
     bool lockedForRead() const;

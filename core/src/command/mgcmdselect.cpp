@@ -578,7 +578,7 @@ bool MgCmdSelect::touchBegan(const MgMotion* sender)
     m_handleIndex = (m_clones.size() == 1 && (m_handleIndex > 0 || m_editMode) ?
                      hitTestHandles(shape, sender->pointM, sender) : 0);
     
-    if (m_insertPt && shape->shape()->isKindOf(MgBaseLines::Type())) {
+    if (m_insertPt && shape && shape->shape()->isKindOf(MgBaseLines::Type())) {
         MgBaseLines* lines = (MgBaseLines*)(shape->shape());
         lines->insertPoint(m_segment, m_ptNear);
         shape->shape()->update();
@@ -599,7 +599,7 @@ bool MgCmdSelect::touchBegan(const MgMotion* sender)
             m_ptStart = sender->startPtM;
         }
     }
-    else {
+    else if (shape) {
         m_ptStart = shape->shape()->getHandlePoint(tmpindex - 1);
     }
     

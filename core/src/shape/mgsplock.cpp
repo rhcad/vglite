@@ -30,7 +30,7 @@ MgLockRW::MgLockRW() : _editFlags(0)
     _counts[0] = _counts[1] = _counts[2] = 0;
 }
 
-bool MgLockRW::lock(bool forWrite, int timeout)
+bool MgLockRW::lockData(bool forWrite, int timeout)
 {
     bool ret = false;
     
@@ -55,7 +55,7 @@ bool MgLockRW::lock(bool forWrite, int timeout)
     return ret;
 }
 
-long MgLockRW::unlock(bool forWrite)
+long MgLockRW::unlockData(bool forWrite)
 {
     giInterlockedDecrement(_counts + (forWrite ? 2 : 1));
     return giInterlockedDecrement(_counts);
@@ -82,7 +82,7 @@ bool MgLockRW::lockedForWrite() const
 MgShapesLock::MgShapesLock(MgShapeDoc* d, int flags, int timeout) : doc(d)
 {
     bool forWrite = (flags != 0);
-    _mode = d && d->getLockData()->lock(forWrite, timeout) ? (forWrite ? 2 : 1) : 0;
+    _mode = d && d->getLockData()->lockData(forWrite, timeout) ? (forWrite ? 2 : 1) : 0;
     if (_mode == 2 && flags == Unknown)
         _mode |= 4;
     if (_mode == 2 && doc->getLockData()->firstLocked()) {
@@ -103,7 +103,7 @@ MgShapesLock::~MgShapesLock()
         if (group->isKindOf(MgComposite::Type())) {
             group->updateExtent();
         }
-        ended = (0 == doc->getLockData()->unlock((_mode & 2) != 0));
+        ended = (0 == doc->getLockData()->unlockData((_mode & 2) != 0));
     }
     if (_mode == 2 && ended && doc) {
         doc->afterChanged();
@@ -153,13 +153,13 @@ bool MgShapesLock::lockedForWrite(MgShapeDoc* d)
 
 MgDynShapeLock::MgDynShapeLock(bool forWrite, int timeout)
 {
-    _mode = s_dynLock.lock(forWrite, timeout) ? (forWrite ? 2 : 1) : 0;
+    _mode = s_dynLock.lockData(forWrite, timeout) ? (forWrite ? 2 : 1) : 0;
 }
 
 MgDynShapeLock::~MgDynShapeLock()
 {
     if (locked()) {
-        s_dynLock.unlock(_mode == 2);
+        s_dynLock.unlockData(_mode == 2);
     }
 }
 

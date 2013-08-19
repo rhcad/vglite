@@ -299,6 +299,11 @@ static int FindRoots(const point_t* w, int degree, double* t, int depth)
     int     right_count;
     double  left_t[W_DEGREE+1]; // Solutions from kids
     double  right_t[W_DEGREE+1];
+    
+    for (i = 0; i < W_DEGREE+1; i++) {
+        left_t[i] = 0;
+        right_t[i] = 0;
+    }
 
     switch (CrossingCount(w, degree))
     {

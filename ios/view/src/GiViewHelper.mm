@@ -9,13 +9,23 @@
 
 @implementation GiViewHelper
 
-+ (GiGraphView *)createGraphView:(CGRect)frame {
-    return [[GiGraphView alloc]initWithFrame:frame];
++ (GiGraphView *)createGraphView:(CGRect)frame :(UIView *)parentView {
+    GiGraphView *v = [[GiGraphView alloc]initWithFrame:frame];
+    [parentView addSubview:v];
+    [v release];
+    return v;
 }
 
-+ (GiGraphView *)createMagnifierView:(CGRect)frame refView:(GiGraphView *)refView {
++ (GiGraphView *)createMagnifierView:(CGRect)frame
+                             refView:(GiGraphView *)refView
+                          parentView:(UIView *)parentView
+{
     refView = refView ? refView : [GiGraphView activeView];
-    return [[GiGraphView alloc]initWithFrame:frame refView:refView];
+    GiGraphView *v = [[GiGraphView alloc]initWithFrame:frame refView:refView];
+    
+    [parentView addSubview:v];
+    [v release];
+    return v;
 }
 
 + (NSString *)command:(GiGraphView *)v {

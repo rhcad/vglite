@@ -11,8 +11,10 @@
  */
 @interface GiViewHelper : NSObject
 
-+ (GiGraphView *)createGraphView:(CGRect)frame;  //!< 创建普通图形视图
-+ (GiGraphView *)createMagnifierView:(CGRect)frame refView:(GiGraphView *)refView; //!< 创建放大镜视图
++ (GiGraphView *)createGraphView:(CGRect)frame :(UIView *)parentView;   //!< 创建普通图形视图
++ (GiGraphView *)createMagnifierView:(CGRect)frame
+                             refView:(GiGraphView *)refView
+                          parentView:(UIView *)parentView;  //!< 创建放大镜视图
 
 + (NSString *)command:(GiGraphView *)v;                     //!< 得到当前命令名称
 + (BOOL)setCommand:(GiGraphView *)v :(NSString *)name;      //!< 启动指定名称的命令

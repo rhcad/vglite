@@ -50,7 +50,7 @@ private:
     
     virtual bool showInSelect(const MgMotion* sender, int selState, const MgShape* shape, const Box2d& selbox);
     virtual bool showInDrawing(const MgMotion* sender, const MgShape* shape);
-    virtual void doAction(const MgMotion* sender, int action);
+    virtual bool doAction(const MgMotion* sender, int action);
     
 private:
     void eraseWnd(const MgMotion* sender);
