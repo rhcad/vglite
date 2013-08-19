@@ -44,6 +44,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				Optimization="0"
 				AdditionalIncludeDirectories="..\..\..\core\include\callback;..\..\..\core\include\test;..\..\..\core\include\view;..\..\..\core\include\command;..\..\..\core\include\shape;..\..\..\core\include\graph;..\..\..\core\include\geom;..\..\..\core\include;&quot;$(JAVA_INCLUDE)&quot;;&quot;$(JAVA_INCLUDE)\win32&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				RuntimeLibrary="2"
@@ -96,7 +97,7 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Java compile post-build step"
-				CommandLine="if exist $(TargetDir)\TestJNI.java if exist $(TargetDir)\GiCanvas.java (&#x0D;&#x0A;cd $(TargetDir)&#x0D;&#x0A;$(JAVA_BIN)javac.exe *.java&#x0D;&#x0A;)&#x0D;&#x0A;"
+				CommandLine="if exist $(TargetDir)\TestJNI.java if exist $(TargetDir)\GiCanvas.java (&#x0D;&#x0A;cd $(TargetDir)&#x0D;&#x0A;&quot;$(JAVA_BIN)javac.exe&quot; *.java&#x0D;&#x0A;)&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -125,6 +126,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				Optimization="0"
 				AdditionalIncludeDirectories="..\..\..\core\include\callback;..\..\..\core\include\test;..\..\..\core\include\view;..\..\..\core\include\command;..\..\..\core\include\shape;..\..\..\core\include\graph;..\..\..\core\include\geom;..\..\..\core\include;&quot;$(JAVA64_INCLUDE)&quot;;&quot;$(JAVA64_INCLUDE)\win32&quot;"
 				PreprocessorDefinitions="_WIN64;NDEBUG;_WINDOWS;_USRDLL"
 				RuntimeLibrary="2"
@@ -177,7 +179,7 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Java compile post-build step"
-				CommandLine="if exist $(TargetDir)\TestJNI.java if exist $(TargetDir)\GiCanvas.java (&#x0D;&#x0A;cd $(TargetDir)&#x0D;&#x0A;$(JAVA64_BIN)javac.exe *.java&#x0D;&#x0A;)&#x0D;&#x0A;"
+				CommandLine="if exist $(TargetDir)\TestJNI.java if exist $(TargetDir)\GiCanvas.java (&#x0D;&#x0A;cd $(TargetDir)&#x0D;&#x0A;&quot;$(JAVA64_BIN)javac.exe&quot; *.java&#x0D;&#x0A;)&#x0D;&#x0A;"
 			/>
 		</Configuration>
 	</Configurations>
@@ -242,7 +244,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Swig generating..."
-						CommandLine="swig.exe -c++ -java -I&quot;$(ProjectDir)..\..\..\core\include\callback&quot; -I&quot;$(ProjectDir)..\..\..\core\include\test&quot; -I&quot;$(ProjectDir)..\..\..\core\include\view&quot; -I&quot;$(ProjectDir)..\..\..\core\include\shape&quot; -I&quot;$(ProjectDir)..\..\..\core\include&quot; -o &quot;..\..\build\touchvg_java_wrap.cpp&quot; -outdir $(TargetDir) $(InputPath)&#x0D;&#x0A;cd $(TargetDir)&#x0D;&#x0A;$(JAVA_BIN)javac.exe *.java&#x0D;&#x0A;"
+						CommandLine="swig.exe -c++ -java -I&quot;$(ProjectDir)..\..\..\core\include\callback&quot; -I&quot;$(ProjectDir)..\..\..\core\include\test&quot; -I&quot;$(ProjectDir)..\..\..\core\include\view&quot; -I&quot;$(ProjectDir)..\..\..\core\include\shape&quot; -I&quot;$(ProjectDir)..\..\..\core\include&quot; -o &quot;..\..\build\touchvg_java_wrap.cpp&quot; -outdir $(TargetDir) $(InputPath)&#x0D;&#x0A;cd $(TargetDir)&#x0D;&#x0A;&quot;$(JAVA_BIN)javac.exe&quot; *.java&#x0D;&#x0A;"
 						Outputs="$(ProjectDir)\..\..\build\touchvg_java_wrap.cpp"
 					/>
 				</FileConfiguration>
@@ -252,7 +254,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Swig generating..."
-						CommandLine="swig.exe -c++ -java -I&quot;$(ProjectDir)..\..\..\core\include\callback&quot; -I&quot;$(ProjectDir)..\..\..\core\include\test&quot; -I&quot;$(ProjectDir)..\..\..\core\include\view&quot; -I&quot;$(ProjectDir)..\..\..\core\include\shape&quot; -I&quot;$(ProjectDir)..\..\..\core\include&quot; -o &quot;..\..\build\touchvg_java_wrap.cpp&quot; -outdir $(TargetDir) $(InputPath)&#x0D;&#x0A;cd $(TargetDir)&#x0D;&#x0A;$(JAVA64_BIN)javac.exe *.java&#x0D;&#x0A;"
+						CommandLine="swig.exe -c++ -java -I&quot;$(ProjectDir)..\..\..\core\include\callback&quot; -I&quot;$(ProjectDir)..\..\..\core\include\test&quot; -I&quot;$(ProjectDir)..\..\..\core\include\view&quot; -I&quot;$(ProjectDir)..\..\..\core\include\shape&quot; -I&quot;$(ProjectDir)..\..\..\core\include&quot; -o &quot;..\..\build\touchvg_java_wrap.cpp&quot; -outdir $(TargetDir) $(InputPath)&#x0D;&#x0A;cd $(TargetDir)&#x0D;&#x0A;&quot;$(JAVA64_BIN)javac.exe&quot; *.java&#x0D;&#x0A;"
 						Outputs="..\..\build\touchvg_java_wrap.cpp"
 					/>
 				</FileConfiguration>

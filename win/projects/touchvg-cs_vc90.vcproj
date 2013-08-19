@@ -44,6 +44,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				Optimization="0"
 				AdditionalIncludeDirectories="..\..\core\include\callback;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;TOUCHVG_EXPORTS"
 				MinimalRebuild="true"
@@ -64,6 +65,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				OutputFile="$(OutDir)\touchvg.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories=""
 				IgnoreDefaultLibraryNames=""
@@ -126,6 +128,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				Optimization="0"
 				AdditionalIncludeDirectories="..\..\core\include\callback;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test"
 				PreprocessorDefinitions="_WIN64;NDEBUG;_WINDOWS;_USRDLL"
 				RuntimeLibrary="2"
@@ -144,6 +147,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				OutputFile="$(OutDir)\touchvg.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories=""
 				IgnoreDefaultLibraryNames=""
@@ -199,7 +203,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Swig generating..."
-						CommandLine="if not exist $(TargetDir) mkdir $(TargetDir)&#x0D;&#x0A;swig.exe -c++ -csharp -I&quot;$(ProjectDir)..\..\core\include\callback&quot; -I&quot;$(ProjectDir)..\..\core\include\test&quot; -I&quot;$(ProjectDir)..\..\core\include\view&quot; -I&quot;$(ProjectDir)..\..\core\include\shape&quot; -I&quot;$(ProjectDir)..\..\core\include&quot; -o &quot;..\build\touchvg_csharp_wrap.cpp&quot; -outdir $(TargetDir) $(InputPath)"
+						CommandLine="if not exist $(TargetDir) mkdir $(TargetDir)&#x0D;&#x0A;swig.exe -c++ -csharp -I&quot;$(ProjectDir)..\..\core\include\callback&quot; -I&quot;$(ProjectDir)..\..\core\include\test&quot; -I&quot;$(ProjectDir)..\..\core\include\view&quot; -I&quot;$(ProjectDir)..\..\core\include\shape&quot; -I&quot;$(ProjectDir)..\..\core\include&quot; -o &quot;..\build\touchvg_csharp_wrap.cpp&quot; -outdir $(TargetDir) $(InputPath)&#x0D;&#x0A;"
 						Outputs="$(ProjectDir)\..\build\touchvg_csharp_wrap.cpp"
 					/>
 				</FileConfiguration>
@@ -209,7 +213,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Swig generating..."
-						CommandLine="if not exist $(TargetDir) mkdir $(TargetDir)&#x0D;&#x0A;swig.exe -c++ -csharp -I&quot;$(ProjectDir)..\..\core\include\callback&quot; -I&quot;$(ProjectDir)..\..\core\include\test&quot; -I&quot;$(ProjectDir)..\..\core\include\view&quot; -I&quot;$(ProjectDir)..\..\core\include\shape&quot; -I&quot;$(ProjectDir)..\..\core\include&quot; -o &quot;..\build\touchvg_csharp_wrap.cpp&quot; -outdir $(TargetDir) $(InputPath)"
+						CommandLine="if not exist $(TargetDir) mkdir $(TargetDir)&#x0D;&#x0A;swig.exe -c++ -csharp -I&quot;$(ProjectDir)..\..\core\include\callback&quot; -I&quot;$(ProjectDir)..\..\core\include\test&quot; -I&quot;$(ProjectDir)..\..\core\include\view&quot; -I&quot;$(ProjectDir)..\..\core\include\shape&quot; -I&quot;$(ProjectDir)..\..\core\include&quot; -o &quot;..\build\touchvg_csharp_wrap.cpp&quot; -outdir $(TargetDir) $(InputPath)&#x0D;&#x0A;"
 						Outputs="..\build\touchvg_csharp_wrap.cpp"
 					/>
 				</FileConfiguration>
