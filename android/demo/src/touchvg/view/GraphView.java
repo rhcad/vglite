@@ -23,8 +23,8 @@ public class GraphView extends View {
     private CanvasAdapter mCanvasRegen;     // 画布适配器
     private ViewAdapter mViewAdapter;       // 视图回调适配器
     private GiCoreView mCoreView;           // 内核视图分发器
-    private GestureDetector mDetector;      // 手势识别器
-    private PaintGestureListener mGestureListener;
+    private GestureDetector mGestureDetector;      // 手势识别器
+    private PaintGestureListener mGestureListener; // 手势识别实现
     private boolean mGestureEnable = true;  // 是否允许交互
     private boolean mRegenning = false;     // 是否正在regenAll
     private Bitmap mCachedBitmap;           // 缓存快照
@@ -56,7 +56,7 @@ public class GraphView extends View {
 
     private void initView(Context context) {
         mGestureListener = new PaintGestureListener(mCoreView, mViewAdapter);
-        mDetector = new GestureDetector(context, mGestureListener);
+        mGestureDetector = new GestureDetector(context, mGestureListener);
 
         final DisplayMetrics dm = context.getApplicationContext().getResources().getDisplayMetrics();
         GiCoreView.setScreenDpi(dm.densityDpi);         // 应用API
@@ -66,7 +66,7 @@ public class GraphView extends View {
             public boolean onTouch(View v, MotionEvent event) {
                 mActiveView = GraphView.this;
                 return mGestureEnable && (mGestureListener.onTouch(v, event)
-                        || mDetector.onTouchEvent(event));
+                        || mGestureDetector.onTouchEvent(event));
             }
         });
     }
@@ -104,18 +104,9 @@ public class GraphView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         mCoreView.onSize(mViewAdapter, getWidth(), getHeight());
-        if (mCachedBitmap != null) {
-            drawShapes(canvas);
-        } else {
-            mViewAdapter.regenAll(canvas);
-            if (mCachedBitmap == null) {
-                drawShapes(canvas);
-            }
+        if (mCachedBitmap != null || !mViewAdapter.regenAll(canvas)) {
+            drawShapes(canvas, mCanvasAdapter);
         }
-    }
-    
-    private void drawShapes(Canvas canvas) {
-        drawShapes(canvas, mCanvasAdapter);
     }
     
     private void drawShapes(Canvas canvas, CanvasAdapter adapter) {
@@ -170,20 +161,21 @@ public class GraphView extends View {
             mCachedBitmap.recycle();
             mCachedBitmap = null;
         }
-        mDetector = null;
+        mGestureDetector = null;
         
         super.onDetachedFromWindow();
     }
 
     //! 视图回调适配器
     private class ViewAdapter extends GiView {
-        public void regenAll(Canvas canvas) {
+        public boolean regenAll(Canvas canvas) {
             if (getWidth() < 1 || getHeight() < 1 || mRegenning) {
-                return;
+                return true;
             }
             try {
                 if (mCachedBitmap == null) {
-                    mCachedBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
+                    mCachedBitmap = Bitmap.createBitmap(getWidth(), 
+                            getHeight(), Bitmap.Config.ARGB_8888);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -204,11 +196,14 @@ public class GraphView extends View {
             else if (canvas == null) {
                 invalidate();
             }
+            
+            return mCachedBitmap != null;
         }
         
         @Override
         public void regenAll() {
-            if (mCachedBitmap != null && (mCachedBitmap.getWidth() != getWidth()
+            if (mCachedBitmap != null && !mRegenning
+                    && (mCachedBitmap.getWidth() != getWidth()
                     || mCachedBitmap.getHeight() != getHeight())) {
                 mCachedBitmap.recycle();
                 mCachedBitmap = null;
@@ -231,7 +226,9 @@ public class GraphView extends View {
 
         @Override
         public void redraw() {
-            invalidate();
+            if (!mRegenning) {
+                invalidate();
+            }
         }
     }
 }
