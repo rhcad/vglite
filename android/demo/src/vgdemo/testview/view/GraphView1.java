@@ -16,12 +16,15 @@ public class GraphView1 extends GraphView {
         final GraphViewHelper helper = new GraphViewHelper(this);
         
         if ((flags & 1) != 0) {
+            helper.addShapesForTest();
+            helper.setCommand("select");
+        }
+        else if ((flags >> 1) == 1) {
         	helper.addShapesForTest();
             helper.setCommand("splines");
         }
-        else if ((flags & 2) != 0) {
-            helper.addShapesForTest();
-            helper.setCommand("select");
+        else if ((flags >> 1) == 2) {
+            helper.setCommand("line");
         }
     }
 }

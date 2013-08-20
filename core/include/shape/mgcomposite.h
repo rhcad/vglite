@@ -45,6 +45,7 @@ protected:
     void _setPoint(int index, const Point2d& pt);
     int _getHandleCount() const;
     Point2d _getHandlePoint(int index) const;
+    int _getHandleType(int index) const;
     bool _setHandlePoint(int index, const Point2d& pt, float tol);
     bool _isHandleFixed(int index) const { return index > 0; }
     void _update();

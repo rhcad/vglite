@@ -50,6 +50,7 @@ static UIView* addGraphView(NSMutableArray *arr, NSUInteger &i, NSUInteger index
             v = v2;
             
             if (type == 1) {
+                [GiViewHelper addShapesForTest:v2];
                 [GiViewHelper setCommand:v2 :@"splines"];
             }
             else if (type == 2) {
@@ -72,6 +73,9 @@ static UIView* addGraphView(NSMutableArray *arr, NSUInteger &i, NSUInteger index
                 [GiViewHelper fireGesture:v2 type:1 state:3 x:806 y:444];
                 [GiViewHelper setCommand:v2 :@"select"];
                 [GiViewHelper zoomToExtent:v2];
+            }
+            else if (type == 5) {
+                [GiViewHelper setCommand:v2 :@"line"];
             }
         }
         [wrapview addSubview:v];
@@ -100,6 +104,7 @@ static void gatherTestView(NSMutableArray *arr, NSUInteger index, CGRect frame)
     addGraphView(arr, i, index, @"GiGraphView1", frame, 0);
     addLargeView1(arr, i, index, @"GiGraphView1 in large view", frame, 0);
     addGraphView(arr, i, index, @"GiGraphView draw", frame, 1);
+    addGraphView(arr, i, index, @"GiGraphView line", frame, 5);
     addGraphView(arr, i, index, @"GiGraphView select randShapes", frame, 2);
     addGraphView(arr, i, index, @"GiGraphView select loadShapes", frame, 3);
     addGraphView(arr, i, index, @"GiGraphView fireGesture", frame, 4);

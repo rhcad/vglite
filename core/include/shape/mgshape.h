@@ -96,6 +96,14 @@ typedef enum {
     kMgShapeLocked,     //!< 锁定形状
 } MgShapeBit;
 
+//! 图形特征点类型
+typedef enum {
+    kMgHandleVertext,   //!< 顶点
+    kMgHandleCenter,    //!< 圆心
+    kMgHandleMidPoint,  //!< 中点
+    kMgHandleOutside,   //!< 线外点
+} MgHandleType;
+
 //! 矢量图形基类
 /*! \ingroup GEOM_SHAPE
     \see MgShapeType, MgShape
@@ -195,6 +203,9 @@ public:
     //! 返回指定序号的控制点是否不允许移动
     virtual bool isHandleFixed(int index) const = 0;
     
+    //! 返回指定序号的控制点类型(MgHandleType)
+    virtual int getHandleType(int index) const = 0;
+    
     //! 移动图形, 子段号 segment 由 hitTest() 得到
     virtual bool offset(const Vector2d& vec, int segment) = 0;
     
@@ -227,6 +238,7 @@ protected:
     Point2d _getHandlePoint(int index) const;
     bool _setHandlePoint(int index, const Point2d& pt, float tol);
     bool _isHandleFixed(int) const { return false; }
+    int _getHandleType(int) const { return kMgHandleVertext; }
     bool _offset(const Vector2d& vec, int segment);
     bool _rotateHandlePoint(int index, const Point2d& pt);
     bool _save(MgStorage* s) const;
@@ -277,6 +289,7 @@ protected:                                                      \
     virtual Point2d getHandlePoint(int index) const;            \
     virtual bool setHandlePoint(int index, const Point2d& pt, float tol);   \
     virtual bool isHandleFixed(int index) const;                \
+    virtual int getHandleType(int index) const;                 \
     virtual bool offset(const Vector2d& vec, int segment);
 
 #define MG_DECLARE_CREATE(Cls, Base, TypeNum)                   \

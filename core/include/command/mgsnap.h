@@ -12,12 +12,18 @@ class MgMotion;
 
 //! 特征点类型
 typedef enum {
-    kSnapNone,
-    kSnapSameX,
-    kSnapSameY,
-    kSnapGridX,
-    kSnapGridY,
-    kSnapPoint,
+    kMgSnapNone,        //!< 无
+    kMgSnapSameX,       //!< X方向参考点
+    kMgSnapSameY,       //!< Y方向参考点
+    kMgSnapGridX,       //!< X方向网格线
+    kMgSnapGridY,       //!< Y方向网格线
+    kMgSnapPoint,       //!< 顶点
+    kMgSnapCenter,      //!< 圆心
+    kMgSnapMidPoint,    //!< 中点
+    kMgSnapGrid,        //!< 网格点
+    kMgSnapIntersect,   //!< 交点
+    kMgSnapPerp,        //!< 垂足
+    kMgSnapNearPt,      //!< 线上最近点
 } MgSnapType;
 
 //! 图形特征点捕捉器接口
@@ -34,7 +40,7 @@ struct MgSnap {
                               int hotHandle, int ignoreHandle = -1,
                               const int* ignoreids = NULL) = 0;
     
-    //! 返回捕捉到的特征点类型, >=kSnapPoint
+    //! 返回捕捉到的特征点类型, >=kMgSnapPoint
     virtual int getSnappedType() = 0;
     
     //! 得到捕捉到的特征点坐标和原始参考坐标、捕捉坐标

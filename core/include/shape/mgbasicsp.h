@@ -45,6 +45,7 @@ protected:
     Point2d _getHandlePoint(int index) const;
     bool _setHandlePoint(int index, const Point2d& pt, float tol);
     bool _isHandleFixed(int index) const;
+    int _getHandleType(int index) const;
 
 private:
     Point2d     _points[2];
@@ -113,6 +114,7 @@ protected:
     float _hitTest(const Point2d& pt, float tol, Point2d& nearpt, int& segment) const;
     int _getHandleCount() const;
     Point2d _getHandlePoint(int index) const;
+    int _getHandleType(int index) const;
     bool _setHandlePoint(int index, const Point2d& pt, float tol);
     bool _hitTestBox(const Box2d& rect) const;
     bool _save(MgStorage* s) const;
@@ -151,6 +153,7 @@ protected:
     void _update();
     int _getHandleCount() const;
     Point2d _getHandlePoint(int index) const;
+    int _getHandleType(int index) const;
     bool _setHandlePoint(int index, const Point2d& pt, float tol);
     float _hitTest(const Point2d& pt, float tol, Point2d& nearpt, int& segment) const;
     bool _hitTestBox(const Box2d& rect) const;
@@ -382,6 +385,7 @@ protected:
     bool _load(MgStorage* s);
     int _getHandleCount() const;
     Point2d _getHandlePoint(int index) const;
+    int _getHandleType(int index) const;
     bool _setHandlePoint(int index, const Point2d& pt, float tol);
     bool _reverse();
 

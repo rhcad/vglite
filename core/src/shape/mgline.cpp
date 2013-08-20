@@ -54,6 +54,11 @@ bool MgLine::_isHandleFixed(int index) const
     return index >= 2;
 }
 
+int MgLine::_getHandleType(int index) const
+{
+    return index >= 2 ? kMgHandleMidPoint : __super::_getHandleType(index);
+}
+
 void MgLine::_copy(const MgLine& src)
 {
     _points[0] = src._points[0];

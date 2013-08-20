@@ -27,7 +27,7 @@
     void Cls::update() { _update(); }                           \
     void Cls::transform(const Matrix2d& mat) { _transform(mat); } \
     void Cls::clear() { _clear(); }                             \
-    void Cls::clearCachedData() { _clearCachedData(); }           \
+    void Cls::clearCachedData() { _clearCachedData(); }         \
     int Cls::getPointCount() const { return _getPointCount(); } \
     Point2d Cls::getPoint(int index) const { return _getPoint(index); }  \
     void Cls::setPoint(int index, const Point2d& pt) { _setPoint(index, pt); }  \
@@ -46,6 +46,7 @@
     bool Cls::setHandlePoint(int index, const Point2d& pt, float tol)   \
         { return _rotateHandlePoint(index, pt) || _setHandlePoint(index, pt, tol); } \
     bool Cls::isHandleFixed(int index) const { return _isHandleFixed(index); } \
+    int Cls::getHandleType(int index) const { return _getHandleType(index); } \
     bool Cls::offset(const Vector2d& vec, int segment)          \
         { return _offset(vec, segment); }
 

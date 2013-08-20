@@ -188,6 +188,11 @@ int MgBaseRect::_getHandleCount() const
     return 8;
 }
 
+int MgBaseRect::_getHandleType(int index) const
+{
+    return index >= 4 && index < 8 ? kMgHandleMidPoint : __super::_getHandleType(index);
+}
+
 Point2d MgBaseRect::_getHandlePoint(int index) const
 {
     Point2d pt;

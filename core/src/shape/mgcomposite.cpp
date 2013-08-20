@@ -43,6 +43,12 @@ int MgComposite::_getHandleCount() const
     return sp ? sp->shapec()->getHandleCount() : 0;
 }
 
+int MgComposite::_getHandleType(int index) const
+{
+    MgShape* sp = _shapes->getHeadShape();
+    return sp ? sp->shapec()->getHandleType(index) : kMgHandleOutside;
+}
+
 Point2d MgComposite::_getHandlePoint(int index) const
 {
     MgShape* sp = _shapes->getHeadShape();

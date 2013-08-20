@@ -65,6 +65,13 @@ Point2d MgEllipse::_getHandlePoint(int index) const
             ? MgBaseRect::_getHandlePoint(index2) : getCenter());
 }
 
+int MgEllipse::_getHandleType(int index) const
+{
+    int index2 = getFlag(kMgSquare) ? index + 4 : index;
+    return (index < _getHandleCount() - 1
+            ? MgBaseRect::_getHandleType(index2) : kMgHandleCenter);
+}
+
 bool MgEllipse::_setHandlePoint(int index, const Point2d& pt, float tol)
 {
     int index2 = getFlag(kMgSquare) ? index + 4 : index;
@@ -393,6 +400,20 @@ bool MgArc::_load(MgStorage* s)
 int MgArc::_getHandleCount() const
 {
     return 8;
+}
+
+int MgArc::_getHandleType(int index) const
+{
+    if (index == 3) {
+        return kMgHandleMidPoint;
+    }
+    if (index >= 4 && index <= 7) {
+        return kMgHandleOutside;
+    }
+    if (index == 0) {
+        return kMgHandleCenter;
+    }
+    return __super::_getHandleType(index);
 }
 
 Point2d MgArc::_getHandlePoint(int index) const
