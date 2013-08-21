@@ -5,6 +5,7 @@
 #include "mgcmdmgr.h"
 #include "mgcmdselect.h"
 #include <mggrid.h>
+#include "tradecmd.h"
 
 MgCommand* mgCreateCoreCommand(const char* name);
 float mgDisplayMmToModel(float mm, GiGraphics* gs);
@@ -45,6 +46,7 @@ void MgCmdManagerImpl::unloadCommands()
         it->second->release();
     _cmds.clear();
     _cmdname = "";
+    TradeCmd::onUnloadCmds();
 }
 
 const char* MgCmdManagerImpl::getCommandName()

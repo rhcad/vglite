@@ -12,6 +12,7 @@
 
 //! 矢量图形模板类
 /*! \ingroup GEOM_SHAPE
+    使用 MgShapeT<ShapeClass>::registerCreator() 登记图形种类;
  */
 template <class ShapeT, class ContextT = GiContext>
 class MgShapeT : public MgShape
@@ -24,41 +25,33 @@ public:
     MgShapes*   _parent;
     int         _tag;
     
-    MgShapeT() : _id(0), _parent(NULL), _tag(0)
-    {
+    MgShapeT() : _id(0), _parent(NULL), _tag(0) {
     }
     
-    MgShapeT(const ContextT& ctx) : _id(0), _parent(NULL), _tag(0)
-    {
+    MgShapeT(const ContextT& ctx) : _id(0), _parent(NULL), _tag(0) {
         _context = ctx;
     }
     
-    virtual ~MgShapeT()
-    {
+    virtual ~MgShapeT() {
     }
     
-    GiContext* context()
-    {
+    GiContext* context() {
         return &_context;
     }
     
-    const GiContext* contextc() const
-    {
+    const GiContext* contextc() const {
         return &_context;
     }
     
-    MgBaseShape* shape()
-    {
+    MgBaseShape* shape() {
         return &_shape;
     }
     
-    const MgBaseShape* shapec() const
-    {
+    const MgBaseShape* shapec() const {
         return &_shape;
     }
     
-    bool draw(int mode, GiGraphics& gs, const GiContext *ctx = NULL, int segment = -1) const
-    {
+    bool draw(int mode, GiGraphics& gs, const GiContext *ctx = NULL, int segment = -1) const {
         if (shapec()->isKindOf(6)) { // MgComposite
             GiContext ctxnull(0, GiColor(), kGiLineNull);
             return shapec()->draw(mode, gs, ctx ? *ctx : ctxnull, segment);
@@ -67,33 +60,32 @@ public:
         return shapec()->draw(mode, gs, tmpctx, segment);
     }
     
-    static MgShape* create()
-    {
+    static void registerCreator() {
+        MgShape::registerCreator(Type(), create);
+    }
+    
+    static MgShape* create() {
         return new ThisClass;
     }
     
     static int Type() { return 0x10000 | ShapeT::Type(); }
     int getType() const { return Type(); }
     
-    bool isKindOf(int type) const
-    {
+    bool isKindOf(int type) const {
         return type == Type() || type == MgShape::Type();
     }
     
-    void release()
-    {
+    void release() {
         delete this;
     }
     
-    MgObject* clone() const
-    {
+    MgObject* clone() const {
         ThisClass *p = new ThisClass;
         p->copy(*this);
         return p;
     }
     
-    void copy(const MgObject& src)
-    {
+    void copy(const MgObject& src) {
         if (src.isKindOf(Type())) {
             const ThisClass& _src = (const ThisClass&)src;
             shape()->copy(_src._shape);
@@ -110,8 +102,7 @@ public:
         shape()->update();
     }
     
-    bool equals(const MgObject& src) const
-    {
+    bool equals(const MgObject& src) const {
         bool ret = false;
         
         if (src.isKindOf(Type())) {
@@ -124,35 +115,29 @@ public:
         return ret;
     }
     
-    int getID() const
-    {
+    int getID() const {
         return _id;
     }
     
-    MgShapes* getParent() const
-    {
+    MgShapes* getParent() const {
         return _parent;
     }
     
-    void setParent(MgShapes* p, int sid)
-    {
+    void setParent(MgShapes* p, int sid) {
         _parent = p;
         _id = sid;
         shape()->setOwner(this);
     }
 
-    int getTag() const
-    {
+    int getTag() const {
         return _tag;
     }
 
-    void setTag(int tag)
-    {
+    void setTag(int tag) {
         _tag = tag;
     }
     
-    bool save(MgStorage* s) const
-    {
+    bool save(MgStorage* s) const {
         GiColor c;
         
         s->writeUInt32("tag", _tag);
@@ -168,8 +153,7 @@ public:
         return shapec()->save(s);
     }
     
-    bool load(MgStorage* s)
-    {
+    bool load(MgStorage* s) {
         _tag = s->readUInt32("tag", _tag);
         _context.setLineStyle((GiLineStyle)s->readUInt8("lineStyle", 0));
         _context.setLineWidth(s->readFloat("lineWidth", 0), true);
@@ -187,8 +171,7 @@ public:
     }
     
 protected:
-    ContextT getContext(GiGraphics& gs, const GiContext *ctx) const
-    {
+    ContextT getContext(GiGraphics& gs, const GiContext *ctx) const {
         ContextT tmpctx(_context);
         
         if (ctx) {

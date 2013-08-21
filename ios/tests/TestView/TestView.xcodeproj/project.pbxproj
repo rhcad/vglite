@@ -39,6 +39,7 @@
 		AE1A76E31782E3D7007FB031 /* GcShapeDoc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE1A76B81782E3D7007FB031 /* GcShapeDoc.cpp */; };
 		AE1A76E41782E3D7007FB031 /* gicoreview.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE1A76B91782E3D7007FB031 /* gicoreview.cpp */; };
 		AE3341B516ECBDBE00F0E517 /* CalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE3341B416ECBDBE00F0E517 /* CalloutView.m */; };
+		AE4206E117C4C8BC00E992F4 /* tradecmd.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE4206DF17C4C8BC00E992F4 /* tradecmd.cpp */; };
 		AE4D531E177AD9F200B766B6 /* vgdot3.png in Resources */ = {isa = PBXBuildFile; fileRef = AE4D531C177AD9F200B766B6 /* vgdot3.png */; };
 		AE4D531F177AD9F200B766B6 /* vgdot3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AE4D531D177AD9F200B766B6 /* vgdot3@2x.png */; };
 		AE4E6F0616129337006CAA5C /* ViewFactory.mm in Sources */ = {isa = PBXBuildFile; fileRef = AE4E6F0416129337006CAA5C /* ViewFactory.mm */; };
@@ -168,6 +169,8 @@
 		AE2B50E01797F108006A1E80 /* GcShapeDoc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GcShapeDoc.h; sourceTree = "<group>"; };
 		AE3341B316ECBDBE00F0E517 /* CalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalloutView.h; sourceTree = "<group>"; };
 		AE3341B416ECBDBE00F0E517 /* CalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalloutView.m; sourceTree = "<group>"; };
+		AE4206DF17C4C8BC00E992F4 /* tradecmd.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tradecmd.cpp; sourceTree = "<group>"; };
+		AE4206E417C4C9FD00E992F4 /* tradecmd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tradecmd.h; path = ../../include/command/tradecmd.h; sourceTree = "<group>"; };
 		AE4D531C177AD9F200B766B6 /* vgdot3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vgdot3.png; sourceTree = "<group>"; };
 		AE4D531D177AD9F200B766B6 /* vgdot3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vgdot3@2x.png"; sourceTree = "<group>"; };
 		AE4E6F0416129337006CAA5C /* ViewFactory.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewFactory.mm; sourceTree = "<group>"; };
@@ -392,6 +395,7 @@
 		AE1A76791782E3D7007FB031 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				AE4206DE17C4C8BC00E992F4 /* tradecmd */,
 				AE1A76B51782E3D7007FB031 /* view */,
 				AE1A767A1782E3D7007FB031 /* command */,
 				AE1A76A31782E3D7007FB031 /* shape */,
@@ -535,6 +539,15 @@
 				AE1A76B91782E3D7007FB031 /* gicoreview.cpp */,
 			);
 			path = view;
+			sourceTree = "<group>";
+		};
+		AE4206DE17C4C8BC00E992F4 /* tradecmd */ = {
+			isa = PBXGroup;
+			children = (
+				AE4206E417C4C9FD00E992F4 /* tradecmd.h */,
+				AE4206DF17C4C8BC00E992F4 /* tradecmd.cpp */,
+			);
+			path = tradecmd;
 			sourceTree = "<group>";
 		};
 		AEB27EE9178568D300761059 /* ios */ = {
@@ -753,6 +766,7 @@
 				AEF20B7E17953B3E00CC6FD5 /* mgdrawtriang.cpp in Sources */,
 				AEF20B7F17953B3E00CC6FD5 /* TransformCmd.cpp in Sources */,
 				C937447517A23A700017DF7E /* GiViewHelper.mm in Sources */,
+				AE4206E117C4C8BC00E992F4 /* tradecmd.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

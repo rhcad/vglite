@@ -125,6 +125,22 @@ bool MgLine::_load(MgStorage* s)
     return s->readFloatArray("points", &(_points[0].x), 4) == 4 && ret;
 }
 
+int MgLine::_getDimensions(const Matrix2d& m2w, float* vars, char* types, int count) const
+{
+    int ret = 0;
+    
+    if (count > ret) {
+        types[ret] = 'l';
+        vars[ret++] = fabsf(length() * m2w.m11);
+    }
+    if (count > ret) {
+        types[ret] = 'a';
+        vars[ret++] = mgRad2Deg(mgTo0_2PI(angle() * (m2w.m22 < 0 ? -1.f : 1.f)));
+    }
+    
+    return ret;
+}
+
 // MgParallelogram
 //
 
@@ -256,4 +272,24 @@ bool MgParallelogram::_load(MgStorage* s)
 {
     bool ret = __super::_load(s);
     return s->readFloatArray("points", &(_points[0].x), 8) == 8 && ret;
+}
+
+int MgParallelogram::_getDimensions(const Matrix2d& m2w, float* vars, char* types, int count) const
+{
+    int ret = 0;
+    
+    if (count > ret) {
+        types[ret] = 'l';
+        vars[ret++] = fabsf(getHeight() * m2w.m22);
+    }
+    if (count > ret) {
+        types[ret] = 'w';
+        vars[ret++] = fabsf(getWidth() * m2w.m11);
+    }
+    if (count > ret) {
+        types[ret] = 'a';
+        vars[ret++] = mgRad2Deg(mgTo0_2PI(angle() * (m2w.m22 < 0 ? -1.f : 1.f)));
+    }
+    
+    return ret;
 }

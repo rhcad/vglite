@@ -7,31 +7,30 @@
 #define __GEOMETRY_MGACTION_H_
 
 //! 默认上下文动作
+/*! \ingroup CORE_COMMAND
+ */
 typedef enum {
-    kMgActionInvalid,
-    kMgActionSelAll,            //!< 全选
-    kMgActionSelReset,          //!< 重选
-    kMgActionDraw,              //!< 绘图
-    kMgActionCancel,            //!< 取消
-    kMgActionDelete,            //!< 删除
-    kMgActionClone,             //!< 克隆
-    kMgActionBreak,             //!< 剪开
-    kMgActionCorner,            //!< 角标
-    kMgActionFixedLength,       //!< 定长
-    kMgActionFreeLength,        //!< 不定长
-    kMgActionLocked,            //!< 锁定
-    kMgActionUnlocked,          //!< 解锁
-    kMgActionEditVertex,        //!< 编辑顶点
-    kMgActionHideVertex,        //!< 隐藏顶点
-    kMgActionClosed,            //!< 闭合
-    kMgActionOpened,            //!< 不闭合
-    kMgActionAddVertex,         //!< 加点
-    kMgActionDelVertex,         //!< 删点
-    kMgActionGroup,             //!< 成组
-    kMgActionUngroup,           //!< 解组
-    kMgActionOverturn,          //!< 翻转
-    kMgAction3Views,            //!< 三视图
-    kMgActionCustomized = 100   //!< 定制的起始值
+    kMgActionInvalid = 0,
+    kMgActionSelAll = 1,            //!< 全选
+    kMgActionSelReset = 2,          //!< 重选
+    kMgActionDraw = 3,              //!< 绘图
+    kMgActionCancel = 4,            //!< 取消
+    kMgActionDelete = 5,            //!< 删除
+    kMgActionClone = 6,             //!< 克隆
+    kMgActionFixedLength = 7,       //!< 定长
+    kMgActionFreeLength = 8,        //!< 不定长
+    kMgActionLocked = 9,            //!< 锁定
+    kMgActionUnlocked = 10,         //!< 解锁
+    kMgActionEditVertex = 11,       //!< 编辑顶点
+    kMgActionHideVertex = 12,       //!< 隐藏顶点
+    kMgActionClosed = 13,           //!< 闭合
+    kMgActionOpened = 14,           //!< 不闭合
+    kMgActionAddVertex = 15,        //!< 加点
+    kMgActionDelVertex = 16,        //!< 删点
+    kMgActionGroup = 17,            //!< 成组
+    kMgActionUngroup = 18,          //!< 解组
+    kMgActionOverturn = 19,         //!< 翻转
+    kMgActionCustomized = 100       //!< 定制的起始值
 } MgContextAction;
 
 class MgMotion;

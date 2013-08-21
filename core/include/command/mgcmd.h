@@ -23,8 +23,13 @@ struct MgActionDispatcher;
 /*! \ingroup CORE_COMMAND
     \param name 命令名称，例如 YourCmd::Name()
     \param factory 命令类的创建函数，例如 YourCmd::Create, 为NULL则取消注册
+    example: mgRegisterCommand<YourCmd>();
 */
 void mgRegisterCommand(const char* name, MgCommand* (*factory)());
+
+template <class YourCmd> void mgRegisterCommand() {
+    mgRegisterCommand(YourCmd::Name(), YourCmd::Create);
+}
 
 //! 注册图形实体类型
 /*! \ingroup GEOM_SHAPE
@@ -63,10 +68,11 @@ struct MgCommand {
     virtual bool isDrawingCommand() { return false; }       //!< 是否为绘图命令
     virtual bool isFloatingCommand() { return false; }      //!< 是否可嵌套在其他命令中
     virtual bool doContextAction(const MgMotion*, int) { return false; } //!< 执行上下文动作
+    virtual int getDimensions(MgView*, float*, char*, int) { return 0; } //!< 得到各种度量尺寸
 };
 
 //! 命令接口的默认实现，可以以此派生新命令类
-/*! example: mgRegisterCommand(YourCmd::Name(), YourCmd::Create);
+/*!
     \ingroup CORE_COMMAND
     \see MgCommandDraw
 */
@@ -101,6 +107,7 @@ struct MgCmdManager {
     
     virtual const char* getCommandName() = 0;               //!< 得到当前命令名称
     virtual MgCommand* getCommand() = 0;                    //!< 得到当前命令
+    virtual MgCommand* findCommand(const char* name) = 0;   //!< 查找命令
     virtual bool setCommand(const MgMotion* sender, const char* name) = 0;  //!< 启动命令
     virtual bool cancel(const MgMotion* sender) = 0;        //!< 取消当前命令
     virtual void unloadCommands() = 0;                      //!< 退出时卸载命令

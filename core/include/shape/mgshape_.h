@@ -48,6 +48,8 @@
     bool Cls::isHandleFixed(int index) const { return _isHandleFixed(index); } \
     int Cls::getHandleType(int index) const { return _getHandleType(index); } \
     bool Cls::offset(const Vector2d& vec, int segment)          \
-        { return _offset(vec, segment); }
+        { return _offset(vec, segment); }                       \
+    int Cls::getDimensions(const Matrix2d& m2w, float* vars, char* types, int count) const \
+        { return _getDimensions(m2w, vars, types, count); }
 
 #endif // __GEOMETRY_MGSHAPEIMPL_H_

@@ -28,6 +28,7 @@ private:
     virtual void release() { delete this; }
     virtual const char* getCommandName();
     virtual MgCommand* getCommand();
+    virtual MgCommand* findCommand(const char* name);
     virtual bool setCommand(const MgMotion* sender, const char* name);
     virtual bool cancel(const MgMotion* sender);
     virtual void unloadCommands();
@@ -54,7 +55,6 @@ private:
     
 private:
     void eraseWnd(const MgMotion* sender);
-    MgCommand* findCommand(const char* name);
 
 private:
     typedef std::map<std::string, MgCommand*> CMDS;

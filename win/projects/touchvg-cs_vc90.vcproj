@@ -478,6 +478,14 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="tradecmd"
+				>
+				<File
+					RelativePath="..\..\core\src\tradecmd\tradecmd.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 	</Files>
 	<Globals>

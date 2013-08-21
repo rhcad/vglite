@@ -27,6 +27,7 @@ LOCAL_C_INCLUDES := $(COREINC)/callback \
 
 LOCAL_SRC_FILES  := $(CORESRC)/test/testcanvas.cpp \
                     $(CORESRC)/test/RandomShape.cpp \
+                    $(CORESRC)/tradecmd/tradecmd.cpp \
                     $(CORESRC)/view/gicoreview.cpp \
                     $(CORESRC)/view/GcShapeDoc.cpp \
                     $(CORESRC)/view/GcGraphView.cpp \

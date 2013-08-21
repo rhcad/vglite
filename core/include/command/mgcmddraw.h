@@ -17,9 +17,9 @@ float mgDisplayMmToModel(float mm, GiGraphics* gs);
 float mgDisplayMmToModel(float mm, const MgMotion* sender);
 
 //! 绘图命令基类
-/*! example: mgRegisterCommand(YourCmd::Name(), YourCmd::Create);
+/*!
     \ingroup CORE_COMMAND
-    \see mgLineHalfWidthModel, mgDisplayMmToModel, MgBaseCommand
+    \see mgLineHalfWidthModel, mgDisplayMmToModel, MgBaseCommand, mgRegisterCommand
  */
 class MgCommandDraw : public MgCommand
 {
@@ -58,7 +58,7 @@ protected:
 private:
     virtual bool isDrawingCommand() { return true; }
     
-protected:
+public:
     MgShape* getCurrentShape(const MgMotion*) { return m_shape; }
     int getStep() { return m_needClear ? 0 : m_step; }
     MgShape* dynshape() { return m_shape; }

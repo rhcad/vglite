@@ -6,6 +6,7 @@
 #include <mgselect.h>
 #include <mgshapetype.h>
 #include <mglog.h>
+#include "tradecmd.h"
 
 bool MgCmdManagerImpl::showInDrawing(const MgMotion* sender, const MgShape* shape)
 {
@@ -14,6 +15,10 @@ bool MgCmdManagerImpl::showInDrawing(const MgMotion* sender, const MgShape* shap
 
 bool MgCmdManagerImpl::showInSelect(const MgMotion* sender, int selState, const MgShape* shape, const Box2d& selbox)
 {
+    if (TradeCmd::selectActionHided(sender)) {
+        return false;
+    }
+    
     int actions[12];
     int n = 0;
     bool isslines = (shape && selState == kMgSelOneShape
@@ -91,20 +96,8 @@ bool MgCmdManagerImpl::showInSelect(const MgMotion* sender, int selState, const 
     }
     
     if (selState > kMgSelNone && selState <= kMgSelVertex && shape) {
-        const MgBaseShape* sp = shape->shapec();
-        if (!locked && sp->isKindOf(kMgShapeLine)) {
-            actions[n++] = kMgActionBreak;
-        }
-        if (!locked && sp->isClosed() && sp->getPointCount() == 4) {
-            if (sp->isKindOf(kMgShapeLine)
-                || sp->isKindOf(kMgShapeRect)
-                || sp->isKindOf(kMgShapeDiamond)
-                || (sp->isKindOf(kMgShapeLines) && sp->isClosed())
-                || sp->isKindOf(kMgShapeParallelogram)) {
-                actions[n++] = kMgActionBreak;
-            }
-        }
-        if (sp->isKindOf(kMgShapeGroup)) {
+        TradeCmd::addShapeActions(actions, n, shape);
+        if (shape->shapec()->isKindOf(kMgShapeGroup)) {
             actions[n++] = kMgActionUngroup;
         }
     }
@@ -125,7 +118,7 @@ bool MgCmdManagerImpl::doAction(const MgMotion* sender, int action)
 {
     MgView* view = sender->view;
     MgSelection *sel = getSelection(view);
-    bool ret = true;
+    bool ret = false;
     
     switch (action) {
         case kMgActionSelAll:
@@ -193,8 +186,16 @@ bool MgCmdManagerImpl::doAction(const MgMotion* sender, int action)
             break;
             
         default: {
+            ret = TradeCmd::doAction(sender, action);
             MgCommand* cmd = getCommand();
-            ret = cmd && cmd->doContextAction(sender, action);
+            ret = ret || (cmd && cmd->doContextAction(sender, action));
+            
+            if (!ret && cmd && !cmd->isDrawingCommand()) {
+                const char* name = _drawcmd.c_str();
+                ret = TradeCmd::doEndAction(sender, action);
+                cmd = findCommand(name);
+                ret = ret || (cmd && cmd->doContextAction(sender, action));
+            }
             break;
         }
     }

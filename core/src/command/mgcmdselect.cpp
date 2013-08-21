@@ -14,6 +14,7 @@
 #include <mgaction.h>
 #include <mgshapetype.h>
 #include <mgcomposite.h>
+#include "tradecmd.h"
 
 extern int g_newShapeID;     // 用于进入命令时自动选中图形
 
@@ -86,6 +87,8 @@ bool MgCmdSelect::initialize(const MgMotion* sender)
     m_editMode = false;
     m_showSel = true;
     m_selIds.clear();
+    
+    TradeCmd::onInitSelCmd(sender);
     
     MgShape* shape = getShape(g_newShapeID, sender);
     if (shape) {
@@ -323,6 +326,8 @@ bool MgCmdSelect::draw(const MgMotion* sender, GiGraphics* gs)
     }
     
     sender->cmds()->getSnap()->drawSnap(sender, gs); // 显示拖动捕捉提示线
+    TradeCmd::drawInSelect(shapes.empty() ? NULL : shapes.front(),
+                           m_handleIndex - 1, sender, gs);
     
     return true;
 }
@@ -1433,4 +1438,19 @@ bool MgCmdSelect::twoFingersMove(const MgMotion* sender)
     }
     
     return true;
+}
+
+int MgCmdSelect::getDimensions(MgView* view, float* vars, char* types, int count)
+{
+    MgShapesLock locker(view->doc(), MgShapesLock::ReadOnly);
+    MgShape* shape = view->shapes()->findShape(m_id);
+    int ret = 0;
+    
+    if (shape) {
+        Matrix2d mat(view->xform()->modelToWorld()
+                     * Matrix2d::scaling(view->xform()->getViewScale()));
+        ret = shape->shapec()->getDimensions(mat, vars, types, count);
+    }
+    
+    return ret;
 }

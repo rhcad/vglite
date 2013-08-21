@@ -62,6 +62,7 @@ private:
     virtual bool touchMoved(const MgMotion* sender);
     virtual bool touchEnded(const MgMotion* sender);
     virtual bool twoFingersMove(const MgMotion* sender);
+    virtual int getDimensions(MgView* view, float* vars, char* types, int count);
 
 private:
     MgShape* getCurrentShape(const MgMotion* sender) { return getShape(m_id, sender); }

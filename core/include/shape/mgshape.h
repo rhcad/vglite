@@ -34,7 +34,7 @@ public:
 #ifndef SWIG
     //! 登记类型号对应的图形创建函数，factory为NULL则取消登记
     static void registerCreator(int type, MgShape* (*factory)());
-#endif
+#endif // SWIG
 
     //! 复制出一个新图形对象
     MgShape* cloneShape() const { return (MgShape*)clone(); }
@@ -218,6 +218,11 @@ public:
     //! 返回图形类名称
     virtual const char* getTypeName() const = 0;
     
+#ifndef SWIG
+    //! 得到当前图形的各种度量尺寸
+    virtual int getDimensions(const Matrix2d& m2w, float* vars, char* types, int count) const = 0;
+#endif
+    
 protected:
     Box2d   _extent;
     int     _flags;
@@ -243,6 +248,7 @@ protected:
     bool _rotateHandlePoint(int index, const Point2d& pt);
     bool _save(MgStorage* s) const;
     bool _load(MgStorage* s);
+    int _getDimensions(const Matrix2d&, float*, char*, int) const { return 0; }
 };
 
 #if !defined(_MSC_VER) || _MSC_VER <= 1200
@@ -290,7 +296,8 @@ protected:                                                      \
     virtual bool setHandlePoint(int index, const Point2d& pt, float tol);   \
     virtual bool isHandleFixed(int index) const;                \
     virtual int getHandleType(int index) const;                 \
-    virtual bool offset(const Vector2d& vec, int segment);
+    virtual bool offset(const Vector2d& vec, int segment);      \
+    virtual int getDimensions(const Matrix2d&, float*, char*, int) const;
 
 #define MG_DECLARE_CREATE(Cls, Base, TypeNum)                   \
     MG_INHERIT_CREATE(Cls, Base, TypeNum)                       \

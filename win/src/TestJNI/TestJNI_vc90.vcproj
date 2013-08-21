@@ -519,6 +519,14 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="tradecmd"
+				>
+				<File
+					RelativePath="..\..\..\core\src\tradecmd\tradecmd.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<File
 			RelativePath=".\Readme.txt"
