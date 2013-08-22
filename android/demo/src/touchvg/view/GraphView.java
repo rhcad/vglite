@@ -21,6 +21,7 @@ import android.view.View;
 /*! \ingroup GROUP_ANDROID
  */
 public class GraphView extends View {
+    private static GraphView mActiveView;   // 当前激活视图
     private CanvasAdapter mCanvasAdapter;   // 画布适配器
     private CanvasAdapter mCanvasRegen;     // 画布适配器
     private ViewAdapter mViewAdapter;       // 视图回调适配器
@@ -30,7 +31,7 @@ public class GraphView extends View {
     private boolean mGestureEnable = true;  // 是否允许交互
     private boolean mRegenning = false;     // 是否正在regenAll
     private Bitmap mCachedBitmap;           // 缓存快照
-    private static GraphView mActiveView;   // 当前激活视图
+    private int mBkColor = Color.TRANSPARENT;
 
     //! 普通绘图视图的构造函数
     public GraphView(Context context) {
@@ -49,7 +50,7 @@ public class GraphView extends View {
         mCoreView.createMagnifierView(mViewAdapter, mainView.viewAdapter());
         initView(context);
     }
-    
+
     private void createAdapter(Context context) {
         mCanvasAdapter = new CanvasAdapter(this);
         mCanvasRegen = new CanvasAdapter(this);
@@ -63,7 +64,7 @@ public class GraphView extends View {
         final DisplayMetrics dm = context.getApplicationContext().getResources().getDisplayMetrics();
         GiCoreView.setScreenDpi(dm.densityDpi);         // 应用API
         setLayerType(View.LAYER_TYPE_SOFTWARE, null);   // 避免路径太大不能渲染
-        
+
         this.setOnTouchListener(new OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
                 mActiveView = GraphView.this;
@@ -72,7 +73,7 @@ public class GraphView extends View {
             }
         });
     }
-    
+
     //! 返回当前激活视图
     public static GraphView activeView() {
         return mActiveView;
@@ -97,24 +98,31 @@ public class GraphView extends View {
         }
     }
 
+    //! 设置背景色
+    public void setBackgroundColor(int color) {
+        mBkColor = color;
+        regen(false);
+    }
+
     //! 设置是否允许触摸交互
     public void setGestureEnable(boolean enabled) {
         mGestureEnable = enabled;
         mGestureListener.setGestureEnable(enabled);
     }
-    
+
     //! 得到静态图形的快照
     public Bitmap snapshot() {
         if (mCachedBitmap == null) {
             mCachedBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
             synchronized(mCachedBitmap) {
                 mCoreView.onSize(mViewAdapter, getWidth(), getHeight());
+                mCachedBitmap.eraseColor(mBkColor);
                 drawShapes(new Canvas(mCachedBitmap), mCanvasAdapter, false);
             }
         }
         return mCachedBitmap;
     }
-    
+
     //! 得到静态图形的快照PNG字节流
     public byte[] getPngBytes() {
         synchronized(snapshot()) {
@@ -127,18 +135,20 @@ public class GraphView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         mCoreView.onSize(mViewAdapter, getWidth(), getHeight());
-        if (mCachedBitmap != null || !mViewAdapter.regenAll(canvas)) {
+        if (mCachedBitmap != null) {
+            drawShapes(canvas, mCanvasAdapter, true);
+        }
+        else if (!regen(false)) {
+            canvas.drawColor(mBkColor);
             drawShapes(canvas, mCanvasAdapter, true);
         }
     }
-    
+
     private void drawShapes(Canvas canvas, CanvasAdapter adapter, boolean dyndraw) {
         if (adapter.beginPaint(canvas)) {
             if (mCachedBitmap == null || !dyndraw) {
                 if (this.getBackground() != null) {
                     this.getBackground().draw(canvas);
-                } else {
-                    canvas.drawColor(Color.WHITE);
                 }
                 mCoreView.drawAll(mViewAdapter, adapter);
             }
@@ -147,12 +157,45 @@ public class GraphView extends View {
                     canvas.drawBitmap(mCachedBitmap, 0, 0, null);
                 }
             }
-            
+
             if (dyndraw) {
                 mCoreView.dynDraw(mViewAdapter, adapter);
             }
             adapter.endPaint();
         }
+    }
+
+    private boolean regen(boolean fromRegenAll) {
+        if (getWidth() < 1 || getHeight() < 1 || mRegenning) {
+            return true;
+        }
+        try {
+            if (mCachedBitmap == null) {
+                mCachedBitmap = Bitmap.createBitmap(getWidth(),
+                        getHeight(), Bitmap.Config.ARGB_8888);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (mCachedBitmap != null) {
+            mRegenning = true;
+            new Thread(new Runnable() {
+                public void run() {
+                    synchronized(mCachedBitmap) {
+                        mCachedBitmap.eraseColor(mBkColor);
+                        drawShapes(new Canvas(mCachedBitmap), mCanvasRegen, false);
+                    }
+                    mRegenning = false;
+                    postInvalidate();
+                }
+            }).start();
+        }
+        else if (fromRegenAll) {
+            invalidate();
+        }
+
+        return mCachedBitmap != null;
     }
 
     @Override
@@ -186,53 +229,21 @@ public class GraphView extends View {
             mCachedBitmap = null;
         }
         mGestureDetector = null;
-        
+
         super.onDetachedFromWindow();
     }
 
     //! 视图回调适配器
     private class ViewAdapter extends GiView {
-        public boolean regenAll(Canvas canvas) {
-            if (getWidth() < 1 || getHeight() < 1 || mRegenning) {
-                return true;
-            }
-            try {
-                if (mCachedBitmap == null) {
-                    mCachedBitmap = Bitmap.createBitmap(getWidth(), 
-                            getHeight(), Bitmap.Config.ARGB_8888);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            
-            if (mCachedBitmap != null) {
-                mRegenning = true;
-                new Thread(new Runnable() {
-                    public void run() {
-                        synchronized(mCachedBitmap) {
-                            drawShapes(new Canvas(mCachedBitmap), mCanvasRegen, false);
-                        }
-                        mRegenning = false;
-                        postInvalidate();
-                    }
-                }).start();
-            }
-            else if (canvas == null) {
-                invalidate();
-            }
-            
-            return mCachedBitmap != null;
-        }
-        
         @Override
         public void regenAll() {
-            if (mCachedBitmap != null && !mRegenning
-                    && (mCachedBitmap.getWidth() != getWidth()
+            if (mCachedBitmap != null &&
+                    (mCachedBitmap.getWidth() != getWidth()
                     || mCachedBitmap.getHeight() != getHeight())) {
                 mCachedBitmap.recycle();
                 mCachedBitmap = null;
             }
-            regenAll(null);
+            regen(true);
         }
 
         @Override
