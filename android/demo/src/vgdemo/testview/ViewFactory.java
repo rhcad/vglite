@@ -1,4 +1,4 @@
-﻿//! \file ViewFactory.java
+//! \file ViewFactory.java
 //! \brief 基于普通View类的绘图测试视图类
 // Copyright (c) 2012-2013, https://github.com/rhcad/vglite
 
@@ -32,9 +32,10 @@ public class ViewFactory {
 
     static {
         addItem("vgdemo.testview.view.GraphView1", 1<<1, "GraphView splines");
+        addItem("vgdemo.testview.view.GraphView1", 32|(1<<1), "GraphView draw");
         addItem("vgdemo.testview.view.GraphView1", 2<<1, "GraphView line");
         addItem("vgdemo.testview.view.GraphView1", 3<<1, "GraphView lines");
-        addItem("vgdemo.testview.view.GraphView1", 1, "GraphView select");
+        addItem("vgdemo.testview.view.GraphView1", 32|1, "GraphView select");
         addItem("vgdemo.testview.view.TestMagnifier1", 1, "TestMagnifier");
         addItem("vgdemo.testview.view.TestMagnifier1", 16|1, "TestMagnifier, 2 views");
         

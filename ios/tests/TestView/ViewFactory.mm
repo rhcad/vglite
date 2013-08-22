@@ -49,12 +49,15 @@ static UIView* addGraphView(NSMutableArray *arr, NSUInteger &i, NSUInteger index
             GiGraphView2 *v2 = [[GiGraphView2 alloc]initWithFrame:wrapview.bounds];
             v = v2;
             
-            if (type == 1) {
+            if (type & 32) {
                 [GiViewHelper addShapesForTest:v2];
+            }
+            type = type & ~32;
+            
+            if (type == 1) {
                 [GiViewHelper setCommand:v2 :@"splines"];
             }
             else if (type == 2) {
-                [GiViewHelper addShapesForTest:v2];
                 [GiViewHelper setCommand:v2 :@"select"];
             }
             else if (type == 3) {
@@ -106,10 +109,11 @@ static void gatherTestView(NSMutableArray *arr, NSUInteger index, CGRect frame)
     
     addGraphView(arr, i, index, @"GiGraphView1", frame, 0);
     addLargeView1(arr, i, index, @"GiGraphView1 in large view", frame, 0);
-    addGraphView(arr, i, index, @"GiGraphView draw", frame, 1);
+    addGraphView(arr, i, index, @"GiGraphView splines", frame, 1);
+    addGraphView(arr, i, index, @"GiGraphView draw", frame, 1|32);
     addGraphView(arr, i, index, @"GiGraphView line", frame, 5);
     addGraphView(arr, i, index, @"GiGraphView lines", frame, 6);
-    addGraphView(arr, i, index, @"GiGraphView select randShapes", frame, 2);
+    addGraphView(arr, i, index, @"GiGraphView select randShapes", frame, 2|32);
     addGraphView(arr, i, index, @"GiGraphView select loadShapes", frame, 3);
     addGraphView(arr, i, index, @"GiGraphView fireGesture", frame, 4);
     addLargeView1(arr, i, index, @"GiGraphView in large view", frame, 1);

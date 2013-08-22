@@ -15,12 +15,13 @@ public class GraphView1 extends GraphView {
         int flags = ((Activity) context).getIntent().getExtras().getInt("flags");
         final GraphViewHelper helper = new GraphViewHelper(this);
         
-        if ((flags & 1) != 0) {
+        if ((flags & 32) != 0) {
             helper.addShapesForTest();
+        }
+        if ((flags & 1) != 0) {
             helper.setCommand("select");
         }
         else if ((flags >> 1) == 1) {
-        	helper.addShapesForTest();
             helper.setCommand("splines");
         }
         else if ((flags >> 1) == 2) {
