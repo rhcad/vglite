@@ -77,6 +77,9 @@ static UIView* addGraphView(NSMutableArray *arr, NSUInteger &i, NSUInteger index
             else if (type == 5) {
                 [GiViewHelper setCommand:v2 :@"line"];
             }
+            else if (type == 6) {
+                [GiViewHelper setCommand:v2 :@"lines"];
+            }
         }
         [wrapview addSubview:v];
         [v release];
@@ -105,6 +108,7 @@ static void gatherTestView(NSMutableArray *arr, NSUInteger index, CGRect frame)
     addLargeView1(arr, i, index, @"GiGraphView1 in large view", frame, 0);
     addGraphView(arr, i, index, @"GiGraphView draw", frame, 1);
     addGraphView(arr, i, index, @"GiGraphView line", frame, 5);
+    addGraphView(arr, i, index, @"GiGraphView lines", frame, 6);
     addGraphView(arr, i, index, @"GiGraphView select randShapes", frame, 2);
     addGraphView(arr, i, index, @"GiGraphView select loadShapes", frame, 3);
     addGraphView(arr, i, index, @"GiGraphView fireGesture", frame, 4);

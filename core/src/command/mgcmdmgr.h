@@ -12,6 +12,8 @@
 #include <map>
 #include <string>
 
+class SnapItem;
+
 //! 命令管理器实现类
 /*! \ingroup CORE_COMMAND
 */
@@ -55,6 +57,7 @@ private:
     
 private:
     void eraseWnd(const MgMotion* sender);
+    void checkResult(SnapItem* arr);
 
 private:
     typedef std::map<std::string, MgCommand*> CMDS;

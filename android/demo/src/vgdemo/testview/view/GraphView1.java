@@ -26,5 +26,8 @@ public class GraphView1 extends GraphView {
         else if ((flags >> 1) == 2) {
             helper.setCommand("line");
         }
+        else if ((flags >> 1) == 3) {
+            helper.setCommand("lines");
+        }
     }
 }

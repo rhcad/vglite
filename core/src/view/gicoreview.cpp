@@ -442,8 +442,7 @@ bool GiCoreViewImpl::gestureToCommand(const MgMotion& motion)
         return cmd && cmd->cancel(&motion);
     }
     if (motion.gestureState == kMgGesturePossible
-        && motion.gestureType != kGiTwoFingersMove
-        && motion.gestureType != kGiGesturePan) {
+        && motion.gestureType != kGiTwoFingersMove) {
         return true;
     }
 

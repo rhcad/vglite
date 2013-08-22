@@ -28,13 +28,14 @@ int MgBaseLines::_getPointCount() const
 
 Point2d MgBaseLines::_getPoint(int index) const
 {
-    return index < _count ? _points[index] : Point2d();
+    return index >= 0 && index < _count ? _points[index] : Point2d();
 }
 
 void MgBaseLines::_setPoint(int index, const Point2d& pt)
 {
-    if (index < _count)
+    if (index >= 0 && index < _count) {
         _points[index] = pt;
+    }
 }
 
 void MgBaseLines::_copy(const MgBaseLines& src)
