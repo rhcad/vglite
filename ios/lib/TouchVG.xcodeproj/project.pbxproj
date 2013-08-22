@@ -130,7 +130,7 @@
 		AE2B50EF1797F151006A1E80 /* GcMagnifierView.h in Headers */ = {isa = PBXBuildFile; fileRef = AE2B50EB1797F151006A1E80 /* GcMagnifierView.h */; };
 		AE2B50F01797F151006A1E80 /* GcShapeDoc.h in Headers */ = {isa = PBXBuildFile; fileRef = AE2B50EC1797F151006A1E80 /* GcShapeDoc.h */; };
 		AE4206DC17C4C8AD00E992F4 /* tradecmd.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE4206DA17C4C8AD00E992F4 /* tradecmd.cpp */; };
-		AE4206E317C4C9EA00E992F4 /* tradecmd.h in Headers */ = {isa = PBXBuildFile; fileRef = AE4206E217C4C9EA00E992F4 /* tradecmd.h */; };
+		AE7BBDBA17C5B8CB00F70FDB /* tradecmd.h in Headers */ = {isa = PBXBuildFile; fileRef = AE7BBDB917C5B8CB00F70FDB /* tradecmd.h */; };
 		C995CA6717A255E8005F7E87 /* GiViewHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = C995CA6617A255E8005F7E87 /* GiViewHelper.mm */; };
 		C995CA6917A255F4005F7E87 /* GiViewHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = C995CA6817A255F4005F7E87 /* GiViewHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
@@ -279,7 +279,7 @@
 		AE2B50EB1797F151006A1E80 /* GcMagnifierView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GcMagnifierView.h; sourceTree = "<group>"; };
 		AE2B50EC1797F151006A1E80 /* GcShapeDoc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GcShapeDoc.h; sourceTree = "<group>"; };
 		AE4206DA17C4C8AD00E992F4 /* tradecmd.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tradecmd.cpp; sourceTree = "<group>"; };
-		AE4206E217C4C9EA00E992F4 /* tradecmd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tradecmd.h; path = ../../include/command/tradecmd.h; sourceTree = "<group>"; };
+		AE7BBDB917C5B8CB00F70FDB /* tradecmd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tradecmd.h; path = ../../include/tradecmd/tradecmd.h; sourceTree = "<group>"; };
 		C995CA6617A255E8005F7E87 /* GiViewHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = GiViewHelper.mm; path = ../../view/src/GiViewHelper.mm; sourceTree = "<group>"; };
 		C995CA6817A255F4005F7E87 /* GiViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GiViewHelper.h; path = ../../view/include/GiViewHelper.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -636,7 +636,7 @@
 		AE4206D917C4C8AD00E992F4 /* tradecmd */ = {
 			isa = PBXGroup;
 			children = (
-				AE4206E217C4C9EA00E992F4 /* tradecmd.h */,
+				AE7BBDB917C5B8CB00F70FDB /* tradecmd.h */,
 				AE4206DA17C4C8AD00E992F4 /* tradecmd.cpp */,
 			);
 			path = tradecmd;
@@ -722,7 +722,7 @@
 				AE2B50EE1797F151006A1E80 /* GcGraphView.h in Headers */,
 				AE2B50EF1797F151006A1E80 /* GcMagnifierView.h in Headers */,
 				AE2B50F01797F151006A1E80 /* GcShapeDoc.h in Headers */,
-				AE4206E317C4C9EA00E992F4 /* tradecmd.h in Headers */,
+				AE7BBDBA17C5B8CB00F70FDB /* tradecmd.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -170,7 +170,6 @@
 		AE3341B316ECBDBE00F0E517 /* CalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalloutView.h; sourceTree = "<group>"; };
 		AE3341B416ECBDBE00F0E517 /* CalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalloutView.m; sourceTree = "<group>"; };
 		AE4206DF17C4C8BC00E992F4 /* tradecmd.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tradecmd.cpp; sourceTree = "<group>"; };
-		AE4206E417C4C9FD00E992F4 /* tradecmd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tradecmd.h; path = ../../include/command/tradecmd.h; sourceTree = "<group>"; };
 		AE4D531C177AD9F200B766B6 /* vgdot3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vgdot3.png; sourceTree = "<group>"; };
 		AE4D531D177AD9F200B766B6 /* vgdot3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vgdot3@2x.png"; sourceTree = "<group>"; };
 		AE4E6F0416129337006CAA5C /* ViewFactory.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewFactory.mm; sourceTree = "<group>"; };
@@ -180,6 +179,7 @@
 		AE537524177D51590050CC4F /* GiGraphView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = GiGraphView.mm; path = ../../view/src/GiGraphView.mm; sourceTree = "<group>"; };
 		AE5BF68516E45BCE005CA76D /* translucent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = translucent.png; sourceTree = "<group>"; };
 		AE5BF68616E45BCE005CA76D /* translucent@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "translucent@2x.png"; sourceTree = "<group>"; };
+		AE7BBDB817C5B8BD00F70FDB /* tradecmd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tradecmd.h; path = ../../include/tradecmd/tradecmd.h; sourceTree = "<group>"; };
 		AE815F341718EDCB006BC607 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		AEADC21D16EB570800484962 /* LargeView1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LargeView1.h; sourceTree = "<group>"; };
 		AEADC21E16EB570800484962 /* LargeView1.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LargeView1.mm; sourceTree = "<group>"; };
@@ -544,7 +544,7 @@
 		AE4206DE17C4C8BC00E992F4 /* tradecmd */ = {
 			isa = PBXGroup;
 			children = (
-				AE4206E417C4C9FD00E992F4 /* tradecmd.h */,
+				AE7BBDB817C5B8BD00F70FDB /* tradecmd.h */,
 				AE4206DF17C4C8BC00E992F4 /* tradecmd.cpp */,
 			);
 			path = tradecmd;

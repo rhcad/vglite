@@ -4,6 +4,8 @@
 
 package touchvg.view;
 
+import java.io.ByteArrayOutputStream;
+
 import touchvg.jni.GiCoreView;
 import touchvg.jni.GiView;
 import android.content.Context;
@@ -100,18 +102,39 @@ public class GraphView extends View {
         mGestureEnable = enabled;
         mGestureListener.setGestureEnable(enabled);
     }
+    
+    //! 得到静态图形的快照
+    public Bitmap snapshot() {
+        if (mCachedBitmap == null) {
+            mCachedBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
+            synchronized(mCachedBitmap) {
+                mCoreView.onSize(mViewAdapter, getWidth(), getHeight());
+                drawShapes(new Canvas(mCachedBitmap), mCanvasAdapter, false);
+            }
+        }
+        return mCachedBitmap;
+    }
+    
+    //! 得到静态图形的快照PNG字节流
+    public byte[] getPngBytes() {
+        synchronized(snapshot()) {
+            final ByteArrayOutputStream os = new ByteArrayOutputStream();
+            mCachedBitmap.compress(Bitmap.CompressFormat.PNG, 100, os);
+            return os.toByteArray();
+        }
+    }
 
     @Override
     protected void onDraw(Canvas canvas) {
         mCoreView.onSize(mViewAdapter, getWidth(), getHeight());
         if (mCachedBitmap != null || !mViewAdapter.regenAll(canvas)) {
-            drawShapes(canvas, mCanvasAdapter);
+            drawShapes(canvas, mCanvasAdapter, true);
         }
     }
     
-    private void drawShapes(Canvas canvas, CanvasAdapter adapter) {
+    private void drawShapes(Canvas canvas, CanvasAdapter adapter, boolean dyndraw) {
         if (adapter.beginPaint(canvas)) {
-            if (mCachedBitmap == null || adapter != mCanvasAdapter) {
+            if (mCachedBitmap == null || !dyndraw) {
                 if (this.getBackground() != null) {
                     this.getBackground().draw(canvas);
                 } else {
@@ -125,7 +148,7 @@ public class GraphView extends View {
                 }
             }
             
-            if (adapter == mCanvasAdapter) {
+            if (dyndraw) {
                 mCoreView.dynDraw(mViewAdapter, adapter);
             }
             adapter.endPaint();
@@ -138,6 +161,7 @@ public class GraphView extends View {
             mActiveView = null;
         }
         if (mViewAdapter != null) {
+            mCoreView.destoryView(mViewAdapter);
             mViewAdapter.delete();
             mViewAdapter = null;
         }
@@ -186,7 +210,7 @@ public class GraphView extends View {
                 new Thread(new Runnable() {
                     public void run() {
                         synchronized(mCachedBitmap) {
-                            drawShapes(new Canvas(mCachedBitmap), mCanvasRegen);
+                            drawShapes(new Canvas(mCachedBitmap), mCanvasRegen, false);
                         }
                         mRegenning = false;
                         postInvalidate();

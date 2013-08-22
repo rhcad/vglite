@@ -18,6 +18,7 @@ endif
 
 LOCAL_C_INCLUDES := $(COREINC)/callback \
                     $(COREINC)/test \
+                    $(COREINC)/tradecmd \
                     $(COREINC)/view \
                     $(COREINC)/command \
                     $(COREINC)/shape \
