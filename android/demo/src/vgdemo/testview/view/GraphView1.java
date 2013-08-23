@@ -17,6 +17,7 @@ public class GraphView1 extends GraphView {
         
         if ((flags & 32) != 0) {
             helper.addShapesForTest();
+            flags = flags & ~32;
         }
         if ((flags & 1) != 0) {
             helper.setCommand("select");
