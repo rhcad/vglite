@@ -9,7 +9,7 @@
 #include "mgbasicsp.h"
 
 //! 网格图形类
-/*! \ingroup GEOM_SHAPE
+/*! \ingroup CORE_SHAPE
 */
 class MgGrid : public MgBaseRect
 {

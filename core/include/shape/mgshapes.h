@@ -16,7 +16,7 @@ class GiGraphics;
 class GiContext;
 
 //! 图形列表类
-/*! \ingroup GEOM_SHAPE
+/*! \ingroup CORE_SHAPE
     \see MgShapeIterator, MgShape::createShape()
 */
 class MgShapes : public MgObject
@@ -109,7 +109,7 @@ protected:
 };
 
 //! 遍历图形的辅助类
-/*! \ingroup GEOM_SHAPE
+/*! \ingroup CORE_SHAPE
 */
 class MgShapeIterator
 {

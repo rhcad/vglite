@@ -9,7 +9,7 @@
 /*! 在特定平台上使用某一种图形库实现其绘图函数，坐标单位为点（通常等同于像素）。\n
     在派生类中可实现beginPaint()和endPaint()函数，开始绘图时的默认绘图属性为：
     黑色画笔、线宽=1、实线、圆端、反走样、不填充。
-    \ingroup GROUP_GRAPH
+    \ingroup GRAPH_INTERFACE
  */
 class GiCanvas
 {

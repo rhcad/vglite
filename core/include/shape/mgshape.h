@@ -18,7 +18,7 @@ class MgShapes;
 struct MgStorage;
 
 //! 矢量图形接口
-/*! \ingroup GEOM_SHAPE
+/*! \ingroup CORE_SHAPE
     \interface MgShape
     \see MgShapeType, MgBaseShape
 */
@@ -105,7 +105,7 @@ typedef enum {
 } MgHandleType;
 
 //! 矢量图形基类
-/*! \ingroup GEOM_SHAPE
+/*! \ingroup CORE_SHAPE
     \see MgShapeType, MgShape
 */
 class MgBaseShape : public MgObject

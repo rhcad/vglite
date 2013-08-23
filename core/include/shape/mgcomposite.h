@@ -11,7 +11,7 @@
 class MgShapes;
 
 //! 复合图形基类
-/*! \ingroup GEOM_SHAPE
+/*! \ingroup CORE_SHAPE
 */
 class MgComposite : public MgBaseShape
 {
@@ -61,7 +61,7 @@ protected:
 };
 
 //! 成组图形类
-/*! \ingroup GEOM_SHAPE
+/*! \ingroup CORE_SHAPE
 */
 class MgGroup : public MgComposite
 {

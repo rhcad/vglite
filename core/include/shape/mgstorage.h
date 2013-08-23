@@ -7,7 +7,7 @@
 #define __GEOMETRY_MGSTORAGE_H_
 
 //! 图形存取接口
-/*! \ingroup GEOM_SHAPE
+/*! \ingroup CORE_SHAPE
     \interface MgStorage
 */
 struct MgStorage

@@ -11,7 +11,7 @@
 class GiView;
 
 //! 内核视图基类
-/*! \ingroup GROUP_VIEW
+/*! \ingroup CORE_VIEW
  */
 class GcBaseView
 {

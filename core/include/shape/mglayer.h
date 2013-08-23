@@ -11,7 +11,7 @@
 class MgShapeDoc;
 
 //! 图层类
-/*! \ingroup GEOM_SHAPE
+/*! \ingroup CORE_SHAPE
  */
 class MgLayer : public MgShapes
 {

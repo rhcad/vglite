@@ -12,7 +12,7 @@ class GiView;
 class MgShapeDoc;
 
 //! 图形文档类
-/*! \ingroup GROUP_VIEW
+/*! \ingroup CORE_VIEW
  */
 class GcShapeDoc
 {

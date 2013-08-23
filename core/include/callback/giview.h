@@ -7,7 +7,7 @@
 
 //! 设备相关的视图回调接口
 /*! 在派生类中使用某种界面框架实现其视图回调函数
-    \ingroup GROUP_VIEW
+    \ingroup CORE_VIEW
  */
 class GiView
 {

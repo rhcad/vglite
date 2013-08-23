@@ -7,7 +7,7 @@
 #define __GEOMETRY_MGOBJECT_H_
 
 //! 图形对象基类
-/*! \ingroup GEOM_SHAPE
+/*! \ingroup CORE_SHAPE
 */
 class MgObject
 {

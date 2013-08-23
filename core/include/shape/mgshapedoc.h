@@ -13,7 +13,7 @@
 class MgLayer;
 
 //! 读写锁定数据类
-/*! \ingroup GEOM_SHAPE
+/*! \ingroup CORE_SHAPE
  */
 class MgLockRW
 {
@@ -37,7 +37,7 @@ private:
 };
 
 //! 图形文档
-/*! \ingroup GEOM_SHAPE
+/*! \ingroup CORE_SHAPE
  */
 class MgShapeDoc : public MgObject
 {
@@ -126,7 +126,7 @@ private:
 };
 
 //! 图形列表锁定辅助类
-/*! \ingroup GEOM_SHAPE
+/*! \ingroup CORE_SHAPE
  */
 class MgShapesLock
 {
@@ -154,7 +154,7 @@ public:
 };
 
 //! 动态图形锁定辅助类
-/*! \ingroup GEOM_SHAPE
+/*! \ingroup CORE_SHAPE
  */
 class MgDynShapeLock
 {

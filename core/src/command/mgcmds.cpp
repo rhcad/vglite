@@ -54,7 +54,7 @@ MgCommand* mgCreateCoreCommand(const char* name)
 }
 
 //! 添加一个容纳图像的矩形图形.
-/*! \ingroup GEOM_SHAPE
+/*! \ingroup CORE_SHAPE
     \param sender 指定目标视图
     \param name 图像的标识名称
     \param width 图像矩形的宽度，单位为点

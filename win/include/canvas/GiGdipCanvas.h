@@ -8,7 +8,7 @@
 #include <gicanvas.h>
 
 //! 使用GDI+实现的画布适配器类.
-/*! \ingroup GROUP_WIN32
+/*! \ingroup GRAPH_WIN
  */
 class GiGdipCanvas : public GiCanvas
 {

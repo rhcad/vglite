@@ -8,7 +8,7 @@
 #include "GcGraphView.h"
 
 //! 放大镜视图类
-/*! \ingroup GROUP_VIEW
+/*! \ingroup CORE_VIEW
  */
 class GcMagnifierView : public GcShapeView
 {

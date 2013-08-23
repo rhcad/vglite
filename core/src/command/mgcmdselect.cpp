@@ -925,6 +925,10 @@ bool MgCmdSelect::touchEnded(const MgMotion* sender)
         if (!m_selIds.empty())
             sender->view->selChanged();
     }
+    if (!m_selIds.empty()) {
+        TradeCmd::onSelectTouchEnded(sender, m_id, handleIndexSrc, shapeid, handleIndex,
+                                     (int)m_selIds.size(), &m_selIds.front());
+    }
     
     return sender->switchGesture || longPress(sender);
 }

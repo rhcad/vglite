@@ -9,7 +9,7 @@
 #include "mgshapedoc.h"
 
 //! 内核绘图视图类
-/*! \ingroup GROUP_VIEW
+/*! \ingroup CORE_VIEW
  */
 class GcShapeView : public GcBaseView
 {
@@ -30,7 +30,7 @@ private:
 };
 
 //! 主绘图视图类
-/*! \ingroup GROUP_VIEW
+/*! \ingroup CORE_VIEW
  */
 class GcGraphView : public GcShapeView
 {

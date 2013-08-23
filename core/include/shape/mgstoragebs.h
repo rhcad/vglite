@@ -10,7 +10,7 @@
 #include "mgvector.h"
 
 //! 序列化基类
-/*! \ingroup GEOM_SHAPE
+/*! \ingroup CORE_SHAPE
  */
 class MgStorageBase : public MgStorage
 {

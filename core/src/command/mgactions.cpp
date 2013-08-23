@@ -191,9 +191,8 @@ bool MgCmdManagerImpl::doAction(const MgMotion* sender, int action)
             ret = ret || (cmd && cmd->doContextAction(sender, action));
             
             if (!ret && cmd && !cmd->isDrawingCommand()) {
-                const char* name = _drawcmd.c_str();
                 ret = TradeCmd::doEndAction(sender, action);
-                cmd = findCommand(name);
+                cmd = findCommand(_drawcmd.c_str());
                 ret = ret || (cmd && cmd->doContextAction(sender, action));
             }
             break;

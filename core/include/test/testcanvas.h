@@ -8,7 +8,7 @@
 class GiCanvas;
 
 //! The testing class for GiCanvas.
-/*! \ingroup GROUP_GRAPH
+/*! \ingroup GRAPH_INTERFACE
  */
 struct TestCanvas {
     static void initRand();

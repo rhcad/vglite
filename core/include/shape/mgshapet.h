@@ -11,7 +11,7 @@
 #include "mgstorage.h"
 
 //! 矢量图形模板类
-/*! \ingroup GEOM_SHAPE
+/*! \ingroup CORE_SHAPE
     使用 MgShapeT<ShapeClass>::registerCreator() 登记图形种类;
  */
 template <class ShapeT, class ContextT = GiContext>

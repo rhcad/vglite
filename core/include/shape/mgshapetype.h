@@ -7,7 +7,7 @@
 #define __GEOMETRY_SHAPETYPE_H_
 
 //! 基本图形的类型号
-/*! \ingroup GEOM_SHAPE
+/*! \ingroup CORE_SHAPE
     1-40为内置图形类型，41以上为其他应用可用的类型号
 */
 typedef enum {

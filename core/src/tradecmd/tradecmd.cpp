@@ -56,3 +56,7 @@ void TradeCmd::drawInSelect(const MgShape*, int,
                             const MgMotion*, GiGraphics*, bool)
 {
 }
+
+void TradeCmd::onSelectTouchEnded(const MgMotion*, int, int, int, int, int, const int*)
+{
+}

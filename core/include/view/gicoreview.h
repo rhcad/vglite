@@ -14,7 +14,7 @@ struct MgStorage;
 
 //! 内核视图分发器类
 /*! 本对象拥有图形文档对象，负责显示和手势动作的分发。
-    \ingroup GROUP_VIEW
+    \ingroup CORE_VIEW
  */
 class GiCoreView
 {

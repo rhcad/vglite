@@ -18,6 +18,9 @@ struct TradeCmd {
     static void onInitSelCmd(const MgMotion* sender);
     static void drawInSelect(const MgShape* shape, int handleIndex,
                              const MgMotion* sender, GiGraphics* gs, bool forceDraw = false);
+    static void onSelectTouchEnded(const MgMotion* sender, int shapeid,
+                                   int handleIndex, int snapid, int snapHandle,
+                                   int count, const int* ids);
 };
 
 #endif // __TRADECMD_H_
