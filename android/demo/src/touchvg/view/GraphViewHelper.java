@@ -11,6 +11,7 @@ import java.io.IOException;
 import org.apache.http.util.EncodingUtils;
 import touchvg.jni.MgJsonStorage;
 import android.content.Context;
+import android.graphics.Bitmap;
 
 //! Android绘图视图辅助类
 /*! \ingroup GROUP_ANDROID
@@ -67,6 +68,16 @@ public class GraphViewHelper {
     //! 放缩显示全部内容
     public boolean zoomToExtent() {
         return mView.coreView().zoomToExtent();
+    }
+    
+    //! 得到静态图形的快照
+    public Bitmap snapshot() {
+        return mView.snapshot();
+    }
+    
+    //! 得到静态图形的快照PNG字节流
+    public byte[] getPngBytes() {
+        return mView.getPngBytes();
     }
     
     //! 返回图形总数
