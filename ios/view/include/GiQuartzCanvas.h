@@ -3,7 +3,7 @@
 // Copyright (c) 2012-2013, https://github.com/rhcad/vglite
 
 #include <CoreGraphics/CoreGraphics.h>
-#include <gicanvas.h>
+#include "gicanvas.h"
 
 //! 使用 Quartz 2D 实现的画布适配器类
 /*! \ingroup GROUP_IOS

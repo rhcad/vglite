@@ -1,4 +1,4 @@
-﻿// tradecmd.cpp
+// tradecmd.cpp
 #include "tradecmd.h"
 
 void mgRegisterTradeCmds()

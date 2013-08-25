@@ -50,6 +50,9 @@ public:
     }
     
     UIImage *snapshot(bool autoDraw) {
+        if (!autoDraw) {
+            _drawCount = 1;
+        }
         long oldCount = _drawCount;
         UIImage *image = nil;
         
@@ -60,11 +63,14 @@ public:
             image = UIGraphicsGetImageFromCurrentImageContext();
         }
         UIGraphicsEndImageContext();
+        if (!autoDraw) {
+            _drawCount = 0;
+        }
         
         return image;
     }
     
-    bool drawAppend(GiQuartzCanvas* canvas) {
+    bool drawAppend(GiCanvas* canvas) {
         if (_drawCount > 0) {   // 还在regenAppend调用中
             _drawCount++;       // 让snapshot函数返回nil
             return true;        // 不需要绘图，反正regenAppend调用snapshot将得到nil
@@ -92,13 +98,11 @@ public:
     }
     
     virtual void regenAppend() {
-        _drawCount = 1;
         [_tmpshot release];
         _tmpshot = nil;                 // renderInContext可能会调用drawRect
         _tmpshot = snapshot(false);     // 获取现有绘图快照
         [_tmpshot retain];
         
-        _drawCount = 0;
         [_view setNeedsDisplay];
         [_dynview setNeedsDisplay];
     }

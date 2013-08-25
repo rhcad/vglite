@@ -1,8 +1,8 @@
-﻿// tradecmd.h
+// tradecmd.h
 #ifndef __TRADECMD_H_
 #define __TRADECMD_H_
 
-#include <mgcmddraw.h>
+#include "mgcmddraw.h"
 
 //! 行业应用功能
 /*! \ingroup CORE_COMMAND
