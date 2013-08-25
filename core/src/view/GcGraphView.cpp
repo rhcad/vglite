@@ -16,11 +16,13 @@ GcShapeView::~GcShapeView()
 
 int GcShapeView::drawAll(GiGraphics& gs)
 {
+    MgShapesLock locker(MgShapesLock::ReadOnly, doc());
     return doc()->draw(gs);
 }
 
 int GcShapeView::drawAppend(const int* newids, GiGraphics& gs)
 {
+    MgShapesLock locker(MgShapesLock::ReadOnly, doc());
     int n = 0;
     for (; *newids; newids++) {
         MgShape* sp = shapes()->findShape(*newids);

@@ -579,7 +579,7 @@ void MgCmdManagerImpl::eraseWnd(const MgMotion* sender)
     
     if (!delIds.empty()
         && sender->view->shapeWillDeleted(s->findShape(delIds.front()))) {
-        MgShapesLock locker(sender->view->doc(), MgShapesLock::Remove);
+        MgShapesLock locker(MgShapesLock::Remove, sender->view->doc());
         
         for (std::vector<int>::iterator i = delIds.begin(); i != delIds.end(); ++i) {
             MgShape* shape = s->findShape(*i);

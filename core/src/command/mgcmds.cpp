@@ -82,7 +82,7 @@ MgShape* mgAddImageShape(const MgMotion* sender, const char* name, float width, 
     imagesp->setName(name);
     imagesp->setRect2P(rect.leftTop(), rect.rightBottom());
     
-    MgShapesLock locker(sender->view->doc(), MgShapesLock::Add);
+    MgShapesLock locker(MgShapesLock::Add, sender->view->doc());
     if (sender->view->shapeWillAdded(&shape)) {
         MgShape* newsp = sender->view->shapes()->addShape(shape);
         sender->view->shapeAdded(newsp);

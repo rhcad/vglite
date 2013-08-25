@@ -402,16 +402,19 @@ int GiCoreView::addShapesForTest()
 
 int GiCoreView::getShapeCount()
 {
+    MgShapesLock locker(MgShapesLock::ReadOnly, impl->doc());
     return impl->doc()->getShapeCount();
 }
 
 bool GiCoreView::loadShapes(MgStorage* s)
 {
+    MgShapesLock locker(MgShapesLock::Load, impl->doc());
     return impl->doc()->load(s);
 }
 
 bool GiCoreView::saveShapes(MgStorage* s)
 {
+    MgShapesLock locker(MgShapesLock::ReadOnly, impl->doc());
     return impl->doc()->save(s);
 }
 
@@ -428,6 +431,7 @@ bool GiCoreView::zoomToExtent()
 bool GiCoreViewImpl::drawCommand(GcBaseView* view, const MgMotion& motion, GiGraphics& gs)
 {
     if (view == curview) {
+        MgDynShapeLock locker(false);
         MgCommand* cmd = _cmds->getCommand();
         return cmd && cmd->draw(&motion, &gs);
     }
@@ -436,6 +440,7 @@ bool GiCoreViewImpl::drawCommand(GcBaseView* view, const MgMotion& motion, GiGra
 
 bool GiCoreViewImpl::gestureToCommand(const MgMotion& motion)
 {
+    MgDynShapeLock locker(true);
     MgCommand* cmd = _cmds->getCommand();
 
     if (motion.gestureState == kMgGestureCancel || !cmd) {

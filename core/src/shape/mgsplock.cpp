@@ -79,7 +79,7 @@ bool MgLockRW::lockedForWrite() const
 // MgShapesLock
 //
 
-MgShapesLock::MgShapesLock(MgShapeDoc* d, int flags, int timeout) : doc(d)
+MgShapesLock::MgShapesLock(int flags, MgShapeDoc* d, int timeout) : doc(d)
 {
     bool forWrite = (flags != 0);
     _mode = d && d->getLockData()->lockData(forWrite, timeout) ? (forWrite ? 2 : 1) : 0;

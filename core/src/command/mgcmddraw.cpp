@@ -52,7 +52,7 @@ bool MgCommandDraw::_initialize(MgShape* (*creator)(), const MgMotion* sender)
 
 MgShape* MgCommandDraw::_addshape(const MgMotion* sender, MgShape* shape)
 {
-    MgShapesLock locker(sender->view->doc(), MgShapesLock::Add);
+    MgShapesLock locker(MgShapesLock::Add, sender->view->doc());
     shape = shape ? shape : m_shape;
     MgShape* newsp = NULL;
     
