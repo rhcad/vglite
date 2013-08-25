@@ -54,6 +54,7 @@ public:
     MgMotion        motion;
     std::vector<int>    newids;
     int             gestureHandler;
+    MgJsonStorage   defaultStorage;
     
 public:
     GiCoreViewImpl() : curview(NULL), refcount(1), gestureHandler(0) {
@@ -427,7 +428,21 @@ bool GiCoreView::loadShapes(MgStorage* s)
 bool GiCoreView::saveShapes(MgStorage* s)
 {
     MgShapesLock locker(MgShapesLock::ReadOnly, impl->doc());
-    return impl->doc()->save(s);
+    return s && impl->doc()->save(s);
+}
+
+const char* GiCoreView::getContent()
+{
+    const char* content = "";
+    if (saveShapes(impl->defaultStorage.storageForWrite())) {
+        content = impl->defaultStorage.stringify();
+    }
+    return content;
+}
+
+bool GiCoreView::setContent(const char* content)
+{
+    return loadShapes(impl->defaultStorage.storageForRead(content));
 }
 
 bool GiCoreView::loadFromFile(const char* vgfile)
@@ -438,21 +453,12 @@ bool GiCoreView::loadFromFile(const char* vgfile)
 #else
     FILE *fp = fopen(vgfile, "rt");
 #endif
-    bool ret = (fp != NULL);
+    MgJsonStorage s;
+    bool ret = loadShapes(s.storageForRead(fp));
 
     if (fp) {
-        MgJsonStorage st;
-        MgStorage* s = st.storageForRead(fp);
-
-        MgShapesLock locker(MgShapesLock::Load, impl->doc());
         fclose(fp);
-        ret = impl->doc()->load(s);
     }
-    else {
-        MgShapesLock locker(MgShapesLock::Remove, impl->doc());
-        impl->doc()->clear();
-    }
-    impl->regenAll();
 
     return ret;
 }
@@ -465,14 +471,11 @@ bool GiCoreView::saveToFile(const char* vgfile, bool pretty)
 #else
     FILE *fp = fopen(vgfile, "wt");
 #endif
-    bool ret = (fp != NULL);
     MgJsonStorage s;
+    bool ret = (fp != NULL
+        && saveShapes(s.storageForWrite())
+        && s.save(fp, pretty));
 
-    if (ret) {
-        MgShapesLock locker(MgShapesLock::ReadOnly, impl->doc());
-        ret = impl->doc()->save(s.storageForWrite());
-    }
-    ret = ret && s.save(fp, pretty);
     if (fp) {
         fclose(fp);
     }

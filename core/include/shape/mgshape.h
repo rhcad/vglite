@@ -6,12 +6,9 @@
 #ifndef __GEOMETRY_MGSHAPE_H_
 #define __GEOMETRY_MGSHAPE_H_
 
-#include "mgbox.h"
+#include "gigraph.h"
 #include "mgobject.h"
 
-class Matrix2d;
-class GiGraphics;
-class GiContext;
 class MgBaseShape;
 class MgShape;
 class MgShapes;

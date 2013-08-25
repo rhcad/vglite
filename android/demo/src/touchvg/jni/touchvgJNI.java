@@ -63,11 +63,13 @@ public class touchvgJNI {
   public final static native void GiCoreView_clearCachedData(long jarg1, GiCoreView jarg1_);
   public final static native int GiCoreView_addShapesForTest(long jarg1, GiCoreView jarg1_);
   public final static native int GiCoreView_getShapeCount(long jarg1, GiCoreView jarg1_);
-  public final static native boolean GiCoreView_loadShapes(long jarg1, GiCoreView jarg1_, long jarg2, MgStorage jarg2_);
-  public final static native boolean GiCoreView_saveShapes(long jarg1, GiCoreView jarg1_, long jarg2, MgStorage jarg2_);
   public final static native boolean GiCoreView_loadFromFile(long jarg1, GiCoreView jarg1_, String jarg2);
   public final static native boolean GiCoreView_saveToFile__SWIG_0(long jarg1, GiCoreView jarg1_, String jarg2, boolean jarg3);
   public final static native boolean GiCoreView_saveToFile__SWIG_1(long jarg1, GiCoreView jarg1_, String jarg2);
+  public final static native String GiCoreView_getContent(long jarg1, GiCoreView jarg1_);
+  public final static native boolean GiCoreView_setContent(long jarg1, GiCoreView jarg1_, String jarg2);
+  public final static native boolean GiCoreView_loadShapes(long jarg1, GiCoreView jarg1_, long jarg2, MgStorage jarg2_);
+  public final static native boolean GiCoreView_saveShapes(long jarg1, GiCoreView jarg1_, long jarg2, MgStorage jarg2_);
   public final static native boolean GiCoreView_zoomToExtent(long jarg1, GiCoreView jarg1_);
   public final static native void TestCanvas_initRand();
   public final static native int TestCanvas_randInt(int jarg1, int jarg2);

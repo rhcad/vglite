@@ -115,8 +115,10 @@ MgStorage* MgJsonStorage::storageForRead(FILE* fp)
 {
 #ifdef RAPIDJSON_DOCUMENT_H_
     _impl->clear();
-    _impl->document().ParseStream<0>(_impl->createStream(fp));
-    return _impl;
+    if (fp) {
+        _impl->document().ParseStream<0>(_impl->createStream(fp));
+    }
+    return fp ? _impl : NULL;
 #else
     fp;
 	return NULL;

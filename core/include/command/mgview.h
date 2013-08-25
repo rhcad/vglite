@@ -5,11 +5,12 @@
 #ifndef VGLITE_CORE_COMMAND_VIEW_H
 #define VGLITE_CORE_COMMAND_VIEW_H
 
-#include "gigraph.h"
 #include "mgshapedoc.h"
 
 struct MgCmdManager;
 class GcShapeDoc;
+class GiTransform;
+class GiGraphics;
 
 typedef enum {                  //!< 手势状态
     kMgGesturePossible,         //!< 待检查手势有效性
@@ -28,7 +29,7 @@ public:
     virtual ~MgView() {}
     
     virtual GcShapeDoc* document() = 0;
-    virtual MgCmdManager* cmds() = 0;       //!< 返回命令管理器对象
+    virtual MgCmdManager* cmds() = 0;           //!< 返回命令管理器对象
     virtual GiTransform* xform() = 0;           //!< 得到坐标系对象
     virtual GiGraphics* graph() = 0;            //!< 得到图形显示对象
     virtual MgShapeDoc* doc() = 0;              //!< 得到图形文档

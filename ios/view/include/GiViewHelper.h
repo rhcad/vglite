@@ -27,7 +27,7 @@
 + (BOOL)zoomToExtent:(GiGraphView *)v;                      //!< 放缩显示全部内容
 
 + (int)getShapeCount:(GiGraphView *)v;                      //!< 返回图形总数
-+ (NSString *)content:(GiGraphView *)v;                     //!< 保存图形到JSON内容
++ (NSString *)getContent:(GiGraphView *)v;                  //!< 得到图形的JSON内容
 + (BOOL)setContent:(GiGraphView *)v :(NSString *)content;   //!< 从JSON内容中加载图形
 + (BOOL)loadFromFile:(GiGraphView *)v :(NSString *)vgfile;  //!< 从JSON文件中加载图形
 + (BOOL)saveToFile:(GiGraphView *)v :(NSString *)vgfile;    //!< 保存图形到JSON文件

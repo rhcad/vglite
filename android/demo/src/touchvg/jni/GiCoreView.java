@@ -115,14 +115,6 @@ public class GiCoreView {
     return touchvgJNI.GiCoreView_getShapeCount(swigCPtr, this);
   }
 
-  public boolean loadShapes(MgStorage s) {
-    return touchvgJNI.GiCoreView_loadShapes(swigCPtr, this, MgStorage.getCPtr(s), s);
-  }
-
-  public boolean saveShapes(MgStorage s) {
-    return touchvgJNI.GiCoreView_saveShapes(swigCPtr, this, MgStorage.getCPtr(s), s);
-  }
-
   public boolean loadFromFile(String vgfile) {
     return touchvgJNI.GiCoreView_loadFromFile(swigCPtr, this, vgfile);
   }
@@ -133,6 +125,22 @@ public class GiCoreView {
 
   public boolean saveToFile(String vgfile) {
     return touchvgJNI.GiCoreView_saveToFile__SWIG_1(swigCPtr, this, vgfile);
+  }
+
+  public String getContent() {
+    return touchvgJNI.GiCoreView_getContent(swigCPtr, this);
+  }
+
+  public boolean setContent(String content) {
+    return touchvgJNI.GiCoreView_setContent(swigCPtr, this, content);
+  }
+
+  public boolean loadShapes(MgStorage s) {
+    return touchvgJNI.GiCoreView_loadShapes(swigCPtr, this, MgStorage.getCPtr(s), s);
+  }
+
+  public boolean saveShapes(MgStorage s) {
+    return touchvgJNI.GiCoreView_saveShapes(swigCPtr, this, MgStorage.getCPtr(s), s);
   }
 
   public boolean zoomToExtent() {

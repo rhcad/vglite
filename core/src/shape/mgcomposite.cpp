@@ -4,7 +4,6 @@
 
 #include <mgcomposite.h>
 #include <mgshapes.h>
-#include <gigraph.h>
 
 MgComposite::MgComposite()
 {

@@ -6,8 +6,6 @@
 #ifndef __GEOMETRY_MGCOMMAND_H_
 #define __GEOMETRY_MGCOMMAND_H_
 
-#include "gigraph.h"
-#include "mgshapedoc.h"
 #include "mgshape.h"
 #include "mgview.h"
 

@@ -5,7 +5,6 @@
 #include "mgshapes.h"
 #include "mgshape.h"
 #include "mgstorage.h"
-#include "gigraph.h"
 #include <list>
 
 struct MgShapes::I

@@ -75,17 +75,23 @@ public:
     //! 返回图形总数
     int getShapeCount();
 
-    //! 从指定的数据来源中加载图形
-    bool loadShapes(MgStorage* s);
-    
-    //! 保存图形到指定的数据来源中
-    bool saveShapes(MgStorage* s);
-
     //! 从JSON文件中加载图形
     bool loadFromFile(const char* vgfile);
     
     //! 保存图形到JSON文件
     bool saveToFile(const char* vgfile, bool pretty = true);
+
+    //! 得到图形的JSON内容
+    const char* getContent();
+
+    //! 从JSON内容中加载图形
+    bool setContent(const char* content);
+
+    //! 从指定的数据来源中加载图形
+    bool loadShapes(MgStorage* s);
+    
+    //! 保存图形到指定的数据来源中
+    bool saveShapes(MgStorage* s);
     
     //! 放缩显示全部内容
     bool zoomToExtent();

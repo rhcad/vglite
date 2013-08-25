@@ -3,6 +3,7 @@
 // License: LGPL, https://github.com/rhcad/touchvg
 
 #include <mgcmd.h>
+#include <gigraph.h>
 #include <stdio.h>
 #include <list>
 

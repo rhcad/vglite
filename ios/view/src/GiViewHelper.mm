@@ -5,7 +5,6 @@
 #import "GiViewHelper.h"
 #import "GiGraphView.h"
 #include "gicoreview.h"
-#include "mgjsonstorage.h"
 
 @implementation GiViewHelper
 
@@ -62,20 +61,16 @@
     return v ? [v coreView]->getShapeCount() : 0;
 }
 
-+ (NSString *)content:(GiGraphView *)v {
-    MgJsonStorage s;
-    const char* content = "";
-    
-    if (v && [v coreView]->saveShapes(s.storageForWrite())) {
-        content = s.stringify(true);
-    }
-    
-    return [NSString stringWithCString:content encoding:NSUTF8StringEncoding];
++ (NSString *)getContent:(GiGraphView *)v {
+	if (v) {
+		const char* content = [v coreView]->getContent();
+		return [NSString stringWithCString:content encoding:NSUTF8StringEncoding];
+	}
+    return @"";
 }
 
 + (BOOL)setContent:(GiGraphView *)v :(NSString *)content {
-    MgJsonStorage s;
-    return v && [v coreView]->loadShapes(s.storageForRead([content UTF8String]));
+    return v && [v coreView]->setContent([content UTF8String]);
 }
 
 + (BOOL)loadFromFile:(GiGraphView *)v :(NSString *)vgfile {

@@ -6,8 +6,6 @@ package touchvg.view;
 
 import java.io.File;
 import java.io.IOException;
-
-import touchvg.jni.MgJsonStorage;
 import android.content.Context;
 import android.graphics.Bitmap;
 
@@ -83,21 +81,14 @@ public class GraphViewHelper {
         return mView.coreView().getShapeCount();
     }
     
-    //! 保存图形到JSON内容
+    //! 得到图形的JSON内容
     public String getContent() {
-        final MgJsonStorage s = new MgJsonStorage();
-        mView.coreView().saveShapes(s.storageForWrite());
-        final String content = s.stringify();
-        s.delete();
-        return content;
+        return mView.coreView().getContent();
     }
     
     //! 从JSON内容中加载图形
     public boolean setContent(String content) {
-        final MgJsonStorage s = new MgJsonStorage();
-        boolean ret = mView.coreView().loadShapes(s.storageForRead(content));
-        s.delete();
-        return ret;
+        return mView.coreView().setContent(content);
     }
     
     //! 从JSON文件中加载图形
