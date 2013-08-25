@@ -123,6 +123,18 @@ public class GiCoreView {
     return touchvgJNI.GiCoreView_saveShapes(swigCPtr, this, MgStorage.getCPtr(s), s);
   }
 
+  public boolean loadFromFile(String vgfile) {
+    return touchvgJNI.GiCoreView_loadFromFile(swigCPtr, this, vgfile);
+  }
+
+  public boolean saveToFile(String vgfile, boolean pretty) {
+    return touchvgJNI.GiCoreView_saveToFile__SWIG_0(swigCPtr, this, vgfile, pretty);
+  }
+
+  public boolean saveToFile(String vgfile) {
+    return touchvgJNI.GiCoreView_saveToFile__SWIG_1(swigCPtr, this, vgfile);
+  }
+
   public boolean zoomToExtent() {
     return touchvgJNI.GiCoreView_zoomToExtent(swigCPtr, this);
   }

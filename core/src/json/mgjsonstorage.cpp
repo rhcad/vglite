@@ -14,12 +14,14 @@ using namespace rapidjson;
 class MgJsonStorage::Impl : public MgStorage
 {
 public:
-    Impl() : _err(NULL) {}
+    Impl() : _fs(NULL), _err(NULL) {}
+    ~Impl() { if (_fs) delete(_fs); }
     
     void clear();
     const char* stringify(bool pretty);
     Document& document() { return _doc; }
     const char* getError() { return _err ? _err : _doc.GetParseError(); }
+    FileStream& createStream(FILE* fp);
     
 private:
     bool readNode(const char* name, int index, bool ended);
@@ -43,6 +45,7 @@ private:
     Document _doc;
     std::vector<Value*> _stack;
     StringBuffer _strbuf;
+    FileStream  *_fs;
     const char* _err;
 };
 
@@ -72,6 +75,27 @@ const char* MgJsonStorage::stringify(bool pretty)
 #endif
 }
 
+bool MgJsonStorage::save(FILE* fp, bool pretty)
+{
+    if (fp && !_impl->document().IsNull()) {
+        Document::AllocatorType allocator;
+        FileStream& fs = _impl->createStream(fp);
+
+        if (pretty) {
+            PrettyWriter<FileStream> writer(fs, &allocator);
+            _impl->document().Accept(writer);
+        }
+        else {
+            Writer<FileStream> writer(fs, &allocator);
+            _impl->document().Accept(writer);
+        }
+
+        return true;
+    }
+
+    return false;
+}
+
 MgStorage* MgJsonStorage::storageForRead(const char* content)
 {
 #ifdef RAPIDJSON_DOCUMENT_H_
@@ -83,6 +107,18 @@ MgStorage* MgJsonStorage::storageForRead(const char* content)
     return _impl;
 #else
     content;
+	return NULL;
+#endif
+}
+
+MgStorage* MgJsonStorage::storageForRead(FILE* fp)
+{
+#ifdef RAPIDJSON_DOCUMENT_H_
+    _impl->clear();
+    _impl->document().ParseStream<0>(_impl->createStream(fp));
+    return _impl;
+#else
+    fp;
 	return NULL;
 #endif
 }
@@ -113,6 +149,13 @@ void MgJsonStorage::Impl::clear()
     _doc.SetNull();
     _stack.clear();
     _strbuf.Clear();
+}
+
+FileStream& MgJsonStorage::Impl::createStream(FILE* fp)
+{
+    if (_fs) delete _fs;
+    _fs = new FileStream(fp);
+    return *_fs;
 }
 
 bool MgJsonStorage::Impl::setError(const char* err)

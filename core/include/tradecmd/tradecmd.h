@@ -1,10 +1,13 @@
-// tradecmd.h
+//! \file tradecmd.h
+//! \brief 定义行业应用功能类 TradeCmd
+// Copyright (c) 2012-2013, https://github.com/rhcad/vglite
+
 #ifndef __TRADECMD_H_
 #define __TRADECMD_H_
 
 #include "mgcmddraw.h"
 
-//! 行业应用功能
+//! 行业应用功能类
 /*! \ingroup CORE_COMMAND
  */
 struct TradeCmd {

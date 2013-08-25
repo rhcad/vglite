@@ -5,10 +5,8 @@
 package touchvg.view;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import org.apache.http.util.EncodingUtils;
+
 import touchvg.jni.MgJsonStorage;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -89,7 +87,7 @@ public class GraphViewHelper {
     public String getContent() {
         final MgJsonStorage s = new MgJsonStorage();
         mView.coreView().saveShapes(s.storageForWrite());
-        final String content = s.stringify(true);
+        final String content = s.stringify();
         s.delete();
         return content;
     }
@@ -104,11 +102,7 @@ public class GraphViewHelper {
     
     //! 从JSON文件中加载图形
     public boolean loadFromFile(String vgfile) {
-        final MgJsonStorage s = new MgJsonStorage();
-        final String content = readFile(vgfile);
-        boolean ret = mView.coreView().loadShapes(s.storageForRead(content));
-        s.delete();
-        return ret;
+        return mView.coreView().loadFromFile(vgfile);
     }
     
     //! 保存图形到JSON文件
@@ -117,63 +111,26 @@ public class GraphViewHelper {
         if (getShapeCount() == 0) {
             ret = new File(vgfile).delete();
         } else {
-            ret = writeFile(vgfile, getContent());
+            ret = createFile(vgfile)
+            		&& mView.coreView().saveToFile(vgfile);
         }
         return ret;
     }
     
-    public static String readFile(String filename) {
-        final File file = new File(filename);
-        String content = null;
-
-        if (!file.exists() || !file.isFile()) {
-            return null;
+    public static boolean createFile(String filename) {
+    	final File file = new File(filename);
+        final File pf = file.getParentFile();
+        if (!pf.exists()) {
+            pf.mkdirs();
         }
-        try {
-            final FileInputStream fin = new FileInputStream(file);
-            int length = fin.available();
-            if (length > 0) {
-                final byte[] buffer = new byte[length];
-                fin.read(buffer);
-                content = EncodingUtils.getString(buffer, "UTF-8");
-            }
-            fin.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        
-        return content;
-    }
-    
-    public static boolean writeFile(String filename, String content) {
-        int savelen = 0;
-
-        if (content != null && content.length() > 0) {
-            final File file = new File(filename);
-            final File pf = file.getParentFile();
-            if (!pf.exists()) {
-                pf.mkdirs();
-            }
-            if (!file.exists()) {
-                try {
-                    file.createNewFile();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    return false;
-                }
-            }
-
+        if (!file.exists()) {
             try {
-                final FileOutputStream fout = new FileOutputStream(file);
-                final byte[] bytes = content.getBytes();
-                fout.write(bytes);
-                fout.close();
-                savelen = bytes.length;
+                file.createNewFile();
             } catch (IOException e) {
                 e.printStackTrace();
+                return false;
             }
         }
-
-        return savelen > 0;
+        return true;
     }
 }

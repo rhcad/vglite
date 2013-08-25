@@ -15,6 +15,7 @@
 #include "mgcmd.h"
 #include <RandomShape.h>
 #include <mglog.h>
+#include <mgjsonstorage.h>
 
 //! 测试视图
 class GcDummyView : public GcBaseView
@@ -408,14 +409,72 @@ int GiCoreView::getShapeCount()
 
 bool GiCoreView::loadShapes(MgStorage* s)
 {
-    MgShapesLock locker(MgShapesLock::Load, impl->doc());
-    return impl->doc()->load(s);
+    bool ret = true;
+
+    if (s) {
+        MgShapesLock locker(MgShapesLock::Load, impl->doc());
+        ret = impl->doc()->load(s);
+    }
+    else {
+        MgShapesLock locker(MgShapesLock::Remove, impl->doc());
+        impl->doc()->clear();
+    }
+    impl->regenAll();
+
+    return ret;
 }
 
 bool GiCoreView::saveShapes(MgStorage* s)
 {
     MgShapesLock locker(MgShapesLock::ReadOnly, impl->doc());
     return impl->doc()->save(s);
+}
+
+bool GiCoreView::loadFromFile(const char* vgfile)
+{
+#if defined(_MSC_VER) && _MSC_VER >= 1400 // VC8
+    FILE *fp = NULL;
+    fopen_s(&fp, vgfile, "rt");
+#else
+    FILE *fp = fopen(vgfile, "rt");
+#endif
+    bool ret = (fp != NULL);
+
+    if (fp) {
+        MgJsonStorage st;
+        MgStorage* s = st.storageForRead(fp);
+
+        MgShapesLock locker(MgShapesLock::Load, impl->doc());
+        fclose(fp);
+        ret = impl->doc()->load(s);
+    }
+    else {
+        MgShapesLock locker(MgShapesLock::Remove, impl->doc());
+        impl->doc()->clear();
+    }
+    impl->regenAll();
+
+    return ret;
+}
+
+bool GiCoreView::saveToFile(const char* vgfile, bool pretty)
+{
+#if defined(_MSC_VER) && _MSC_VER >= 1400 // VC8
+    FILE *fp = NULL;
+    fopen_s(&fp, vgfile, "wt");
+#else
+    FILE *fp = fopen(vgfile, "wt");
+#endif
+    bool ret = (fp != NULL);
+    MgJsonStorage s;
+
+    if (ret) {
+        MgShapesLock locker(MgShapesLock::ReadOnly, impl->doc());
+        ret = impl->doc()->save(s.storageForWrite());
+    }
+    ret = ret && s.save(fp, pretty);
+
+    return ret;
 }
 
 bool GiCoreView::zoomToExtent()

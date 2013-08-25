@@ -385,6 +385,38 @@
 					RelativePath="..\..\core\src\json\mgjsonstorage.cpp"
 					>
 				</File>
+				<Filter
+					Name="rapidjson"
+					>
+					<File
+						RelativePath="..\..\core\src\json\rapidjson\document.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\src\json\rapidjson\filestream.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\src\json\rapidjson\prettywriter.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\src\json\rapidjson\rapidjson.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\src\json\rapidjson\reader.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\src\json\rapidjson\stringbuffer.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\src\json\rapidjson\writer.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="test"
@@ -637,6 +669,14 @@
 				</File>
 				<File
 					RelativePath="..\..\core\include\test\testcanvas.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="tradecmd"
+				>
+				<File
+					RelativePath="..\..\core\include\tradecmd\tradecmd.h"
 					>
 				</File>
 			</Filter>

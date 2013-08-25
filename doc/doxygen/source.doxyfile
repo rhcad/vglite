@@ -674,7 +674,6 @@ WARN_LOGFILE           =
 INPUT                  = ../../core \
                          ../../win \
                          ../../ios/view \
-                         ../../android/demo/jni \
                          ../../android/demo/src/touchvg \
                          MainPage.txt
 
@@ -708,13 +707,13 @@ RECURSIVE              = YES
 # Note that relative paths are relative to the directory from which doxygen is 
 # run.
 
-EXCLUDE                = ../../core/include/testgraph \
-                         ../../win/src/SimpView/Stdafx.h \
-                         ../../win/src/SimpView/resource.h \
-                         ../../win/src/ShapeEditor/stdafx.h \
-                         ../../win/src/ShapeEditor/Resource.h \
-                         ../../win/LrcLayout/LrcLayout/stdafx.h \
-                         ../../win/LrcLayout/LrcLayout/Resource.h
+EXCLUDE                = ../../core/include/test \
+                         ../../core/include/command/mglog.h \
+                         ../../core/src/test \
+                         ../../core/src/json/rapidjson \
+                         ../../win/build \
+                         ../../win/src/TestCanvas \
+                         ../../win/src/TestJNI
 
 # The EXCLUDE_SYMLINKS tag can be used to select whether or not files or 
 # directories that are symbolic links (a Unix file system feature) are excluded 
@@ -888,7 +887,7 @@ GENERATE_HTML          = YES
 # If a relative path is entered the value of OUTPUT_DIRECTORY will be 
 # put in front of it. If left blank `html' will be used as the default path.
 
-HTML_OUTPUT            = ._htmlsrc
+HTML_OUTPUT            = htmlsrc.tmp
 
 # The HTML_FILE_EXTENSION tag can be used to specify the file extension for 
 # each generated HTML page (for example: .htm,.php,.asp). If it is left blank 

@@ -65,6 +65,9 @@ public class touchvgJNI {
   public final static native int GiCoreView_getShapeCount(long jarg1, GiCoreView jarg1_);
   public final static native boolean GiCoreView_loadShapes(long jarg1, GiCoreView jarg1_, long jarg2, MgStorage jarg2_);
   public final static native boolean GiCoreView_saveShapes(long jarg1, GiCoreView jarg1_, long jarg2, MgStorage jarg2_);
+  public final static native boolean GiCoreView_loadFromFile(long jarg1, GiCoreView jarg1_, String jarg2);
+  public final static native boolean GiCoreView_saveToFile__SWIG_0(long jarg1, GiCoreView jarg1_, String jarg2, boolean jarg3);
+  public final static native boolean GiCoreView_saveToFile__SWIG_1(long jarg1, GiCoreView jarg1_, String jarg2);
   public final static native boolean GiCoreView_zoomToExtent(long jarg1, GiCoreView jarg1_);
   public final static native void TestCanvas_initRand();
   public final static native int TestCanvas_randInt(int jarg1, int jarg2);
@@ -100,7 +103,8 @@ public class touchvgJNI {
   public final static native void delete_MgJsonStorage(long jarg1);
   public final static native long MgJsonStorage_storageForRead(long jarg1, MgJsonStorage jarg1_, String jarg2);
   public final static native long MgJsonStorage_storageForWrite(long jarg1, MgJsonStorage jarg1_);
-  public final static native String MgJsonStorage_stringify(long jarg1, MgJsonStorage jarg1_, boolean jarg2);
+  public final static native String MgJsonStorage_stringify__SWIG_0(long jarg1, MgJsonStorage jarg1_, boolean jarg2);
+  public final static native String MgJsonStorage_stringify__SWIG_1(long jarg1, MgJsonStorage jarg1_);
   public final static native String MgJsonStorage_getParseError(long jarg1, MgJsonStorage jarg1_);
 
   public static void SwigDirector_GiCanvas_setPen(GiCanvas self, int argb, float width, int style, float phase) {

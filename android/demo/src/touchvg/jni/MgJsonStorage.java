@@ -50,7 +50,11 @@ public class MgJsonStorage {
   }
 
   public String stringify(boolean pretty) {
-    return touchvgJNI.MgJsonStorage_stringify(swigCPtr, this, pretty);
+    return touchvgJNI.MgJsonStorage_stringify__SWIG_0(swigCPtr, this, pretty);
+  }
+
+  public String stringify() {
+    return touchvgJNI.MgJsonStorage_stringify__SWIG_1(swigCPtr, this);
   }
 
   public String getParseError() {

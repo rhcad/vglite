@@ -673,7 +673,6 @@ WARN_LOGFILE           =
 INPUT                  = ../../core/include \
                          ../../win/include \
                          ../../ios/view/include \
-                         ../../android/demo/jni \
                          ../../android/demo/src/touchvg \
                          MainPage.txt
 
@@ -707,10 +706,11 @@ RECURSIVE              = YES
 # Note that relative paths are relative to the directory from which doxygen is 
 # run.
 
-EXCLUDE                = ../../core/include/testgraph \
-                         ../../android/demo/jni/._java \
-                         ../../android/demo/jni/graph2d_java_wrap.h
-                         ../../win/src/SimpView
+EXCLUDE                = ../../core/include/test \
+                         ../../core/include/command/mglog.h \
+                         ../../android/demo/src/touchvg/jni \
+                         ../../win/src/TestCanvas \
+                         ../../win/src/TestJNI
 
 # The EXCLUDE_SYMLINKS tag can be used to select whether or not files or 
 # directories that are symbolic links (a Unix file system feature) are excluded 
@@ -884,7 +884,7 @@ GENERATE_HTML          = YES
 # If a relative path is entered the value of OUTPUT_DIRECTORY will be 
 # put in front of it. If left blank `html' will be used as the default path.
 
-HTML_OUTPUT            = ._html
+HTML_OUTPUT            = html.tmp
 
 # The HTML_FILE_EXTENSION tag can be used to specify the file extension for 
 # each generated HTML page (for example: .htm,.php,.asp). If it is left blank 

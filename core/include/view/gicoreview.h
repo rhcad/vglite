@@ -80,6 +80,12 @@ public:
     
     //! 保存图形到指定的数据来源中
     bool saveShapes(MgStorage* s);
+
+    //! 从JSON文件中加载图形
+    bool loadFromFile(const char* vgfile);
+    
+    //! 保存图形到JSON文件
+    bool saveToFile(const char* vgfile, bool pretty = true);
     
     //! 放缩显示全部内容
     bool zoomToExtent();
