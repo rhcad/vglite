@@ -209,7 +209,7 @@ public:
 
 @end
 
-static char _lastVgFile[128] = { 0 };
+static char _lastVgFile[256] = { 0 };
 
 @implementation GiGraphView2
 
@@ -224,7 +224,8 @@ static char _lastVgFile[128] = { 0 };
 
 + (NSString *)lastFileName
 {
-    return [NSString stringWithUTF8String:_lastVgFile];
+    NSString *file = [NSString stringWithUTF8String:_lastVgFile];
+    return file;
 }
 
 @end

@@ -473,6 +473,9 @@ bool GiCoreView::saveToFile(const char* vgfile, bool pretty)
         ret = impl->doc()->save(s.storageForWrite());
     }
     ret = ret && s.save(fp, pretty);
+    if (fp) {
+        fclose(fp);
+    }
 
     return ret;
 }
