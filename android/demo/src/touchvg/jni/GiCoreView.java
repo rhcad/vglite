@@ -131,6 +131,10 @@ public class GiCoreView {
     return touchvgJNI.GiCoreView_getContent(swigCPtr, this);
   }
 
+  public void freeContent() {
+    touchvgJNI.GiCoreView_freeContent(swigCPtr, this);
+  }
+
   public boolean setContent(String content) {
     return touchvgJNI.GiCoreView_setContent(swigCPtr, this, content);
   }

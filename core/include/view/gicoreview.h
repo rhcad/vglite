@@ -81,8 +81,11 @@ public:
     //! 保存图形到JSON文件
     bool saveToFile(const char* vgfile, bool pretty = true);
 
-    //! 得到图形的JSON内容
+    //! 得到图形的JSON内容，需要再调用 freeContent()
     const char* getContent();
+    
+    //! 释放 getContent() 产生的缓冲资源
+    void freeContent();
 
     //! 从JSON内容中加载图形
     bool setContent(const char* content);

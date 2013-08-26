@@ -437,12 +437,19 @@ const char* GiCoreView::getContent()
     if (saveShapes(impl->defaultStorage.storageForWrite())) {
         content = impl->defaultStorage.stringify();
     }
-    return content;
+    return content; // has't free defaultStorage's string buffer
+}
+
+void GiCoreView::freeContent()
+{
+    impl->defaultStorage.clear();
 }
 
 bool GiCoreView::setContent(const char* content)
 {
-    return loadShapes(impl->defaultStorage.storageForRead(content));
+    bool ret = loadShapes(impl->defaultStorage.storageForRead(content));
+    impl->defaultStorage.clear();
+    return ret;
 }
 
 bool GiCoreView::loadFromFile(const char* vgfile)
@@ -455,7 +462,7 @@ bool GiCoreView::loadFromFile(const char* vgfile)
 #endif
     MgJsonStorage s;
     bool ret = loadShapes(s.storageForRead(fp));
-
+    
     if (fp) {
         fclose(fp);
     }

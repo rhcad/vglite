@@ -89,6 +89,7 @@ bool MgJsonStorage::save(FILE* fp, bool pretty)
             Writer<FileStream> writer(fs, &allocator);
             _impl->document().Accept(writer);
         }
+        _impl->clear();
 
         return true;
     }
@@ -125,6 +126,11 @@ MgStorage* MgJsonStorage::storageForRead(FILE* fp)
 #endif
 }
 
+void MgJsonStorage::clear()
+{
+    _impl->clear();
+}
+
 const char* MgJsonStorage::getParseError()
 {
 #ifdef RAPIDJSON_DOCUMENT_H_
@@ -151,6 +157,10 @@ void MgJsonStorage::Impl::clear()
     _doc.SetNull();
     _stack.clear();
     _strbuf.Clear();
+    if (_fs) {
+        delete _fs;
+        _fs = NULL;
+    }
 }
 
 FileStream& MgJsonStorage::Impl::createStream(FILE* fp)

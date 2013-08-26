@@ -83,7 +83,9 @@ public class GraphViewHelper {
     
     //! 得到图形的JSON内容
     public String getContent() {
-        return mView.coreView().getContent();
+        final String str = mView.coreView().getContent();
+        mView.coreView().freeContent();
+        return str;
     }
     
     //! 从JSON内容中加载图形

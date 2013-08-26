@@ -428,7 +428,6 @@ namespace Swig {
 #include "giview.h"
 #include "gicoreview.h"
 #include "testcanvas.h"
-#include "mgjsonstorage.h"
 #include "mgstorage.h"
 
 
@@ -2187,6 +2186,17 @@ SWIGEXPORT jstring JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1getContent(JN
 }
 
 
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1freeContent(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  GiCoreView *arg1 = (GiCoreView *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiCoreView **)&jarg1; 
+  (arg1)->freeContent();
+}
+
+
 SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1setContent(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
   jboolean jresult = 0 ;
   GiCoreView *arg1 = (GiCoreView *) 0 ;
@@ -2752,112 +2762,6 @@ SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_delete_1MgStorage(JNIEnv *je
   (void)jcls;
   arg1 = *(MgStorage **)&jarg1; 
   delete arg1;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_touchvg_jni_touchvgJNI_new_1MgJsonStorage(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  MgJsonStorage *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  result = (MgJsonStorage *)new MgJsonStorage();
-  *(MgJsonStorage **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_delete_1MgJsonStorage(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  MgJsonStorage *arg1 = (MgJsonStorage *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(MgJsonStorage **)&jarg1; 
-  delete arg1;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_touchvg_jni_touchvgJNI_MgJsonStorage_1storageForRead(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
-  jlong jresult = 0 ;
-  MgJsonStorage *arg1 = (MgJsonStorage *) 0 ;
-  char *arg2 = (char *) 0 ;
-  MgStorage *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(MgJsonStorage **)&jarg1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return 0;
-  }
-  result = (MgStorage *)(arg1)->storageForRead((char const *)arg2);
-  *(MgStorage **)&jresult = result; 
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_touchvg_jni_touchvgJNI_MgJsonStorage_1storageForWrite(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  MgJsonStorage *arg1 = (MgJsonStorage *) 0 ;
-  MgStorage *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(MgJsonStorage **)&jarg1; 
-  result = (MgStorage *)(arg1)->storageForWrite();
-  *(MgStorage **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jstring JNICALL Java_touchvg_jni_touchvgJNI_MgJsonStorage_1stringify_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
-  jstring jresult = 0 ;
-  MgJsonStorage *arg1 = (MgJsonStorage *) 0 ;
-  bool arg2 ;
-  char *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(MgJsonStorage **)&jarg1; 
-  arg2 = jarg2 ? true : false; 
-  result = (char *)(arg1)->stringify(arg2);
-  if (result) jresult = jenv->NewStringUTF((const char *)result);
-  return jresult;
-}
-
-
-SWIGEXPORT jstring JNICALL Java_touchvg_jni_touchvgJNI_MgJsonStorage_1stringify_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jstring jresult = 0 ;
-  MgJsonStorage *arg1 = (MgJsonStorage *) 0 ;
-  char *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(MgJsonStorage **)&jarg1; 
-  result = (char *)(arg1)->stringify();
-  if (result) jresult = jenv->NewStringUTF((const char *)result);
-  return jresult;
-}
-
-
-SWIGEXPORT jstring JNICALL Java_touchvg_jni_touchvgJNI_MgJsonStorage_1getParseError(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jstring jresult = 0 ;
-  MgJsonStorage *arg1 = (MgJsonStorage *) 0 ;
-  char *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(MgJsonStorage **)&jarg1; 
-  result = (char *)(arg1)->getParseError();
-  if (result) jresult = jenv->NewStringUTF((const char *)result);
-  return jresult;
 }
 
 

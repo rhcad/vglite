@@ -37,6 +37,9 @@ public:
     //! 返回JSON内容
     const char* stringify(bool pretty = true);
     
+    //! 清除内存资源
+    void clear();
+    
     //! 返回 storageForRead() 中的解析错误，NULL表示没有错误
     const char* getParseError();
     

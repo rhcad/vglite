@@ -62,11 +62,13 @@
 }
 
 + (NSString *)getContent:(GiGraphView *)v {
+    NSString *str = nil;
 	if (v) {
 		const char* content = [v coreView]->getContent();
-		return [NSString stringWithCString:content encoding:NSUTF8StringEncoding];
+		str = [NSString stringWithCString:content encoding:NSUTF8StringEncoding];
+        [v coreView]->freeContent();
 	}
-    return @"";
+    return str;
 }
 
 + (BOOL)setContent:(GiGraphView *)v :(NSString *)content {

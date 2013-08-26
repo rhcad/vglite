@@ -67,6 +67,7 @@ public class touchvgJNI {
   public final static native boolean GiCoreView_saveToFile__SWIG_0(long jarg1, GiCoreView jarg1_, String jarg2, boolean jarg3);
   public final static native boolean GiCoreView_saveToFile__SWIG_1(long jarg1, GiCoreView jarg1_, String jarg2);
   public final static native String GiCoreView_getContent(long jarg1, GiCoreView jarg1_);
+  public final static native void GiCoreView_freeContent(long jarg1, GiCoreView jarg1_);
   public final static native boolean GiCoreView_setContent(long jarg1, GiCoreView jarg1_, String jarg2);
   public final static native boolean GiCoreView_loadShapes(long jarg1, GiCoreView jarg1_, long jarg2, MgStorage jarg2_);
   public final static native boolean GiCoreView_saveShapes(long jarg1, GiCoreView jarg1_, long jarg2, MgStorage jarg2_);
@@ -101,13 +102,6 @@ public class touchvgJNI {
   public final static native void MgStorage_writeUInt(long jarg1, MgStorage jarg1_, String jarg2, int jarg3);
   public final static native boolean MgStorage_setError(long jarg1, MgStorage jarg1_, String jarg2);
   public final static native void delete_MgStorage(long jarg1);
-  public final static native long new_MgJsonStorage();
-  public final static native void delete_MgJsonStorage(long jarg1);
-  public final static native long MgJsonStorage_storageForRead(long jarg1, MgJsonStorage jarg1_, String jarg2);
-  public final static native long MgJsonStorage_storageForWrite(long jarg1, MgJsonStorage jarg1_);
-  public final static native String MgJsonStorage_stringify__SWIG_0(long jarg1, MgJsonStorage jarg1_, boolean jarg2);
-  public final static native String MgJsonStorage_stringify__SWIG_1(long jarg1, MgJsonStorage jarg1_);
-  public final static native String MgJsonStorage_getParseError(long jarg1, MgJsonStorage jarg1_);
 
   public static void SwigDirector_GiCanvas_setPen(GiCanvas self, int argb, float width, int style, float phase) {
     self.setPen(argb, width, style, phase);
