@@ -4,7 +4,9 @@
 
 package touchvg.view;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -73,7 +75,25 @@ public class GraphViewHelper {
     
     //! 得到静态图形的快照PNG字节流
     public byte[] getPngBytes() {
-        return mView.getPngBytes();
+        synchronized(mView.snapshot()) {
+            final ByteArrayOutputStream os = new ByteArrayOutputStream();
+            mView.snapshot().compress(Bitmap.CompressFormat.PNG, 100, os);
+            return os.toByteArray();
+        }
+    }
+    
+    //! 保存静态图形的快照到PNG文件
+    public boolean savePng(String filename) {
+        boolean ret = false;
+        synchronized(mView.snapshot()) {
+            try {
+                final FileOutputStream os = new FileOutputStream(filename);
+                ret = mView.snapshot().compress(Bitmap.CompressFormat.PNG, 100, os);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return ret;
     }
     
     //! 返回图形总数
@@ -105,13 +125,13 @@ public class GraphViewHelper {
             ret = new File(vgfile).delete();
         } else {
             ret = createFile(vgfile)
-            		&& mView.coreView().saveToFile(vgfile);
+                    && mView.coreView().saveToFile(vgfile);
         }
         return ret;
     }
     
     public static boolean createFile(String filename) {
-    	final File file = new File(filename);
+        final File file = new File(filename);
         final File pf = file.getParentFile();
         if (!pf.exists()) {
             pf.mkdirs();

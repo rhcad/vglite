@@ -4,8 +4,6 @@
 
 package touchvg.view;
 
-import java.io.ByteArrayOutputStream;
-
 import touchvg.jni.GiCoreView;
 import touchvg.jni.GiView;
 import android.content.Context;
@@ -121,15 +119,6 @@ public class GraphView extends View {
             }
         }
         return mCachedBitmap;
-    }
-
-    //! 得到静态图形的快照PNG字节流
-    public byte[] getPngBytes() {
-        synchronized(snapshot()) {
-            final ByteArrayOutputStream os = new ByteArrayOutputStream();
-            mCachedBitmap.compress(Bitmap.CompressFormat.PNG, 100, os);
-            return os.toByteArray();
-        }
     }
 
     @Override
