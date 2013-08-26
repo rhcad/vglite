@@ -79,25 +79,25 @@
 }
 
 + (BOOL)loadFromFile:(GiGraphView *)v :(NSString *)vgfile {
-    NSString *content = [NSString stringWithContentsOfFile:vgfile
-                                                  encoding:NSUTF8StringEncoding error:nil];
-    return [GiViewHelper setContent:v :content];
+    return v && [v coreView]->loadFromFile([vgfile UTF8String]);
 }
 
 + (BOOL)saveToFile:(GiGraphView *)v :(NSString *)vgfile {
-    MgJsonStorage s;
+    BOOL ret = NO;
+    NSFileManager *fm = [NSFileManager defaultManager];
     
-    if (v && [v coreView]->saveShapes(s.storageForWrite())) {
-        const char* content = s.stringify(true);
-        NSData* data = [NSData dataWithBytesNoCopy:(void*)content length:strlen(content)];
-        
-        NSFileManager *fm = [NSFileManager defaultManager];
-        [fm removeItemAtPath:vgfile error:nil];
-        
-        return data && [data writeToFile:vgfile atomically:NO];
+    if (v && vgfile) {
+        if ([v coreView]->getShapeCount() > 0) {
+            if (![fm fileExistsAtPath:vgfile]) {
+                [fm createFileAtPath:vgfile contents:[NSData data] attributes:nil];
+            }
+            ret = [v coreView]->saveToFile([vgfile UTF8String]);
+        } else {
+            ret = [fm removeItemAtPath:vgfile error:nil];
+        }
     }
     
-    return NO;
+    return ret;
 }
 
 @end
