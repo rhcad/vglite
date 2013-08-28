@@ -8,6 +8,7 @@
 #include <mgcurv.h>
 #include <mgbase.h>
 #include <mgstorage.h>
+#include <mglog.h>
 
 MG_IMPLEMENT_CREATE(MgEllipse)
 
@@ -187,6 +188,12 @@ float MgArc::getSweepAngle() const
     if (mgEquals(midAngle, startAngle) && mgEquals(startAngle, endAngle)) {
         return endAngle - startAngle;
     }
+    
+    Tol tol(getRadius() * 1e-3f, 1e-4f);
+    if (getStartPoint().isEqualTo(getEndPoint(), tol)
+        && (getMidPoint() + (getStartPoint() + getEndPoint()) / 2).isEqualTo(2 * getCenter(), tol)) {
+        return _M_2PI;
+    }
 
     float startAngle2 = startAngle;
     float midAngle2 = midAngle;
@@ -239,11 +246,17 @@ Vector2d MgArc::getEndTangent() const
 
 bool MgArc::setCenterRadius(const Point2d& center, float radius, float startAngle, float sweepAngle)
 {
+    if (sweepAngle > _M_2PI - 1e-3)
+        sweepAngle = _M_2PI;
+    else if (sweepAngle < 1e-3 - _M_2PI)
+        sweepAngle = -_M_2PI;
+    
     _points[0] = center;
     _points[1] = center.polarPoint(startAngle, radius);
     _points[2] = center.polarPoint(startAngle + sweepAngle, radius);
     _points[3] = center.polarPoint(startAngle + sweepAngle / 2, radius);
     _update();
+    
     return true;
 }
 
@@ -256,15 +269,28 @@ bool MgArc::setStartMidEnd(const Point2d& start, const Point2d& point, const Poi
         && setCenterRadius(center, radius, startAngle, sweepAngle);
 }
 
+bool MgArc::setCenterStartEnd(const Point2d& center, const Point2d& start)
+{
+    float startAngle = (start - center).angle2();
+    return setCenterRadius(center, start.distanceTo(center), startAngle, 0);
+}
+
 bool MgArc::setCenterStartEnd(const Point2d& center, const Point2d& start, const Point2d& end)
+{
+    return setCSE(center, start, end, getSweepAngle());
+}
+
+bool MgArc::setCSE(const Point2d& center, const Point2d& start, 
+                   const Point2d& end, float lastSweepAngle)
 {
     float startAngle = (start - center).angle2();
     float endAngle = (end - center).angle2();
     float sweepAngle = mgToRange(endAngle - startAngle, -_M_2PI, _M_2PI);
-
-    if (!mgIsZero(sweepAngle)) {
-        float lastSweepAngle = getSweepAngle();
-        if (fabsf( fabsf(sweepAngle) - fabsf(lastSweepAngle) ) > _M_PI_6) {
+    
+    if (fabsf(sweepAngle - lastSweepAngle) > _M_PI) {
+        if (fabsf(sweepAngle) < _M_D2R * 5 && fabsf(lastSweepAngle) > _M_PI + _M_PI_2) {
+            sweepAngle = lastSweepAngle > 0 ? _M_2PI : -_M_2PI;
+        } else {
             sweepAngle = sweepAngle + (sweepAngle > 0 ?  -_M_2PI :  _M_2PI);
         }
     }
@@ -442,24 +468,35 @@ Point2d MgArc::_getHandlePoint(int index) const
     return getCenter();
 }
 
-bool MgArc::_setHandlePoint(int index, const Point2d& pt, float)
+bool MgArc::_setHandlePoint2(int index, const Point2d& pt, float, int& data)
 {
-    if (index == 1) {
-        return setStartMidEnd(pt, getMidPoint(), getEndPoint());
+    static float lastSweepAngle;
+    
+    if (index == 1 || index == 2) {     // 起点、终点
+        return setCenterRadius(getCenter(), pt.distanceTo(getCenter()), getStartAngle(), getSweepAngle());
     }
-    if (index == 2) {
-        return setStartMidEnd(getStartPoint(), getMidPoint(), pt);
-    }
-    if (index == 3) {
+    if (index == 3) {                   // 弧线中点
         return setStartMidEnd(getStartPoint(), pt, getEndPoint());
     }
-    if (index == 4) {
-        float a = (pt - getCenter()).angle2();
-        return setCenterRadius(getCenter(), getRadius(), a, getEndAngle() - a);
+    if (index == 4) {                   // 改变起始角度
+        if (data == 0) {
+            lastSweepAngle = getSweepAngle();
+            data++;
+        }
+        Point2d startPt(getCenter().polarPoint((pt - getCenter()).angle2(), getRadius()));
+        bool ret = setCSE(getCenter(), startPt, getEndPoint(), lastSweepAngle);
+        lastSweepAngle = getSweepAngle();
+        return ret;
     }
-    if (index == 5) {
-        float a = (pt - getCenter()).angle2();
-        return setCenterRadius(getCenter(), getRadius(), getStartAngle(), a - getStartAngle());
+    if (index == 5) {                   // 改变终止角度
+        if (data == 0) {
+            lastSweepAngle = getSweepAngle();
+            data++;
+        }
+        Point2d endPt(getCenter().polarPoint((pt - getCenter()).angle2(), getRadius()));
+        bool ret = setCSE(getCenter(), getStartPoint(), endPt, lastSweepAngle);
+        lastSweepAngle = getSweepAngle();
+        return ret;
     }
     if (index == 6) {
         return setTanStartEnd(pt - getStartPoint(), getStartPoint(), getEndPoint());

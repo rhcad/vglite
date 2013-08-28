@@ -475,6 +475,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\core\src\command\mgdrawarc.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\core\src\command\mgdrawline.cpp"
 					>
 				</File>

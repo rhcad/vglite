@@ -44,6 +44,7 @@ LOCAL_SRC_FILES  := $(CORESRC)/test/testcanvas.cpp \
                     $(CORESRC)/command/mgdrawrect.cpp \
                     $(CORESRC)/command/mgdrawsplines.cpp \
                     $(CORESRC)/command/mgdrawtriang.cpp \
+                    $(CORESRC)/command/mgdrawarc.cpp \
                     $(CORESRC)/command/TransformCmd.cpp \
                     $(CORESRC)/json/mgjsonstorage.cpp \
                     $(CORESRC)/shape/mgcomposite.cpp \

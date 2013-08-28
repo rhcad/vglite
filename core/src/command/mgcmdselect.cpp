@@ -428,8 +428,8 @@ Point2d MgCmdSelect::snapPoint(const MgMotion* sender, const MgShape* shape)
         ignoreids[i] = m_clones[i]->getID();
     
     MgSnap* snap = sender->cmds()->getSnap();
-    return snap->snapPoint(sender, shape, m_handleIndex - 1, m_rotateHandle - 1,
-                           (const int*)&ignoreids.front());
+    return snap->snapPoint(sender, sender->pointM, shape, m_handleIndex - 1, 
+                           m_rotateHandle - 1, (const int*)&ignoreids.front());
 }
 
 bool MgCmdSelect::click(const MgMotion* sender)
@@ -547,6 +547,8 @@ bool MgCmdSelect::longPress(const MgMotion* sender)
     return ret;
 }
 
+static int _dragData = 0;
+
 bool MgCmdSelect::touchBegan(const MgMotion* sender)
 {
     if (!sender->switchGesture) {
@@ -576,10 +578,12 @@ bool MgCmdSelect::touchBegan(const MgMotion* sender)
         sender->view->redraw();
     }
     
-    m_insertPt = false;                          // setted in hitTestHandles
-    if (m_clones.size() == 1)
-        canSelect(shape, sender);   // calc m_ptNear
+    m_insertPt = false;                     // setted in hitTestHandles
+    if (m_clones.size() == 1) {
+        canSelect(shape, sender);           // calc m_ptNear
+    }
     
+    _dragData = 0;
     m_handleIndex = (m_clones.size() == 1 && (m_handleIndex > 0 || m_editMode) ?
                      hitTestHandles(shape, sender->pointM, sender) : 0);
     
@@ -821,7 +825,8 @@ bool MgCmdSelect::touchMoved(const MgMotion* sender)
             }
             else if (m_handleIndex > 0 && isEditMode(sender->view)) { // 拖动顶点
                 float tol = mgDisplayMmToModel(3, sender);
-                shape->setHandlePoint(m_handleIndex - 1, snapPoint(sender, m_clones[i]), tol);
+                shape->setHandlePoint2(m_handleIndex - 1, 
+                    snapPoint(sender, m_clones[i]), tol, _dragData);
             }
             else if (dragCorner) {                          // 拖动变形框的特定点
                 shape->transform(mat);

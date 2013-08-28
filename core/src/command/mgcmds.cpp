@@ -12,6 +12,7 @@
 #include "mgdrawlines.h"
 #include "mgdrawsplines.h"
 #include "mgdrawtriang.h"
+#include "mgdrawarc.h"
 
 extern int g_newShapeID;
 

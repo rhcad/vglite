@@ -41,9 +41,9 @@ protected:
     bool _click(const MgMotion* sender);
     void _delayClear();
 
-    bool _touchBegan2(const MgMotion* sender);
-    bool _touchMoved2(const MgMotion* sender);
-    bool _touchEnded2(const MgMotion* sender);
+    bool _touchBeganStep(const MgMotion* sender);
+    bool _touchMovedStep(const MgMotion* sender);
+    bool _touchEndedStep(const MgMotion* sender);
     virtual int getMaxStep() { return 3; }
     virtual void setStepPoint(int step, const Point2d& pt);
     
@@ -63,6 +63,7 @@ public:
     int getStep() { return m_needClear ? 0 : m_step; }
     MgShape* dynshape() { return m_shape; }
     Point2d snapPoint(const MgMotion* sender, bool firstStep = false);
+    Point2d snapPoint(const MgMotion* sender, const Point2d& orignPt, bool firstStep = false);
     
 protected:
     int         m_step;

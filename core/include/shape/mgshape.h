@@ -196,6 +196,9 @@ public:
     
     //! 设置指定序号的控制点坐标，指定的容差用于比较重合点
     virtual bool setHandlePoint(int index, const Point2d& pt, float tol) = 0;
+
+    //! 设置指定序号的控制点坐标，可以处理拖动状态
+    virtual bool setHandlePoint2(int index, const Point2d& pt, float tol, int& data) = 0;
     
     //! 返回指定序号的控制点是否不允许移动
     virtual bool isHandleFixed(int index) const = 0;
@@ -239,6 +242,7 @@ protected:
     int _getHandleCount() const;
     Point2d _getHandlePoint(int index) const;
     bool _setHandlePoint(int index, const Point2d& pt, float tol);
+    bool _setHandlePoint2(int index, const Point2d& pt, float tol, int& data);
     bool _isHandleFixed(int) const { return false; }
     int _getHandleType(int) const { return kMgHandleVertext; }
     bool _offset(const Vector2d& vec, int segment);
@@ -265,7 +269,7 @@ public:                                                         \
 protected:                                                      \
     bool _isKindOf(int type) const;                             \
     bool _draw(int mode, GiGraphics& gs, const GiContext& ctx, int segment) const; \
-protected:                                                      \
+public:                                                      \
     virtual const char* getTypeName() const;                    \
     virtual MgObject* clone() const;                            \
     virtual void copy(const MgObject& src);                     \
@@ -291,6 +295,7 @@ protected:                                                      \
     virtual int getHandleCount() const;                         \
     virtual Point2d getHandlePoint(int index) const;            \
     virtual bool setHandlePoint(int index, const Point2d& pt, float tol);   \
+    virtual bool setHandlePoint2(int index, const Point2d& pt, float tol, int& data);   \
     virtual bool isHandleFixed(int index) const;                \
     virtual int getHandleType(int index) const;                 \
     virtual bool offset(const Vector2d& vec, int segment);      \

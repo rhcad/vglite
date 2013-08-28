@@ -190,6 +190,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\core\src\command\mgdrawarc.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\core\src\command\mgdrawline.cpp"
 					>
 				</File>
@@ -469,6 +473,10 @@
 				</File>
 				<File
 					RelativePath="..\..\core\include\command\mgcmddraw.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\include\command\mgdrawarc.h"
 					>
 				</File>
 				<File

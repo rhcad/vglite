@@ -166,7 +166,14 @@ bool MgCommandDraw::mouseHover(const MgMotion* sender)
 
 Point2d MgCommandDraw::snapPoint(const MgMotion* sender, bool firstStep)
 {
-    return sender->cmds()->getSnap()->snapPoint(sender, firstStep ? NULL : m_shape, m_step);
+    return snapPoint(sender, sender->pointM, firstStep);
+}
+
+Point2d MgCommandDraw::snapPoint(const MgMotion* sender, 
+                                 const Point2d& orignPt, bool firstStep)
+{
+    return sender->cmds()->getSnap()->snapPoint(sender, orignPt,
+        firstStep ? NULL : m_shape, m_step);
 }
 
 void MgCommandDraw::setStepPoint(int step, const Point2d& pt)
@@ -176,7 +183,7 @@ void MgCommandDraw::setStepPoint(int step, const Point2d& pt)
     }
 }
 
-bool MgCommandDraw::_touchBegan2(const MgMotion* sender)
+bool MgCommandDraw::_touchBeganStep(const MgMotion* sender)
 {
     if (0 == m_step) {
         m_step = 1;
@@ -194,27 +201,30 @@ bool MgCommandDraw::_touchBegan2(const MgMotion* sender)
     return _touchBegan(sender);
 }
 
-bool MgCommandDraw::_touchMoved2(const MgMotion* sender)
+bool MgCommandDraw::_touchMovedStep(const MgMotion* sender)
 {
-    setStepPoint(m_step, snapPoint(sender));
-    dynshape()->shape()->update();
-
+    if (sender->dragging()) {
+        setStepPoint(m_step, snapPoint(sender));
+        dynshape()->shape()->update();
+    }
     return _touchMoved(sender);
 }
 
-bool MgCommandDraw::_touchEnded2(const MgMotion* sender)
+bool MgCommandDraw::_touchEndedStep(const MgMotion* sender)
 {
     Point2d pnt(snapPoint(sender));
-    float distmin = mgDisplayMmToModel(2.f, sender);
+    Tol tol(mgDisplayMmToModel(2.f, sender));
     
     setStepPoint(m_step, pnt);
     dynshape()->shape()->update();
     
-    if (pnt.distanceTo(dynshape()->shape()->getPoint(m_step - 1)) > distmin) {
+    if (pnt.isEqualTo(dynshape()->shape()->getPoint(m_step - 1), tol)) {
         m_step++;
         if (m_step >= getMaxStep()) {
-            _addshape(sender);
-            _delayClear();
+            if (!dynshape()->shape()->getExtent().isEmpty(tol, false)) {
+                _addshape(sender);
+                _delayClear();
+            }
             m_step = 0;
         }
     }

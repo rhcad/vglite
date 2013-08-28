@@ -379,6 +379,7 @@ public:
     Vector2d getEndTangent() const;
 
     bool setStartMidEnd(const Point2d& start, const Point2d& point, const Point2d& end);
+    bool setCenterStartEnd(const Point2d& center, const Point2d& start);
     bool setCenterStartEnd(const Point2d& center, const Point2d& start, const Point2d& end);
     bool setTanStartEnd(const Vector2d& startTan, const Point2d& start, const Point2d& end);
     bool setCenterRadius(const Point2d& center, float radius, float startAngle, float sweepAngle);
@@ -391,9 +392,10 @@ protected:
     int _getHandleCount() const;
     Point2d _getHandlePoint(int index) const;
     int _getHandleType(int index) const;
-    bool _setHandlePoint(int index, const Point2d& pt, float tol);
+    bool _setHandlePoint2(int index, const Point2d& pt, float tol, int& data);
     int _getDimensions(const Matrix2d& m2w, float* vars, char* types, int count) const;
     bool _reverse();
+    bool setCSE(const Point2d& center, const Point2d& start, const Point2d& end, float lastSweepAngle);
 
 private:
     Point2d _points[4]; // center,start,end, mid

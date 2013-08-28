@@ -43,9 +43,9 @@ private:
     
 private:
     virtual bool drawSnap(const MgMotion* sender, GiGraphics* gs);
-    virtual Point2d snapPoint(const MgMotion* sender, const MgShape* shape,
-                              int hotHandle, int ignoreHandle = -1,
-                              const int* ignoreids = NULL);
+    virtual Point2d snapPoint(const MgMotion* sender, 
+        const Point2d& orignPt, const MgShape* shape,
+        int hotHandle, int ignoreHandle = -1, const int* ignoreids = NULL);
     virtual int getSnappedType();
     virtual int getSnappedPoint(Point2d& fromPt, Point2d& toPt);
     virtual bool getSnappedHandle(int& shapeid, int& handleIndex, int& handleIndexSrc);

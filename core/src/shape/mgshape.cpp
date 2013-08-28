@@ -92,6 +92,13 @@ bool MgBaseShape::_setHandlePoint(int index, const Point2d& pt, float)
     return true;
 }
 
+bool MgBaseShape::_setHandlePoint2(int index, const Point2d& pt, float, int&)
+{
+    setPoint(index, pt);
+    update();
+    return true;
+}
+
 bool MgBaseShape::_offset(const Vector2d& vec, int)
 {
     for (int i = 0; i < getPointCount(); i++) {
