@@ -234,3 +234,24 @@ bool MgLines::_draw(int mode, GiGraphics& gs, const GiContext& ctx, int segment)
         ret = gs.drawLines(&ctx, _count, _points);
     return __super::_draw(mode, gs, ctx, segment) || ret;
 }
+
+int MgLines::_getHandleCount() const
+{
+    return isClosed() ? 2 * _count : 2 * _count - 1;
+}
+
+Point2d MgLines::_getHandlePoint(int index) const
+{
+    return (index < _count ? __super::_getHandlePoint(index)
+            : (_points[index % _count] + _points[(index + 1) % _count]) / 2);
+}
+
+int MgLines::_getHandleType(int index) const
+{
+    return index < _count ? __super::_getHandleType(index) : kMgHandleMidPoint;
+}
+
+bool MgLines::_isHandleFixed(int index) const
+{
+    return index >= _count;
+}

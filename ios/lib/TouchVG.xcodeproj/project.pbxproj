@@ -131,6 +131,8 @@
 		AE2B50F01797F151006A1E80 /* GcShapeDoc.h in Headers */ = {isa = PBXBuildFile; fileRef = AE2B50EC1797F151006A1E80 /* GcShapeDoc.h */; };
 		AE4206DC17C4C8AD00E992F4 /* tradecmd.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE4206DA17C4C8AD00E992F4 /* tradecmd.cpp */; };
 		AE7BBDBA17C5B8CB00F70FDB /* tradecmd.h in Headers */ = {isa = PBXBuildFile; fileRef = AE7BBDB917C5B8CB00F70FDB /* tradecmd.h */; };
+		AE91B95C17CF226000253178 /* mgdrawarc.h in Headers */ = {isa = PBXBuildFile; fileRef = AE91B95B17CF226000253178 /* mgdrawarc.h */; };
+		AE91B95E17CF227400253178 /* mgdrawarc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE91B95D17CF227400253178 /* mgdrawarc.cpp */; };
 		C995CA6717A255E8005F7E87 /* GiViewHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = C995CA6617A255E8005F7E87 /* GiViewHelper.mm */; };
 		C995CA6917A255F4005F7E87 /* GiViewHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = C995CA6817A255F4005F7E87 /* GiViewHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
@@ -280,6 +282,8 @@
 		AE2B50EC1797F151006A1E80 /* GcShapeDoc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GcShapeDoc.h; sourceTree = "<group>"; };
 		AE4206DA17C4C8AD00E992F4 /* tradecmd.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tradecmd.cpp; sourceTree = "<group>"; };
 		AE7BBDB917C5B8CB00F70FDB /* tradecmd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tradecmd.h; path = ../../include/tradecmd/tradecmd.h; sourceTree = "<group>"; };
+		AE91B95B17CF226000253178 /* mgdrawarc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mgdrawarc.h; sourceTree = "<group>"; };
+		AE91B95D17CF227400253178 /* mgdrawarc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mgdrawarc.cpp; sourceTree = "<group>"; };
 		C995CA6617A255E8005F7E87 /* GiViewHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = GiViewHelper.mm; path = ../../view/src/GiViewHelper.mm; sourceTree = "<group>"; };
 		C995CA6817A255F4005F7E87 /* GiViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GiViewHelper.h; path = ../../view/include/GiViewHelper.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -393,6 +397,7 @@
 		AE2A3A73178FC63D000194AE /* command */ = {
 			isa = PBXGroup;
 			children = (
+				AE91B95B17CF226000253178 /* mgdrawarc.h */,
 				AE2B50A617977C63006A1E80 /* mgaction.h */,
 				AE2B50A717977C63006A1E80 /* mgcmd.h */,
 				AE2B50A817977C63006A1E80 /* mgcmddraw.h */,
@@ -494,6 +499,7 @@
 		AE2A3AA5178FC63D000194AE /* command */ = {
 			isa = PBXGroup;
 			children = (
+				AE91B95D17CF227400253178 /* mgdrawarc.cpp */,
 				AE2B50B617977C7F006A1E80 /* mgcmdmgr.h */,
 				AE2A3AA6178FC63D000194AE /* mgcmdmgr.cpp */,
 				AE2B50B217977C7F006A1E80 /* mgactions.cpp */,
@@ -723,6 +729,7 @@
 				AE2B50EF1797F151006A1E80 /* GcMagnifierView.h in Headers */,
 				AE2B50F01797F151006A1E80 /* GcShapeDoc.h in Headers */,
 				AE7BBDBA17C5B8CB00F70FDB /* tradecmd.h in Headers */,
+				AE91B95C17CF226000253178 /* mgdrawarc.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -874,6 +881,7 @@
 				AE2B50D717977C7F006A1E80 /* TransformCmd.cpp in Sources */,
 				C995CA6717A255E8005F7E87 /* GiViewHelper.mm in Sources */,
 				AE4206DC17C4C8AD00E992F4 /* tradecmd.cpp in Sources */,
+				AE91B95E17CF227400253178 /* mgdrawarc.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

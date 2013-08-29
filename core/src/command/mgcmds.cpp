@@ -25,7 +25,7 @@ MgCommand* mgCreateCoreCommand(const char* name)
     };
     const Cmd cmds[] = {
         { MgCmdSelect::Name(), MgCmdSelect::Create },
-        //{ MgCmdErase::Name(), MgCmdErase::Create },
+        { MgCmdErase::Name(), MgCmdErase::Create },
         { MgCmdDrawRect::Name(), MgCmdDrawRect::Create },
         { MgCmdDrawSquare::Name(), MgCmdDrawSquare::Create },
         { MgCmdDrawEllipse::Name(), MgCmdDrawEllipse::Create },

@@ -208,6 +208,27 @@ void MgParallelogram::_clear()
     __super::_clear();
 }
 
+int MgParallelogram::_getHandleCount() const
+{
+    return 8;
+}
+
+Point2d MgParallelogram::_getHandlePoint(int index) const
+{
+    return (index < 4 ? __super::_getHandlePoint(index) :
+            (_points[index % 4] + _points[(index + 1) % 4]) / 2);
+}
+
+int MgParallelogram::_getHandleType(int index) const
+{
+    return index < 4 ? __super::_getHandleType(index) : kMgHandleMidPoint;
+}
+
+bool MgParallelogram::_isHandleFixed(int index) const
+{
+    return index >= 4;
+}
+
 bool MgParallelogram::_setHandlePoint(int index, const Point2d& pt, float)
 {
     index = index % 4;

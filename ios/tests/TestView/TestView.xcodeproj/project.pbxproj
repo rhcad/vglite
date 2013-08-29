@@ -48,6 +48,7 @@
 		AE5BF68716E45BCE005CA76D /* translucent.png in Resources */ = {isa = PBXBuildFile; fileRef = AE5BF68516E45BCE005CA76D /* translucent.png */; };
 		AE5BF68816E45BCE005CA76D /* translucent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AE5BF68616E45BCE005CA76D /* translucent@2x.png */; };
 		AE815F351718EDCB006BC607 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE815F341718EDCB006BC607 /* QuartzCore.framework */; };
+		AE91B96017CF228B00253178 /* mgdrawarc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE91B95F17CF228B00253178 /* mgdrawarc.cpp */; };
 		AEADC21F16EB570800484962 /* LargeView1.mm in Sources */ = {isa = PBXBuildFile; fileRef = AEADC21E16EB570800484962 /* LargeView1.mm */; };
 		AEB27EF51785737E00761059 /* mglayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AEB27EF41785737E00761059 /* mglayer.cpp */; };
 		AEE59F8116EA200500CBC04B /* GiQuartzCanvas.mm in Sources */ = {isa = PBXBuildFile; fileRef = AEE59F8016EA200500CBC04B /* GiQuartzCanvas.mm */; };
@@ -181,6 +182,8 @@
 		AE5BF68616E45BCE005CA76D /* translucent@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "translucent@2x.png"; sourceTree = "<group>"; };
 		AE7BBDB817C5B8BD00F70FDB /* tradecmd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tradecmd.h; path = ../../include/tradecmd/tradecmd.h; sourceTree = "<group>"; };
 		AE815F341718EDCB006BC607 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		AE91B95F17CF228B00253178 /* mgdrawarc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mgdrawarc.cpp; sourceTree = "<group>"; };
+		AE91B96217CF229800253178 /* mgdrawarc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mgdrawarc.h; sourceTree = "<group>"; };
 		AEADC21D16EB570800484962 /* LargeView1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LargeView1.h; sourceTree = "<group>"; };
 		AEADC21E16EB570800484962 /* LargeView1.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LargeView1.mm; sourceTree = "<group>"; };
 		AEB27EF21785725300761059 /* mglayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mglayer.h; sourceTree = "<group>"; };
@@ -309,6 +312,7 @@
 		AE1A76461782E3D7007FB031 /* command */ = {
 			isa = PBXGroup;
 			children = (
+				AE91B96217CF229800253178 /* mgdrawarc.h */,
 				AE1A76481782E3D7007FB031 /* mgview.h */,
 				AEF20B5517953B1A00CC6FD5 /* mgaction.h */,
 				AEF20B5617953B1A00CC6FD5 /* mgcmd.h */,
@@ -410,6 +414,7 @@
 		AE1A767A1782E3D7007FB031 /* command */ = {
 			isa = PBXGroup;
 			children = (
+				AE91B95F17CF228B00253178 /* mgdrawarc.cpp */,
 				AEF20B6417953B3E00CC6FD5 /* mgcmdmgr.h */,
 				AE1A767B1782E3D7007FB031 /* mgcmdmgr.cpp */,
 				AEF20B5D17953B3E00CC6FD5 /* mgactions.cpp */,
@@ -767,6 +772,7 @@
 				AEF20B7F17953B3E00CC6FD5 /* TransformCmd.cpp in Sources */,
 				C937447517A23A700017DF7E /* GiViewHelper.mm in Sources */,
 				AE4206E117C4C8BC00E992F4 /* tradecmd.cpp in Sources */,
+				AE91B96017CF228B00253178 /* mgdrawarc.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

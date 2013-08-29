@@ -206,6 +206,8 @@ protected:
     int _getHandleCount() const;
     Point2d _getHandlePoint(int index) const;
     bool _setHandlePoint(int index, const Point2d& pt, float tol);
+    int _getHandleType(int index) const;
+    bool _isHandleFixed(int index) const;
     void _update();
     float _hitTest(const Point2d& pt, float tol, Point2d& nearpt, int& segment) const;
     bool _hitTestBox(const Box2d& rect) const;
@@ -272,6 +274,10 @@ class MgLines : public MgBaseLines
     MG_INHERIT_CREATE(MgLines, MgBaseLines, 15)
 protected:
     bool isCurve() const { return false; }
+    int _getHandleCount() const;
+    Point2d _getHandlePoint(int index) const;
+    int _getHandleType(int index) const;
+    bool _isHandleFixed(int index) const;
 };
 
 //! 三次参数样条曲线类
@@ -325,7 +331,11 @@ public:
 protected:
     bool isCurve() const { return false; }
     bool _isClosed() const { return true; }
+    int _getHandleCount() const;
+    Point2d _getHandlePoint(int index) const;
     bool _setHandlePoint(int index, const Point2d& pt, float tol);
+    int _getHandleType(int index) const;
+    bool _isHandleFixed(int index) const;
     bool _offset(const Vector2d& vec, int segment);
     bool _rotateHandlePoint(int index, const Point2d& pt);
     bool _hitTestBox(const Box2d& rect) const;

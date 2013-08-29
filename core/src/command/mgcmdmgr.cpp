@@ -419,7 +419,8 @@ static void snapPoints(const MgMotion* sender, const Point2d& orignPt,
             && extent.height() < xf->displayToModel(2, true)) { // 图形太小就跳过
             continue;
         }
-        if (extent.isIntersect(snapbox)) {                      // 不是整体拖动图形
+        if (extent.isIntersect(snapbox)
+            || snapbox.contains(sp->shapec()->getHandlePoint(0))) {
             if (!snapHandle(sender, orignPt, shape, ignoreHandle, sp, arr[0], matchpt)) {
                 snapNear(sender, orignPt, shape, ignoreHandle, sp, arr[0], matchpt);
             }

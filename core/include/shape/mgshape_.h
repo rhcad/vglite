@@ -43,12 +43,10 @@
     int Cls::getHandleCount() const { return _getHandleCount(); }    \
     Point2d Cls::getHandlePoint(int index) const                \
         { return _getHandlePoint(index); }                      \
-    bool Cls::setHandlePoint(int index, const Point2d& pt, float tol) { \
-        int data = 0; return _setHandlePoint2(index, pt, tol, data)   \
-            || _rotateHandlePoint(index, pt) || _setHandlePoint(index, pt, tol); } \
-    bool Cls::setHandlePoint2(int index, const Point2d& pt, float tol, int& data) { \
-        return _setHandlePoint2(index, pt, tol, data)   \
-            || _rotateHandlePoint(index, pt) || _setHandlePoint(index, pt, tol); } \
+    bool Cls::setHandlePoint2(int index, const Point2d& pt, float tol, int& data)   \
+        { return _setHandlePoint2(index, pt, tol, data); } \
+    bool Cls::setHandlePoint(int index, const Point2d& pt, float tol)   \
+        { return _rotateHandlePoint(index, pt) || _setHandlePoint(index, pt, tol); } \
     bool Cls::isHandleFixed(int index) const { return _isHandleFixed(index); } \
     int Cls::getHandleType(int index) const { return _getHandleType(index); } \
     bool Cls::offset(const Vector2d& vec, int segment)          \
