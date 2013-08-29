@@ -711,6 +711,7 @@ EXCLUDE                = ../../core/include/test \
                          ../../core/include/command/mglog.h \
                          ../../core/src/test \
                          ../../core/src/json/rapidjson \
+                         ../../core/src/command/TransformCmd.cpp \
                          ../../win/build \
                          ../../win/src/TestCanvas \
                          ../../win/src/TestJNI

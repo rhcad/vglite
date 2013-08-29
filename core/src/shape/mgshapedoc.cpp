@@ -5,7 +5,6 @@
 
 #include "mgshapedoc.h"
 #include <mgstorage.h>
-#include <gidef.h>
 #include "mglayer.h"
 
 static const int kMaxLayers = 10;

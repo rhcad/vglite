@@ -4,7 +4,6 @@
 
 #include "mgshapedoc.h"
 #include "mgcomposite.h"
-#include "gidef.h"
 #include <vector>
 
 typedef std::pair<MgShapesLock::ShapesLocked, void*> ShapeObserver;
