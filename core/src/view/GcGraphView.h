@@ -6,7 +6,6 @@
 #define VGLITE_CORE_MAINVIEW_H
 
 #include "GcBaseView.h"
-#include "mgshapedoc.h"
 
 //! 内核绘图视图类
 /*! \ingroup CORE_VIEW

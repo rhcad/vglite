@@ -10,7 +10,6 @@
 #include <vector>
 
 #include "GcShapeDoc.h"
-#include "GcGraphView.h"
 #include "GcMagnifierView.h"
 #include "mgcmd.h"
 #include <RandomShape.h>

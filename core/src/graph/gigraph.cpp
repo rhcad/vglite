@@ -2,7 +2,6 @@
 // Copyright (c) 2004-2012, Zhang Yungui
 // License: LGPL, https://github.com/rhcad/touchvg
 
-#include "gigraph.h"
 #include "gigraph_.h"
 #include <mglnrel.h>
 #include <mgcurv.h>
