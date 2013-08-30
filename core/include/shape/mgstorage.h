@@ -88,9 +88,9 @@ struct MgStorage
     //! 给定字段名称(常量)，取出一个整数的值
     virtual int readInt(const char* name, int defvalue) { return name ? defvalue : defvalue; }
     //! 添加一个给定字段名称(常量)的有符号整数的值
-    virtual void writeInt(const char* name, int value) { if (name && value) value = value; }
+    virtual void writeInt(const char* name, int value) { if (name && value) value++; }
     //! 添加一个给定字段名称(常量)的无符号整数的值
-    virtual void writeUInt(const char* name, int value) { if (name && value) value = value; }
+    virtual void writeUInt(const char* name, int value) { if (name && value) value++; }
 
     //! 设置读写错误描述文字，总是返回false
     virtual bool setError(const char*) { return false; }

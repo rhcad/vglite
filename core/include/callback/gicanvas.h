@@ -127,7 +127,7 @@ public:
     
 #ifndef SWIG
     //! 清除后备缓冲位图，以便重新绘图
-    virtual void clearCachedBitmap(bool clearAll = false) { clearAll = clearAll; }
+    virtual void clearCachedBitmap(bool clearAll = false) { clearAll = true; }
 #endif
 };
 

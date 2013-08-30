@@ -21,11 +21,10 @@ MgCmdErase::~MgCmdErase()
 
 bool MgCmdErase::cancel(const MgMotion* sender)
 {
-    bool recall;
     m_boxsel = false;
-    bool ret = undo(recall, sender);
-    ret = undo(recall, sender) || ret;
-    return undo(recall, sender) || ret;
+    bool ret = undo(sender);
+    ret = undo(sender) || ret;
+    return undo(sender) || ret;
 }
 
 bool MgCmdErase::initialize(const MgMotion* /*sender*/)
@@ -34,9 +33,8 @@ bool MgCmdErase::initialize(const MgMotion* /*sender*/)
     return true;
 }
 
-bool MgCmdErase::undo(bool &enableRecall, const MgMotion* sender)
+bool MgCmdErase::undo(const MgMotion* sender)
 {
-    enableRecall = true;
     if (!m_delIds.empty()) {
         m_delIds.pop_back();
         sender->view->redraw();

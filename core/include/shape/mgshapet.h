@@ -6,7 +6,6 @@
 #ifndef __GEOMETRY_MGSHAPE_TEMPL_H_
 #define __GEOMETRY_MGSHAPE_TEMPL_H_
 
-#include "gigraph.h"
 #include "mgshape.h"
 #include "mgstorage.h"
 

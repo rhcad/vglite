@@ -23,9 +23,8 @@ bool MgCmdDrawLines::initialize(const MgMotion* sender)
     return _initialize(MgShapeT<MgLines>::create, sender);
 }
 
-bool MgCmdDrawLines::undo(bool &enableRecall, const MgMotion* sender)
+bool MgCmdDrawLines::undo(const MgMotion* sender)
 {
-    enableRecall = true;
     if (m_step > 2) {                   // 去掉倒数第二个点，倒数第一点是临时动态点
         ((MgBaseLines*)dynshape()->shape())->removePoint(m_step - 1);
         dynshape()->shape()->update();
@@ -153,9 +152,8 @@ bool MgCmdDrawFreeLines::initialize(const MgMotion* sender)
     return _initialize(MgShapeT<MgLines>::create, sender);
 }
 
-bool MgCmdDrawFreeLines::undo(bool &enableRecall, const MgMotion* sender)
+bool MgCmdDrawFreeLines::undo(const MgMotion* sender)
 {
-    enableRecall = true;
     if (m_step > 2) {                   // 去掉倒数第二个点，倒数第一点是临时动态点
         ((MgBaseLines*)dynshape()->shape())->removePoint(m_step - 1);
         dynshape()->shape()->update();

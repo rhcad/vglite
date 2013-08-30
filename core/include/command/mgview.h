@@ -28,7 +28,9 @@ class MgView
 public:
     virtual ~MgView() {}
     
+#ifndef SWIG
     virtual GcShapeDoc* document() = 0;
+#endif
     virtual MgCmdManager* cmds() = 0;           //!< 返回命令管理器对象
     virtual GiTransform* xform() = 0;           //!< 得到坐标系对象
     virtual GiGraphics* graph() = 0;            //!< 得到图形显示对象

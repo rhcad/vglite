@@ -27,8 +27,10 @@ typedef enum {
     \see MgSelState
 */
 struct MgSelection {
+#ifndef SWIG
     //! 得到当前选择的图形
     virtual int getSelection(MgView* view, int count, MgShape** shapes, bool forChange = false) = 0;
+#endif
     
     //! 返回选择状态
     virtual MgSelState getSelectState(MgView* view) = 0;

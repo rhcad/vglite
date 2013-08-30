@@ -7,7 +7,8 @@ INSTALL_DIR ?=$(ROOTDIR)/build
 CPPFLAGS    += -Wall -I$(ROOTDIR)/core/include/geom \
                -I$(ROOTDIR)/core/include/graph \
                -I$(ROOTDIR)/core/include/shape \
-               -I$(ROOTDIR)/core/include/command
+               -I$(ROOTDIR)/core/include/command \
+               -I$(ROOTDIR)/core/include/tradecmd
 
 all:        $(TARGET)
 $(TARGET):  $(OBJS)

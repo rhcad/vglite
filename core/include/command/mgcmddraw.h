@@ -47,7 +47,7 @@ protected:
     virtual int getMaxStep() { return 3; }
     virtual void setStepPoint(int step, const Point2d& pt);
     
-    virtual bool undo(bool &, const MgMotion* sender) { return _undo(sender); }
+    virtual bool undo(const MgMotion* sender) { return _undo(sender); }
     virtual bool cancel(const MgMotion* sender);
     virtual bool draw(const MgMotion* sender, GiGraphics* gs) { return _draw(sender, gs); }
     virtual void gatherShapes(const MgMotion* sender, MgShapes* shapes);

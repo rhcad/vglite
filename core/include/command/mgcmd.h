@@ -48,7 +48,7 @@ struct MgCommand {
     
     virtual bool cancel(const MgMotion* sender) = 0;        //!< 取消命令
     virtual bool initialize(const MgMotion* sender) = 0;    //!< 开始命令
-    virtual bool undo(bool &enableRecall, const MgMotion* sender) = 0;  //!< 回退一步
+    virtual bool undo(const MgMotion* sender) = 0;          //!< 回退一步
     
     virtual bool draw(const MgMotion* sender, GiGraphics* gs) = 0;  //!< 显示动态图形
     virtual void gatherShapes(const MgMotion* sender, MgShapes* shapes) = 0;   //!< 得到动态图形
@@ -66,7 +66,9 @@ struct MgCommand {
     virtual bool isDrawingCommand() { return false; }       //!< 是否为绘图命令
     virtual bool isFloatingCommand() { return false; }      //!< 是否可嵌套在其他命令中
     virtual bool doContextAction(const MgMotion*, int) { return false; } //!< 执行上下文动作
+#ifndef SWIG
     virtual int getDimensions(MgView*, float*, char*, int) { return 0; } //!< 得到各种度量尺寸
+#endif
 };
 
 //! 命令接口的默认实现，可以以此派生新命令类
@@ -84,7 +86,7 @@ protected:
     
     virtual bool cancel(const MgMotion*) { return false; }
     virtual bool initialize(const MgMotion*) { return true; }
-    virtual bool undo(bool &, const MgMotion*) { return false; }
+    virtual bool undo(const MgMotion*) { return false; }
     virtual bool draw(const MgMotion*, GiGraphics*) { return false; }
     virtual void gatherShapes(const MgMotion*, MgShapes*) {}
     virtual bool click(const MgMotion* sender);
@@ -110,6 +112,7 @@ struct MgCmdManager {
     virtual bool cancel(const MgMotion* sender) = 0;        //!< 取消当前命令
     virtual void unloadCommands() = 0;                      //!< 退出时卸载命令
     
+#ifndef SWIG
     //! 得到当前选择的图形
     /*!
         \param view 当前操作的视图
@@ -119,6 +122,7 @@ struct MgCmdManager {
         \return 获取多少个图形，或实际个数
     */
     virtual int getSelection(MgView* view, int count, MgShape** shapes, bool forChange = false) = 0;
+#endif
     
     //! 结束动态修改，提交或放弃所改的临时图形
     virtual bool dynamicChangeEnded(MgView* view, bool apply) = 0;

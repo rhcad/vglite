@@ -6,8 +6,6 @@
 #ifndef __GEOMETRY_MGSHAPEIMPL_H_
 #define __GEOMETRY_MGSHAPEIMPL_H_
 
-#include "gigraph.h"
-
 #define MG_IMPLEMENT_CREATE(Cls)                                \
     const char* Cls::getTypeName() const{ return #Cls; }        \
     Cls* Cls::create() { return new Cls(); }                    \

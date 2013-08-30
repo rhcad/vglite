@@ -24,7 +24,9 @@
 %include <mgshape.h>
 %include <mgshapes.h>
 %include <mgstorage.h>
+%include <mgshapedoc.h>
 
+%include <mgview.h>
 %include <mgcmd.h>
 %include <mgcmddraw.h>
 %include <mgaction.h>

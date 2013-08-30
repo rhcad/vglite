@@ -21,9 +21,8 @@ bool MgCmdDrawSplines::initialize(const MgMotion* sender)
     return _initialize(MgShapeT<MgSplines>::create, sender);
 }
 
-bool MgCmdDrawSplines::undo(bool &enableRecall, const MgMotion* sender)
+bool MgCmdDrawSplines::undo(const MgMotion* sender)
 {
-    enableRecall = m_freehand;
     if (m_step > 1) {                   // freehand: 去掉倒数第二个点，倒数第一点是临时动态点
         ((MgBaseLines*)dynshape()->shape())->removePoint(m_freehand ? m_step - 1 : m_step);
         dynshape()->shape()->update();

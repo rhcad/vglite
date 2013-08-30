@@ -169,6 +169,9 @@ public:
     */
     virtual float hitTest(const Point2d& pt, float tol, 
        Point2d& nearpt, int& segment) const = 0;
+    
+    //! 设置指定序号的控制点坐标，可以处理拖动状态
+    virtual bool setHandlePoint2(int index, const Point2d& pt, float tol, int& data) = 0;
 #endif
     //! 选中点击测试
     float hitTest2(const Point2d& pt, float tol, Point2d& nearpt) const {
@@ -196,9 +199,6 @@ public:
     
     //! 设置指定序号的控制点坐标，指定的容差用于比较重合点
     virtual bool setHandlePoint(int index, const Point2d& pt, float tol) = 0;
-
-    //! 设置指定序号的控制点坐标，可以处理拖动状态
-    virtual bool setHandlePoint2(int index, const Point2d& pt, float tol, int& data) = 0;
     
     //! 返回指定序号的控制点是否不允许移动
     virtual bool isHandleFixed(int index) const = 0;
@@ -286,8 +286,6 @@ public:                                                      \
     virtual Point2d getPoint(int index) const;                  \
     virtual void setPoint(int index, const Point2d& pt);        \
     virtual bool isClosed() const;                              \
-    virtual float hitTest(const Point2d& pt, float tol,         \
-       Point2d& nearpt, int& segment) const;                    \
     virtual bool hitTestBox(const Box2d& rect) const;           \
     virtual bool draw(int mode, GiGraphics& gs, const GiContext& ctx, int segment = -1) const;  \
     virtual bool save(MgStorage* s) const;                      \
@@ -295,10 +293,13 @@ public:                                                      \
     virtual int getHandleCount() const;                         \
     virtual Point2d getHandlePoint(int index) const;            \
     virtual bool setHandlePoint(int index, const Point2d& pt, float tol);   \
-    virtual bool setHandlePoint2(int index, const Point2d& pt, float tol, int& data);   \
     virtual bool isHandleFixed(int index) const;                \
     virtual int getHandleType(int index) const;                 \
     virtual bool offset(const Vector2d& vec, int segment);      \
+protected:                                                      \
+    virtual float hitTest(const Point2d& pt, float tol,         \
+        Point2d& nearpt, int& segment) const;                   \
+    virtual bool setHandlePoint2(int index, const Point2d& pt, float tol, int& data);   \
     virtual int getDimensions(const Matrix2d&, float*, char*, int) const;
 
 #define MG_DECLARE_CREATE(Cls, Base, TypeNum)                   \

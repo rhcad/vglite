@@ -164,6 +164,7 @@
 		AE1A76B81782E3D7007FB031 /* GcShapeDoc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GcShapeDoc.cpp; sourceTree = "<group>"; };
 		AE1A76B91782E3D7007FB031 /* gicoreview.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gicoreview.cpp; sourceTree = "<group>"; };
 		AE28CEFD17D025C60010F09D /* gigraph_.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gigraph_.h; sourceTree = "<group>"; };
+		AE28CF0217D02F280010F09D /* mglog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mglog.h; sourceTree = "<group>"; };
 		AE2B50DD1797F108006A1E80 /* GcBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GcBaseView.h; sourceTree = "<group>"; };
 		AE2B50DE1797F108006A1E80 /* GcGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GcGraphView.h; sourceTree = "<group>"; };
 		AE2B50DF1797F108006A1E80 /* GcMagnifierView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GcMagnifierView.h; sourceTree = "<group>"; };
@@ -193,7 +194,6 @@
 		AEF20B5517953B1A00CC6FD5 /* mgaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mgaction.h; sourceTree = "<group>"; };
 		AEF20B5617953B1A00CC6FD5 /* mgcmd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mgcmd.h; sourceTree = "<group>"; };
 		AEF20B5717953B1A00CC6FD5 /* mgcmddraw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mgcmddraw.h; sourceTree = "<group>"; };
-		AEF20B5817953B1A00CC6FD5 /* mglog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mglog.h; sourceTree = "<group>"; };
 		AEF20B5917953B1A00CC6FD5 /* mgselect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mgselect.h; sourceTree = "<group>"; };
 		AEF20B5A17953B1A00CC6FD5 /* mgsnap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mgsnap.h; sourceTree = "<group>"; };
 		AEF20B5D17953B3E00CC6FD5 /* mgactions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mgactions.cpp; sourceTree = "<group>"; };
@@ -317,7 +317,6 @@
 				AEF20B5517953B1A00CC6FD5 /* mgaction.h */,
 				AEF20B5617953B1A00CC6FD5 /* mgcmd.h */,
 				AEF20B5717953B1A00CC6FD5 /* mgcmddraw.h */,
-				AEF20B5817953B1A00CC6FD5 /* mglog.h */,
 				AEF20B5917953B1A00CC6FD5 /* mgselect.h */,
 				AEF20B5A17953B1A00CC6FD5 /* mgsnap.h */,
 			);
@@ -358,6 +357,7 @@
 		AE1A765F1782E3D7007FB031 /* shape */ = {
 			isa = PBXGroup;
 			children = (
+				AE28CF0217D02F280010F09D /* mglog.h */,
 				AEB27EF21785725300761059 /* mglayer.h */,
 				AE1A76601782E3D7007FB031 /* mgbasicsp.h */,
 				AE1A76611782E3D7007FB031 /* mgcomposite.h */,

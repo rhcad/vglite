@@ -3,7 +3,6 @@
 // Copyright (c) 2012-2013, https://github.com/rhcad/vglite
 
 #include "GcGraphView.h"
-#include <mgshape.h>
 #include "mglog.h"
 
 GcShapeView::GcShapeView(MgView* mgview, GiView *view) : GcBaseView(mgview, view)

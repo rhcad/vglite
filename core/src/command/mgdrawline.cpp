@@ -21,7 +21,7 @@ bool MgCmdDrawLine::initialize(const MgMotion* sender)
     return _initialize(MgShapeT<MgLine>::create, sender);
 }
 
-bool MgCmdDrawLine::undo(bool &, const MgMotion* sender)
+bool MgCmdDrawLine::undo(const MgMotion* sender)
 {
     return MgCommandDraw::_undo(sender);
 }

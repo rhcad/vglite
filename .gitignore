@@ -10,6 +10,7 @@ build
 *.a
 *.d
 *.tmp
+*_wrap.cxx
 *~
 *.DS_Store
 xcuserdata
