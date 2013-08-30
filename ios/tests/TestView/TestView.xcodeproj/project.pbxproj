@@ -100,7 +100,6 @@
 		AE1A76591782E3D7007FB031 /* gicontxt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gicontxt.h; sourceTree = "<group>"; };
 		AE1A765A1782E3D7007FB031 /* gidef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gidef.h; sourceTree = "<group>"; };
 		AE1A765B1782E3D7007FB031 /* gigraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gigraph.h; sourceTree = "<group>"; };
-		AE1A765C1782E3D7007FB031 /* gigraph_.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gigraph_.h; sourceTree = "<group>"; };
 		AE1A765D1782E3D7007FB031 /* gipath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gipath.h; sourceTree = "<group>"; };
 		AE1A765E1782E3D7007FB031 /* gixform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gixform.h; sourceTree = "<group>"; };
 		AE1A76601782E3D7007FB031 /* mgbasicsp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mgbasicsp.h; sourceTree = "<group>"; };
@@ -164,6 +163,7 @@
 		AE1A76B71782E3D7007FB031 /* GcMagnifierView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GcMagnifierView.cpp; sourceTree = "<group>"; };
 		AE1A76B81782E3D7007FB031 /* GcShapeDoc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GcShapeDoc.cpp; sourceTree = "<group>"; };
 		AE1A76B91782E3D7007FB031 /* gicoreview.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gicoreview.cpp; sourceTree = "<group>"; };
+		AE28CEFD17D025C60010F09D /* gigraph_.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gigraph_.h; sourceTree = "<group>"; };
 		AE2B50DD1797F108006A1E80 /* GcBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GcBaseView.h; sourceTree = "<group>"; };
 		AE2B50DE1797F108006A1E80 /* GcGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GcGraphView.h; sourceTree = "<group>"; };
 		AE2B50DF1797F108006A1E80 /* GcMagnifierView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GcMagnifierView.h; sourceTree = "<group>"; };
@@ -349,7 +349,6 @@
 				AE1A76591782E3D7007FB031 /* gicontxt.h */,
 				AE1A765A1782E3D7007FB031 /* gidef.h */,
 				AE1A765B1782E3D7007FB031 /* gigraph.h */,
-				AE1A765C1782E3D7007FB031 /* gigraph_.h */,
 				AE1A765D1782E3D7007FB031 /* gipath.h */,
 				AE1A765E1782E3D7007FB031 /* gixform.h */,
 			);
@@ -459,6 +458,7 @@
 		AE1A768A1782E3D7007FB031 /* graph */ = {
 			isa = PBXGroup;
 			children = (
+				AE28CEFD17D025C60010F09D /* gigraph_.h */,
 				AE1A768B1782E3D7007FB031 /* gigraph.cpp */,
 				AE1A768C1782E3D7007FB031 /* gipath.cpp */,
 				AE1A768D1782E3D7007FB031 /* giplclip.h */,

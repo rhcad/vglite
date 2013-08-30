@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AE28CEFF17D025DF0010F09D /* gigraph_.h in Headers */ = {isa = PBXBuildFile; fileRef = AE28CEFE17D025DF0010F09D /* gigraph_.h */; };
 		AE2A3A4D178FC511000194AE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE2A3A4C178FC511000194AE /* Foundation.framework */; };
 		AE2A3A67178FC608000194AE /* GiGraphView.h in Headers */ = {isa = PBXBuildFile; fileRef = AE2A3A65178FC608000194AE /* GiGraphView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AE2A3A68178FC608000194AE /* GiQuartzCanvas.h in Headers */ = {isa = PBXBuildFile; fileRef = AE2A3A66178FC608000194AE /* GiQuartzCanvas.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -30,7 +31,6 @@
 		AE2A3AF8178FC63D000194AE /* gicontxt.h in Headers */ = {isa = PBXBuildFile; fileRef = AE2A3A84178FC63D000194AE /* gicontxt.h */; };
 		AE2A3AF9178FC63D000194AE /* gidef.h in Headers */ = {isa = PBXBuildFile; fileRef = AE2A3A85178FC63D000194AE /* gidef.h */; };
 		AE2A3AFA178FC63D000194AE /* gigraph.h in Headers */ = {isa = PBXBuildFile; fileRef = AE2A3A86178FC63D000194AE /* gigraph.h */; };
-		AE2A3AFB178FC63D000194AE /* gigraph_.h in Headers */ = {isa = PBXBuildFile; fileRef = AE2A3A87178FC63D000194AE /* gigraph_.h */; };
 		AE2A3AFC178FC63D000194AE /* gipath.h in Headers */ = {isa = PBXBuildFile; fileRef = AE2A3A88178FC63D000194AE /* gipath.h */; };
 		AE2A3AFD178FC63D000194AE /* gixform.h in Headers */ = {isa = PBXBuildFile; fileRef = AE2A3A89178FC63D000194AE /* gixform.h */; };
 		AE2A3AFE178FC63D000194AE /* mgbasicsp.h in Headers */ = {isa = PBXBuildFile; fileRef = AE2A3A8B178FC63D000194AE /* mgbasicsp.h */; };
@@ -155,6 +155,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AE28CEFE17D025DF0010F09D /* gigraph_.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gigraph_.h; sourceTree = "<group>"; };
 		AE2A3A49178FC511000194AE /* libTouchVG.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTouchVG.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE2A3A4C178FC511000194AE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		AE2A3A50178FC511000194AE /* TouchVG-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TouchVG-Prefix.pch"; sourceTree = "<group>"; };
@@ -180,7 +181,6 @@
 		AE2A3A84178FC63D000194AE /* gicontxt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gicontxt.h; sourceTree = "<group>"; };
 		AE2A3A85178FC63D000194AE /* gidef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gidef.h; sourceTree = "<group>"; };
 		AE2A3A86178FC63D000194AE /* gigraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gigraph.h; sourceTree = "<group>"; };
-		AE2A3A87178FC63D000194AE /* gigraph_.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gigraph_.h; sourceTree = "<group>"; };
 		AE2A3A88178FC63D000194AE /* gipath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gipath.h; sourceTree = "<group>"; };
 		AE2A3A89178FC63D000194AE /* gixform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gixform.h; sourceTree = "<group>"; };
 		AE2A3A8B178FC63D000194AE /* mgbasicsp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mgbasicsp.h; sourceTree = "<group>"; };
@@ -434,7 +434,6 @@
 				AE2A3A84178FC63D000194AE /* gicontxt.h */,
 				AE2A3A85178FC63D000194AE /* gidef.h */,
 				AE2A3A86178FC63D000194AE /* gigraph.h */,
-				AE2A3A87178FC63D000194AE /* gigraph_.h */,
 				AE2A3A88178FC63D000194AE /* gipath.h */,
 				AE2A3A89178FC63D000194AE /* gixform.h */,
 			);
@@ -544,6 +543,7 @@
 		AE2A3AB5178FC63D000194AE /* graph */ = {
 			isa = PBXGroup;
 			children = (
+				AE28CEFE17D025DF0010F09D /* gigraph_.h */,
 				AE2A3AB6178FC63D000194AE /* gigraph.cpp */,
 				AE2A3AB7178FC63D000194AE /* gipath.cpp */,
 				AE2A3AB8178FC63D000194AE /* giplclip.h */,
@@ -680,7 +680,6 @@
 				AE2A3AF8178FC63D000194AE /* gicontxt.h in Headers */,
 				AE2A3AF9178FC63D000194AE /* gidef.h in Headers */,
 				AE2A3AFA178FC63D000194AE /* gigraph.h in Headers */,
-				AE2A3AFB178FC63D000194AE /* gigraph_.h in Headers */,
 				AE2A3AFC178FC63D000194AE /* gipath.h in Headers */,
 				AE2A3AFD178FC63D000194AE /* gixform.h in Headers */,
 				AE2A3AFE178FC63D000194AE /* mgbasicsp.h in Headers */,
@@ -730,6 +729,7 @@
 				AE2B50F01797F151006A1E80 /* GcShapeDoc.h in Headers */,
 				AE7BBDBA17C5B8CB00F70FDB /* tradecmd.h in Headers */,
 				AE91B95C17CF226000253178 /* mgdrawarc.h in Headers */,
+				AE28CEFF17D025DF0010F09D /* gigraph_.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

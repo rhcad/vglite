@@ -322,6 +322,10 @@
 				Name="graph"
 				>
 				<File
+					RelativePath="..\..\core\src\graph\gigraph_.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\core\src\graph\gigraph.cpp"
 					>
 				</File>
@@ -605,10 +609,6 @@
 				</File>
 				<File
 					RelativePath="..\..\core\include\graph\gigraph.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\core\include\graph\gigraph_.h"
 					>
 				</File>
 				<File
