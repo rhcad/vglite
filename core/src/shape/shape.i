@@ -3,6 +3,10 @@
 #include <gigraph.h>
 #include <mgshapes.h>
 #include <mgbasicsp.h>
+#include <mgcomposite.h>
+#include <mglayer.h>
+#include <mgshapedoc.h>
+#include <mgshapetype.h>
 #include <mgstorage.h>
 #include <mgstoragebs.h>
 %}
@@ -28,5 +32,9 @@
 %include <mgshape.h>
 %include <mgshapes.h>
 %include <mgbasicsp.h>
+%include <mgcomposite.h>
+%include <mglayer.h>
+%include <mgshapedoc.h>
+%include <mgshapetype.h>
 %include <mgstorage.h>
 %include <mgstoragebs.h>

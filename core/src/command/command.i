@@ -6,6 +6,7 @@
 #include <mgaction.h>
 #include <mgsnap.h>
 #include <mgselect.h>
+#include <mgdrawarc.h>
 %}
 
 %include <mgtol.h>
@@ -32,3 +33,4 @@
 %include <mgaction.h>
 %include <mgsnap.h>
 %include <mgselect.h>
+%include <mgdrawarc.h>
