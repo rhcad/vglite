@@ -101,6 +101,7 @@ GEOMAPI int mgAngleArcToBezier(
     Point2d points[16], const Point2d& center, float rx, float ry,
     float startAngle, float sweepAngle);
 
+#ifndef SWIG
 //! 给定起点、弧上一点和终点，计算圆弧参数
 /*!
     \ingroup GEOMAPI_CURVE
@@ -154,6 +155,7 @@ GEOMAPI bool mgArcBulge(
     const Point2d& start, const Point2d& end, float bulge,
     Point2d& center, float& radius,
     float* startAngle = NULL, float* sweepAngle = NULL);
+#endif
 
 //! 计算两圆的交点
 /*!
@@ -169,6 +171,7 @@ GEOMAPI bool mgArcBulge(
 GEOMAPI int mgInsectTwoCircles(Point2d& pt1, Point2d& pt2,
                                const Point2d& c1, float r1, const Point2d& c2, float r2);
 
+#ifndef SWIG
 //! 求解三对角线方程组
 /*! 三对角线方程组如下所示: \n
     　　　| b0　　　c0　　　　　　| \n
@@ -199,6 +202,7 @@ GEOMAPI bool mgTriEquations(
     \see mgTriEquations
 */
 GEOMAPI bool mgGaussJordan(int n, float *mat, Vector2d *vs);
+#endif
 
 //! 三次参数样条曲线的端点条件
 //! \see mgCubicSplines
@@ -274,6 +278,7 @@ GEOMAPI void mgCubicSplineToBezier(
 GEOMAPI int mgBSplinesToBeziers(
     Point2d points[/*1+n*3*/], int n, const Point2d* ctlpts, bool closed);
 
+#ifndef SWIG
 //! 计算张力样条曲线的型值点参数和弦长
 /*!
     \ingroup GEOMAPI_CURVE
@@ -306,5 +311,6 @@ GEOMAPI bool mgClampedSplines(
 GEOMAPI void mgFitClampedSpline(
     const Point2d* knots, int i, float t, float sigma,
     const float* hp, const Vector2d* knotvs, Point2d& fitpt);
+#endif
 
 #endif // __GEOMETRY_FITCURVE_H_

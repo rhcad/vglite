@@ -73,6 +73,7 @@ GEOMAPI bool mgCubicSplinesIntersectBox(
     const Box2d& box, int n, const Point2d* knots, 
     const Vector2d* knotvs, bool closed = false);
 
+#ifndef SWIG
 //! 计算点到三次样条曲线的最近距离
 /*!
     \ingroup GEOMAPI_CURVE
@@ -123,6 +124,7 @@ GEOMAPI float mgLinesHit(
 GEOMAPI float mgRoundRectHit(
     const Box2d& rect, float rx, float ry, 
     const Point2d& pt, float tol, Point2d& nearpt, int& segment);
+#endif
 
 //! 得到矩形的8个控制手柄坐标
 /*!

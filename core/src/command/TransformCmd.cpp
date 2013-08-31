@@ -5,6 +5,7 @@
 #include <mgcmd.h>
 #include <gigraph.h>
 #include <list>
+#include <stdio.h>
 
 float mgDisplayMmToModel(float mm, GiGraphics* gs);
 

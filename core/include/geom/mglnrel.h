@@ -183,6 +183,7 @@ GEOMAPI bool mgCrossLineAbc(
     float a1, float b1, float c1, float a2, float b2, float c2,
     Point2d& ptCross, const Tol& tolVec = Tol::gTol());
 
+#ifndef SWIG
 //! 求两条无穷直线的交点
 /*!
     \ingroup GEOMAPI_LNREL
@@ -200,6 +201,7 @@ GEOMAPI bool mgCross2Beeline(
     const Point2d& a, const Point2d& b, const Point2d& c, const Point2d& d, 
     Point2d& ptCross, float* pu = NULL, float* pv = NULL, 
     const Tol& tolVec = Tol::gTol());
+#endif
 
 //! 求两条线段的交点
 /*!
@@ -216,6 +218,7 @@ GEOMAPI bool mgCross2Line(
     const Point2d& a, const Point2d& b, const Point2d& c, const Point2d& d,
     Point2d& ptCross, const Tol& tolVec = Tol::gTol());
 
+#ifndef SWIG
 //! 求线段和直线的交点
 /*!
     \ingroup GEOMAPI_LNREL
@@ -232,6 +235,7 @@ GEOMAPI bool mgCrossLineBeeline(
     const Point2d& a, const Point2d& b, const Point2d& c, const Point2d& d,
     Point2d& ptCross, float* pv = NULL, 
     const Tol& tolVec = Tol::gTol());
+#endif
 
 //! 用矩形剪裁线段，Sutherland-Cohen算法
 /*!
@@ -243,6 +247,7 @@ GEOMAPI bool mgCrossLineBeeline(
 */
 GEOMAPI bool mgClipLine(Point2d& pt1, Point2d& pt2, const Box2d& box);
 
+#ifndef SWIG
 //! mgPtInArea 的返回值枚举定义
 //! \see mgPtInArea
 typedef enum {
@@ -276,5 +281,6 @@ GEOMAPI MgPtInAreaRet mgPtInArea(
     \return 是否为凸多边形
 */
 GEOMAPI bool mgIsConvex(int count, const Point2d* vertexs, bool* pACW = NULL);
+#endif
 
 #endif // __GEOMETRY_LINEREL_H_

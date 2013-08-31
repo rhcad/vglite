@@ -2,11 +2,22 @@
 %{
 #include <mgbox.h>
 #include <mgmat.h>
+#include <mgbnd.h>
+#include <mgbase.h>
+#include <mgcurv.h>
+#include <mglnrel.h>
+#include <mgnear.h>
 %}
 
-%include <mgbox.h>
-%include <mgmat.h>
-%include <mgpnt.h>
-%include <mgvec.h>
-%include <mgtol.h>
 %include <mgdef.h>
+%include <mgtol.h>
+%include <mgvec.h>
+%include <mgpnt.h>
+%include <mgmat.h>
+%include <mgbox.h>
+%include <mgbnd.h>
+
+%include <mgbase.h>
+%include <mgcurv.h>
+%include <mglnrel.h>
+%include <mgnear.h>
