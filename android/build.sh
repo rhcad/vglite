@@ -1,5 +1,5 @@
 #!/bin/sh
-# Type 'sh ndk.sh' to make libtouchvg.so for Android.
+# Type 'sh build.sh' to make libtouchvg.so and touchvg.jar for Android applications.
 #
 if [ -f demo/jni/touchvg_java_wrap.cpp ]; then
     cd demo/jni

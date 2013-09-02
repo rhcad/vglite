@@ -9,7 +9,7 @@
   * 在真机上调试时需要修改主程序的Bundle Identifier，例如“com.yourcompany.TestCanvas”，并选择自己的开发证书（Code Signing）。
 
 * 命令行编译方式
-  * 进入 ios 目录，执行“sh build.sh”命令编译出 libtouchvg.a 和 touchvg.bundle ，在其他
+  * 进入 ios 目录，执行“sh build.sh”命令编译出 libtouchvg.a 和 touchvg.bundle
 
 ## 二、Android 程序
 
@@ -20,10 +20,10 @@
      * 需要在eclipse的Android选项页中设置NDK目录。
   
   * 如需重新编译本地库 libtouchvg.so，则
-     * 在命令行窗口中进入android目录，输入“sh ndk.sh” 自动使用ndk-build编译出libtouchvg.so。
+     * 在命令行窗口中进入android目录，输入“sh build.sh” 自动使用ndk-build编译出libtouchvg.so。
      * 使用NDK-r8c以后的版本如果出现“build/gmsl/__gmsl:512: *** non-numeric second argument to wordlist function”错误，则打开NDK安装目录下的build/gmsl/__gmsl文件，将512行改为：
         `int_encode = $(__gmsl_tr1)$(wordlist 1,$(words $1),$(__gmsl_input_int))`
-     * 复制Android安装目录下的 android.jar 到本项目的 android 下的 output 目录，则运行“sh ndk.sh”将编译出 touchvg.jar 。
+     * 复制Android安装目录下的 android.jar 到本项目的 android 下的 output 目录，则运行“sh build.sh”将编译出 touchvg.jar 。
   
   * 如需修改内核接口、重新生成JNI类，则
      * 删除 android/demo/jni/touchvg_java_wrap.cpp ，然后按上面方法输入“sh swig.sh”重新编译。
@@ -37,7 +37,7 @@
   * 如果需要编译本地库 libtouchvg.so，则
      * 将NDK目录、Android SDK的 platform-tools 目录加到 PATH，对Mac则在 .bash_profile 文件中设置环境变量
      * 对于Windows推荐安装 MSYS (Mac下省略)，以便使用UNIX环境，或者安装cygwin
-     * 复制Android安装目录下的 android.jar 到本项目的 android 下的 output 目录，则运行“sh ndk.sh”将编译出 touchvg.jar
+     * 复制Android安装目录下的 android.jar 到本项目的 android 下的 output 目录，则运行“sh build.sh”将编译出 touchvg.jar
       
   * 如需修改内核接口、重新生成JNI类，则再安装：
      * 安装 ActivePython 2.7 (Mac下省略)，3.0或更高版本可能会出现encoding问题，将python目录加到 PATH
