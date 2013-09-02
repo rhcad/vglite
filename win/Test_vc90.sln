@@ -23,9 +23,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "VCApp", "VCApp", "{6B5D5D19
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "csharp", "csharp", "{563C08BE-9266-4CD7-8692-3B196DFA30A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "touchvg-cslib", "csharp\touchvg-cslib\touchvg-cslib.csproj", "{AD99A603-DE1E-461B-975B-464BCEFBE035}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "touchvg-cslib", "csharp\touchvg-cslib\touchvg-cslib_90.csproj", "{AD99A603-DE1E-461B-975B-464BCEFBE035}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfDemo", "csharp\WpfDemo\WpfDemo.csproj", "{160FD0CF-8285-4361-BE66-6884F0D3E56A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfDemo", "csharp\WpfDemo\WpfDemo_90.csproj", "{160FD0CF-8285-4361-BE66-6884F0D3E56A}"
 	ProjectSection(ProjectDependencies) = postProject
 		{AD99A603-DE1E-461B-975B-464BCEFBE035} = {AD99A603-DE1E-461B-975B-464BCEFBE035}
 	EndProjectSection
