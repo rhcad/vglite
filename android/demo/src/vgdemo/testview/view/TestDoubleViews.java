@@ -1,6 +1,6 @@
 //! \file TestDoubleViews.java
 //! \brief 测试双视图布局的测试视图类
-// Copyright (c) 2012-2013, https://github.com/rhcad/vglite
+// Copyright (c) 2012-2013, https://github.com/rhcad/touchvg
 
 package vgdemo.testview.view;
 

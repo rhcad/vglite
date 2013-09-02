@@ -1,6 +1,6 @@
 //! \file GiGraphView1.mm
 //! \brief 实现iOS绘图视图类 GiGraphView1
-// Copyright (c) 2012-2013, https://github.com/rhcad/vglite
+// Copyright (c) 2012-2013, https://github.com/rhcad/touchvg
 
 #import "GiGraphView1.h"
 #import <QuartzCore/CALayer.h>

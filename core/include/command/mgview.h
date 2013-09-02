@@ -1,9 +1,9 @@
 //! \file mgview.h
 //! \brief 定义视图回调接口 MgView
-// Copyright (c) 2012-2013, https://github.com/rhcad/vglite
+// Copyright (c) 2012-2013, https://github.com/rhcad/touchvg
 
-#ifndef VGLITE_CORE_COMMAND_VIEW_H
-#define VGLITE_CORE_COMMAND_VIEW_H
+#ifndef TOUCHVG_CORE_COMMAND_VIEW_H
+#define TOUCHVG_CORE_COMMAND_VIEW_H
 
 #include "mgshapedoc.h"
 
@@ -97,4 +97,4 @@ public:
     float distanceM() const { return pointM.distanceTo(point2M); }
 };
 
-#endif // VGLITE_CORE_COMMAND_VIEW_H
+#endif // TOUCHVG_CORE_COMMAND_VIEW_H

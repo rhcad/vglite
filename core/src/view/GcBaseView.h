@@ -1,9 +1,9 @@
 //! \file GcBaseView.h
 //! \brief 定义内核视图基类 GcBaseView
-// Copyright (c) 2012-2013, https://github.com/rhcad/vglite
+// Copyright (c) 2012-2013, https://github.com/rhcad/touchvg
 
-#ifndef VGLITE_CORE_BASEVIEW_H
-#define VGLITE_CORE_BASEVIEW_H
+#ifndef TOUCHVG_CORE_BASEVIEW_H
+#define TOUCHVG_CORE_BASEVIEW_H
 
 #include "gigesture.h"
 #include "mgview.h"
@@ -60,4 +60,4 @@ private:
     GiGraphics  _gs;
 };
 
-#endif // VGLITE_CORE_BASEVIEW_H
+#endif // TOUCHVG_CORE_BASEVIEW_H

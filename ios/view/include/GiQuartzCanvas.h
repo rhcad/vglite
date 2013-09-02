@@ -1,6 +1,6 @@
 //! \file GiQuartzCanvas.h
 //! \brief 定义画布适配器类 GiQuartzCanvas
-// Copyright (c) 2012-2013, https://github.com/rhcad/vglite
+// Copyright (c) 2012-2013, https://github.com/rhcad/touchvg
 
 #include <CoreGraphics/CoreGraphics.h>
 #include "gicanvas.h"

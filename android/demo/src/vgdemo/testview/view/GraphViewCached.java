@@ -1,6 +1,6 @@
 //! \file GraphViewCached.java
 //! \brief Android绘图视图类，使用缓存位图
-// Copyright (c) 2012-2013, https://github.com/rhcad/vglite
+// Copyright (c) 2012-2013, https://github.com/rhcad/touchvg
 
 package vgdemo.testview.view;
 

@@ -1,5 +1,5 @@
 // BasicAnimationView.m
-// Copyright (c) 2012-2013, https://github.com/rhcad/vglite
+// Copyright (c) 2012-2013, https://github.com/rhcad/touchvg
 
 #import "BasicAnimationView.h"
 #import <QuartzCore/QuartzCore.h>

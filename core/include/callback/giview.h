@@ -1,9 +1,9 @@
 //! \file giview.h
 //! \brief 定义设备相关的视图接口 GiView
-// Copyright (c) 2012-2013, https://github.com/rhcad/vglite
+// Copyright (c) 2012-2013, https://github.com/rhcad/touchvg
 
-#ifndef VGLITE_CORE_GIVIEW_H
-#define VGLITE_CORE_GIVIEW_H
+#ifndef TOUCHVG_CORE_GIVIEW_H
+#define TOUCHVG_CORE_GIVIEW_H
 
 //! 设备相关的视图回调接口
 /*! 在派生类中使用某种界面框架实现其视图回调函数
@@ -27,4 +27,4 @@ public:
     virtual bool useFinger() { return true; }
 };
 
-#endif // VGLITE_CORE_GIVIEW_H
+#endif // TOUCHVG_CORE_GIVIEW_H

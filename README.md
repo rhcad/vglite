@@ -1,4 +1,4 @@
-vglite
+touchvg
 ======
 A lightweight 2D vector drawing framework using C++ for iOS, Android and Windows.
 

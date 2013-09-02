@@ -1,6 +1,6 @@
 //! \file TestMagnifier1.java
 //! \brief 测试放大镜的布局视图类
-// Copyright (c) 2012-2013, https://github.com/rhcad/vglite
+// Copyright (c) 2012-2013, https://github.com/rhcad/touchvg
 
 package vgdemo.testview.view;
 

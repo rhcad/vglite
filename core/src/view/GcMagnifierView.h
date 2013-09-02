@@ -1,9 +1,9 @@
 //! \file GcMagnifierView.h
 //! \brief 定义放大镜视图类 GcMagnifierView
-// Copyright (c) 2012-2013, https://github.com/rhcad/vglite
+// Copyright (c) 2012-2013, https://github.com/rhcad/touchvg
 
-#ifndef VGLITE_CORE_MAGNIFIERVIEW_H
-#define VGLITE_CORE_MAGNIFIERVIEW_H
+#ifndef TOUCHVG_CORE_MAGNIFIERVIEW_H
+#define TOUCHVG_CORE_MAGNIFIERVIEW_H
 
 #include "GcGraphView.h"
 
@@ -20,4 +20,4 @@ private:
     GcGraphView*     _mainView;
 };
 
-#endif // VGLITE_CORE_MAGNIFIERVIEW_H
+#endif // TOUCHVG_CORE_MAGNIFIERVIEW_H

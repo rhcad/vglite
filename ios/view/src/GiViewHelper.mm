@@ -1,6 +1,6 @@
 //! \file GiViewHelper.mm
 //! \brief 实现iOS绘图视图辅助类 GiViewHelper
-// Copyright (c) 2012-2013, https://github.com/rhcad/vglite
+// Copyright (c) 2012-2013, https://github.com/rhcad/touchvg
 
 #import "GiViewHelper.h"
 #import "GiGraphView.h"

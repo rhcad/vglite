@@ -1,6 +1,6 @@
 //! \file GcShapeDoc.cpp
 //! \brief 实现图形文档类 GcShapeDoc
-// Copyright (c) 2012-2013, https://github.com/rhcad/vglite
+// Copyright (c) 2012-2013, https://github.com/rhcad/touchvg
 
 #include "GcShapeDoc.h"
 #include "GcBaseView.h"

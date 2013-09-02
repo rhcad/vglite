@@ -1,9 +1,9 @@
 //! \file testcanvas.h
 //! \brief Define the testing class: TestCanvas.
-// Copyright (c) 2012-2013, https://github.com/rhcad/vglite
+// Copyright (c) 2012-2013, https://github.com/rhcad/touchvg
 
-#ifndef VGLITE_TESTCANVAS_H
-#define VGLITE_TESTCANVAS_H
+#ifndef TOUCHVG_TESTCANVAS_H
+#define TOUCHVG_TESTCANVAS_H
 
 class GiCanvas;
 
@@ -29,4 +29,4 @@ struct TestCanvas {
     static void testTextAt(GiCanvas* canvas, int n);
 };
 
-#endif // VGLITE_TESTCANVAS_H
+#endif // TOUCHVG_TESTCANVAS_H

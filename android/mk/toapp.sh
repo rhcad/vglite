@@ -17,9 +17,9 @@ if [ -f ../output/android.jar ]; then
     cp -v libs/armeabi/libtouchvg.so ../output/armeabi
     cd ../mk
 
-    if [ -n "$VGLITE_ANDROID_APP" ]; then
-    	cp -v ../output/touchvg.jar $VGLITE_ANDROID_APP/libs;
-    	cp -v ../output/armeabi/libtouchvg.so $VGLITE_ANDROID_APP/libs/armeabi;
+    if [ -n "$TOUCHVG_ANDROID_APP" ]; then
+    	cp -v ../output/touchvg.jar $TOUCHVG_ANDROID_APP/libs;
+    	cp -v ../output/armeabi/libtouchvg.so $TOUCHVG_ANDROID_APP/libs/armeabi;
     fi
     python restore_utf8.py
 fi

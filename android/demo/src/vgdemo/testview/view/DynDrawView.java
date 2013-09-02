@@ -1,6 +1,6 @@
 //! \file DynDrawView.java
 //! \brief 动态绘图视图接口
-// Copyright (c) 2012-2013, https://github.com/rhcad/vglite
+// Copyright (c) 2012-2013, https://github.com/rhcad/touchvg
 
 package vgdemo.testview.view;
 

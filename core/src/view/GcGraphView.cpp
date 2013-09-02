@@ -1,6 +1,6 @@
 //! \file GcGraphView.cpp
 //! \brief 实现主绘图视图类 GcGraphView
-// Copyright (c) 2012-2013, https://github.com/rhcad/vglite
+// Copyright (c) 2012-2013, https://github.com/rhcad/touchvg
 
 #include "GcGraphView.h"
 #include "mglog.h"

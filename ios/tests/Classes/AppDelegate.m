@@ -1,5 +1,5 @@
 // AppDelegate.m
-// Copyright (c) 2012-2013, https://github.com/rhcad/vglite
+// Copyright (c) 2012-2013, https://github.com/rhcad/touchvg
 
 #import "AppDelegate.h"
 #import "MasterViewController.h"

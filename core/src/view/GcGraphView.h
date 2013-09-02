@@ -1,9 +1,9 @@
 //! \file GcGraphView.h
 //! \brief 定义主绘图视图类 GcGraphView
-// Copyright (c) 2012-2013, https://github.com/rhcad/vglite
+// Copyright (c) 2012-2013, https://github.com/rhcad/touchvg
 
-#ifndef VGLITE_CORE_MAINVIEW_H
-#define VGLITE_CORE_MAINVIEW_H
+#ifndef TOUCHVG_CORE_MAINVIEW_H
+#define TOUCHVG_CORE_MAINVIEW_H
 
 #include "GcBaseView.h"
 
@@ -38,4 +38,4 @@ public:
     virtual ~GcGraphView();
 };
 
-#endif // VGLITE_CORE_MAINVIEW_H
+#endif // TOUCHVG_CORE_MAINVIEW_H

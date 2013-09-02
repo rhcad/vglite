@@ -1,4 +1,4 @@
-// Copyright (c) 2013, Zhang Yungui, https://github.com/rhcad/vglite
+// Copyright (c) 2013, Zhang Yungui, https://github.com/rhcad/touchvg
 
 #ifdef SWIGJAVA
 %insert("runtime") %{

@@ -1,6 +1,6 @@
 //! \file GraphSfView.java
 //! \brief Android绘图视图类
-// Copyright (c) 2012-2013, https://github.com/rhcad/vglite
+// Copyright (c) 2012-2013, https://github.com/rhcad/touchvg
 
 package vgdemo.testview.view;
 

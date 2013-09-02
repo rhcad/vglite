@@ -1,6 +1,6 @@
 ﻿//! \file PaintGestureListener.java
 //! \brief Android绘图手势识别类
-// Copyright (c) 2012-2013, https://github.com/rhcad/vglite
+// Copyright (c) 2012-2013, https://github.com/rhcad/touchvg
 
 package touchvg.view;
 

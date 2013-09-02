@@ -1,9 +1,9 @@
 //! \file gicoreview.h
 //! \brief 定义内核视图分发器类 GiCoreView
-// Copyright (c) 2012-2013, https://github.com/rhcad/vglite
+// Copyright (c) 2012-2013, https://github.com/rhcad/touchvg
 
-#ifndef VGLITE_CORE_VIEWDISPATCHER_H
-#define VGLITE_CORE_VIEWDISPATCHER_H
+#ifndef TOUCHVG_CORE_VIEWDISPATCHER_H
+#define TOUCHVG_CORE_VIEWDISPATCHER_H
 
 #include "gigesture.h"
 
@@ -103,4 +103,4 @@ private:
     GiCoreViewImpl* impl;
 };
 
-#endif // VGLITE_CORE_VIEWDISPATCHER_H
+#endif // TOUCHVG_CORE_VIEWDISPATCHER_H

@@ -1,6 +1,6 @@
 //! \file GiGraphView.h
 //! \brief 定义iOS绘图视图类 GiGraphView
-// Copyright (c) 2012-2013, https://github.com/rhcad/vglite
+// Copyright (c) 2012-2013, https://github.com/rhcad/touchvg
 
 #import <UIKit/UIKit.h>
 

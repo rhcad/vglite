@@ -1,9 +1,9 @@
 //! \file gigesture.h
 //! \brief 定义手势类型 GiGestureType
-// Copyright (c) 2012-2013, https://github.com/rhcad/vglite
+// Copyright (c) 2012-2013, https://github.com/rhcad/touchvg
 
-#ifndef VGLITE_CORE_GESTURE_H
-#define VGLITE_CORE_GESTURE_H
+#ifndef TOUCHVG_CORE_GESTURE_H
+#define TOUCHVG_CORE_GESTURE_H
 
 typedef enum {                  //!< 手势类型
     kGiGestureUnknown,          //!< 未知的手势
@@ -22,4 +22,4 @@ typedef enum {                  //!< 手势状态
     kGiGestureCancel,           //!< 取消
 } GiGestureState;
 
-#endif // VGLITE_CORE_GESTURE_H
+#endif // TOUCHVG_CORE_GESTURE_H

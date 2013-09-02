@@ -1,6 +1,6 @@
 //! \file gicoreview.cpp
 //! \brief 实现内核视图类 GiCoreView
-// Copyright (c) 2012-2013, https://github.com/rhcad/vglite
+// Copyright (c) 2012-2013, https://github.com/rhcad/touchvg
 
 #include "gicoreview.h"
 #include "giview.h"

@@ -1,9 +1,9 @@
 //! \file GcShapeDoc.h
 //! \brief 定义图形文档类 GcShapeDoc
-// Copyright (c) 2012-2013, https://github.com/rhcad/vglite
+// Copyright (c) 2012-2013, https://github.com/rhcad/touchvg
 
-#ifndef VGLITE_CORE_SHAPEDOC_H
-#define VGLITE_CORE_SHAPEDOC_H
+#ifndef TOUCHVG_CORE_SHAPEDOC_H
+#define TOUCHVG_CORE_SHAPEDOC_H
 
 #include <vector>
 
@@ -33,4 +33,4 @@ private:
     MgShapeDoc*     _doc;
 };
 
-#endif // VGLITE_CORE_SHAPEDOC_H
+#endif // TOUCHVG_CORE_SHAPEDOC_H

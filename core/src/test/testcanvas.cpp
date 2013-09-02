@@ -1,6 +1,6 @@
 //! \file testcanvas->cpp
 //! \brief Implement the testing class: Testcanvas->
-// Copyright (c) 2012-2013, https://github.com/rhcad/vglite
+// Copyright (c) 2012-2013, https://github.com/rhcad/touchvg
 
 #include "testcanvas.h"
 #include "gicanvas.h"

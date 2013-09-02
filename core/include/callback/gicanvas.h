@@ -1,9 +1,9 @@
 //! \file gicanvas.h
 //! \brief 定义设备相关的画布接口 GiCanvas
-// Copyright (c) 2012-2013, https://github.com/rhcad/vglite
+// Copyright (c) 2012-2013, https://github.com/rhcad/touchvg
 
-#ifndef VGLITE_CORE_GICANVAS_H
-#define VGLITE_CORE_GICANVAS_H
+#ifndef TOUCHVG_CORE_GICANVAS_H
+#define TOUCHVG_CORE_GICANVAS_H
 
 //! 设备相关的画布回调接口
 /*! 在特定平台上使用某一种图形库实现其绘图函数，坐标单位为点（通常等同于像素）。\n
@@ -131,4 +131,4 @@ public:
 #endif
 };
 
-#endif // VGLITE_CORE_GICANVAS_H
+#endif // TOUCHVG_CORE_GICANVAS_H

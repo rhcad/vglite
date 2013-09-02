@@ -1,6 +1,6 @@
 //! \file LargeView1.java
 //! \brief 测试长幅绘图的滚动视图类
-// Copyright (c) 2012-2013, https://github.com/rhcad/vglite
+// Copyright (c) 2012-2013, https://github.com/rhcad/touchvg
 
 package vgdemo.testview.canvas;
 
