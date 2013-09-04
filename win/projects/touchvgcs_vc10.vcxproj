@@ -1,0 +1,302 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectName>touchvgcs</ProjectName>
+    <ProjectGuid>{180CC455-E62C-4AB8-A024-F3FF724719EA}</ProjectGuid>
+    <RootNamespace>touchvgcs</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\build\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\build\$(Configuration)\obj\touchvg_csharp\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\build\$(Configuration)64\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\build\$(Configuration)64\obj\touchvg_csharp\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\build\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\build\$(Configuration)\obj\touchvg_csharp\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\build\$(Configuration)64\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\build\$(Configuration)64\obj\touchvg_csharp\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\..\core\include\callback;..\..\core\include\tradecmd;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;TOUCHVG_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4819;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(IntDir)$(TargetName).pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <ImportLibrary>$(IntDir)$(TargetName).lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\..\core\include\callback;..\..\core\include\tradecmd;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_WIN32;_WIN64;NDEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4819;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(IntDir)$(TargetName).pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <ImportLibrary>$(IntDir)touchvg.lib</ImportLibrary>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <AdditionalIncludeDirectories>..\..\core\include\callback;..\..\core\include\tradecmd;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;TOUCHVG_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <DisableSpecificWarnings>4819;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(IntDir)$(TargetName).pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <LinkTimeCodeGeneration>
+      </LinkTimeCodeGeneration>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <ImportLibrary>$(IntDir)$(TargetName).lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <AdditionalIncludeDirectories>..\..\core\include\callback;..\..\core\include\tradecmd;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_WIN32;_WIN64;_DEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <DisableSpecificWarnings>4819;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(IntDir)$(TargetName).pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <LinkTimeCodeGeneration>
+      </LinkTimeCodeGeneration>
+      <ImportLibrary>$(IntDir)$(TargetName).lib</ImportLibrary>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\..\core\src\view\touchvg.swig">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Swig generating...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">if not exist $(TargetDir)..\..\csharp\touchvglib\core mkdir $(TargetDir)..\..\csharp\touchvglib\core
+swig.exe -c++ -csharp -namespace "touchvg.core" -module touchvgcs -I"$(ProjectDir)..\..\core\include\callback" -I"$(ProjectDir)..\..\core\include\test" -I"$(ProjectDir)..\..\core\include\view" -I"$(ProjectDir)..\..\core\include\shape" -I"$(ProjectDir)..\..\core\include" -o "$(ProjectDir)..\src\swig\touchvg_csharp_wrap.cpp" -outdir $(TargetDir)..\..\csharp\touchvglib\core %(FullPath)
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)..\src\swig\touchvg_csharp_wrap.cpp;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Swig generating...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">if not exist $(TargetDir)..\..\csharp\touchvglib\core mkdir $(TargetDir)..\..\csharp\touchvglib\core
+swig.exe -c++ -csharp -namespace "touchvg.core" -module touchvgcs -I"$(ProjectDir)..\..\core\include\callback" -I"$(ProjectDir)..\..\core\include\test" -I"$(ProjectDir)..\..\core\include\view" -I"$(ProjectDir)..\..\core\include\shape" -I"$(ProjectDir)..\..\core\include" -o "$(ProjectDir)..\src\swig\touchvg_csharp_wrap.cpp" -outdir $(TargetDir)..\..\csharp\touchvglib\core %(FullPath)
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)..\src\swig\touchvg_csharp_wrap.cpp;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Swig generating...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">if not exist $(TargetDir)..\..\csharp\touchvglib\core mkdir $(TargetDir)..\..\csharp\touchvglib\core
+swig.exe -c++ -csharp -namespace "touchvg.core" -module touchvgcs -I"$(ProjectDir)..\..\core\include\callback" -I"$(ProjectDir)..\..\core\include\test" -I"$(ProjectDir)..\..\core\include\view" -I"$(ProjectDir)..\..\core\include\shape" -I"$(ProjectDir)..\..\core\include" -o "$(ProjectDir)..\src\swig\touchvg_csharp_wrap.cpp" -outdir $(TargetDir)..\..\csharp\touchvglib\core %(FullPath)
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)..\src\swig\touchvg_csharp_wrap.cpp;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Swig generating...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">if not exist $(TargetDir)..\..\csharp\touchvglib\core mkdir $(TargetDir)..\..\csharp\touchvglib\core
+swig.exe -c++ -csharp -namespace "touchvg.core" -module touchvgcs -I"$(ProjectDir)..\..\core\include\callback" -I"$(ProjectDir)..\..\core\include\test" -I"$(ProjectDir)..\..\core\include\view" -I"$(ProjectDir)..\..\core\include\shape" -I"$(ProjectDir)..\..\core\include" -o "$(ProjectDir)..\src\swig\touchvg_csharp_wrap.cpp" -outdir $(TargetDir)..\..\csharp\touchvglib\core %(FullPath)
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)..\src\swig\touchvg_csharp_wrap.cpp;%(Outputs)</Outputs>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\swig\touchvg_csharp_wrap.cpp" />
+    <ClCompile Include="..\..\core\src\view\GcGraphView.cpp" />
+    <ClCompile Include="..\..\core\src\view\GcMagnifierView.cpp" />
+    <ClCompile Include="..\..\core\src\view\GcShapeDoc.cpp" />
+    <ClCompile Include="..\..\core\src\view\gicoreview.cpp" />
+    <ClCompile Include="..\..\core\src\test\RandomShape.cpp" />
+    <ClCompile Include="..\..\core\src\test\testcanvas.cpp" />
+    <ClCompile Include="..\..\core\src\command\mgactions.cpp" />
+    <ClCompile Include="..\..\core\src\command\mgcmddraw.cpp" />
+    <ClCompile Include="..\..\core\src\command\mgcmderase.cpp" />
+    <ClCompile Include="..\..\core\src\command\mgcmdmgr.cpp" />
+    <ClCompile Include="..\..\core\src\command\mgcmds.cpp" />
+    <ClCompile Include="..\..\core\src\command\mgcmdselect.cpp" />
+    <ClCompile Include="..\..\core\src\command\mgdrawarc.cpp" />
+    <ClCompile Include="..\..\core\src\command\mgdrawline.cpp" />
+    <ClCompile Include="..\..\core\src\command\mgdrawlines.cpp" />
+    <ClCompile Include="..\..\core\src\command\mgdrawrect.cpp" />
+    <ClCompile Include="..\..\core\src\command\mgdrawsplines.cpp" />
+    <ClCompile Include="..\..\core\src\command\mgdrawtriang.cpp" />
+    <ClCompile Include="..\..\core\src\command\TransformCmd.cpp" />
+    <ClCompile Include="..\..\core\src\shape\mgcomposite.cpp" />
+    <ClCompile Include="..\..\core\src\shape\mgellipse.cpp" />
+    <ClCompile Include="..\..\core\src\shape\mggrid.cpp" />
+    <ClCompile Include="..\..\core\src\json\mgjsonstorage.cpp" />
+    <ClCompile Include="..\..\core\src\shape\mglayer.cpp" />
+    <ClCompile Include="..\..\core\src\shape\mgline.cpp" />
+    <ClCompile Include="..\..\core\src\shape\mglines.cpp" />
+    <ClCompile Include="..\..\core\src\shape\mgrdrect.cpp" />
+    <ClCompile Include="..\..\core\src\shape\mgrect.cpp" />
+    <ClCompile Include="..\..\core\src\shape\mgshape.cpp" />
+    <ClCompile Include="..\..\core\src\shape\mgshapedoc.cpp" />
+    <ClCompile Include="..\..\core\src\shape\mgshapes.cpp" />
+    <ClCompile Include="..\..\core\src\shape\mgspfactory.cpp" />
+    <ClCompile Include="..\..\core\src\shape\mgsplines.cpp" />
+    <ClCompile Include="..\..\core\src\shape\mgsplock.cpp" />
+    <ClCompile Include="..\..\core\src\graph\gigraph.cpp" />
+    <ClCompile Include="..\..\core\src\graph\gipath.cpp" />
+    <ClCompile Include="..\..\core\src\graph\gixform.cpp" />
+    <ClCompile Include="..\..\core\src\geom\mgbase.cpp" />
+    <ClCompile Include="..\..\core\src\geom\mgbnd.cpp" />
+    <ClCompile Include="..\..\core\src\geom\mgbox.cpp" />
+    <ClCompile Include="..\..\core\src\geom\mgcurv.cpp" />
+    <ClCompile Include="..\..\core\src\geom\mglnrel.cpp" />
+    <ClCompile Include="..\..\core\src\geom\mgmat.cpp" />
+    <ClCompile Include="..\..\core\src\geom\mgnear.cpp" />
+    <ClCompile Include="..\..\core\src\geom\mgnearbz.cpp" />
+    <ClCompile Include="..\..\core\src\geom\mgvec.cpp" />
+    <ClCompile Include="..\..\core\src\tradecmd\tradecmd.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\core\include\view\gicoreview.h" />
+    <ClInclude Include="..\..\core\include\view\gigesture.h" />
+    <ClInclude Include="..\src\swig\touchvg_csharp_wrap.h" />
+    <ClInclude Include="..\..\core\include\callback\gicanvas.h" />
+    <ClInclude Include="..\..\core\include\callback\giview.h" />
+    <ClInclude Include="..\..\core\include\test\testcanvas.h" />
+    <ClInclude Include="..\..\core\src\command\mgcmderase.h" />
+    <ClInclude Include="..\..\core\src\command\mgcmdmgr.h" />
+    <ClInclude Include="..\..\core\src\command\mgcmdselect.h" />
+    <ClInclude Include="..\..\core\src\command\mgdrawline.h" />
+    <ClInclude Include="..\..\core\src\command\mgdrawlines.h" />
+    <ClInclude Include="..\..\core\src\command\mgdrawrect.h" />
+    <ClInclude Include="..\..\core\src\command\mgdrawsplines.h" />
+    <ClInclude Include="..\..\core\src\command\mgdrawtriang.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

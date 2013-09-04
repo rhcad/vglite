@@ -749,6 +749,10 @@ bool GiGraphics::drawPie(const GiContext* ctx,
 bool GiGraphics::drawRect(const GiContext* ctx, const Box2d& rect, 
                           bool modelUnit)
 {
+    if (rect.isEmpty() && ctx && m_impl->canvas) {
+        rawRect(ctx, 0, 0, 0, 0);
+        return false;
+    }
     Point2d points[4] = {
         rect.leftBottom(), rect.rightBottom(), 
         rect.rightTop(), rect.leftTop()

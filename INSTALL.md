@@ -46,8 +46,11 @@
 ## 三、Windows 程序
 
 * VC++演示程序编译
-  * 在 Visual Studio 2008（或更新版本）中打开 win 目录下的 Test_vc90.sln ，选择演示程序运行。
-  * 如需在 Visual Studio 2005 中编译，则先运行 win\projects\cpvc9to8.py 脚本生成 Test_vc80.sln，然后打开 Test_vc80.sln。
-  * 如果是直接下载代码zipball包，编译时可能遇到行结束符及中文编码错误，解决方法：运行 win32\utf8togbk.py 脚本。运行 win32\restore_utf8.py 脚本将还原这些文件。
+  * 在 Visual Studio 2008（或更新版本）中打开 win 目录下的 Test_vc9.sln ，选择VC++演示程序运行。
+    打开 Test_cs9.sln 则运行C#演示程序，如果是 Visual Studio 2010 则打开 Test_cs10.sln 。
+  * 如需在 Visual Studio 2005 中编译，则先运行 win\projects\cpvc9to8.py 脚本生成 Test_vc8.sln，然后打开 Test_vc8.sln。
+  * 如果是直接下载代码zipball包，编译时可能遇到行结束符及中文编码错误。
+    解决方法：运行 win\utf8togbk.py 脚本。运行 win\restore_utf8.py 脚本将还原这些文件。
 
-* 在 MinGW 或 Linux 下，可进入 core 目录输入“make”编译。
+* 在 MinGW 或 Linux 下，可进入 core 目录输入“make”编译C++模块。
+  输入“make java”或“make python”可为Java或Python应用编译。

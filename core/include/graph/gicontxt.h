@@ -214,7 +214,17 @@ public:
     //! 设置线条颜色
     void setLineColor(int r, int g, int b)
     {
-        m_lineColor.set((unsigned char)r, (unsigned char)g, (unsigned char)b);
+        m_lineColor.set(r, g, b);
+        if (m_autoFillColor) {
+            m_fillColor = m_lineColor;
+            m_fillColor.a /= 3;
+        }
+    }
+
+    //! 设置线条颜色
+    void setLineColor(int r, int g, int b, int a)
+    {
+        m_lineColor.set(r, g, b, a);
         if (m_autoFillColor) {
             m_fillColor = m_lineColor;
             m_fillColor.a /= 3;
@@ -280,7 +290,16 @@ public:
     {
         if (m_fillColor.a < 1)
             m_fillColor.a = m_lineColor.a;
-        m_fillColor.set((unsigned char)r, (unsigned char)g, (unsigned char)b);
+        m_fillColor.set(r, g, b);
+        m_autoFillColor = false;
+    }
+
+    //! 设置填充颜色
+    void setFillColor(int r, int g, int b, int a)
+    {
+        if (m_fillColor.a < 1)
+            m_fillColor.a = m_lineColor.a;
+        m_fillColor.set(r, g, b, a);
         m_autoFillColor = false;
     }
 
@@ -294,6 +313,7 @@ public:
     void setFillARGB(int argb)
     {
         m_fillColor.setARGB(argb);
+        m_autoFillColor = false;
     }
     
     //! 返回填充透明度
@@ -308,6 +328,7 @@ public:
         if (m_fillColor.a == 0 && alpha > 0)
             m_fillColor = m_lineColor;
         m_fillColor.a = (unsigned char)alpha;
+        m_autoFillColor = false;
     }
     
     //! 返回填充颜色是否随线条颜色自动变化

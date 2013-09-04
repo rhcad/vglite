@@ -363,12 +363,6 @@ class touchvgcsPINVOKE {
   [DllImport("touchvgcs", EntryPoint="CSharp_GiCoreView_setContent")]
   public static extern bool GiCoreView_setContent(HandleRef jarg1, string jarg2);
 
-  [DllImport("touchvgcs", EntryPoint="CSharp_GiCoreView_loadShapes")]
-  public static extern bool GiCoreView_loadShapes(HandleRef jarg1, HandleRef jarg2);
-
-  [DllImport("touchvgcs", EntryPoint="CSharp_GiCoreView_saveShapes")]
-  public static extern bool GiCoreView_saveShapes(HandleRef jarg1, HandleRef jarg2);
-
   [DllImport("touchvgcs", EntryPoint="CSharp_GiCoreView_zoomToExtent")]
   public static extern bool GiCoreView_zoomToExtent(HandleRef jarg1);
 
@@ -425,42 +419,6 @@ class touchvgcsPINVOKE {
 
   [DllImport("touchvgcs", EntryPoint="CSharp_delete_TestCanvas")]
   public static extern void delete_TestCanvas(HandleRef jarg1);
-
-  [DllImport("touchvgcs", EntryPoint="CSharp_MgStorage_readNode")]
-  public static extern bool MgStorage_readNode(HandleRef jarg1, string jarg2, int jarg3, bool jarg4);
-
-  [DllImport("touchvgcs", EntryPoint="CSharp_MgStorage_writeNode")]
-  public static extern bool MgStorage_writeNode(HandleRef jarg1, string jarg2, int jarg3, bool jarg4);
-
-  [DllImport("touchvgcs", EntryPoint="CSharp_MgStorage_readBool")]
-  public static extern bool MgStorage_readBool(HandleRef jarg1, string jarg2, bool jarg3);
-
-  [DllImport("touchvgcs", EntryPoint="CSharp_MgStorage_readFloat")]
-  public static extern float MgStorage_readFloat(HandleRef jarg1, string jarg2, float jarg3);
-
-  [DllImport("touchvgcs", EntryPoint="CSharp_MgStorage_writeBool")]
-  public static extern void MgStorage_writeBool(HandleRef jarg1, string jarg2, bool jarg3);
-
-  [DllImport("touchvgcs", EntryPoint="CSharp_MgStorage_writeFloat")]
-  public static extern void MgStorage_writeFloat(HandleRef jarg1, string jarg2, float jarg3);
-
-  [DllImport("touchvgcs", EntryPoint="CSharp_MgStorage_writeString")]
-  public static extern void MgStorage_writeString(HandleRef jarg1, string jarg2, string jarg3);
-
-  [DllImport("touchvgcs", EntryPoint="CSharp_MgStorage_readInt")]
-  public static extern int MgStorage_readInt(HandleRef jarg1, string jarg2, int jarg3);
-
-  [DllImport("touchvgcs", EntryPoint="CSharp_MgStorage_writeInt")]
-  public static extern void MgStorage_writeInt(HandleRef jarg1, string jarg2, int jarg3);
-
-  [DllImport("touchvgcs", EntryPoint="CSharp_MgStorage_writeUInt")]
-  public static extern void MgStorage_writeUInt(HandleRef jarg1, string jarg2, int jarg3);
-
-  [DllImport("touchvgcs", EntryPoint="CSharp_MgStorage_setError")]
-  public static extern bool MgStorage_setError(HandleRef jarg1, string jarg2);
-
-  [DllImport("touchvgcs", EntryPoint="CSharp_delete_MgStorage")]
-  public static extern void delete_MgStorage(HandleRef jarg1);
 }
 
 }

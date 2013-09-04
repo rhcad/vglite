@@ -1,4 +1,4 @@
-﻿//! \file PaintGestureListener.java
+﻿//! \file GestureListener.java
 //! \brief Android绘图手势识别类
 // Copyright (c) 2012-2013, https://github.com/rhcad/touchvg
 
@@ -15,7 +15,7 @@ import android.view.View;
 //! Android绘图手势识别类
 /*! \ingroup GROUP_ANDROID
  */
-public class PaintGestureListener extends SimpleOnGestureListener {
+public class GestureListener extends SimpleOnGestureListener {
     private static final int STOPPED = 0;
     private static final int READY_MOVE = 1;
     private static final int MOVING = 2;
@@ -33,7 +33,7 @@ public class PaintGestureListener extends SimpleOnGestureListener {
     private float mLastX2;
     private float mLastY2;
     
-    public PaintGestureListener(GiCoreView coreView, GiView adapter) {
+    public GestureListener(GiCoreView coreView, GiView adapter) {
         mCoreView = coreView;
         mAdapter = adapter;
     }

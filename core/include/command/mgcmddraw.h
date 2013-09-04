@@ -35,7 +35,7 @@ protected:
     bool _touchBegan(const MgMotion* sender);
     bool _touchMoved(const MgMotion* sender);
     bool _touchEnded(const MgMotion* sender);
-    MgShape* _addshape(const MgMotion* sender, MgShape* shape = NULL);
+    MgShape* _addshape(const MgMotion* sender, MgShape* shape = NULL, bool autolock = true);
     bool _undo(const MgMotion* sender);
     bool _draw(const MgMotion* sender, GiGraphics* gs);
     bool _click(const MgMotion* sender);

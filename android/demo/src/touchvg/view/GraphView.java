@@ -25,7 +25,7 @@ public class GraphView extends View {
     private ViewAdapter mViewAdapter;       // 视图回调适配器
     private GiCoreView mCoreView;           // 内核视图分发器
     private GestureDetector mGestureDetector;      // 手势识别器
-    private PaintGestureListener mGestureListener; // 手势识别实现
+    private GestureListener mGestureListener; // 手势识别实现
     private boolean mGestureEnable = true;  // 是否允许交互
     private boolean mRegenning = false;     // 是否正在regenAll
     private Bitmap mCachedBitmap;           // 缓存快照
@@ -56,7 +56,7 @@ public class GraphView extends View {
     }
 
     private void initView(Context context) {
-        mGestureListener = new PaintGestureListener(mCoreView, mViewAdapter);
+        mGestureListener = new GestureListener(mCoreView, mViewAdapter);
         mGestureDetector = new GestureDetector(context, mGestureListener);
 
         final DisplayMetrics dm = context.getApplicationContext().getResources().getDisplayMetrics();

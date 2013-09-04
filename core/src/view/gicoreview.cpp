@@ -287,24 +287,24 @@ void GiCoreView::onSize(GiView* view, int w, int h)
     }
 }
 
-bool GiCoreView::onGesture(GiView* view, GiGestureType gestureType,
-                           GiGestureState gestureState, float x, float y, bool switchGesture)
+bool GiCoreView::onGesture(GiView* view, GiGestureType type,
+                           GiGestureState state, float x, float y, bool switchGesture)
 {
     GcBaseView* aview = impl->_doc->findView(view);
     bool ret = false;
 
     if (aview) {
         impl->setView(aview);
-        impl->motion.gestureType = gestureType;
-        impl->motion.gestureState = (MgGestureState)gestureState;
-        impl->motion.pressDrag = (gestureType == kGiGesturePress && gestureState < kGiGestureEnded);
+        impl->motion.gestureType = type;
+        impl->motion.gestureState = (MgGestureState)state;
+        impl->motion.pressDrag = (type == kGiGesturePress && state < kGiGestureEnded);
         impl->motion.switchGesture = switchGesture;
         impl->motion.point.set(x, y);
         impl->motion.pointM = impl->motion.point * aview->xform()->displayToModel();
         impl->motion.point2 = impl->motion.point;
         impl->motion.point2M = impl->motion.pointM;
 
-        if (gestureState <= kGiGestureBegan) {
+        if (state <= kGiGestureBegan) {
             impl->motion.startPt = impl->motion.point;
             impl->motion.startPtM = impl->motion.pointM;
             impl->motion.lastPt = impl->motion.point;
@@ -329,7 +329,7 @@ bool GiCoreView::onGesture(GiView* view, GiGestureType gestureType,
     return ret;
 }
 
-bool GiCoreView::twoFingersMove(GiView* view, GiGestureState gestureState,
+bool GiCoreView::twoFingersMove(GiView* view, GiGestureState state,
                                 float x1, float y1, float x2, float y2, bool switchGesture)
 {
     GcBaseView* aview = impl->_doc->findView(view);
@@ -338,7 +338,7 @@ bool GiCoreView::twoFingersMove(GiView* view, GiGestureState gestureState,
     if (aview) {
         impl->setView(aview);
         impl->motion.gestureType = kGiTwoFingersMove;
-        impl->motion.gestureState = (MgGestureState)gestureState;
+        impl->motion.gestureState = (MgGestureState)state;
         impl->motion.pressDrag = false;
         impl->motion.switchGesture = switchGesture;
         impl->motion.point.set(x1, y1);
@@ -346,7 +346,7 @@ bool GiCoreView::twoFingersMove(GiView* view, GiGestureState gestureState,
         impl->motion.point2.set(x2, y2);
         impl->motion.point2M = impl->motion.point2 * aview->xform()->displayToModel();
 
-        if (gestureState <= kGiGestureBegan) {
+        if (state <= kGiGestureBegan) {
             impl->motion.startPt = impl->motion.point;
             impl->motion.startPtM = impl->motion.pointM;
             impl->motion.lastPt = impl->motion.point;
@@ -407,7 +407,7 @@ int GiCoreView::getShapeCount()
     return impl->doc()->getShapeCount();
 }
 
-bool GiCoreView::loadShapes(MgStorage* s)
+static bool loadShapes(GiCoreViewImpl* impl, MgStorage* s)
 {
     bool ret = true;
 
@@ -424,7 +424,7 @@ bool GiCoreView::loadShapes(MgStorage* s)
     return ret;
 }
 
-bool GiCoreView::saveShapes(MgStorage* s)
+static bool saveShapes(GiCoreViewImpl* impl, MgStorage* s)
 {
     MgShapesLock locker(MgShapesLock::ReadOnly, impl->doc());
     return s && impl->doc()->save(s);
@@ -433,7 +433,7 @@ bool GiCoreView::saveShapes(MgStorage* s)
 const char* GiCoreView::getContent()
 {
     const char* content = "";
-    if (saveShapes(impl->defaultStorage.storageForWrite())) {
+    if (saveShapes(impl, impl->defaultStorage.storageForWrite())) {
         content = impl->defaultStorage.stringify();
     }
     return content; // has't free defaultStorage's string buffer
@@ -446,7 +446,7 @@ void GiCoreView::freeContent()
 
 bool GiCoreView::setContent(const char* content)
 {
-    bool ret = loadShapes(impl->defaultStorage.storageForRead(content));
+    bool ret = loadShapes(impl, impl->defaultStorage.storageForRead(content));
     impl->defaultStorage.clear();
     return ret;
 }
@@ -460,7 +460,7 @@ bool GiCoreView::loadFromFile(const char* vgfile)
     FILE *fp = fopen(vgfile, "rt");
 #endif
     MgJsonStorage s;
-    bool ret = loadShapes(s.storageForRead(fp));
+    bool ret = loadShapes(impl, s.storageForRead(fp));
     
     if (fp) {
         fclose(fp);
@@ -479,7 +479,7 @@ bool GiCoreView::saveToFile(const char* vgfile, bool pretty)
 #endif
     MgJsonStorage s;
     bool ret = (fp != NULL
-        && saveShapes(s.storageForWrite())
+        && saveShapes(impl, s.storageForWrite())
         && s.save(fp, pretty));
 
     if (fp) {

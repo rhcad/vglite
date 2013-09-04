@@ -87,23 +87,23 @@ public class GiCoreView : IDisposable {
     touchvgcsPINVOKE.GiCoreView_onSize(swigCPtr, GiView.getCPtr(view), w, h);
   }
 
-  public bool onGesture(GiView view, GiGestureType gestureType, GiGestureState gestureState, float x, float y, bool switchGesture) {
-    bool ret = touchvgcsPINVOKE.GiCoreView_onGesture__SWIG_0(swigCPtr, GiView.getCPtr(view), (int)gestureType, (int)gestureState, x, y, switchGesture);
+  public bool onGesture(GiView view, GiGestureType type, GiGestureState state, float x, float y, bool switchGesture) {
+    bool ret = touchvgcsPINVOKE.GiCoreView_onGesture__SWIG_0(swigCPtr, GiView.getCPtr(view), (int)type, (int)state, x, y, switchGesture);
     return ret;
   }
 
-  public bool onGesture(GiView view, GiGestureType gestureType, GiGestureState gestureState, float x, float y) {
-    bool ret = touchvgcsPINVOKE.GiCoreView_onGesture__SWIG_1(swigCPtr, GiView.getCPtr(view), (int)gestureType, (int)gestureState, x, y);
+  public bool onGesture(GiView view, GiGestureType type, GiGestureState state, float x, float y) {
+    bool ret = touchvgcsPINVOKE.GiCoreView_onGesture__SWIG_1(swigCPtr, GiView.getCPtr(view), (int)type, (int)state, x, y);
     return ret;
   }
 
-  public bool twoFingersMove(GiView view, GiGestureState gestureState, float x1, float y1, float x2, float y2, bool switchGesture) {
-    bool ret = touchvgcsPINVOKE.GiCoreView_twoFingersMove__SWIG_0(swigCPtr, GiView.getCPtr(view), (int)gestureState, x1, y1, x2, y2, switchGesture);
+  public bool twoFingersMove(GiView view, GiGestureState state, float x1, float y1, float x2, float y2, bool switchGesture) {
+    bool ret = touchvgcsPINVOKE.GiCoreView_twoFingersMove__SWIG_0(swigCPtr, GiView.getCPtr(view), (int)state, x1, y1, x2, y2, switchGesture);
     return ret;
   }
 
-  public bool twoFingersMove(GiView view, GiGestureState gestureState, float x1, float y1, float x2, float y2) {
-    bool ret = touchvgcsPINVOKE.GiCoreView_twoFingersMove__SWIG_1(swigCPtr, GiView.getCPtr(view), (int)gestureState, x1, y1, x2, y2);
+  public bool twoFingersMove(GiView view, GiGestureState state, float x1, float y1, float x2, float y2) {
+    bool ret = touchvgcsPINVOKE.GiCoreView_twoFingersMove__SWIG_1(swigCPtr, GiView.getCPtr(view), (int)state, x1, y1, x2, y2);
     return ret;
   }
 
@@ -157,16 +157,6 @@ public class GiCoreView : IDisposable {
 
   public bool setContent(string content) {
     bool ret = touchvgcsPINVOKE.GiCoreView_setContent(swigCPtr, content);
-    return ret;
-  }
-
-  public bool loadShapes(MgStorage s) {
-    bool ret = touchvgcsPINVOKE.GiCoreView_loadShapes(swigCPtr, MgStorage.getCPtr(s));
-    return ret;
-  }
-
-  public bool saveShapes(MgStorage s) {
-    bool ret = touchvgcsPINVOKE.GiCoreView_saveShapes(swigCPtr, MgStorage.getCPtr(s));
     return ret;
   }
 

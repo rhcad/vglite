@@ -79,20 +79,20 @@ public class GiCoreView {
     touchvgJNI.GiCoreView_onSize(swigCPtr, this, GiView.getCPtr(view), view, w, h);
   }
 
-  public boolean onGesture(GiView view, GiGestureType gestureType, GiGestureState gestureState, float x, float y, boolean switchGesture) {
-    return touchvgJNI.GiCoreView_onGesture__SWIG_0(swigCPtr, this, GiView.getCPtr(view), view, gestureType.swigValue(), gestureState.swigValue(), x, y, switchGesture);
+  public boolean onGesture(GiView view, GiGestureType type, GiGestureState state, float x, float y, boolean switchGesture) {
+    return touchvgJNI.GiCoreView_onGesture__SWIG_0(swigCPtr, this, GiView.getCPtr(view), view, type.swigValue(), state.swigValue(), x, y, switchGesture);
   }
 
-  public boolean onGesture(GiView view, GiGestureType gestureType, GiGestureState gestureState, float x, float y) {
-    return touchvgJNI.GiCoreView_onGesture__SWIG_1(swigCPtr, this, GiView.getCPtr(view), view, gestureType.swigValue(), gestureState.swigValue(), x, y);
+  public boolean onGesture(GiView view, GiGestureType type, GiGestureState state, float x, float y) {
+    return touchvgJNI.GiCoreView_onGesture__SWIG_1(swigCPtr, this, GiView.getCPtr(view), view, type.swigValue(), state.swigValue(), x, y);
   }
 
-  public boolean twoFingersMove(GiView view, GiGestureState gestureState, float x1, float y1, float x2, float y2, boolean switchGesture) {
-    return touchvgJNI.GiCoreView_twoFingersMove__SWIG_0(swigCPtr, this, GiView.getCPtr(view), view, gestureState.swigValue(), x1, y1, x2, y2, switchGesture);
+  public boolean twoFingersMove(GiView view, GiGestureState state, float x1, float y1, float x2, float y2, boolean switchGesture) {
+    return touchvgJNI.GiCoreView_twoFingersMove__SWIG_0(swigCPtr, this, GiView.getCPtr(view), view, state.swigValue(), x1, y1, x2, y2, switchGesture);
   }
 
-  public boolean twoFingersMove(GiView view, GiGestureState gestureState, float x1, float y1, float x2, float y2) {
-    return touchvgJNI.GiCoreView_twoFingersMove__SWIG_1(swigCPtr, this, GiView.getCPtr(view), view, gestureState.swigValue(), x1, y1, x2, y2);
+  public boolean twoFingersMove(GiView view, GiGestureState state, float x1, float y1, float x2, float y2) {
+    return touchvgJNI.GiCoreView_twoFingersMove__SWIG_1(swigCPtr, this, GiView.getCPtr(view), view, state.swigValue(), x1, y1, x2, y2);
   }
 
   public String command() {
@@ -137,14 +137,6 @@ public class GiCoreView {
 
   public boolean setContent(String content) {
     return touchvgJNI.GiCoreView_setContent(swigCPtr, this, content);
-  }
-
-  public boolean loadShapes(MgStorage s) {
-    return touchvgJNI.GiCoreView_loadShapes(swigCPtr, this, MgStorage.getCPtr(s), s);
-  }
-
-  public boolean saveShapes(MgStorage s) {
-    return touchvgJNI.GiCoreView_saveShapes(swigCPtr, this, MgStorage.getCPtr(s), s);
   }
 
   public boolean zoomToExtent() {

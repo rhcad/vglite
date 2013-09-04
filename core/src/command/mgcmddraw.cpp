@@ -50,13 +50,13 @@ bool MgCommandDraw::_initialize(MgShape* (*creator)(), const MgMotion* sender)
     return true;
 }
 
-MgShape* MgCommandDraw::_addshape(const MgMotion* sender, MgShape* shape)
+MgShape* MgCommandDraw::_addshape(const MgMotion* sender, MgShape* shape, bool autolock)
 {
-    MgShapesLock locker(MgShapesLock::Add, sender->view->doc());
+    MgShapesLock locker(MgShapesLock::Add, autolock ? sender->view->doc() : NULL);
     shape = shape ? shape : m_shape;
     MgShape* newsp = NULL;
     
-    if (locker.locked() && sender->view->shapeWillAdded(shape)) {
+    if ((locker.locked() || !autolock) && sender->view->shapeWillAdded(shape)) {
         newsp = sender->view->shapes()->addShape(*shape);
         sender->view->shapeAdded(newsp);
         g_newShapeID = newsp->getID();

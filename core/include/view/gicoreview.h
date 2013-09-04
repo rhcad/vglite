@@ -10,7 +10,6 @@
 class GiView;
 class GiCanvas;
 class GiCoreViewImpl;
-struct MgStorage;
 
 //! 内核视图分发器类
 /*! 本对象拥有图形文档对象，负责显示和手势动作的分发。
@@ -53,11 +52,11 @@ public:
     void onSize(GiView* view, int w, int h);
     
     //! 传递单指触摸手势消息
-    bool onGesture(GiView* view, GiGestureType gestureType,
-            GiGestureState gestureState, float x, float y, bool switchGesture = false);
+    bool onGesture(GiView* view, GiGestureType type,
+            GiGestureState state, float x, float y, bool switchGesture = false);
 
     //! 传递双指移动手势(可放缩旋转)
-    bool twoFingersMove(GiView* view, GiGestureState gestureState,
+    bool twoFingersMove(GiView* view, GiGestureState state,
             float x1, float y1, float x2, float y2, bool switchGesture = false);
     
     //! 返回当前命令名称
@@ -89,12 +88,6 @@ public:
 
     //! 从JSON内容中加载图形
     bool setContent(const char* content);
-
-    //! 从指定的数据来源中加载图形
-    bool loadShapes(MgStorage* s);
-    
-    //! 保存图形到指定的数据来源中
-    bool saveShapes(MgStorage* s);
     
     //! 放缩显示全部内容
     bool zoomToExtent();

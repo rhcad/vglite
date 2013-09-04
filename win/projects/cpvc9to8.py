@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Function:   Copy *_vc90.vcproj to *_vc80.vcproj.
+Function:   Copy *_vc9.vcproj to *_vc8.vcproj.
 Creator:    Zhang Yungui <rhcad@hotmail.com>
 Date:       2011.11.14
 """
@@ -18,9 +18,9 @@ def copyvcfiles(dir, pairs):
         srcfile = os.path.join(dir, fn)
         if os.path.isdir(srcfile):
             copyvcfiles(srcfile, pairs)
-        elif (fn.find("_vc90.vcproj") > 0 or fn.find("_vc90.sln") > 0) \
+        elif (fn.find("_vc9.vcproj") > 0 or fn.find("_vc9.sln") > 0) \
             and fn.find(".user") < 0:
-            destfile = srcfile.replace("_vc90.", "_vc80.")
+            destfile = srcfile.replace("_vc9.", "_vc8.")
             oldtext = open(destfile).read() if os.path.exists(destfile) else ''
             text = multireplace(open(srcfile).read(), pairs)
             if text != oldtext:
@@ -30,5 +30,5 @@ def copyvcfiles(dir, pairs):
 if __name__=="__main__":
     pairs = { "Format Version 10.00" : "Format Version 9.00",   \
         "Visual Studio 2008" : "Visual Studio 2005",    \
-        "_vc90." : "_vc80.", "Version=\"9.00" : "Version=\"8.00" }
+        "_vc9." : "_vc8.", "Version=\"9.00" : "Version=\"8.00" }
     copyvcfiles(os.path.abspath('..'), pairs)
