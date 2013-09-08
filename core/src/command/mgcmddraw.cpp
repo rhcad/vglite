@@ -104,7 +104,7 @@ bool MgCommandDraw::click(const MgMotion* sender)
 
 bool MgCommandDraw::_click(const MgMotion* sender)
 {
-    Box2d limits(sender->pointM, mgDisplayMmToModel(10, sender), 0);
+    Box2d limits(sender->pointM, displayMmToModel(10, sender), 0);
     Point2d nearpt;
     MgShape* shape = sender->view->shapes()->hitTest(limits, nearpt);
     
@@ -213,12 +213,12 @@ bool MgCommandDraw::_touchMovedStep(const MgMotion* sender)
 bool MgCommandDraw::_touchEndedStep(const MgMotion* sender)
 {
     Point2d pnt(snapPoint(sender));
-    Tol tol(mgDisplayMmToModel(2.f, sender));
+    Tol tol(displayMmToModel(2.f, sender));
     
     setStepPoint(m_step, pnt);
     dynshape()->shape()->update();
     
-    if (pnt.isEqualTo(dynshape()->shape()->getPoint(m_step - 1), tol)) {
+    if (!pnt.isEqualTo(dynshape()->shape()->getPoint(m_step - 1), tol)) {
         m_step++;
         if (m_step >= getMaxStep()) {
             if (!dynshape()->shape()->getExtent().isEmpty(tol, false)) {

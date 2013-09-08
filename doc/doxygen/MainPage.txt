@@ -1,8 +1,6 @@
 /*!
 	\defgroup GEOM_CLASS 几何对象类
-	\defgroup GEOMAPI_BASIC 基本计算函数
-	\defgroup GEOMAPI_LNREL 图形位置函数
-	\defgroup GEOMAPI_CURVE 曲线计算函数
+	\defgroup GEOMAPI 几何计算函数
 	\defgroup GRAPH_INTERFACE 图形接口类
 	\defgroup CORE_SHAPE 图形实体类
 	\defgroup CORE_COMMAND 交互命令类
@@ -32,14 +30,8 @@
 	- \ref GEOM_CLASS "几何对象类" \n
 		数学几何库的几何对象类，包含矢量、坐标、变换矩阵、矩形框等类。\n
 		
-	- \ref GEOMAPI_BASIC "基本计算函数" \n
-		数学几何库的基本计算功能函数。\n
-		
-	- \ref GEOMAPI_LNREL "图形位置函数" \n
-		数学几何库的点、直线、曲线、多边形的位置关系函数。\n
-		
-	- \ref GEOMAPI_CURVE "曲线计算函数" \n
-		数学几何库的曲线拟合、转换、绑定框等计算函数。\n
+	- \ref GEOMAPI "几何计算函数" \n
+		数学几何库的计算功能函数。\n
 		
 	- \ref GRAPH_INTERFACE "图形接口类" \n
 		图形接口库的各种显示类、符号类，用于屏幕显示、打印。\n

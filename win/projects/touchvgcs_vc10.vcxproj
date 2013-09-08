@@ -65,16 +65,12 @@
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\build\$(Configuration)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\build\$(Configuration)\obj\touchvg_csharp\</IntDir>
-    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\build\$(Configuration)64\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\build\$(Configuration)64\obj\touchvg_csharp\</IntDir>
-    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\build\$(Configuration)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\build\$(Configuration)\obj\touchvg_csharp\</IntDir>
-    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\build\$(Configuration)64\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\build\$(Configuration)64\obj\touchvg_csharp\</IntDir>
-    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
     <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
@@ -91,7 +87,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\core\include\callback;..\..\core\include\tradecmd;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\core\include\callback;..\..\core\include\tradecmd;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\storage;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;TOUCHVG_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -123,7 +119,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\core\include\callback;..\..\core\include\tradecmd;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\core\include\callback;..\..\core\include\tradecmd;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\storage;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_WIN32;_WIN64;NDEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level4</WarningLevel>
@@ -146,13 +142,13 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>..\..\core\include\callback;..\..\core\include\tradecmd;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\core\include\callback;..\..\core\include\tradecmd;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\storage;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;TOUCHVG_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level4</WarningLevel>
-      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <DisableSpecificWarnings>4819;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
@@ -181,11 +177,11 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>..\..\core\include\callback;..\..\core\include\tradecmd;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\core\include\callback;..\..\core\include\tradecmd;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\storage;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_WIN32;_WIN64;_DEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level4</WarningLevel>
-      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <DisableSpecificWarnings>4819;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
@@ -231,11 +227,12 @@ swig.exe -c++ -csharp -namespace "touchvg.core" -module touchvgcs -I"$(ProjectDi
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\swig\touchvg_csharp_wrap.cpp" />
     <ClCompile Include="..\..\core\src\view\GcGraphView.cpp" />
     <ClCompile Include="..\..\core\src\view\GcMagnifierView.cpp" />
     <ClCompile Include="..\..\core\src\view\GcShapeDoc.cpp" />
     <ClCompile Include="..\..\core\src\view\gicoreview.cpp" />
+    <ClCompile Include="..\..\core\src\view\gimousehelper.cpp" />
+    <ClCompile Include="..\src\swig\touchvg_csharp_wrap.cpp" />
     <ClCompile Include="..\..\core\src\test\RandomShape.cpp" />
     <ClCompile Include="..\..\core\src\test\testcanvas.cpp" />
     <ClCompile Include="..\..\core\src\command\mgactions.cpp" />
@@ -283,6 +280,10 @@ swig.exe -c++ -csharp -namespace "touchvg.core" -module touchvgcs -I"$(ProjectDi
   <ItemGroup>
     <ClInclude Include="..\..\core\include\view\gicoreview.h" />
     <ClInclude Include="..\..\core\include\view\gigesture.h" />
+    <ClInclude Include="..\..\core\src\view\GcBaseView.h" />
+    <ClInclude Include="..\..\core\src\view\GcGraphView.h" />
+    <ClInclude Include="..\..\core\src\view\GcMagnifierView.h" />
+    <ClInclude Include="..\..\core\src\view\GcShapeDoc.h" />
     <ClInclude Include="..\src\swig\touchvg_csharp_wrap.h" />
     <ClInclude Include="..\..\core\include\callback\gicanvas.h" />
     <ClInclude Include="..\..\core\include\callback\giview.h" />

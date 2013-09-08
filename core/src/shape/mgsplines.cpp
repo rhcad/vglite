@@ -41,14 +41,14 @@ void MgSplines::_update()
         _knotvs = new Vector2d[_bzcount];
     }
 
-    mgCubicSplines(_count, _points, _knotvs, isClosed() ? kMgCubicLoop : 0);
-    mgCubicSplinesBox(_extent, _count, _points, _knotvs, isClosed());
+    mgcurv::cubicSplines(_count, _points, _knotvs, isClosed() ? mgcurv::cubicLoop : 0);
+    mgnear::cubicSplinesBox(_extent, _count, _points, _knotvs, isClosed());
 }
 
 float MgSplines::_hitTest(const Point2d& pt, float tol, 
                           Point2d& nearpt, int& segment) const
 {
-    return mgCubicSplinesHit(_count, _points, _knotvs, isClosed(), 
+    return mgnear::cubicSplinesHit(_count, _points, _knotvs, isClosed(), 
         pt, tol, nearpt, segment);
 }
 
@@ -56,7 +56,7 @@ bool MgSplines::_hitTestBox(const Box2d& rect) const
 {
     if (!__super::_hitTestBox(rect))
         return false;
-    return mgCubicSplinesIntersectBox(rect, _count, _points, _knotvs, isClosed());
+    return mgnear::cubicSplinesIntersectBox(rect, _count, _points, _knotvs, isClosed());
 }
 
 bool MgSplines::_draw(int mode, GiGraphics& gs, const GiContext& ctx, int segment) const
@@ -72,7 +72,7 @@ bool MgSplines::_draw(int mode, GiGraphics& gs, const GiContext& ctx, int segmen
 
     if (mode > 0 && segment >= 0) {
         Point2d pts[4];
-        mgCubicSplineToBezier(_count, _points, _knotvs, segment, pts);
+        mgcurv::cubicSplineToBezier(_count, _points, _knotvs, segment, pts);
 
         GiContext ctxseg(ctx);
         ctxseg.setLineWidth(ctx.getLineWidth() - 3, ctx.isAutoScale());
@@ -106,8 +106,8 @@ void MgSplines::smooth(float tol)
             points[n + j] = _points[i + j];
         
         // 新曲线：indexMap[0], indexMap[1], ..., indexMap[n], i+1, i+2, ..., _count-1
-        mgCubicSplines(n + _count - i, points, knotvs, isClosed() ? kMgCubicLoop : 0);
-        dist = mgCubicSplinesHit(n + _count - i, points, knotvs, isClosed(), _points[i],
+        mgcurv::cubicSplines(n + _count - i, points, knotvs, isClosed() ? mgcurv::cubicLoop : 0);
+        dist = mgnear::cubicSplinesHit(n + _count - i, points, knotvs, isClosed(), _points[i],
                                  tol * 2, nearpt, segment); // 检查第i点到新曲线的距离
         
         bool removed = true;

@@ -35,7 +35,7 @@ bool MgCmdDrawSplines::draw(const MgMotion* sender, GiGraphics* gs)
 {
     if (getStep() > 0 && !m_freehand) {
         GiContext ctx(0, GiColor(64, 128, 64, 172), kGiLineSolid, GiColor(0, 64, 64, 128));
-        float radius = gs->xf().displayToModel(4);
+        float radius = displayMmToModel(0.8f, gs);
         
         for (int i = 1, n = dynshape()->shape()->getPointCount(); i < 6 && n >= i; i++) {
             gs->drawEllipse(&ctx, dynshape()->shape()->getPoint(n - i), radius);
@@ -101,10 +101,10 @@ bool MgCmdDrawSplines::touchEnded(const MgMotion* sender)
         dynshape()->shape()->setPoint(m_step, sender->pointM);
         dynshape()->shape()->update();
         
-        Tol tol(mgDisplayMmToModel(1.f, sender));
+        Tol tol(displayMmToModel(1.f, sender));
         if (m_step > 0 && !dynshape()->shape()->getExtent().isEmpty(tol, false)) {
             //MgSplines* splines = (MgSplines*)dynshape()->shape();
-            //splines->smooth(mgLineHalfWidthModel(m_shape, sender) + mgDisplayMmToModel(1, sender));
+            //splines->smooth(lineHalfWidth(m_shape, sender) + displayMmToModel(1, sender));
             _addshape(sender);
         }
         else {
@@ -116,7 +116,7 @@ bool MgCmdDrawSplines::touchEnded(const MgMotion* sender)
         MgBaseLines* lines = (MgBaseLines*)dynshape()->shape();
         float dist = lines->endPoint().distanceTo(dynshape()->shape()->getPoint(0));
 
-        while (m_step > 1 && dist < mgDisplayMmToModel(1.f, sender)) {
+        while (m_step > 1 && dist < displayMmToModel(1.f, sender)) {
             lines->setClosed(true);
             lines->removePoint(m_step--);
             dist = lines->endPoint().distanceTo(dynshape()->shape()->getPoint(0));
@@ -126,7 +126,7 @@ bool MgCmdDrawSplines::touchEnded(const MgMotion* sender)
             _delayClear();
         }
         else if (sender->startPtM.distanceTo(sender->pointM) >
-                mgDisplayMmToModel(5.f, sender)) {
+                displayMmToModel(5.f, sender)) {
             m_step++;
             if (m_step >= dynshape()->shape()->getPointCount()) {
                 lines->addPoint(lines->endPoint());
@@ -145,7 +145,7 @@ bool MgCmdDrawSplines::doubleClick(const MgMotion* sender)
             MgBaseLines* lines = (MgBaseLines*)dynshape()->shape();
             float dist = lines->endPoint().distanceTo(dynshape()->shape()->getPoint(m_step - 1));
 
-            if (dist < mgDisplayMmToModel(2.f, sender)) {   // 最后两点重合
+            if (dist < displayMmToModel(2.f, sender)) {   // 最后两点重合
                 lines->removePoint(m_step--);               // 去掉最末点
             }
         }
@@ -166,7 +166,7 @@ bool MgCmdDrawSplines::doubleClick(const MgMotion* sender)
         }
         
         if (sender->pointM.distanceTo(sender->startPtM) > vec.length()) {
-        	line.shape()->setPoint(0, sender->startPtM);
+            line.shape()->setPoint(0, sender->startPtM);
             line.shape()->setPoint(1, sender->startPtM + vec);
             if (sender->view->shapeWillAdded(&line)) {
                 _addshape(sender, &line);
@@ -194,7 +194,7 @@ bool MgCmdDrawSplines::canAddPoint(const MgMotion*, bool ended)
     
     //if (m_step > 0) {
     //    float dist = sender->pointM.distanceTo(dynshape()->shape()->getPoint(m_step - 1));
-    //    if (dist < mgDisplayMmToModel(ended ? 0.2f : 0.5f, sender))
+    //    if (dist < displayMmToModel(ended ? 0.2f : 0.5f, sender))
     //        return false;
     //}
     
@@ -208,7 +208,7 @@ bool MgCmdDrawSplines::click(const MgMotion* sender)
         Point2d pt (sender->pointM);
         
         if (sender->point.distanceTo(sender->startPt) < 1.f) {
-        	pt = (sender->point + Vector2d(1.f, 1.f)) * sender->view->xform()->displayToModel();
+            pt = (sender->point + Vector2d(1.f, 1.f)) * sender->view->xform()->displayToModel();
         }
         line.shape()->setPoint(0, sender->startPtM);
         line.shape()->setPoint(1, pt);

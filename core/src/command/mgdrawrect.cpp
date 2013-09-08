@@ -55,7 +55,7 @@ bool MgCmdDrawRect::touchEnded(const MgMotion* sender)
     shape->setRect2P(pt1, pt2);
     dynshape()->shape()->update();
 
-    float minDist = mgDisplayMmToModel(5, sender);
+    float minDist = displayMmToModel(5, sender);
 
     if (shape->getWidth() > minDist && shape->getHeight() > minDist) {
         addRectShape(sender);
@@ -151,7 +151,7 @@ bool MgCmdDrawGrid::touchEnded(const MgMotion* sender)
         return MgCmdDrawRect::touchEnded(sender);
     }
     
-    if ( ((MgGrid*)dynshape()->shape())->valid(mgDisplayMmToModel(1, sender)) ) {
+    if ( ((MgGrid*)dynshape()->shape())->valid(displayMmToModel(1, sender)) ) {
         dynshape()->context()->setNoFillColor();
         _addshape(sender);
         _delayClear();

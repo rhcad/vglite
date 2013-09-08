@@ -331,6 +331,7 @@ namespace Swig {
 #include "gicanvas.h"
 #include "giview.h"
 #include "gicoreview.h"
+#include "gimousehelper.h"
 #include "testcanvas.h"
 
 
@@ -1163,13 +1164,23 @@ SWIGEXPORT void SWIGSTDCALL CSharp_GiView_director_connect(void *objarg, SwigDir
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_new_GiCoreView(void * jarg1) {
+SWIGEXPORT void * SWIGSTDCALL CSharp_new_GiCoreView__SWIG_0(void * jarg1) {
   void * jresult ;
   GiCoreView *arg1 = (GiCoreView *) 0 ;
   GiCoreView *result = 0 ;
   
   arg1 = (GiCoreView *)jarg1; 
   result = (GiCoreView *)new GiCoreView(arg1);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_new_GiCoreView__SWIG_1() {
+  void * jresult ;
+  GiCoreView *result = 0 ;
+  
+  result = (GiCoreView *)new GiCoreView();
   jresult = (void *)result; 
   return jresult;
 }
@@ -1736,6 +1747,130 @@ SWIGEXPORT void SWIGSTDCALL CSharp_delete_TestCanvas(void * jarg1) {
   TestCanvas *arg1 = (TestCanvas *) 0 ;
   
   arg1 = (TestCanvas *)jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_new_GiMouseHelper(void * jarg1, void * jarg2) {
+  void * jresult ;
+  GiView *arg1 = (GiView *) 0 ;
+  GiCoreView *arg2 = (GiCoreView *) 0 ;
+  GiMouseHelper *result = 0 ;
+  
+  arg1 = (GiView *)jarg1; 
+  arg2 = (GiCoreView *)jarg2; 
+  result = (GiMouseHelper *)new GiMouseHelper(arg1,arg2);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_GiMouseHelper_onLButtonDown(void * jarg1, float jarg2, float jarg3, unsigned int jarg4, unsigned int jarg5) {
+  unsigned int jresult ;
+  GiMouseHelper *arg1 = (GiMouseHelper *) 0 ;
+  float arg2 ;
+  float arg3 ;
+  bool arg4 ;
+  bool arg5 ;
+  bool result;
+  
+  arg1 = (GiMouseHelper *)jarg1; 
+  arg2 = (float)jarg2; 
+  arg3 = (float)jarg3; 
+  arg4 = jarg4 ? true : false; 
+  arg5 = jarg5 ? true : false; 
+  result = (bool)(arg1)->onLButtonDown(arg2,arg3,arg4,arg5);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_GiMouseHelper_onRButtonDown(void * jarg1, float jarg2, float jarg3) {
+  unsigned int jresult ;
+  GiMouseHelper *arg1 = (GiMouseHelper *) 0 ;
+  float arg2 ;
+  float arg3 ;
+  bool result;
+  
+  arg1 = (GiMouseHelper *)jarg1; 
+  arg2 = (float)jarg2; 
+  arg3 = (float)jarg3; 
+  result = (bool)(arg1)->onRButtonDown(arg2,arg3);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_GiMouseHelper_onMouseUp(void * jarg1, float jarg2, float jarg3) {
+  unsigned int jresult ;
+  GiMouseHelper *arg1 = (GiMouseHelper *) 0 ;
+  float arg2 ;
+  float arg3 ;
+  bool result;
+  
+  arg1 = (GiMouseHelper *)jarg1; 
+  arg2 = (float)jarg2; 
+  arg3 = (float)jarg3; 
+  result = (bool)(arg1)->onMouseUp(arg2,arg3);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_GiMouseHelper_onMouseMove(void * jarg1, float jarg2, float jarg3, unsigned int jarg4, unsigned int jarg5) {
+  unsigned int jresult ;
+  GiMouseHelper *arg1 = (GiMouseHelper *) 0 ;
+  float arg2 ;
+  float arg3 ;
+  bool arg4 ;
+  bool arg5 ;
+  bool result;
+  
+  arg1 = (GiMouseHelper *)jarg1; 
+  arg2 = (float)jarg2; 
+  arg3 = (float)jarg3; 
+  arg4 = jarg4 ? true : false; 
+  arg5 = jarg5 ? true : false; 
+  result = (bool)(arg1)->onMouseMove(arg2,arg3,arg4,arg5);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_GiMouseHelper_onLButtonDblClk(void * jarg1, float jarg2, float jarg3) {
+  unsigned int jresult ;
+  GiMouseHelper *arg1 = (GiMouseHelper *) 0 ;
+  float arg2 ;
+  float arg3 ;
+  bool result;
+  
+  arg1 = (GiMouseHelper *)jarg1; 
+  arg2 = (float)jarg2; 
+  arg3 = (float)jarg3; 
+  result = (bool)(arg1)->onLButtonDblClk(arg2,arg3);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_GiMouseHelper_onKeyDown(void * jarg1, int jarg2) {
+  unsigned int jresult ;
+  GiMouseHelper *arg1 = (GiMouseHelper *) 0 ;
+  int arg2 ;
+  bool result;
+  
+  arg1 = (GiMouseHelper *)jarg1; 
+  arg2 = (int)jarg2; 
+  result = (bool)(arg1)->onKeyDown(arg2);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_delete_GiMouseHelper(void * jarg1) {
+  GiMouseHelper *arg1 = (GiMouseHelper *) 0 ;
+  
+  arg1 = (GiMouseHelper *)jarg1; 
   delete arg1;
 }
 

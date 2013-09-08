@@ -58,14 +58,14 @@ float MgRoundRect::_hitTest(const Point2d& pt, float tol,
 
     if (isOrtho())
     {
-        dist = mgRoundRectHit(Box2d(_points[0], _points[2]), _rx, _ry, pt, tol, nearpt, segment);
+        dist = mgnear::roundRectHit(Box2d(_points[0], _points[2]), _rx, _ry, pt, tol, nearpt, segment);
     }
     else
     {
         Matrix2d mat(Matrix2d::rotation(getAngle(), getCenter()));
         Box2d rect(Box2d(pt, 2 * tol, 2 * tol) * mat.inverse());
 
-        dist = mgRoundRectHit(getRect(), _rx, _ry, 
+        dist = mgnear::roundRectHit(getRect(), _rx, _ry, 
             rect.center(), rect.width(), nearpt, segment);
         if (dist < 1e10)
             nearpt *= mat;

@@ -12,6 +12,7 @@ USE_PERL     :=$(shell echo $(SWIG_TYPE)|grep -i perl)
 USE_JAVA     :=$(shell echo $(SWIG_TYPE)|grep -i java)
 USE_CSHARP   :=$(shell echo $(SWIG_TYPE)|grep -i csharp)
 USE_RUBY     :=$(shell echo $(SWIG_TYPE)|grep -i ruby)
+USE_PHP      :=$(shell echo $(SWIG_TYPE)|grep -i php)
 
 # The extension of the target file to compile.
 ifdef IS_WIN
@@ -77,10 +78,23 @@ WRAPTARGET    =$(PROJNAME).rb
 CPPFLAGS     += -DUSE_RUBY
 endif
 
+ifdef USE_PHP
+SWIG_INCLUDE ?=$(PHP_INCLUDE)
+SWIG_LIBPATH :=$(PHP_LIB)
+SWIG_LIBFILE :=$(PHP_LIBFILE)
+SWIG_TESTEXT  =.rb
+WRAPTARGET    =$(PROJNAME).php
+CPPFLAGS     += -DUSE_PHP
+endif
+
 ifdef SWIG_INCLUDE
 INCLUDES     += -I"$(SWIG_INCLUDE)"
 ifdef IS_WIN
 INCLUDES     += -I"$(SWIG_INCLUDE)\win32"
+endif
+ifdef USE_PHP
+INCLUDES     += -I"$(SWIG_INCLUDE)/main" -I"$(SWIG_INCLUDE)/TSRM" -I"$(SWIG_INCLUDE)/Zend"
+INCLUDES     += -I"$(INSTALL_DIR)/$(SWIG_TYPE)"
 endif
 endif
 ifdef SWIG_LIBPATH

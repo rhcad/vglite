@@ -45,6 +45,15 @@ void MgCmdArc3P::setStepPoint(int step, const Point2d& pt)
     }
 }
 
+bool MgCmdArcCSE::draw(const MgMotion* sender, GiGraphics* gs)
+{
+    if (m_step == 2 && sender->dragging()) {
+        GiContext ctx(0, GiColor(0, 126, 0, 64), kGiLineDot);
+        gs->drawLine(&ctx, _points[0], _points[2]);
+    }
+    return MgCmdArc3P::draw(sender, gs);
+}
+
 void MgCmdArcCSE::setStepPoint(int step, const Point2d& pt)
 {
     MgArc* arc = (MgArc*)dynshape()->shape();

@@ -51,7 +51,7 @@ const float  _FLT_MAX  = 3.402823466e+38F;          //!< 单精度浮点数最�
 
 //! 判断一个浮点数是否可以认为是零
 /*! 判断两个浮点数是否相等不能直接比较相等，应该用mgIsZero(d1-d2)判断
-    \ingroup GEOMAPI_BASIC
+    \ingroup GEOMAPI
     \see _MGZERO, mgEquals
 */
 template<class _T> inline bool mgIsZero(_T v)
@@ -61,7 +61,7 @@ template<class _T> inline bool mgIsZero(_T v)
 
 //! 判断两个浮点数是否相等
 /*!
-    \ingroup GEOMAPI_BASIC
+    \ingroup GEOMAPI
     \see mgIsZero
 */
 template<class _T> inline bool mgEquals(_T v1, _T v2)
@@ -71,7 +71,7 @@ template<class _T> inline bool mgEquals(_T v1, _T v2)
 
 //! 返回两个同类型的数中较小的数的引用
 /*!
-    \ingroup GEOMAPI_BASIC
+    \ingroup GEOMAPI
 */
 template<class _T> inline
 const _T& mgMin(const _T& t1, const _T& t2)
@@ -81,7 +81,7 @@ const _T& mgMin(const _T& t1, const _T& t2)
 
 //! 返回两个同类型的数中较大的数的引用
 /*!
-    \ingroup GEOMAPI_BASIC
+    \ingroup GEOMAPI
 */
 template<class _T> inline
 const _T& mgMax(const _T& t1, const _T& t2)
@@ -91,7 +91,7 @@ const _T& mgMax(const _T& t1, const _T& t2)
 
 //! 交换两个同类型的数
 /*!
-    \ingroup GEOMAPI_BASIC
+    \ingroup GEOMAPI
 */
 template<class _T> inline
 void mgSwap(_T& t1, _T& t2)
@@ -101,7 +101,7 @@ void mgSwap(_T& t1, _T& t2)
 
 //! 求直角三角形的斜边长度
 /*! 不用math.h中的hypot函数是因为在不溢出的情况下该函数执行快些
-    \ingroup GEOMAPI_BASIC
+    \ingroup GEOMAPI
 */
 template<class _T> inline
 _T mgHypot(_T x, _T y)
@@ -111,18 +111,17 @@ _T mgHypot(_T x, _T y)
 
 //! 求两个数的平方和
 /*!
-    \ingroup GEOMAPI_BASIC
+    \ingroup GEOMAPI
 */
-template<class _T> inline
-_T mgSquare(_T x, _T y)
+template<class _T> inline _T mgSquare(_T x, _T y)
 {
     return (x*x + y*y);
 }
 
 //! 对一个浮点数四舍五入到整数
 /*! 对负数是按其绝对值进行舍入的
-    \ingroup GEOMAPI_BASIC
-    \see mgRoundReal
+    \ingroup GEOMAPI
+    \see mgbase::roundReal
 */
 inline int mgRound(float d)
 {

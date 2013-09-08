@@ -55,7 +55,7 @@ bool MgCmdDrawLines::touchMoved(const MgMotion* sender)
     dynshape()->shape()->setPoint(m_step, pnt);
     
     if (needCheckClosed()) {
-        float distmin = mgDisplayMmToModel(2.f, sender);
+        float distmin = displayMmToModel(2.f, sender);
         bool closed = m_step > 2 && pnt.distanceTo(dynshape()->shape()->getPoint(0)) < distmin;
         ((MgBaseLines*)dynshape()->shape())->setClosed(closed);
     }
@@ -68,7 +68,7 @@ bool MgCmdDrawLines::touchMoved(const MgMotion* sender)
 bool MgCmdDrawLines::touchEnded(const MgMotion* sender)
 {
     Point2d pnt(snapPoint(sender));
-    float distmin = mgDisplayMmToModel(2.f, sender);
+    float distmin = displayMmToModel(2.f, sender);
     bool closed = false;
     
     dynshape()->shape()->setPoint(m_step, pnt);
@@ -100,7 +100,7 @@ bool MgCmdDrawLines::touchEnded(const MgMotion* sender)
 bool MgCmdDrawLines::doubleClick(const MgMotion* sender)
 {
     if (m_step > 1) {
-        while (m_step > 1 && mgDisplayMmToModel(3.f, sender) >
+        while (m_step > 1 && displayMmToModel(3.f, sender) >
             sender->pointM.distanceTo(dynshape()->shape()->getPoint(m_step))) {
             ((MgBaseLines*)dynshape()->shape())->removePoint(m_step--);
         }
@@ -163,14 +163,6 @@ bool MgCmdDrawFreeLines::undo(const MgMotion* sender)
 
 bool MgCmdDrawFreeLines::draw(const MgMotion* sender, GiGraphics* gs)
 {
-    /*if (getStep() > 1) {
-        GiContext ctxaux(0, GiColor(64, 64, 64, 128), kGiLineSolid, GiColor(0, 64, 64, 168));
-        float radius = gs->xf().displayToModel(3);
-        
-        for (int i = 0; i < dynshape()->shape()->getPointCount(); i++) {
-            gs->drawEllipse(&ctxaux, dynshape()->shape()->getPoint(i), radius);
-        }
-    }*/
     return MgCommandDraw::draw(sender, gs);
 }
 
@@ -189,7 +181,7 @@ bool MgCmdDrawFreeLines::touchMoved(const MgMotion* sender)
 {
     MgBaseLines* lines = (MgBaseLines*)dynshape()->shape();
     
-    float closelen  = mgLineHalfWidthModel(dynshape(), sender) + mgDisplayMmToModel(5, sender);
+    float closelen  = lineHalfWidth(dynshape(), sender) + displayMmToModel(5, sender);
     float closedist = sender->pointM.distanceTo(dynshape()->shape()->getPoint(0));
     bool  closed    = (m_step > 2 && closedist < closelen
         && dynshape()->shape()->getExtent().width() > closedist * 1.5f
@@ -220,7 +212,7 @@ bool MgCmdDrawFreeLines::touchEnded(const MgMotion* sender)
 {
     MgBaseLines* lines = (MgBaseLines*)dynshape()->shape();
     
-    float closelen  = mgLineHalfWidthModel(dynshape(), sender) + mgDisplayMmToModel(5, sender);
+    float closelen  = lineHalfWidth(dynshape(), sender) + displayMmToModel(5, sender);
     float closedist = sender->pointM.distanceTo(dynshape()->shape()->getPoint(0));
     bool  closed    = (m_step > 2 && closedist < closelen
         && dynshape()->shape()->getExtent().width() > closedist * 1.5f
@@ -253,7 +245,7 @@ bool MgCmdDrawFreeLines::touchEnded(const MgMotion* sender)
 
 bool MgCmdDrawFreeLines::canAddPoint(const MgMotion* /*sender*/, bool /*ended*/)
 {
-    /*float minDist = mgDisplayMmToModel(3, sender);
+    /*float minDist = displayMmToModel(3, sender);
     Point2d endPt  = dynshape()->shape()->getPoint(m_step - 1);
     float distToEnd = endPt.distanceTo(sender->pointM);
     float turnAngle = 90;

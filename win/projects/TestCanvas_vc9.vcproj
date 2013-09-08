@@ -61,7 +61,6 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="canvas.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(OutDir)&quot;"
 				GenerateDebugInformation="true"
@@ -136,7 +135,6 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="canvas.lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(OutDir)&quot;"
 				GenerateDebugInformation="true"
@@ -181,6 +179,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\canvas\GiGdipCanvas.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\core\src\test\testcanvas.cpp"
 				>
 			</File>
@@ -192,6 +194,10 @@
 			>
 			<File
 				RelativePath="..\..\core\include\callback\gicanvas.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\canvas\GiGdipCanvas.h"
 				>
 			</File>
 			<File

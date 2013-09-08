@@ -6,6 +6,7 @@ build
 *.aps
 *.obj
 *.*sdf
+ipch
 *.ch*
 *.o
 *.a

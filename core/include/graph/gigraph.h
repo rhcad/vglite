@@ -244,14 +244,14 @@ public:
 
 
     //! 绘制三次参数样条曲线，模型坐标或世界坐标
-    /*! 切矢量可以通过 mgCubicSplines 函数计算得到，一般先计算出切矢量供每次显示用
+    /*! 切矢量可以通过 mgcurv::cubicSplines 函数计算得到，一般先计算出切矢量供每次显示用
         \param ctx 绘图参数，忽略填充参数，为NULL时取为上一个绘图参数
         \param count 型值点的点数，至少为2
         \param knots 型值点坐标数组，元素个数为count
         \param knotvs 型值点的切矢量数组，元素个数为count
         \param modelUnit 指定的坐标尺寸是模型坐标(true)还是世界坐标(false)
         \return 是否显示成功。失败原因为参数错误或超出剪裁区域
-        \see mgCubicSplines
+        \see mgcurv::cubicSplines
         \see drawClosedSplines
     */
     bool drawSplines(const GiContext* ctx, int count,
@@ -259,14 +259,14 @@ public:
 
     //! 绘制并填充三次参数样条曲线，自动闭合
     /*! 首末型值点不必重合，本函数通过绘制从最后一个型值点到第一个型值点的曲线段而自动闭合。\n
-        切矢量可以通过 mgCubicSplines 函数计算得到，一般先计算出切矢量供每次显示用
+        切矢量可以通过 mgcurv::cubicSplines 函数计算得到，一般先计算出切矢量供每次显示用
         \param ctx 绘图参数，为NULL时取为上一个绘图参数
         \param count 型值点的点数，至少为2
         \param knots 型值点坐标数组，元素个数为count
         \param knotvs 型值点的切矢量数组，元素个数为count
         \param modelUnit 指定的坐标尺寸是模型坐标(true)还是世界坐标(false)
         \return 是否显示成功。失败原因为参数错误或超出剪裁区域
-        \see mgCubicSplines
+        \see mgcurv::cubicSplines
         \see drawSplines
     */
     bool drawClosedSplines(const GiContext* ctx, int count, 

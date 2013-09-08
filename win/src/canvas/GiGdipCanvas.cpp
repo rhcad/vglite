@@ -401,7 +401,7 @@ bool GiGdipCanvas::clipPath()
 
 void GiGdipCanvas::drawHandle(float x, float y, int)
 {
-    Bitmap* bmp = new Bitmap(L"A:\\vgdot1.png");
+    Bitmap* bmp = NULL;//new Bitmap(L"A:\\vgdot1.png");
     if (bmp) {
         float w = (float)bmp->GetWidth() / bmp->GetHorizontalResolution();
         float h = (float)bmp->GetHeight() / bmp->GetVerticalResolution();

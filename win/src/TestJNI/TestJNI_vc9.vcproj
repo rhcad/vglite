@@ -45,7 +45,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\..\core\include\callback;..\..\..\core\include\test;..\..\..\core\include\view;..\..\..\core\include\command;..\..\..\core\include\tradecmd;..\..\..\core\include\shape;..\..\..\core\include\graph;..\..\..\core\include\geom;..\..\..\core\include;&quot;$(JAVA_INCLUDE)&quot;;&quot;$(JAVA_INCLUDE)\win32&quot;"
+				AdditionalIncludeDirectories="..\..\..\core\include\callback;..\..\..\core\include\test;..\..\..\core\include\view;..\..\..\core\include\command;..\..\..\core\include\tradecmd;..\..\..\core\include\shape;..\..\core\include\storage;..\..\..\core\include\graph;..\..\..\core\include\geom;..\..\..\core\include;&quot;$(JAVA_INCLUDE)&quot;;&quot;$(JAVA_INCLUDE)\win32&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				RuntimeLibrary="2"
 				WarningLevel="4"
@@ -127,7 +127,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\..\core\include\callback;..\..\..\core\include\test;..\..\..\core\include\view;..\..\..\core\include\command;..\..\..\core\include\tradecmd;..\..\..\core\include\shape;..\..\..\core\include\graph;..\..\..\core\include\geom;..\..\..\core\include;&quot;$(JAVA64_INCLUDE)&quot;;&quot;$(JAVA64_INCLUDE)\win32&quot;"
+				AdditionalIncludeDirectories="..\..\..\core\include\callback;..\..\..\core\include\test;..\..\..\core\include\view;..\..\..\core\include\command;..\..\..\core\include\tradecmd;..\..\..\core\include\shape;..\..\core\include\storage;..\..\..\core\include\graph;..\..\..\core\include\geom;..\..\..\core\include;&quot;$(JAVA64_INCLUDE)&quot;;&quot;$(JAVA64_INCLUDE)\win32&quot;"
 				PreprocessorDefinitions="_WIN32;_WIN64;NDEBUG;_WINDOWS;_USRDLL"
 				RuntimeLibrary="2"
 				WarningLevel="4"
@@ -496,10 +496,6 @@
 				</File>
 				<File
 					RelativePath="..\..\..\core\src\command\mgdrawrect.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\core\src\command\mgdrawrect.h"
 					>
 				</File>
 				<File

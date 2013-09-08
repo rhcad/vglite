@@ -9,8 +9,6 @@
 #include <mgbasicsp.h>
 #include <mgaction.h>
 
-float mgDisplayMmToModel(float mm, const MgMotion* sender);
-
 MgCmdErase::MgCmdErase()
 {
 }
@@ -81,7 +79,7 @@ void MgCmdErase::gatherShapes(const MgMotion* sender, MgShapes* shapes)
 
 MgShape* MgCmdErase::hitTest(const MgMotion* sender)
 {
-    Box2d limits(sender->startPtM, mgDisplayMmToModel(6, sender), 0);
+    Box2d limits(sender->startPtM, displayMmToModel(6, sender), 0);
     Point2d nearpt;
     
     return sender->view->shapes()->hitTest(limits, nearpt);

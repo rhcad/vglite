@@ -7,7 +7,6 @@
 #define __GEOMETRY_MGSHAPE_TEMPL_H_
 
 #include "mgshape.h"
-#include "mgstorage.h"
 
 //! 矢量图形模板类
 /*! \ingroup CORE_SHAPE
@@ -134,39 +133,6 @@ public:
 
     void setTag(int tag) {
         _tag = tag;
-    }
-    
-    bool save(MgStorage* s) const {
-        GiColor c;
-        
-        s->writeUInt32("tag", _tag);
-        s->writeUInt8("lineStyle", (unsigned char)_context.getLineStyle());
-        s->writeFloat("lineWidth", _context.getLineWidth());
-        
-        c = _context.getLineColor();
-        s->writeUInt32("lineColor", c.b | (c.g << 8) | (c.r << 16) | (c.a << 24));
-        c = _context.getFillColor();
-        s->writeUInt32("fillColor", c.b | (c.g << 8) | (c.r << 16) | (c.a << 24));
-        s->writeBool("autoFillColor", _context.isAutoFillColor());
-        
-        return shapec()->save(s);
-    }
-    
-    bool load(MgStorage* s) {
-        _tag = s->readUInt32("tag", _tag);
-        _context.setLineStyle((GiLineStyle)s->readUInt8("lineStyle", 0));
-        _context.setLineWidth(s->readFloat("lineWidth", 0), true);
-        
-        _context.setLineColor(GiColor(s->readUInt32("lineColor", 0xFF000000), true));
-        _context.setFillColor(GiColor(s->readUInt32("fillColor", 0), true));
-        _context.setAutoFillColor(s->readBool("autoFillColor", _context.isAutoFillColor()));
-        
-        bool ret = shape()->load(s);
-        if (ret) {
-            shape()->update();
-        }
-        
-        return ret;
     }
     
 protected:

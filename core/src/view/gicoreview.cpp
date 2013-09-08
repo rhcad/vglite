@@ -132,7 +132,7 @@ public:
     bool gestureToCommand(const MgMotion& motion);
 };
 
-static int _dpi = 1;
+static int _dpi = 96;
 
 GcBaseView::GcBaseView(MgView* mgview, GiView *view)
     : _mgview(mgview), _view(view), _gs(&_xf)
@@ -191,7 +191,7 @@ void GiCoreView::createMagnifierView(GiView* newview, GiView* mainView)
 
 void GiCoreView::destoryView(GiView* view)
 {
-    GcBaseView* aview = impl->_doc->findView(view);
+    GcBaseView* aview = this ? impl->_doc->findView(view) : NULL;
 
     if (aview) {
         impl->_doc->removeView(aview);
@@ -211,7 +211,7 @@ int GiCoreView::setBkColor(GiView* view, int argb)
 
 void GiCoreView::setScreenDpi(int dpi)
 {
-    if (_dpi != dpi) {
+    if (_dpi != dpi && dpi > 0) {
         _dpi = dpi;
     }
 }

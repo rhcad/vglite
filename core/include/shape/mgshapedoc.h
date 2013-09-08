@@ -7,9 +7,6 @@
 #define __GEOMETRY_SHAPEDOC_H_
 
 #include "mgshapes.h"
-#include "gicontxt.h"
-#include "mgmat.h"
-#include "gidef.h"
 
 class MgLayer;
 

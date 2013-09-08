@@ -167,7 +167,7 @@ void MgBaseRect::setCenter(const Point2d& pt)
 float MgBaseRect::_hitTest(const Point2d& pt, float tol, 
                            Point2d& nearpt, int& segment) const
 {
-    return mgLinesHit(4, _points, true, pt, tol, nearpt, segment);
+    return mgnear::linesHit(4, _points, true, pt, tol, nearpt, segment);
 }
 
 bool MgBaseRect::_hitTestBox(const Box2d& rect) const
@@ -196,7 +196,7 @@ int MgBaseRect::_getHandleType(int index) const
 Point2d MgBaseRect::_getHandlePoint(int index) const
 {
     Point2d pt;
-    mgGetRectHandle(getRect(), index, pt);
+    mgnear::getRectHandle(getRect(), index, pt);
     float a = getAngle();
     pt *= Matrix2d::rotation(a, getCenter());
     return pt;
@@ -213,7 +213,7 @@ bool MgBaseRect::_setHandlePoint(int index, const Point2d& pt, float)
             Matrix2d mat(Matrix2d::rotation(-getAngle(), getCenter()));
             Point2d pt2(pt * mat);
             Box2d rect(getRect());
-            mgMoveRectHandle(rect, index, pt2);
+            mgnear::moveRectHandle(rect, index, pt2);
             
             if (4 == index || 6 == index) {
                 rect = Box2d(rect.center(), rect.height(), rect.height());
@@ -233,7 +233,7 @@ bool MgBaseRect::_setHandlePoint(int index, const Point2d& pt, float)
         Box2d rect(_getHandlePoint(0) * mat, _getHandlePoint(2) * mat);
         Point2d pt2(pt * mat);
         
-        mgMoveRectHandle(rect, index, pt2);
+        mgnear::moveRectHandle(rect, index, pt2);
         setRectWithAngle(rect.leftTop(), rect.rightBottom(), getAngle(), corner);
     }
     update();
@@ -431,8 +431,8 @@ bool MgDiamond::_setHandlePoint(int index, const Point2d& pt, float tol)
     Point2d pnt, ptup, ptside;
     
     pnt = pt * Matrix2d::rotation(-getAngle(), cen);
-    mgGetRectHandle(getRect(), 4 + (index + 2) % 4, ptup);
-    mgGetRectHandle(getRect(), 4 + (index + 1) % 4, ptside);
+    mgnear::getRectHandle(getRect(), 4 + (index + 2) % 4, ptup);
+    mgnear::getRectHandle(getRect(), 4 + (index + 1) % 4, ptside);
     
     float len = ptup.distanceTo(ptside);
     float dy = index % 2 == 0 ? pnt.y - ptup.y : pnt.x - ptup.x;
@@ -464,7 +464,7 @@ float MgDiamond::_hitTest(const Point2d& pt, float tol,
 {
     Point2d pts[] = { _getHandlePoint(0), _getHandlePoint(1),
         _getHandlePoint(2), _getHandlePoint(3) };
-    return mgLinesHit(4, pts, true, pt, tol, nearpt, segment);
+    return mgnear::linesHit(4, pts, true, pt, tol, nearpt, segment);
 }
 
 bool MgDiamond::_hitTestBox(const Box2d& rect) const

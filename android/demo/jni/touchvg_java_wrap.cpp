@@ -427,6 +427,7 @@ namespace Swig {
 #include "gicanvas.h"
 #include "giview.h"
 #include "gicoreview.h"
+#include "gimousehelper.h"
 #include "testcanvas.h"
 
 
@@ -1716,7 +1717,7 @@ SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiView_1change_1ownership(JN
 }
 
 
-SWIGEXPORT jlong JNICALL Java_touchvg_jni_touchvgJNI_new_1GiCoreView(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_touchvg_jni_touchvgJNI_new_1GiCoreView_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
   GiCoreView *arg1 = (GiCoreView *) 0 ;
   GiCoreView *result = 0 ;
@@ -1726,6 +1727,18 @@ SWIGEXPORT jlong JNICALL Java_touchvg_jni_touchvgJNI_new_1GiCoreView(JNIEnv *jen
   (void)jarg1_;
   arg1 = *(GiCoreView **)&jarg1; 
   result = (GiCoreView *)new GiCoreView(arg1);
+  *(GiCoreView **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_touchvg_jni_touchvgJNI_new_1GiCoreView_1_1SWIG_11(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  GiCoreView *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (GiCoreView *)new GiCoreView();
   *(GiCoreView **)&jresult = result; 
   return jresult;
 }

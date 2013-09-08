@@ -2,7 +2,7 @@ ROOTDIR  =../../..
 PKGNAME  =touchvg
 PROJNAME =json
 
-INCLUDES += -I$(ROOTDIR)/core/include/shape
+INCLUDES += -I$(ROOTDIR)/core/include/storage
 
 SOURCES   =$(wildcard *.cpp)
 

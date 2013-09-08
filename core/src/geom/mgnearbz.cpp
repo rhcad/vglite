@@ -2,6 +2,7 @@
 // Copyright (c) 2004-2012, Zhang Yungui
 // License: LGPL, https://github.com/rhcad/touchvg
 
+#include "mgnear.h"
 #include "mgcurv.h"
 #include "mgdblpt.h"
 
@@ -250,7 +251,6 @@ static point_t BezierPoint(const point_t* pts, int degree, double t,
     int     i, j;       // Index variables
     point_t Vtemp[W_DEGREE+1][W_DEGREE+1];
 
-
     // Copy control points
     for (j =0; j <= degree; j++) {
         Vtemp[0][j] = pts[j];
@@ -396,7 +396,7 @@ static void NearestOnBezier(const point_t& pt, const point_t* pts, point_t& near
     nearpt = (BezierPoint(pts, DEGREE, t, NULL, NULL));
 }
 
-GEOMAPI float mgNearestOnBezier(
+float mgnear::nearestOnBezier(
     const Point2d& pt, const Point2d* pts, Point2d& nearpt)
 {
     point_t nearpt2, pts2[4], pt2 = { pt.x, pt.y };

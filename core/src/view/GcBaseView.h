@@ -7,7 +7,6 @@
 
 #include "gigesture.h"
 #include "mgview.h"
-#include "mgshape.h"
 
 class GiView;
 

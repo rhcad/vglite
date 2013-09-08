@@ -5,13 +5,13 @@
 #include "mglnrel.h"
 
 // 判断点pt是否在有向直线a->b的左边 (开区间)
-GEOMAPI bool mgIsLeft(const Point2d& a, const Point2d& b, const Point2d& pt)
+bool mglnrel::isLeft(const Point2d& a, const Point2d& b, const Point2d& pt)
 {
     return (b-a).crossProduct(pt-a) > 0.f;
 }
 
 // 判断点pt是否在有向直线a->b的左边
-GEOMAPI bool mgIsLeft2(
+bool mglnrel::isLeft2(
     const Point2d& a, const Point2d& b, const Point2d& pt, const Tol& tol)
 {
     float dist = (b-a).distanceToVector(pt-a);
@@ -19,13 +19,13 @@ GEOMAPI bool mgIsLeft2(
 }
 
 // 判断点pt是否在有向直线a->b的左边或线上 (闭区间)
-GEOMAPI bool mgIsLeftOn(const Point2d& a, const Point2d& b, const Point2d& pt)
+bool mglnrel::isLeftOn(const Point2d& a, const Point2d& b, const Point2d& pt)
 {
     return (b-a).crossProduct(pt-a) >= 0.f;
 }
 
 // 判断点pt是否在有向直线a->b的左边或线上
-GEOMAPI bool mgIsLeftOn2(
+bool mglnrel::isLeftOn2(
     const Point2d& a, const Point2d& b, const Point2d& pt, const Tol& tol)
 {
     float dist = (b-a).distanceToVector(pt-a);
@@ -33,13 +33,13 @@ GEOMAPI bool mgIsLeftOn2(
 }
 
 // 判断点pt是否在直线a->b的线上
-GEOMAPI bool mgIsColinear(const Point2d& a, const Point2d& b, const Point2d& pt)
+bool mglnrel::isColinear(const Point2d& a, const Point2d& b, const Point2d& pt)
 {
     return mgIsZero((b-a).crossProduct(pt-a));
 }
 
 // 判断点pt是否在直线a->b的线上
-GEOMAPI bool mgIsColinear2(
+bool mglnrel::isColinear2(
     const Point2d& a, const Point2d& b, const Point2d& pt, const Tol& tol)
 {
     float dist = (b-a).crossProduct(pt-a);
@@ -47,22 +47,22 @@ GEOMAPI bool mgIsColinear2(
 }
 
 // 判断两个线段ab和cd是否相交于线段内部
-GEOMAPI bool mgIsIntersectProp(
+bool mglnrel::isIntersectProp(
     const Point2d& a, const Point2d& b, const Point2d& c, const Point2d& d)
 {
     // Eliminate improper cases
-    if (mgIsColinear(a,b,c) || mgIsColinear(a,b,d) 
-        || mgIsColinear(c,d,a) || mgIsColinear(c,d,b))
+    if (mglnrel::isColinear(a,b,c) || mglnrel::isColinear(a,b,d) 
+        || mglnrel::isColinear(c,d,a) || mglnrel::isColinear(c,d,b))
         return false;
     
-    return (mgIsLeft(a,b,c) ^ mgIsLeft(a,b,d)) 
-        && (mgIsLeft(c,d,a) ^ mgIsLeft(c,d,b));
+    return (mglnrel::isLeft(a,b,c) ^ mglnrel::isLeft(a,b,d)) 
+        && (mglnrel::isLeft(c,d,a) ^ mglnrel::isLeft(c,d,b));
 }
 
 // 判断点pt是否在线段ab上(闭区间)
-GEOMAPI bool mgIsBetweenLine(const Point2d& a, const Point2d& b, const Point2d& pt)
+bool mglnrel::isBetweenLine(const Point2d& a, const Point2d& b, const Point2d& pt)
 {
-    if (!mgIsColinear(a, b, pt))
+    if (!mglnrel::isColinear(a, b, pt))
         return false;
     
     // If ab not vertical, check betweenness on x; else on y.
@@ -73,10 +73,10 @@ GEOMAPI bool mgIsBetweenLine(const Point2d& a, const Point2d& b, const Point2d& 
 }
 
 // 判断点pt是否在线段ab上
-GEOMAPI bool mgIsBetweenLine2(
+bool mglnrel::isBetweenLine2(
     const Point2d& a, const Point2d& b, const Point2d& pt, const Tol& tol)
 {
-    if (!mgIsColinear2(a, b, pt, tol))
+    if (!mglnrel::isColinear2(a, b, pt, tol))
         return false;
     
     // If ab not vertical, check betweenness on x; else on y.
@@ -97,7 +97,7 @@ GEOMAPI bool mgIsBetweenLine2(
 }
 
 // 已知点pt在直线ab上, 判断点pt是否在线段ab上(闭区间)
-GEOMAPI bool mgIsBetweenLine3(
+bool mglnrel::isBetweenLine3(
     const Point2d& a, const Point2d& b, const Point2d& pt, Point2d* nearpt)
 {
     bool ret;
@@ -117,27 +117,27 @@ GEOMAPI bool mgIsBetweenLine3(
 }
 
 // 判断两个线段ab和cd是否相交(交点在线段闭区间内)
-GEOMAPI bool mgIsIntersect(
+bool mglnrel::isIntersect(
     const Point2d& a, const Point2d& b, const Point2d& c, const Point2d& d)
 {
-    if (mgIsIntersectProp(a, b, c, d))
+    if (mglnrel::isIntersectProp(a, b, c, d))
         return true;
-    else if (mgIsBetweenLine(a, b, c) || mgIsBetweenLine(a, b, d) 
-        || mgIsBetweenLine(c, d, a) || mgIsBetweenLine(c, d, b))
+    else if (mglnrel::isBetweenLine(a, b, c) || mglnrel::isBetweenLine(a, b, d) 
+        || mglnrel::isBetweenLine(c, d, a) || mglnrel::isBetweenLine(c, d, b))
         return true;
     else
         return false;
 }
 
 // 计算点pt到无穷直线ab的距离
-GEOMAPI float mgPtToBeeline(const Point2d& a, const Point2d& b, const Point2d& pt)
+float mglnrel::ptToBeeline(const Point2d& a, const Point2d& b, const Point2d& pt)
 {
     float dist = (b-a).crossProduct(pt-a);
     return dist;
 }
 
 // 计算点pt到无穷直线ab的距离
-GEOMAPI float mgPtToBeeline2(
+float mglnrel::ptToBeeline2(
     const Point2d& a, const Point2d& b, const Point2d& pt, Point2d& ptPerp)
 {
     // 两点重合
@@ -169,12 +169,12 @@ GEOMAPI float mgPtToBeeline2(
 }
 
 // 计算点pt到线段ab的最近距离
-GEOMAPI float mgPtToLine(
+float mglnrel::ptToLine(
     const Point2d& a, const Point2d& b, const Point2d& pt, Point2d& nearpt)
 {
     Point2d ptTemp;
-    float dist = mgPtToBeeline2(a, b, pt, nearpt);
-    if (!mgIsBetweenLine3(a, b, nearpt, &ptTemp))
+    float dist = mglnrel::ptToBeeline2(a, b, pt, nearpt);
+    if (!mglnrel::isBetweenLine3(a, b, nearpt, &ptTemp))
     {
         nearpt = ptTemp;
         dist = pt.distanceTo(nearpt);
@@ -183,7 +183,7 @@ GEOMAPI float mgPtToLine(
 }
 
 // 求两条直线(ax+by+c=0)的交点
-GEOMAPI bool mgCrossLineAbc(
+bool mglnrel::crossLineAbc(
     float a1, float b1, float c1, float a2, float b2, float c2,
     Point2d& ptCross, const Tol& tolVec)
 {
@@ -203,7 +203,7 @@ GEOMAPI bool mgCrossLineAbc(
 }
 
 // 求两条无穷直线的交点
-GEOMAPI bool mgCross2Beeline(
+bool mglnrel::cross2Beeline(
     const Point2d& a, const Point2d& b, const Point2d& c, const Point2d& d, 
     Point2d& ptCross, float* pu, float* pv, const Tol& tolVec)
 {
@@ -234,7 +234,7 @@ GEOMAPI bool mgCross2Beeline(
 //         (c.x,c.y),(d.x,d.y) 第二条线段上的两个点
 // 输出: (px, py) 交点坐标
 // 返回: 有无交点
-GEOMAPI bool mgCross2Line(
+bool mglnrel::cross2Line(
     const Point2d& a, const Point2d& b, const Point2d& c, const Point2d& d,
     Point2d& ptCross, const Tol& tolVec)
 {
@@ -269,7 +269,7 @@ GEOMAPI bool mgCross2Line(
 }
 
 // 求线段和直线的交点
-GEOMAPI bool mgCrossLineBeeline(
+bool mglnrel::crossLineBeeline(
     const Point2d& a, const Point2d& b, const Point2d& c, const Point2d& d,
     Point2d& ptCross, float* pv, const Tol& tolVec)
 {
@@ -319,7 +319,7 @@ static inline unsigned ClipCode(Point2d& pt, const Box2d& box)
 //       [in, out] pt2 线段终点坐标
 //       [in] box 剪裁矩形
 // 返回: 剪裁后是否有处于剪裁矩形内的线段部分
-GEOMAPI bool mgClipLine(Point2d& pt1, Point2d& pt2, const Box2d& _box)
+bool mglnrel::clipLine(Point2d& pt1, Point2d& pt2, const Box2d& _box)
 {
     Box2d box (_box);
     box.normalize();
@@ -407,7 +407,7 @@ static bool PtInArea_Edge(int &odd, const Point2d& pt, const Point2d& p1,
 }
 
 // 功能: 判断一点是否在一多边形范围内
-GEOMAPI MgPtInAreaRet mgPtInArea(
+int mglnrel::ptInArea(
     const Point2d& pt, int count, const Point2d* vertexs, 
     int& order, const Tol& tol)
 {
@@ -417,11 +417,11 @@ GEOMAPI MgPtInAreaRet mgPtInArea(
     order = -1;
     for (i = 0; i < count; i++)
     {
-        // P与某顶点重合. 返回 kMgPtAtVertex, order = 顶点号 [0, count-1]
+        // P与某顶点重合. 返回 kPtAtVertex, order = 顶点号 [0, count-1]
         if (pt.isEqualTo(vertexs[i], tol))
         {
             order = i;
-            return kMgPtAtVertex;
+            return kPtAtVertex;
         }
     }
     
@@ -430,11 +430,11 @@ GEOMAPI MgPtInAreaRet mgPtInArea(
         const Point2d& p1 = vertexs[i];
         const Point2d& p2 = (i+1 < count) ? vertexs[i+1] : vertexs[0];
         
-        // P在某条边上. 返回 kMgPtOnEdge, order = 边号 [0, count-1]
-        if (mgIsBetweenLine2(p1, p2, pt, tol))
+        // P在某条边上. 返回 kPtOnEdge, order = 边号 [0, count-1]
+        if (mglnrel::isBetweenLine2(p1, p2, pt, tol))
         {
             order = i;
-            return kMgPtOnEdge;
+            return kPtOnEdge;
         }
 
         if (!PtInArea_Edge(odd, pt, p1, p2, 
@@ -442,13 +442,13 @@ GEOMAPI MgPtInAreaRet mgPtInArea(
             continue;
     }
 
-    // 如果射线和多边形的交点数为偶数, 则 p==1, P在区外, 返回 kMgPtOutArea
-    // 为奇数则p==0, P在区内, 返回 kMgPtInArea
-    return 0 == odd ? kMgPtInArea : kMgPtOutArea;
+    // 如果射线和多边形的交点数为偶数, 则 p==1, P在区外, 返回 kPtOutArea
+    // 为奇数则p==0, P在区内, 返回 kPtInArea
+    return 0 == odd ? kPtInArea : kPtOutArea;
 }
 
 // 判断多边形是否为凸多边形
-GEOMAPI bool mgIsConvex(int count, const Point2d* vs, bool* pACW)
+bool mglnrel::isConvex(int count, const Point2d* vs, bool* pACW)
 {
     if (count < 3 || vs == NULL)
         return true;

@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="canvas"
-	ProjectGUID="{B43E145B-1170-41F6-B406-1FF49E2133C8}"
-	RootNamespace="canvas"
+	Name="TestView"
+	ProjectGUID="{CA45DF21-EC28-4CEE-856E-2BBDF2E80A1C}"
+	RootNamespace="TestView"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="196613"
 	>
@@ -20,7 +20,7 @@
 			Name="Debug|Win32"
 			OutputDirectory="..\build\$(ConfigurationName)"
 			IntermediateDirectory="..\build\obj\$(ConfigurationName)\$(ProjectName)"
-			ConfigurationType="4"
+			ConfigurationType="1"
 			CharacterSet="1"
 			>
 			<Tool
@@ -41,8 +41,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\core\include\callback;..\include\canvas"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
+				AdditionalIncludeDirectories="..\..\core\include\callback;..\..\core\include\view;..\include\canvas"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -60,10 +60,19 @@
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
-				Name="VCLibrarianTool"
+				Name="VCLinkerTool"
+				AdditionalDependencies="touchvg.lib"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories="&quot;$(OutDir)&quot;"
+				GenerateDebugInformation="true"
+				SubSystem="2"
+				TargetMachine="1"
 			/>
 			<Tool
 				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -75,6 +84,9 @@
 				Name="VCFxCopTool"
 			/>
 			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
 				Name="VCPostBuildEventTool"
 			/>
 		</Configuration>
@@ -82,7 +94,7 @@
 			Name="Release|Win32"
 			OutputDirectory="..\build\$(ConfigurationName)"
 			IntermediateDirectory="..\build\obj\$(ConfigurationName)\$(ProjectName)"
-			ConfigurationType="4"
+			ConfigurationType="1"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
 			>
@@ -105,8 +117,8 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="..\..\core\include\callback;..\include\canvas"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
+				AdditionalIncludeDirectories="..\..\core\include\callback;..\..\core\include\view;..\include\canvas"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				WarningLevel="4"
@@ -123,10 +135,21 @@
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
-				Name="VCLibrarianTool"
+				Name="VCLinkerTool"
+				AdditionalDependencies="touchvg.lib"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;$(OutDir)&quot;"
+				GenerateDebugInformation="true"
+				SubSystem="2"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				TargetMachine="1"
 			/>
 			<Tool
 				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -136,6 +159,9 @@
 			/>
 			<Tool
 				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -151,7 +177,11 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\src\canvas\GiGdipCanvas.cpp"
+				RelativePath="..\src\TestView\app.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\TestView\ViewAdapter.cpp"
 				>
 			</File>
 		</Filter>
@@ -161,11 +191,7 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\..\core\include\callback\gicanvas.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\canvas\GiGdipCanvas.h"
+				RelativePath="..\src\TestView\ViewAdapter.h"
 				>
 			</File>
 		</Filter>

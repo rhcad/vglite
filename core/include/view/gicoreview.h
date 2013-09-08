@@ -19,7 +19,7 @@ class GiCoreView
 {
 public:
     //! 构造函数，传入NULL构造主视图，传入主视图构造辅助视图
-    GiCoreView(GiCoreView* mainView);
+    GiCoreView(GiCoreView* mainView = (GiCoreView*)0);
     
     //! 析构函数
     ~GiCoreView();

@@ -15,6 +15,7 @@
 #include "mgdrawarc.h"
 
 extern int g_newShapeID;
+void registerTransformCmd();
 
 MgCommand* mgCreateCoreCommand(const char* name)
 {
@@ -50,6 +51,7 @@ MgCommand* mgCreateCoreCommand(const char* name)
         if (strcmp(cmds[i].name, name) == 0)
             return (cmds[i].creator)();
     }
+    registerTransformCmd();
     
     return NULL;
 }

@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\core\include\callback;..\..\core\include\tradecmd;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test;..\include\canvas"
+				AdditionalIncludeDirectories="..\..\core\include\callback;..\..\core\include\tradecmd;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\storage;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test;..\include\canvas"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -105,7 +105,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="..\..\core\include\callback;..\..\core\include\tradecmd;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test;..\include\canvas"
+				AdditionalIncludeDirectories="..\..\core\include\callback;..\..\core\include\tradecmd;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\storage;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test;..\include\canvas"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -214,10 +214,6 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\core\src\command\mgdrawrect.h"
-					>
-				</File>
-				<File
 					RelativePath="..\..\core\src\command\mgdrawsplines.cpp"
 					>
 				</File>
@@ -242,7 +238,15 @@
 				Name="view"
 				>
 				<File
+					RelativePath="..\..\core\src\view\GcBaseView.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\core\src\view\GcGraphView.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\view\GcGraphView.h"
 					>
 				</File>
 				<File
@@ -250,11 +254,23 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\core\src\view\GcMagnifierView.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\core\src\view\GcShapeDoc.cpp"
 					>
 				</File>
 				<File
+					RelativePath="..\..\core\src\view\GcShapeDoc.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\core\src\view\gicoreview.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\view\gimousehelper.cpp"
 					>
 				</File>
 			</Filter>
@@ -322,11 +338,11 @@
 				Name="graph"
 				>
 				<File
-					RelativePath="..\..\core\src\graph\gigraph_.h"
+					RelativePath="..\..\core\src\graph\gigraph.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\core\src\graph\gigraph.cpp"
+					RelativePath="..\..\core\src\graph\gigraph_.h"
 					>
 				</File>
 				<File
@@ -446,6 +462,14 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="win"
+				>
+				<File
+					RelativePath="..\src\canvas\GiGdipCanvas.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -484,7 +508,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\core\include\command\mglog.h"
+					RelativePath="..\..\core\include\command\mgdrawrect.h"
 					>
 				</File>
 				<File
@@ -504,27 +528,15 @@
 				Name="view"
 				>
 				<File
-					RelativePath="..\..\core\src\view\GcBaseView.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\core\src\view\GcGraphView.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\core\src\view\GcMagnifierView.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\core\src\view\GcShapeDoc.h"
-					>
-				</File>
-				<File
 					RelativePath="..\..\core\include\view\gicoreview.h"
 					>
 				</File>
 				<File
 					RelativePath="..\..\core\include\view\gigesture.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\include\view\gimousehelper.h"
 					>
 				</File>
 			</Filter>
@@ -544,11 +556,11 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\core\include\shape\mgjsonstorage.h"
+					RelativePath="..\..\core\include\shape\mglayer.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\core\include\shape\mglayer.h"
+					RelativePath="..\..\core\include\shape\mglog.h"
 					>
 				</File>
 				<File
@@ -577,18 +589,6 @@
 				</File>
 				<File
 					RelativePath="..\..\core\include\shape\mgshapetype.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\core\include\shape\mgstorage.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\core\include\shape\mgstoragebs.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\core\include\shape\mgvector.h"
 					>
 				</File>
 			</Filter>
@@ -685,6 +685,34 @@
 				>
 				<File
 					RelativePath="..\..\core\include\tradecmd\tradecmd.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="storage"
+				>
+				<File
+					RelativePath="..\..\core\include\storage\mgjsonstorage.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\include\storage\mgstorage.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\include\storage\mgstoragebs.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\include\storage\mgvector.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="win"
+				>
+				<File
+					RelativePath="..\include\canvas\GiGdipCanvas.h"
 					>
 				</File>
 			</Filter>

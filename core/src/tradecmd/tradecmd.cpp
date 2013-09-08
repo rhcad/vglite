@@ -4,7 +4,7 @@
 void mgRegisterTradeCmds()
 {
     //MgShapeT<MgCube>::registerCreator();
-    //mgRegisterCommand<MgCmdDrawCube>();
+    //registerCommand<MgCmdDrawCube>();
 }
 
 int mgGetDimensions(MgView* view, float* vars, char* types, int count)

@@ -4,7 +4,7 @@ SRCS        =$(wildcard *.cpp)
 OBJS        =$(SRCS:.cpp=.o)
 INSTALL_DIR ?=$(ROOTDIR)/build
 
-CPPFLAGS    += -I$(ROOTDIR)/core/include/shape
+CPPFLAGS    += -I$(ROOTDIR)/core/include/storage
 
 all:        $(TARGET)
 $(TARGET):  $(OBJS)

@@ -59,10 +59,10 @@ public:
     virtual bool draw(int mode, GiGraphics& gs, const GiContext *ctx = NULL, int segment = -1) const = 0;
     
     //! 保存图形到指定的序列化对象
-    virtual bool save(MgStorage* s) const = 0;
+    virtual bool save(MgStorage* s) const;
 
     //! 从指定的序列化对象加载图形
-    virtual bool load(MgStorage* s) = 0;
+    virtual bool load(MgStorage* s);
 
     //! 返回图形编号
     virtual int getID() const = 0;

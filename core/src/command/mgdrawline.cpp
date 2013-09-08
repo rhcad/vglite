@@ -51,7 +51,7 @@ bool MgCmdDrawLine::touchEnded(const MgMotion* sender)
     dynshape()->shape()->setPoint(1, snapPoint(sender));
     dynshape()->shape()->update();
 
-    if ( ((MgLine*)dynshape()->shape())->length() > mgDisplayMmToModel(2, sender)) {
+    if ( ((MgLine*)dynshape()->shape())->length() > displayMmToModel(2, sender)) {
         MgShape* newsp = _addshape(sender);
         if (newsp) {
             TradeCmd::onLineAdded(sender, newsp);

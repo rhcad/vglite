@@ -45,13 +45,13 @@ void MgEllipse::_update()
 {
     __super::_update();
 
-    mgEllipseToBezier(_bzpts, getCenter(), getWidth() / 2, getHeight() / 2);
+    mgcurv::ellipseToBezier(_bzpts, getCenter(), getWidth() / 2, getHeight() / 2);
 
     Matrix2d mat(Matrix2d::rotation(getAngle(), getCenter()));
     for (int i = 0; i < 13; i++)
         _bzpts[i] *= mat;
 
-    mgBeziersBox(_extent, 13, _bzpts, true);
+    mgnear::beziersBox(_extent, 13, _bzpts, true);
 }
 
 int MgEllipse::_getHandleCount() const
@@ -93,7 +93,7 @@ float MgEllipse::_hitTest(const Point2d& pt, float tol,
     {
         if (rect.isIntersect(Box2d(4, _bzpts + 3 * i)))
         {
-            mgNearestOnBezier(pt, _bzpts + 3 * i, ptTemp);
+            mgnear::nearestOnBezier(pt, _bzpts + 3 * i, ptTemp);
             float dist = pt.distanceTo(ptTemp);
             if (dist <= tol && dist < distMin)
             {
@@ -112,7 +112,7 @@ bool MgEllipse::_hitTestBox(const Box2d& rect) const
     if (!getExtent().isIntersect(rect))
         return false;
     
-    return mgBeziersIntersectBox(rect, 13, _bzpts, true);
+    return mgnear::beziersIntersectBox(rect, 13, _bzpts, true);
 }
 
 bool MgEllipse::_draw(int mode, GiGraphics& gs, const GiContext& ctx, int segment) const
@@ -226,7 +226,7 @@ float MgArc::getSweepAngle() const
     if (fabsf(startAngle2 + endAngle2 - 2 * midAngle2) < _M_PI_6) {
         if (endAngle2 - startAngle2 > -_M_2PI)
             return endAngle2 - startAngle2;
-        return mgToRange(endAngle2 - startAngle2, -_M_2PI, 0);
+        return mgbase::toRange(endAngle2 - startAngle2, -_M_2PI, 0);
     }
 
     return endAngle - startAngle;   // error
@@ -265,7 +265,7 @@ bool MgArc::setStartMidEnd(const Point2d& start, const Point2d& point, const Poi
     Point2d center;
     float radius, startAngle, sweepAngle = 0;
 
-    return mgArc3P(start, point, end, center, radius, &startAngle, &sweepAngle)
+    return mgcurv::arc3P(start, point, end, center, radius, &startAngle, &sweepAngle)
         && setCenterRadius(center, radius, startAngle, sweepAngle);
 }
 
@@ -285,7 +285,7 @@ bool MgArc::setCSE(const Point2d& center, const Point2d& start,
 {
     float startAngle = (start - center).angle2();
     float endAngle = (end - center).angle2();
-    float sweepAngle = mgToRange(endAngle - startAngle, -_M_2PI, _M_2PI);
+    float sweepAngle = mgbase::toRange(endAngle - startAngle, -_M_2PI, _M_2PI);
     
     if (fabsf(sweepAngle - lastSweepAngle) > _M_PI) {
         if (fabsf(sweepAngle) < _M_D2R * 5 && fabsf(lastSweepAngle) > _M_PI + _M_PI_2) {
@@ -303,7 +303,7 @@ bool MgArc::setTanStartEnd(const Vector2d& startTan, const Point2d& start, const
     Point2d center;
     float radius, startAngle, sweepAngle = 0;
 
-    return mgArcTan(start, end, startTan, center, radius, &startAngle, &sweepAngle)
+    return mgcurv::arcTan(start, end, startTan, center, radius, &startAngle, &sweepAngle)
         && setCenterRadius(center, radius, startAngle, sweepAngle);
 }
 
@@ -323,9 +323,9 @@ bool MgArc::_draw(int mode, GiGraphics& gs, const GiContext& ctx, int segment) c
 void MgArc::_update()
 {
     Point2d points[16];
-    int n = mgAngleArcToBezier(points, getCenter(), getRadius(), 0, getStartAngle(), getSweepAngle());
+    int n = mgcurv::arcToBezier(points, getCenter(), getRadius(), 0, getStartAngle(), getSweepAngle());
 
-    mgBeziersBox(_extent, n, points);
+    mgnear::beziersBox(_extent, n, points);
 }
 
 bool MgArc::_reverse()
@@ -383,13 +383,13 @@ float MgArc::_hitTest(const Point2d& pt, float tol,
                       Point2d& nearpt, int&) const
 {
     Point2d points[16];
-    int n = mgAngleArcToBezier(points, getCenter(), getRadius(), 0, getStartAngle(), getSweepAngle());
+    int n = mgcurv::arcToBezier(points, getCenter(), getRadius(), 0, getStartAngle(), getSweepAngle());
 
     float distMin = _FLT_MAX;
     Point2d ptTemp;
 
     for (int i = 0; i + 3 < n; i += 3) {
-        mgNearestOnBezier(pt, points + i, ptTemp);
+        mgnear::nearestOnBezier(pt, points + i, ptTemp);
         float dist = pt.distanceTo(ptTemp);
         if (dist <= tol && dist < distMin) {
             distMin = dist;
@@ -406,9 +406,9 @@ bool MgArc::_hitTestBox(const Box2d& rect) const
         return false;
 
     Point2d points[16];
-    int n = mgAngleArcToBezier(points, getCenter(), getRadius(), 0, getStartAngle(), getSweepAngle());
+    int n = mgcurv::arcToBezier(points, getCenter(), getRadius(), 0, getStartAngle(), getSweepAngle());
     
-    return mgBeziersIntersectBox(rect, n, points);
+    return mgnear::beziersIntersectBox(rect, n, points);
 }
 
 bool MgArc::_save(MgStorage* s) const
@@ -518,7 +518,7 @@ int MgArc::_getDimensions(const Matrix2d& m2w, float* vars, char* types, int cou
     }
     if (count > ret) {
         types[ret] = 'a';
-        vars[ret++] = mgRad2Deg(mgTo0_2PI(getSweepAngle() * (m2w.m22 < 0 ? -1.f : 1.f)));
+        vars[ret++] = mgbase::rad2Deg(mgbase::to0_2PI(getSweepAngle() * (m2w.m22 < 0 ? -1.f : 1.f)));
     }
     
     return ret;

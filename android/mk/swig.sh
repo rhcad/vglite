@@ -14,6 +14,7 @@ swig -c++ -java -package touchvg.jni \
     -I../../../core/include/test \
     -I../../../core/include/view \
     -I../../../core/include/shape \
+    -I../../../core/include/storage \
     -I../../../core/include \
     ../../../core/src/view/touchvg.swig
 

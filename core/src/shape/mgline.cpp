@@ -95,7 +95,7 @@ void MgLine::_clear()
 float MgLine::_hitTest(const Point2d& pt, float tol, 
                        Point2d& nearpt, int& segment) const
 {
-    return mgLinesHit(2, _points, false, pt, tol, nearpt, segment);
+    return mgnear::linesHit(2, _points, false, pt, tol, nearpt, segment);
 }
 
 bool MgLine::_hitTestBox(const Box2d& rect) const
@@ -103,7 +103,7 @@ bool MgLine::_hitTestBox(const Box2d& rect) const
     if (!__super::_hitTestBox(rect))
         return false;
     Point2d pts[2] = { _points[0], _points[1] };
-    return mgClipLine(pts[0], pts[1], rect);
+    return mglnrel::clipLine(pts[0], pts[1], rect);
 }
 
 bool MgLine::_draw(int mode, GiGraphics& gs, const GiContext& ctx, int segment) const
@@ -135,7 +135,7 @@ int MgLine::_getDimensions(const Matrix2d& m2w, float* vars, char* types, int co
     }
     if (count > ret) {
         types[ret] = 'a';
-        vars[ret++] = mgRad2Deg(mgTo0_2PI(angle() * (m2w.m22 < 0 ? -1.f : 1.f)));
+        vars[ret++] = mgbase::rad2Deg(mgbase::to0_2PI(angle() * (m2w.m22 < 0 ? -1.f : 1.f)));
     }
     
     return ret;
@@ -260,7 +260,7 @@ bool MgParallelogram::_rotateHandlePoint(int index, const Point2d& pt)
 float MgParallelogram::_hitTest(const Point2d& pt, float tol, 
                                 Point2d& nearpt, int& segment) const
 {
-    return mgLinesHit(4, _points, true, pt, tol, nearpt, segment);
+    return mgnear::linesHit(4, _points, true, pt, tol, nearpt, segment);
 }
 
 bool MgParallelogram::_hitTestBox(const Box2d& rect) const
@@ -309,7 +309,7 @@ int MgParallelogram::_getDimensions(const Matrix2d& m2w, float* vars, char* type
     }
     if (count > ret) {
         types[ret] = 'a';
-        vars[ret++] = mgRad2Deg(mgTo0_2PI(angle() * (m2w.m22 < 0 ? -1.f : 1.f)));
+        vars[ret++] = mgbase::rad2Deg(mgbase::to0_2PI(angle() * (m2w.m22 < 0 ? -1.f : 1.f)));
     }
     
     return ret;

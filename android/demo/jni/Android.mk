@@ -22,6 +22,7 @@ LOCAL_C_INCLUDES := $(COREINC)/callback \
                     $(COREINC)/view \
                     $(COREINC)/command \
                     $(COREINC)/shape \
+                    $(COREINC)/storage \
                     $(COREINC)/graph \
                     $(COREINC)/geom \
                     $(COREINC)

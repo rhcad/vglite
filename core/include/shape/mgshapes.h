@@ -6,14 +6,7 @@
 #ifndef __GEOMETRY_MGSHAPES_H_
 #define __GEOMETRY_MGSHAPES_H_
 
-#include "mgbox.h"
-#include "mgobject.h"
-
-class MgShape;
-struct MgStorage;
-class MgShapes;
-class GiGraphics;
-class GiContext;
+#include "mgshape.h"
 
 //! 图形列表类
 /*! \ingroup CORE_SHAPE

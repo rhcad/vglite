@@ -45,7 +45,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\core\include\callback;..\..\core\include\tradecmd;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test"
+				AdditionalIncludeDirectories="..\..\core\include\callback;..\..\core\include\tradecmd;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\storage;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;TOUCHVG_EXPORTS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -65,7 +65,6 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				LinkIncremental="1"
 				AdditionalLibraryDirectories=""
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
@@ -128,7 +127,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\core\include\callback;..\..\core\include\tradecmd;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test"
+				AdditionalIncludeDirectories="..\..\core\include\callback;..\..\core\include\tradecmd;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\storage;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test"
 				PreprocessorDefinitions="_WIN32;_WIN64;NDEBUG;_WINDOWS;_USRDLL"
 				RuntimeLibrary="2"
 				WarningLevel="4"
@@ -146,7 +145,6 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				LinkIncremental="1"
 				AdditionalLibraryDirectories=""
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
@@ -208,13 +206,13 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				WholeProgramOptimization="false"
-				AdditionalIncludeDirectories="..\..\core\include\callback;..\..\core\include\tradecmd;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test"
+				AdditionalIncludeDirectories="..\..\core\include\callback;..\..\core\include\tradecmd;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\storage;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;TOUCHVG_EXPORTS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				WarningLevel="4"
-				DebugInformationFormat="4"
+				DebugInformationFormat="3"
 				DisableSpecificWarnings="4819"
 			/>
 			<Tool
@@ -228,7 +226,6 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				LinkIncremental="2"
 				AdditionalLibraryDirectories=""
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
@@ -293,11 +290,11 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				WholeProgramOptimization="false"
-				AdditionalIncludeDirectories="..\..\core\include\callback;..\..\core\include\tradecmd;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test"
+				AdditionalIncludeDirectories="..\..\core\include\callback;..\..\core\include\tradecmd;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\storage;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test"
 				PreprocessorDefinitions="_WIN32;_WIN64;_DEBUG;_WINDOWS;_USRDLL"
 				RuntimeLibrary="3"
 				WarningLevel="4"
-				DebugInformationFormat="4"
+				DebugInformationFormat="3"
 				DisableSpecificWarnings="4819"
 			/>
 			<Tool
@@ -311,7 +308,6 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				LinkIncremental="2"
 				AdditionalLibraryDirectories=""
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
@@ -427,6 +423,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\core\include\view\gimousehelper.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\core\include\callback\giview.h"
 				>
 			</File>
@@ -440,22 +440,6 @@
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
-			<File
-				RelativePath="..\..\core\src\view\GcGraphView.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\core\src\view\GcMagnifierView.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\core\src\view\GcShapeDoc.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\core\src\view\gicoreview.cpp"
-				>
-			</File>
 			<File
 				RelativePath="..\..\core\src\test\RandomShape.cpp"
 				>
@@ -525,10 +509,6 @@
 				</File>
 				<File
 					RelativePath="..\..\core\src\command\mgdrawrect.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\core\src\command\mgdrawrect.h"
 					>
 				</File>
 				<File
@@ -677,6 +657,30 @@
 				>
 				<File
 					RelativePath="..\..\core\src\tradecmd\tradecmd.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="view"
+				>
+				<File
+					RelativePath="..\..\core\src\view\GcGraphView.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\view\GcMagnifierView.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\view\GcShapeDoc.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\view\gicoreview.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\view\gimousehelper.cpp"
 					>
 				</File>
 			</Filter>

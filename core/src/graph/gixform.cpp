@@ -223,6 +223,11 @@ Box2d GiTransform::getWndRectW() const
     return Box2d((float)getWidth(), (float)getHeight()) * displayToWorld();
 }
 
+Box2d GiTransform::getWndRectM() const
+{
+    return Box2d((float)getWidth(), (float)getHeight()) * displayToModel();
+}
+
 void GiTransform::setViewScaleRange(float minScale, float maxScale)
 {
     if (minScale > maxScale)

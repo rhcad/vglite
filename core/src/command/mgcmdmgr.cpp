@@ -8,9 +8,6 @@
 #include "tradecmd.h"
 
 MgCommand* mgCreateCoreCommand(const char* name);
-float mgDisplayMmToModel(float mm, GiGraphics* gs);
-float mgDisplayMmToModel(float mm, const MgMotion* sender);
-void registerTransformCmd();
 
 typedef std::map<std::string, MgCommand* (*)()> Factories;
 static Factories    _factories;
@@ -20,7 +17,7 @@ MgCmdManager* mgCreateCmdManager()
     return new MgCmdManagerImpl();
 }
 
-void mgRegisterCommand(const char* name, MgCommand* (*factory)())
+void MgCmdManager::registerCommand(const char* name, MgCommand* (*factory)())
 {
     if (!factory) {
         _factories.erase(name);
@@ -32,7 +29,6 @@ void mgRegisterCommand(const char* name, MgCommand* (*factory)())
 
 MgCmdManagerImpl::MgCmdManagerImpl()
 {
-    registerTransformCmd();
 }
 
 MgCmdManagerImpl::~MgCmdManagerImpl()
@@ -87,28 +83,15 @@ MgCommand* MgCmdManagerImpl::findCommand(const char* name)
 
 bool MgCmdManagerImpl::setCommand(const MgMotion* sender, const char* name)
 {
-    if (strcmp(name, "@draw") == 0) {
+    if (strcmp(name, "@draw") == 0) {   // 将 @draw 换成上一次绘图命令名
         name = _drawcmd.empty() ? "splines" : _drawcmd.c_str();
     }
     MgCommand* cmd = findCommand(name);
     
-    if (strcmp(name, "erase") == 0) {
+    if (strcmp(name, "erase") == 0 && _cmdname == "select") {   // 在选择命令中点橡皮擦
         MgSelection *sel = getSelection(sender->view);
-        if (sel && sel->deleteSelection(sender))
-            return false;
-        
-        if (!cmd && sel) {      // no erase command
-            cmd = findCommand(_cmdname.c_str());
-            if (cmd && cmd->isDrawingCommand()) {
-                MgCommand* selcmd = findCommand(MgCmdSelect::Name());
-                selcmd->initialize(sender);
-                bool ret = sel->deleteSelection(sender);
-                
-                int actions[] = { 0 };
-                sender->view->showContextActions(0, actions, Box2d(), NULL);
-                
-                return ret;
-            }
+        if (sel && sel->deleteSelection(sender)) {      // 直接删除选中的图形
+            return false;                               // 不切换到橡皮擦命令
         }
     }
     
@@ -219,6 +202,13 @@ public:
         , handleIndex(_handleIndex), handleIndexSrc(_handleIndexSrc) {}
 };
 
+static float dMmToM(float mm, GiGraphics* gs) {
+    return MgCommand::displayMmToModel(mm, gs);
+}
+static float dMmToM(float mm, const MgMotion* sender) {
+    return MgCommand::displayMmToModel(mm, sender);
+}
+
 static int snapHV(const Point2d& basePt, Point2d& newPt, SnapItem arr[3])
 {
     int ret = 0;
@@ -319,7 +309,7 @@ static void snapNear(const MgMotion* sender, const Point2d& orignPt,
     Point2d nearpt, ptd;
     float dist;
     float minDist = arr0.dist;
-    float tolNear = mgDisplayMmToModel(0.7f, sender);
+    float tolNear = dMmToM(0.7f, sender);
     int d = matchpt ? shape->shapec()->getHandleCount() : 0;
     
     for (; d >= 0; d--) {
@@ -347,7 +337,7 @@ static void snapNear(const MgMotion* sender, const Point2d& orignPt,
         }
     }
     if (arr0.dist > minDist) {
-        arr0.dist = minDist + mgDisplayMmToModel(4.f, sender);
+        arr0.dist = minDist + dMmToM(4.f, sender);
     }
 }
 
@@ -406,6 +396,7 @@ static void snapPoints(const MgMotion* sender, const Point2d& orignPt,
 {
     Box2d snapbox(orignPt, 2 * arr[0].dist, 0);         // 捕捉容差框
     GiTransform* xf = sender->view->xform();
+    Box2d wndbox(xf->getWndRectM());
     void* it = NULL;
     
     for (const MgShape* sp = sender->view->shapes()->getFirstShape(it);
@@ -419,11 +410,13 @@ static void snapPoints(const MgMotion* sender, const Point2d& orignPt,
             && extent.height() < xf->displayToModel(2, true)) { // 图形太小就跳过
             continue;
         }
-        if (extent.isIntersect(snapbox)
-            || snapbox.contains(sp->shapec()->getHandlePoint(0))) {
-            if (!snapHandle(sender, orignPt, shape, ignoreHandle, sp, arr[0], matchpt)) {
+        if (extent.isIntersect(wndbox)
+            && !snapHandle(sender, orignPt, shape, ignoreHandle, sp, arr[0], matchpt)) {
+            if (extent.isIntersect(snapbox)) {
                 snapNear(sender, orignPt, shape, ignoreHandle, sp, arr[0], matchpt);
             }
+        }
+        if (extent.isIntersect(snapbox)) {
             snapGrid(sender, orignPt, shape, ignoreHandle, sp, arr, matchpt);
         }
     }
@@ -443,9 +436,9 @@ Point2d MgCmdManagerImpl::snapPoint(const MgMotion* sender, const Point2d& orign
     _ptSnap = orignPt;   // 默认结果为当前触点位置
     
     SnapItem arr[3] = {         // 设置捕捉容差和捕捉初值
-        SnapItem(_ptSnap, _ptSnap, mgDisplayMmToModel(3.f, sender)), // XY点捕捉
-        SnapItem(_ptSnap, _ptSnap, mgDisplayMmToModel(1.f, sender)), // X分量捕捉，竖直线
-        SnapItem(_ptSnap, _ptSnap, mgDisplayMmToModel(1.f, sender)), // Y分量捕捉，水平线
+        SnapItem(_ptSnap, _ptSnap, dMmToM(3.f, sender)), // XY点捕捉
+        SnapItem(_ptSnap, _ptSnap, dMmToM(1.f, sender)), // X分量捕捉，竖直线
+        SnapItem(_ptSnap, _ptSnap, dMmToM(1.f, sender)), // Y分量捕捉，水平线
     };
     
     if (shape && shape->getID() == 0 && hotHandle > 0               // 绘图命令中的临时图形
@@ -530,7 +523,8 @@ bool MgCmdManagerImpl::drawSnap(const MgMotion* sender, GiGraphics* gs)
         if (_snapType[0] >= kMgSnapPoint) {
             bool isnear = (_snapType[0] >= kMgSnapNearPt);
             GiContext ctx(-2, GiColor(0, 255, 0, 200), kGiLineDash, GiColor(0, 255, 0, 64));
-            ret = gs->drawEllipse(&ctx, _ptSnap, mgDisplayMmToModel(isnear ? 3.f : 6.f, gs));
+            ret = gs->drawEllipse(&ctx, _ptSnap, dMmToM(isnear ? 3.f : 6.f, gs));
+            gs->drawHandle(_ptSnap, 0);
         }
         else {
             GiContext ctx(0, GiColor(0, 255, 0, 200), kGiLineDash, GiColor(0, 255, 0, 64));
@@ -539,27 +533,27 @@ bool MgCmdManagerImpl::drawSnap(const MgMotion* sender, GiGraphics* gs)
             if (_snapType[0] > 0) {
                 if (_snapBase[0] == _ptSnap) {
                     if (_snapType[0] == kMgSnapGridX) {
-                        Vector2d vec(0, mgDisplayMmToModel(15.f, gs));
+                        Vector2d vec(0, dMmToM(15.f, gs));
                         ret = gs->drawLine(&ctxcross, _ptSnap - vec, _ptSnap + vec);
-                        gs->drawEllipse(&ctx, _snapBase[0], mgDisplayMmToModel(4.f, gs));
+                        gs->drawEllipse(&ctx, _snapBase[0], dMmToM(4.f, gs));
                     }
                 }
                 else {  // kMgSnapSameX
                     ret = gs->drawLine(&ctx, _snapBase[0], _ptSnap);
-                    gs->drawEllipse(&ctx, _snapBase[0], mgDisplayMmToModel(2.5f, gs));
+                    gs->drawEllipse(&ctx, _snapBase[0], dMmToM(2.5f, gs));
                 }
             }
             if (_snapType[1] > 0) {
                 if (_snapBase[1] == _ptSnap) {
                     if (_snapType[1] == kMgSnapGridY) {
-                        Vector2d vec(mgDisplayMmToModel(15.f, gs), 0);
+                        Vector2d vec(dMmToM(15.f, gs), 0);
                         ret = gs->drawLine(&ctxcross, _ptSnap - vec, _ptSnap + vec);
-                        gs->drawEllipse(&ctx, _snapBase[1], mgDisplayMmToModel(4.f, gs));
+                        gs->drawEllipse(&ctx, _snapBase[1], dMmToM(4.f, gs));
                     }
                 }
                 else {  // kMgSnapSameY
                     ret = gs->drawLine(&ctx, _snapBase[1], _ptSnap);
-                    gs->drawEllipse(&ctx, _snapBase[1], mgDisplayMmToModel(2.5f, gs));
+                    gs->drawEllipse(&ctx, _snapBase[1], dMmToM(2.5f, gs));
                 }
             }
         }
@@ -570,7 +564,7 @@ bool MgCmdManagerImpl::drawSnap(const MgMotion* sender, GiGraphics* gs)
 
 void MgCmdManagerImpl::eraseWnd(const MgMotion* sender)
 {
-    Box2d snap(sender->view->xform()->getWndRectW() * sender->view->xform()->worldToModel());
+    Box2d snap(sender->view->xform()->getWndRectM());
     std::vector<int> delIds;
     void *it = NULL;
     MgShapes* s = sender->view->shapes();

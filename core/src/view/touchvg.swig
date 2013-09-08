@@ -17,6 +17,7 @@
 #include "gicanvas.h"
 #include "giview.h"
 #include "gicoreview.h"
+#include "gimousehelper.h"
 #include "testcanvas.h"
 %}
 
@@ -29,6 +30,10 @@
 %include "gigesture.h"
 %include "gicoreview.h"
 %include "testcanvas.h"
+
+#ifndef SWIGJAVA
+%include "gimousehelper.h"
+#endif
 
 #ifdef SWIGJAVA
 %{

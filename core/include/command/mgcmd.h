@@ -15,28 +15,6 @@ class MgBaseCommand;
 struct MgSnap;
 struct MgActionDispatcher;
 
-#ifndef SWIG
-
-//! 注册外部命令
-/*! \ingroup CORE_COMMAND
-    \param name 命令名称，例如 YourCmd::Name()
-    \param factory 命令类的创建函数，例如 YourCmd::Create, 为NULL则取消注册
-    example: mgRegisterCommand<YourCmd>();
-*/
-void mgRegisterCommand(const char* name, MgCommand* (*factory)());
-
-template <class YourCmd> void mgRegisterCommand() {
-    mgRegisterCommand(YourCmd::Name(), YourCmd::Create);
-}
-
-//! 注册图形实体类型
-/*! \ingroup CORE_SHAPE
-    \param type MgBaseShape 派生图形类的 Type()，或 MgShapeT(图形类)的 Type()
-    \param factory 图形类的创建函数，例如 MgShapeT(图形类)的 create, 为NULL则取消注册
-*/
-void mgRegisterShapeCreator(int type, MgShape* (*factory)());
-#endif
-
 //! 命令接口
 /*! \ingroup CORE_COMMAND
     \interface MgCommand
@@ -69,6 +47,16 @@ struct MgCommand {
 #ifndef SWIG
     virtual int getDimensions(MgView*, float*, char*, int) { return 0; } //!< 得到各种度量尺寸
 #endif
+
+    //! 返回线条宽度的一半，模型单位，在命令显示函数中使用
+    static float lineHalfWidth(const MgShape* shape, GiGraphics* gs);
+    //! 返回线条宽度的一半，模型单位
+    static float lineHalfWidth(const MgShape* shape, const MgMotion* sender);
+
+    //! 返回屏幕毫米长度对应的模型长度，在命令显示函数中使用
+    static float displayMmToModel(float mm, GiGraphics* gs);
+    //! 返回屏幕毫米长度对应的模型长度
+    static float displayMmToModel(float mm, const MgMotion* sender);
 };
 
 //! 命令接口的默认实现，可以以此派生新命令类
@@ -100,9 +88,14 @@ protected:
 //! 命令管理器接口
 /*! \ingroup CORE_COMMAND
     \interface MgCmdManager
-    \see mgGetCommandManager
+    \see mgGetCommandManager, mgRegisterCommand
 */
 struct MgCmdManager {
+
+#ifndef SWIG
+    //! 注册外部命令, 为NULL则取消注册
+    static void registerCommand(const char* name, MgCommand* (*factory)());
+#endif
     virtual void release() = 0;                             //!< 销毁管理器
     
     virtual const char* getCommandName() = 0;               //!< 得到当前命令名称
@@ -139,5 +132,14 @@ struct MgCmdManager {
     //! 返回图形特征点捕捉器
     virtual MgSnap* getSnap() = 0;
 };
+
+#ifndef SWIG
+//! 注册外部命令, 为NULL则取消注册
+/*! \ingroup CORE_COMMAND
+*/
+template <class YourCmd> inline void mgRegisterCommand() {
+    MgCmdManager::registerCommand(YourCmd::Name(), YourCmd::Create);
+}
+#endif
 
 #endif // __GEOMETRY_MGCOMMAND_H_

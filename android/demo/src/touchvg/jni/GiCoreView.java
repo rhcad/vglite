@@ -36,7 +36,11 @@ public class GiCoreView {
   }
 
   public GiCoreView(GiCoreView mainView) {
-    this(touchvgJNI.new_GiCoreView(GiCoreView.getCPtr(mainView), mainView), true);
+    this(touchvgJNI.new_GiCoreView__SWIG_0(GiCoreView.getCPtr(mainView), mainView), true);
+  }
+
+  public GiCoreView() {
+    this(touchvgJNI.new_GiCoreView__SWIG_1(), true);
   }
 
   public void createView(GiView view, int type) {

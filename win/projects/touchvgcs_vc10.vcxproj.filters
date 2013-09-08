@@ -28,22 +28,13 @@
     <Filter Include="Source Files\tradecmd">
       <UniqueIdentifier>{6b71b589-fc54-4038-9141-04e809909365}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\view">
+      <UniqueIdentifier>{733a7606-d30b-468f-8a94-1c26769a2c36}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\swig\touchvg_csharp_wrap.cpp">
       <Filter>Swig Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\core\src\view\GcGraphView.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\core\src\view\GcMagnifierView.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\core\src\view\GcShapeDoc.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\core\src\view\gicoreview.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\core\src\test\RandomShape.cpp">
       <Filter>Source Files</Filter>
@@ -174,6 +165,21 @@
     <ClCompile Include="..\..\core\src\tradecmd\tradecmd.cpp">
       <Filter>Source Files\tradecmd</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\core\src\view\GcGraphView.cpp">
+      <Filter>Source Files\view</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\core\src\view\GcMagnifierView.cpp">
+      <Filter>Source Files\view</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\core\src\view\GcShapeDoc.cpp">
+      <Filter>Source Files\view</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\core\src\view\gicoreview.cpp">
+      <Filter>Source Files\view</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\core\src\view\gimousehelper.cpp">
+      <Filter>Source Files\view</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\swig\touchvg_csharp_wrap.h">
@@ -217,6 +223,18 @@
     </ClInclude>
     <ClInclude Include="..\..\core\include\view\gigesture.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\core\src\view\GcBaseView.h">
+      <Filter>Source Files\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\core\src\view\GcGraphView.h">
+      <Filter>Source Files\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\core\src\view\GcMagnifierView.h">
+      <Filter>Source Files\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\core\src\view\GcShapeDoc.h">
+      <Filter>Source Files\view</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

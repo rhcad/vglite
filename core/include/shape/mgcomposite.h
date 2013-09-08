@@ -6,9 +6,7 @@
 #ifndef __GEOMETRY_COMPOSITE_SHAPE_H_
 #define __GEOMETRY_COMPOSITE_SHAPE_H_
 
-#include "mgshape.h"
-
-class MgShapes;
+#include "mgshapes.h"
 
 //! 复合图形基类
 /*! \ingroup CORE_SHAPE

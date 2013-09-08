@@ -7,7 +7,7 @@
 #include "mglnrel.h"
 #include "mgdblpt.h"
 
-GEOMAPI void mgFitBezier(const Point2d* pts, float t, Point2d& fitpt)
+void mgcurv::fitBezier(const Point2d* pts, float t, Point2d& fitpt)
 {
     float v = 1.f - t;
     float v2 = v * v;
@@ -19,7 +19,7 @@ GEOMAPI void mgFitBezier(const Point2d* pts, float t, Point2d& fitpt)
         + 3 * t2 * v * pts[2].y + t2 * t * pts[3].y;
 }
 
-GEOMAPI void mgBezier4P(
+void mgcurv::bezier4P(
     const Point2d& pt1, const Point2d& pt2, const Point2d& pt3, 
     const Point2d& pt4, Point2d& ctrpt1, Point2d& ctrpt2)
 {
@@ -28,7 +28,7 @@ GEOMAPI void mgBezier4P(
     ctrpt1 = ptCtr;
 }
 
-GEOMAPI void mgSplitBezier(const Point2d* pts, float t, Point2d* pts1, Point2d* pts2)
+void mgcurv::splitBezier(const Point2d* pts, float t, Point2d* pts1, Point2d* pts2)
 {
     Point2d &p5 = pts1[1];
     Point2d  p6;
@@ -47,7 +47,7 @@ GEOMAPI void mgSplitBezier(const Point2d* pts, float t, Point2d* pts1, Point2d* 
     p10 = (1 - t) * p8 + t * p9;
 }
 
-GEOMAPI void mgEllipse90ToBezier(
+void mgcurv::ellipse90ToBezier(
     const Point2d& frompt, const Point2d& topt, Point2d& ctrpt1, Point2d& ctrpt2)
 {
     float rx = frompt.x - topt.x;
@@ -64,7 +64,7 @@ GEOMAPI void mgEllipse90ToBezier(
     ctrpt2.y = center.y + ry;
 }
 
-GEOMAPI void mgEllipseToBezier(
+void mgcurv::ellipseToBezier(
     Point2d points[13], const Point2d& center, float rx, float ry)
 {
     const float M = 0.5522847498307933984022516f; // 4(sqrt(2)-1)/3
@@ -102,7 +102,7 @@ GEOMAPI void mgEllipseToBezier(
     points[12].y = center.y;
 }
 
-GEOMAPI void mgRoundRectToBeziers(
+void mgcurv::roundRectToBeziers(
     Point2d points[16], const Box2d& rect, float rx, float ry)
 {
     if (2 * rx > rect.width())
@@ -114,7 +114,7 @@ GEOMAPI void mgRoundRectToBeziers(
     float dx = rect.width() / 2 - rx;
     float dy = rect.height() / 2 - ry;
 
-    mgEllipseToBezier(points, rect.center(), rx, ry);
+    mgcurv::ellipseToBezier(points, rect.center(), rx, ry);
 
     for (i = 3; i >= 1; i--)
     {
@@ -130,7 +130,7 @@ GEOMAPI void mgRoundRectToBeziers(
     }
 }
 
-static void _mgAngleArcToBezier(
+static void _arcToBezier(
     Point2d points[4], const Point2d& center, float rx, float ry,
     float startAngle, float sweepAngle)
 {
@@ -162,7 +162,7 @@ static void _mgAngleArcToBezier(
     }
 }
 
-static int _mgAngleArcToBezierPlusSweep(
+static int _arcToBezierPlusSweep(
     Point2d points[16], const Point2d& center, float rx, float ry, 
     float startAngle, float sweepAngle)
 {
@@ -192,7 +192,7 @@ static int _mgAngleArcToBezierPlusSweep(
     }
     if (endAngle - startAngle > 1e-5)       // 转换第一段椭圆弧
     {
-        _mgAngleArcToBezier(points, center, rx, ry,
+        _arcToBezier(points, center, rx, ry,
             startAngle, endAngle - startAngle);
         n = 4;
     }
@@ -237,14 +237,14 @@ static int _mgAngleArcToBezierPlusSweep(
     }
     if (sweepAngle > 1e-5)                  // 增加余下的弧
     {
-        _mgAngleArcToBezier(&points[n-1], center, rx, ry, startAngle, sweepAngle);
+        _arcToBezier(&points[n-1], center, rx, ry, startAngle, sweepAngle);
         n += 3;
     }
 
     return n;
 }
 
-GEOMAPI int mgAngleArcToBezier(
+int mgcurv::arcToBezier(
     Point2d points[16], const Point2d& center, float rx, float ry,
     float startAngle, float sweepAngle)
 {
@@ -261,21 +261,21 @@ GEOMAPI int mgAngleArcToBezier(
     
     if (fabsf(sweepAngle) < _M_PI_2 + 1e-5)
     {
-        _mgAngleArcToBezier(points, center, rx, ry, startAngle, sweepAngle);
+        _arcToBezier(points, center, rx, ry, startAngle, sweepAngle);
         n = 4;
     }
     else if (sweepAngle > 0)
     {
-        startAngle = mgTo0_2PI(startAngle);
-        n = _mgAngleArcToBezierPlusSweep(
+        startAngle = mgbase::to0_2PI(startAngle);
+        n = _arcToBezierPlusSweep(
             points, center, rx, ry, startAngle, sweepAngle);
     }
     else // sweepAngle < 0
     {
         float endAngle = startAngle + sweepAngle;
         sweepAngle = -sweepAngle;
-        startAngle = mgTo0_2PI(endAngle);
-        n = _mgAngleArcToBezierPlusSweep(
+        startAngle = mgbase::to0_2PI(endAngle);
+        n = _arcToBezierPlusSweep(
             points, center, rx, ry, startAngle, sweepAngle);
 
         for (int i = 0; i < n / 2; i++)
@@ -285,7 +285,7 @@ GEOMAPI int mgAngleArcToBezier(
     return n;
 }
 
-GEOMAPI bool mgArc3P(
+bool mgcurv::arc3P(
     const Point2d& start, const Point2d& point, const Point2d& end,
     Point2d& center, float& radius,
     float* startAngle, float* sweepAngle)
@@ -298,7 +298,7 @@ GEOMAPI bool mgArc3P(
     a2 = end.x - point.x;
     b2 = end.y - point.y;
     c2 = -0.5f * (a2 * (end.x + point.x) + b2 * (end.y + point.y));
-    if (!mgCrossLineAbc(a1, b1, c1, a2, b2, c2, center, Tol::gTol()))
+    if (!mglnrel::crossLineAbc(a1, b1, c1, a2, b2, c2, center, Tol::gTol()))
         return false;
     radius = mgHypot(center.x - start.x, center.y - start.y);
     
@@ -331,7 +331,7 @@ GEOMAPI bool mgArc3P(
     return true;
 }
 
-GEOMAPI bool mgArcTan(
+bool mgcurv::arcTan(
     const Point2d& start, const Point2d& end, const Vector2d& startTan,
     Point2d& center, float& radius,
     float* startAngle, float* sweepAngle)
@@ -344,7 +344,7 @@ GEOMAPI bool mgArcTan(
     c = -0.5f * (a*(end.x + start.x) + b*(end.y + start.y));
     
     // 求中垂线和切线的交点center
-    if (!mgCrossLineAbc(a, b, c, startTan.x, startTan.y, 
+    if (!mglnrel::crossLineAbc(a, b, c, startTan.x, startTan.y, 
         -startTan.x * start.x - startTan.y * start.y, center, Tol::gTol()))
         return false;
     radius = mgHypot(center.x - start.x, center.y - start.y);
@@ -355,22 +355,22 @@ GEOMAPI bool mgArcTan(
         float ea = atan2f(end.y - center.y, end.x - center.x);
         *startAngle = sa;
         if (startTan.crossProduct(start - center) > 0.f)
-            *sweepAngle = -mgTo0_2PI(sa - ea);
+            *sweepAngle = -mgbase::to0_2PI(sa - ea);
         else
-            *sweepAngle = mgTo0_2PI(ea - sa);
+            *sweepAngle = mgbase::to0_2PI(ea - sa);
     }
     
     return true;
 }
 
-GEOMAPI bool mgArcBulge(
+bool mgcurv::arcBulge(
     const Point2d& start, const Point2d& end, float bulge,
     Point2d& center, float& radius,
     float* startAngle, float* sweepAngle)
 {
     Point2d point ((start.x + end.x)*0.5f, (start.y + end.y)*0.5f);
     point = point.rulerPoint(end, bulge);
-    return mgArc3P(start, point, end, center, radius, startAngle, sweepAngle);
+    return mgcurv::arc3P(start, point, end, center, radius, startAngle, sweepAngle);
 }
 
 static int _InsectTwoCircles(point_t& pt1, point_t& pt2,
@@ -435,7 +435,7 @@ static int _InsectTwoCircles(point_t& pt1, point_t& pt2,
 }
 
 // http://blog.csdn.net/cyg0810/article/details/7765894
-GEOMAPI int mgInsectTwoCircles(Point2d& pt1, Point2d& pt2,
+int mgcurv::insectTwoCircles(Point2d& pt1, Point2d& pt2,
                                const Point2d& c1, float r1, const Point2d& c2, float r2)
 {
     point_t p1 = { 0, 0 }, p2 = { 0, 0 };
@@ -450,7 +450,7 @@ GEOMAPI int mgInsectTwoCircles(Point2d& pt1, Point2d& pt2,
     return n;
 }
 
-GEOMAPI bool mgTriEquations(
+bool mgcurv::triEquations(
     int n, float *a, float *b, float *c, Vector2d *vs)
 {
     if (!a || !b || !c || !vs || n < 2)
@@ -486,7 +486,7 @@ GEOMAPI bool mgTriEquations(
     return true;
 }
 
-GEOMAPI bool mgGaussJordan(int n, float *mat, Vector2d *vs)
+bool mgcurv::gaussJordan(int n, float *mat, Vector2d *vs)
 {
     int i, j, k, m;
     float c, t;
@@ -577,27 +577,27 @@ static bool CalcCubicClosed(
         vecs[i].y = 3 * (knots[i+1].y-knots[i-1].y);
     }
     
-    return mgGaussJordan(n, a, vecs);
+    return mgcurv::gaussJordan(n, a, vecs);
 }
 
 static bool CalcCubicUnclosed(
     int flag, int n, const Point2d* knots, 
     float* a, float* b, float* c, Vector2d* vecs)
 {
-    if (flag & kMgCubicTan1)          // 起始夹持端
+    if (flag & mgcurv::cubicTan1)           // 起始夹持端
     {
         b[0] = 1.0;
         c[0] = 0.0;
-        //vecs[0] = xp0;            // vecs[0]必须指定切矢量
+        //vecs[0] = xp0;                    // vecs[0]必须指定切矢量
     }
-    else if (flag & kMgCubicArm1)     // 起始悬臂端
+    else if (flag & mgcurv::cubicArm1)      // 起始悬臂端
     {
         b[0] = 1.0;
         c[0] = 1.0;
         vecs[0].x = 2 * (knots[1].x-knots[0].x);
         vecs[0].y = 2 * (knots[1].y-knots[0].y);
     }
-    else                            // 起始自由端
+    else                                    // 起始自由端
     {
         b[0] = 1.0;
         c[0] = 0.5;
@@ -605,20 +605,20 @@ static bool CalcCubicUnclosed(
         vecs[0].y = 1.5f * (knots[1].y-knots[0].y);
     }
     
-    if (flag & kMgCubicTan2)          // 终止夹持端
+    if (flag & mgcurv::cubicTan2)           // 终止夹持端
     {
         a[n - 2] = 0.0;
         b[n - 1] = 1.0;
-        //vecs[n - 1] = xpn;        // vecs[n-1]必须指定切矢量
+        //vecs[n - 1] = xpn;                // vecs[n-1]必须指定切矢量
     }
-    else if (flag & kMgCubicArm2)     // 终止悬臂端
+    else if (flag & mgcurv::cubicArm2)      // 终止悬臂端
     {
         a[n - 2] = 1.0;
         b[n - 1] = 1.0;
         vecs[n - 1].x = 2 * (knots[n - 1].x-knots[n - 2].x);
         vecs[n - 1].y = 2 * (knots[n - 1].y-knots[n - 2].y);
     }
-    else                            // 终止自由端
+    else                                    // 终止自由端
     {
         a[n - 2] = 0.5;
         b[n - 1] = 1.0;
@@ -635,10 +635,10 @@ static bool CalcCubicUnclosed(
         vecs[i].y = 3 * (knots[i+1].y-knots[i-1].y);
     }
     
-    return mgTriEquations(n, a, b, c, vecs);
+    return mgcurv::triEquations(n, a, b, c, vecs);
 }
 
-GEOMAPI bool mgCubicSplines(
+bool mgcurv::cubicSplines(
     int n, const Point2d* knots, Vector2d* knotvs,
     int flag, float tension)
 {
@@ -647,7 +647,7 @@ GEOMAPI bool mgCubicSplines(
     if (!knots || !knotvs || n < 2)
         return false;
     
-    if ((flag & kMgCubicLoop) && n <= 512)    // 闭合
+    if ((flag & cubicLoop) && n <= 512)    // 闭合
     {
         float* a = new float[n * n];
         ret = a && CalcCubicClosed(n, a, knotvs, knots);
@@ -673,7 +673,7 @@ GEOMAPI bool mgCubicSplines(
     return ret;
 }
 
-GEOMAPI void mgFitCubicSpline(
+void mgcurv::fitCubicSpline(
     int n, const Point2d* knots, const Vector2d* knotvs,
     int i, float t, Point2d& fitpt)
 {
@@ -690,7 +690,7 @@ GEOMAPI void mgFitCubicSpline(
     fitpt.y = knots[i1].y + (knotvs[i1].y + (b2 + b3*t)*t)*t;
 }
 
-GEOMAPI void mgCubicSplineToBezier(
+void mgcurv::cubicSplineToBezier(
     int n, const Point2d* knots, const Vector2d* knotvs,
     int i, Point2d points[4])
 {
@@ -822,7 +822,7 @@ static bool CalcClampedVecs(
     return true;
 }
 
-GEOMAPI bool mgClampedSplines(
+bool mgcurv::clampedSplines(
     int& n, Point2d* knots, 
     float sgm, float tol, float& sigma, float* hp, Vector2d* knotvs)
 {
@@ -878,7 +878,7 @@ GEOMAPI bool mgClampedSplines(
 //               + (x[i+1] - xp[i+1]) * t / hp[i]
 //       s_i <= s <= s_(i+1), 0 <= t <= hp[i]
 //       s_0 = 0, s_i = s_(i-1) + h_i, h_i = | P[i+1]P[i] |
-GEOMAPI void mgFitClampedSpline(
+void mgcurv::fitClampedSpline(
     const Point2d* knots, 
     int i, float t, float sigma,
     const float* hp, const Vector2d* knotvs, Point2d& fitpt)

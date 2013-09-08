@@ -5,6 +5,7 @@ PROJNAME =shape
 INCLUDES += -I$(ROOTDIR)/core/include/geom \
             -I$(ROOTDIR)/core/include/graph \
             -I$(ROOTDIR)/core/include/shape \
+            -I$(ROOTDIR)/core/include/storage \
             -I$(ROOTDIR)/core/include/callback
 
 SOURCES   =$(wildcard *.cpp) \

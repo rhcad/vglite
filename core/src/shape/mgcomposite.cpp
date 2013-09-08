@@ -3,7 +3,6 @@
 // License: LGPL, https://github.com/rhcad/touchvg
 
 #include <mgcomposite.h>
-#include <mgshapes.h>
 
 MgComposite::MgComposite()
 {

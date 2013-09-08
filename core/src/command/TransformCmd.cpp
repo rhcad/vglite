@@ -7,8 +7,6 @@
 #include <list>
 #include <stdio.h>
 
-float mgDisplayMmToModel(float mm, GiGraphics* gs);
-
 class TransformCmd : public MgBaseCommand
 {
 protected:
@@ -77,8 +75,8 @@ private:
 
 void registerTransformCmd()
 {
-    mgRegisterCommand(TransformCmd::Name(), TransformCmd::Create);
-    mgRegisterCommand(HitTestCmd::Name(), HitTestCmd::Create);
+    mgRegisterCommand<TransformCmd>();
+    mgRegisterCommand<HitTestCmd>();
 }
 
 bool HitTestCmd::draw(const MgMotion* sender, GiGraphics* gs)
@@ -106,13 +104,13 @@ bool HitTestCmd::draw(const MgMotion* sender, GiGraphics* gs)
 bool HitTestCmd::touchMoved(const MgMotion* sender)
 {
     if (mgIsZero(_tol)) {
-        _tol = mgDisplayMmToModel(20, sender->view->graph());
+        _tol = displayMmToModel(20, sender->view->graph());
     }
     
     Point2d nearpt;
     Box2d box(sender->pointM, 2 * _tol, 0);
     MgShape* sp = sender->view->shapes()->hitTest(box, nearpt, &_segment);
-    float mindist = mgDisplayMmToModel(0.5f, sender->view->graph());
+    float mindist = displayMmToModel(0.5f, sender->view->graph());
     
     _curid = sp ? sp->getID() : 0;
     _cur.dist = sp ? sp->shape()->hitTest2(box.center(), _tol, nearpt) : 1e10f;

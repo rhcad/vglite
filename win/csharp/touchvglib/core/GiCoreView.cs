@@ -41,7 +41,10 @@ public class GiCoreView : IDisposable {
     }
   }
 
-  public GiCoreView(GiCoreView mainView) : this(touchvgcsPINVOKE.new_GiCoreView(GiCoreView.getCPtr(mainView)), true) {
+  public GiCoreView(GiCoreView mainView) : this(touchvgcsPINVOKE.new_GiCoreView__SWIG_0(GiCoreView.getCPtr(mainView)), true) {
+  }
+
+  public GiCoreView() : this(touchvgcsPINVOKE.new_GiCoreView__SWIG_1(), true) {
   }
 
   public void createView(GiView view, int type) {

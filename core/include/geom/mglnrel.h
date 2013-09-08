@@ -8,167 +8,157 @@
 
 #include "mgbox.h"
 
+//! 图形位置关系函数
+/*! \ingroup GEOMAPI
+*/
+struct mglnrel {
+
 //! 判断点pt是否在有向直线a->b的左边 (开区间)
 /*!
-    \ingroup GEOMAPI_LNREL
     \param[in] a 直线的起点
     \param[in] b 直线的终点
     \param[in] pt 给定的测试点
     \return 在直线的左边时返回true，否则返回false
 */
-GEOMAPI bool mgIsLeft(const Point2d& a, const Point2d& b, const Point2d& pt);
+static bool isLeft(const Point2d& a, const Point2d& b, const Point2d& pt);
 
 //! 判断点pt是否在有向直线a->b的左边
 /*!
-    \ingroup GEOMAPI_LNREL
     \param[in] a 直线的起点
     \param[in] b 直线的终点
     \param[in] pt 给定的测试点
     \param[in] tol 判断的容差，用到其中的长度容差值
     \return 在直线的左边时返回true，否则返回false
 */
-GEOMAPI bool mgIsLeft2(
+static bool isLeft2(
     const Point2d& a, const Point2d& b, const Point2d& pt, const Tol& tol);
 
 //! 判断点pt是否在有向直线a->b的左边或线上 (闭区间)
 /*!
-    \ingroup GEOMAPI_LNREL
     \param[in] a 直线的起点
     \param[in] b 直线的终点
     \param[in] pt 给定的测试点
     \return 在直线的左边或线上时返回true，否则返回false
 */
-GEOMAPI bool mgIsLeftOn(const Point2d& a, const Point2d& b, const Point2d& pt);
+static bool isLeftOn(const Point2d& a, const Point2d& b, const Point2d& pt);
 
 //! 判断点pt是否在有向直线a->b的左边或线上
 /*!
-    \ingroup GEOMAPI_LNREL
     \param[in] a 直线的起点
     \param[in] b 直线的终点
     \param[in] pt 给定的测试点
     \param[in] tol 判断的容差，用到其中的长度容差值
     \return 在直线的左边或线上时返回true，否则返回false
 */
-GEOMAPI bool mgIsLeftOn2(
+static bool isLeftOn2(
     const Point2d& a, const Point2d& b, const Point2d& pt, const Tol& tol);
 
 //! 判断点pt是否在直线a->b的线上
 /*!
-    \ingroup GEOMAPI_LNREL
     \param[in] a 直线的起点
     \param[in] b 直线的终点
     \param[in] pt 给定的测试点
     \return 在直线上时返回true，否则返回false
 */
-GEOMAPI bool mgIsColinear(const Point2d& a, const Point2d& b, const Point2d& pt);
+static bool isColinear(const Point2d& a, const Point2d& b, const Point2d& pt);
 
 //! 判断点pt是否在直线a->b的线上
 /*!
-    \ingroup GEOMAPI_LNREL
     \param[in] a 直线的起点
     \param[in] b 直线的终点
     \param[in] pt 给定的测试点
     \param[in] tol 判断的容差，用到其中的长度容差值
     \return 在直线上时返回true，否则返回false
 */
-GEOMAPI bool mgIsColinear2(
+static bool isColinear2(
     const Point2d& a, const Point2d& b, const Point2d& pt, const Tol& tol);
 
 //! 判断两个线段ab和cd是否相交于线段内部
 /*!
-    \ingroup GEOMAPI_LNREL
     \param[in] a 第一条线段的起点
     \param[in] b 第一条线段的终点
     \param[in] c 第二条线段的起点
     \param[in] d 第二条线段的终点
     \return 是否相交于线段内部，不包括端点
 */
-GEOMAPI bool mgIsIntersectProp(
+static bool isIntersectProp(
     const Point2d& a, const Point2d& b, const Point2d& c, const Point2d& d);
 
 //! 判断点pt是否在线段ab上(闭区间)
 /*!
-    \ingroup GEOMAPI_LNREL
     \param[in] a 线段的起点
     \param[in] b 线段的终点
     \param[in] pt 给定的测试点
     \return 在线段上时返回true，否则返回false
 */
-GEOMAPI bool mgIsBetweenLine(const Point2d& a, const Point2d& b, const Point2d& pt);
+static bool isBetweenLine(const Point2d& a, const Point2d& b, const Point2d& pt);
 
 //! 判断点pt是否在线段ab上
 /*!
-    \ingroup GEOMAPI_LNREL
     \param[in] a 线段的起点
     \param[in] b 线段的终点
     \param[in] pt 给定的测试点
     \param[in] tol 判断的容差，用到其中的长度容差值
     \return 在线段上时返回true，否则返回false
 */
-GEOMAPI bool mgIsBetweenLine2(
+static bool isBetweenLine2(
     const Point2d& a, const Point2d& b, const Point2d& pt, const Tol& tol);
 
 //! 已知点pt在直线ab上, 判断点pt是否在线段ab上(闭区间)
 /*!
-    \ingroup GEOMAPI_LNREL
     \param[in] a 线段的起点
     \param[in] b 线段的终点
     \param[in] pt 给定的测试点
     \param[out] nearpt 在线段的两个端点中，到给定的点最近的端点，为NULL则忽略该参数
     \return 在线段上时返回true，否则返回false
 */
-GEOMAPI bool mgIsBetweenLine3(
+static bool isBetweenLine3(
     const Point2d& a, const Point2d& b, const Point2d& pt, Point2d* nearpt = NULL);
 
 //! 判断两个线段ab和cd是否相交(交点在线段闭区间内)
 /*!
-    \ingroup GEOMAPI_LNREL
     \param[in] a 第一条线段的起点
     \param[in] b 第一条线段的终点
     \param[in] c 第二条线段的起点
     \param[in] d 第二条线段的终点
     \return 是否相交于线段闭区间内，包括端点
 */
-GEOMAPI bool mgIsIntersect(
+static bool isIntersect(
     const Point2d& a, const Point2d& b, const Point2d& c, const Point2d& d);
 
 //! 计算点pt到无穷直线ab的距离
 /*!
-    \ingroup GEOMAPI_LNREL
     \param[in] a 无穷直线的起点
     \param[in] b 无穷直线的终点
     \param[in] pt 给定的测试点
     \return 点到无穷直线的距离
 */
-GEOMAPI float mgPtToBeeline(const Point2d& a, const Point2d& b, const Point2d& pt);
+static float ptToBeeline(const Point2d& a, const Point2d& b, const Point2d& pt);
 
 //! 计算点pt到无穷直线ab的距离
 /*!
-    \ingroup GEOMAPI_LNREL
     \param[in] a 无穷直线的起点
     \param[in] b 无穷直线的终点
     \param[in] pt 给定的测试点
     \param[out] ptPerp 直线上的垂足
     \return 独立点到垂足的距离
 */
-GEOMAPI float mgPtToBeeline2(
+static float ptToBeeline2(
     const Point2d& a, const Point2d& b, const Point2d& pt, Point2d& ptPerp);
 
 //! 计算点pt到线段ab的最近距离
 /*!
-    \ingroup GEOMAPI_LNREL
     \param[in] a 线段的起点
     \param[in] b 线段的终点
     \param[in] pt 给定的测试点
     \param[out] nearpt 线段上的最近点
     \return 独立点到最近点的距离
 */
-GEOMAPI float mgPtToLine(
+static float ptToLine(
     const Point2d& a, const Point2d& b, const Point2d& pt, Point2d& nearpt);
 
 //! 求两条直线(ax+by+c=0)的交点
 /*!
-    \ingroup GEOMAPI_LNREL
     \param[in] a1 第一条直线的标准方程参数A
     \param[in] b1 第一条直线的标准方程参数B
     \param[in] c1 第一条直线的标准方程参数C
@@ -179,14 +169,13 @@ GEOMAPI float mgPtToLine(
     \param[in] tolVec 判断平行的容差，用到其矢量容差值
     \return 是否有交点
 */
-GEOMAPI bool mgCrossLineAbc(
+static bool crossLineAbc(
     float a1, float b1, float c1, float a2, float b2, float c2,
     Point2d& ptCross, const Tol& tolVec = Tol::gTol());
 
 #ifndef SWIG
 //! 求两条无穷直线的交点
 /*!
-    \ingroup GEOMAPI_LNREL
     \param[in] a 第一条直线的起点
     \param[in] b 第一条直线的终点
     \param[in] c 第二条直线的起点
@@ -197,7 +186,7 @@ GEOMAPI bool mgCrossLineAbc(
     \param[in] tolVec 判断平行的容差，用到其矢量容差值
     \return 是否有交点
 */
-GEOMAPI bool mgCross2Beeline(
+static bool cross2Beeline(
     const Point2d& a, const Point2d& b, const Point2d& c, const Point2d& d, 
     Point2d& ptCross, float* pu = NULL, float* pv = NULL, 
     const Tol& tolVec = Tol::gTol());
@@ -205,7 +194,6 @@ GEOMAPI bool mgCross2Beeline(
 
 //! 求两条线段的交点
 /*!
-    \ingroup GEOMAPI_LNREL
     \param[in] a 第一条线段的起点
     \param[in] b 第一条线段的终点
     \param[in] c 第二条线段的起点
@@ -214,14 +202,13 @@ GEOMAPI bool mgCross2Beeline(
     \param[in] tolVec 判断平行的容差，用到其矢量容差值
     \return 是否有交点
 */
-GEOMAPI bool mgCross2Line(
+static bool cross2Line(
     const Point2d& a, const Point2d& b, const Point2d& c, const Point2d& d,
     Point2d& ptCross, const Tol& tolVec = Tol::gTol());
 
 #ifndef SWIG
 //! 求线段和直线的交点
 /*!
-    \ingroup GEOMAPI_LNREL
     \param[in] a 线段的起点
     \param[in] b 线段的终点
     \param[in] c 直线的起点
@@ -231,7 +218,7 @@ GEOMAPI bool mgCross2Line(
     \param[in] tolVec 判断平行的容差，用到其矢量容差值
     \return 是否有交点
 */
-GEOMAPI bool mgCrossLineBeeline(
+static bool crossLineBeeline(
     const Point2d& a, const Point2d& b, const Point2d& c, const Point2d& d,
     Point2d& ptCross, float* pv = NULL, 
     const Tol& tolVec = Tol::gTol());
@@ -239,48 +226,46 @@ GEOMAPI bool mgCrossLineBeeline(
 
 //! 用矩形剪裁线段，Sutherland-Cohen算法
 /*!
-    \ingroup GEOMAPI_LNREL
     \param[in] pt1 线段的起点
     \param[in] pt2 线段的终点
     \param[in] box 剪裁矩形，必须为非空规范化矩形
     \return 剪裁后是否有处于剪裁矩形内的线段部分
 */
-GEOMAPI bool mgClipLine(Point2d& pt1, Point2d& pt2, const Box2d& box);
+static bool clipLine(Point2d& pt1, Point2d& pt2, const Box2d& box);
 
 #ifndef SWIG
-//! mgPtInArea 的返回值枚举定义
-//! \see mgPtInArea
+//! ptInArea 的返回值枚举定义
+//! \see ptInArea
 typedef enum {
-    kMgPtInArea,          //!< 在多边形内
-    kMgPtOutArea,         //!< 在多边形外
-    kMgPtOnEdge,          //!< 在第order边上
-    kMgPtAtVertex,        //!< 与第order顶点重合
-} MgPtInAreaRet;
+    kPtInArea,          //!< 在多边形内
+    kPtOutArea,         //!< 在多边形外
+    kPtOnEdge,          //!< 在第order边上
+    kPtAtVertex,        //!< 与第order顶点重合
+} PtInAreaRet;
 
 //! 判断一点是否在一多边形范围内
 /*!
-    \ingroup GEOMAPI_LNREL
     \param[in] pt 给定的测试点
     \param[in] count 多边形的顶点数
     \param[in] vertexs 多边形的顶点数组
-    \param[out] order 返回 kMgPtAtVertex 时，输出顶点号[0, count-1]；\n
-        返回 kMgPtOnEdge 时，输出边号[0, count-1]；\n为NULL则忽略该参数
+    \param[out] order 返回 kPtAtVertex 时，输出顶点号[0, count-1]；\n
+        返回 kPtOnEdge 时，输出边号[0, count-1]；\n为NULL则忽略该参数
     \param[in] tol 容差
-    \return 为枚举定义 MgPtInAreaRet 的各种值
+    \return 为枚举定义 PtInAreaRet 的各种值
 */
-GEOMAPI MgPtInAreaRet mgPtInArea(
+static int ptInArea(
     const Point2d& pt, int count, const Point2d* vertexs, 
     int& order, const Tol& tol = Tol::gTol());
 
 //! 判断多边形是否为凸多边形
 /*!
-    \ingroup GEOMAPI_LNREL
     \param[in] count 顶点个数
     \param[in] vertexs 顶点数组
     \param[out] pACW 多边形是否为逆时针方向，为NULL则忽略该参数
     \return 是否为凸多边形
 */
-GEOMAPI bool mgIsConvex(int count, const Point2d* vertexs, bool* pACW = NULL);
+static bool isConvex(int count, const Point2d* vertexs, bool* pACW = NULL);
 #endif
+};
 
 #endif // __GEOMETRY_LINEREL_H_

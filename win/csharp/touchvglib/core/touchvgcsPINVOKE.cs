@@ -282,8 +282,11 @@ class touchvgcsPINVOKE {
   [DllImport("touchvgcs", EntryPoint="CSharp_GiView_director_connect")]
   public static extern void GiView_director_connect(HandleRef jarg1, GiView.SwigDelegateGiView_0 delegate0, GiView.SwigDelegateGiView_1 delegate1, GiView.SwigDelegateGiView_2 delegate2, GiView.SwigDelegateGiView_3 delegate3);
 
-  [DllImport("touchvgcs", EntryPoint="CSharp_new_GiCoreView")]
-  public static extern IntPtr new_GiCoreView(HandleRef jarg1);
+  [DllImport("touchvgcs", EntryPoint="CSharp_new_GiCoreView__SWIG_0")]
+  public static extern IntPtr new_GiCoreView__SWIG_0(HandleRef jarg1);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_new_GiCoreView__SWIG_1")]
+  public static extern IntPtr new_GiCoreView__SWIG_1();
 
   [DllImport("touchvgcs", EntryPoint="CSharp_delete_GiCoreView")]
   public static extern void delete_GiCoreView(HandleRef jarg1);
@@ -419,6 +422,30 @@ class touchvgcsPINVOKE {
 
   [DllImport("touchvgcs", EntryPoint="CSharp_delete_TestCanvas")]
   public static extern void delete_TestCanvas(HandleRef jarg1);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_new_GiMouseHelper")]
+  public static extern IntPtr new_GiMouseHelper(HandleRef jarg1, HandleRef jarg2);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiMouseHelper_onLButtonDown")]
+  public static extern bool GiMouseHelper_onLButtonDown(HandleRef jarg1, float jarg2, float jarg3, bool jarg4, bool jarg5);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiMouseHelper_onRButtonDown")]
+  public static extern bool GiMouseHelper_onRButtonDown(HandleRef jarg1, float jarg2, float jarg3);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiMouseHelper_onMouseUp")]
+  public static extern bool GiMouseHelper_onMouseUp(HandleRef jarg1, float jarg2, float jarg3);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiMouseHelper_onMouseMove")]
+  public static extern bool GiMouseHelper_onMouseMove(HandleRef jarg1, float jarg2, float jarg3, bool jarg4, bool jarg5);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiMouseHelper_onLButtonDblClk")]
+  public static extern bool GiMouseHelper_onLButtonDblClk(HandleRef jarg1, float jarg2, float jarg3);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiMouseHelper_onKeyDown")]
+  public static extern bool GiMouseHelper_onKeyDown(HandleRef jarg1, int jarg2);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_delete_GiMouseHelper")]
+  public static extern void delete_GiMouseHelper(HandleRef jarg1);
 }
 
 }

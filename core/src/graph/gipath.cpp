@@ -190,10 +190,10 @@ bool GiPath::arcTo(const Point2d& point)
         Point2d center;
         float radius, startAngle, sweepAngle;
 
-        if (mgArcTan(start, point, tanv, center, radius, &startAngle, &sweepAngle))
+        if (mgcurv::arcTan(start, point, tanv, center, radius, &startAngle, &sweepAngle))
         {
             Point2d pts[16];
-            int n = mgAngleArcToBezier(pts, center, radius, radius, 
+            int n = mgcurv::arcToBezier(pts, center, radius, radius, 
                 startAngle, sweepAngle);
             if (n >= 4)
             {
@@ -222,10 +222,10 @@ bool GiPath::arcTo(const Point2d& point, const Point2d& end)
         Point2d center;
         float radius, startAngle, sweepAngle;
 
-        if (mgArc3P(start, point, end, center, radius, &startAngle, &sweepAngle))
+        if (mgcurv::arc3P(start, point, end, center, radius, &startAngle, &sweepAngle))
         {
             Point2d pts[16];
-            int n = mgAngleArcToBezier(pts, center, radius, radius, 
+            int n = mgcurv::arcToBezier(pts, center, radius, radius, 
                 startAngle, sweepAngle);
             if (n >= 4)
             {
@@ -288,10 +288,10 @@ static int AngleToBezier(Point2d* pts, float radius)
 
     ptStart = pts[1].rulerPoint(pts[0], dArc, 0);
     ptEnd = pts[1].rulerPoint(pts[2], dArc, 0);
-    if (mgArcTan(ptStart, ptEnd, pts[1] - ptStart, 
+    if (mgcurv::arcTan(ptStart, ptEnd, pts[1] - ptStart, 
         ptCenter, radius, &startAngle, &sweepAngle))
     {
-        count = mgAngleArcToBezier(
+        count = mgcurv::arcToBezier(
             pts, ptCenter, radius, radius, startAngle, sweepAngle);
     }
 

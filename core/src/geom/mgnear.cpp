@@ -14,7 +14,7 @@ static inline Box2d computeCubicBox(const Point2d points[4])
     return computeCubicBox(points[0], points[1], points[2], points[3]);
 }
 
-GEOMAPI void mgBeziersBox(
+void mgnear::beziersBox(
     Box2d& box, int count, const Point2d* points, bool closed)
 {
     box.empty();
@@ -29,7 +29,7 @@ GEOMAPI void mgBeziersBox(
     }
 }
 
-GEOMAPI bool mgBeziersIntersectBox(
+bool mgnear::beziersIntersectBox(
     const Box2d& box, int count, const Point2d* points, bool closed)
 {
     for (int i = 0; i + 3 < count; i += 3) {
@@ -49,7 +49,7 @@ GEOMAPI bool mgBeziersIntersectBox(
     return false;
 }
 
-GEOMAPI void mgCubicSplinesBox(
+void mgnear::cubicSplinesBox(
     Box2d& box, int n, const Point2d* knots, 
     const Vector2d* knotvs, bool closed)
 {
@@ -65,7 +65,7 @@ GEOMAPI void mgCubicSplinesBox(
     }
 }
 
-GEOMAPI bool mgCubicSplinesIntersectBox(
+bool mgnear::cubicSplinesIntersectBox(
     const Box2d& box, int n, const Point2d* knots, 
     const Vector2d* knotvs, bool closed)
 {
@@ -77,14 +77,14 @@ GEOMAPI bool mgCubicSplinesIntersectBox(
             knots[i] + knotvs[i] / 3.f, 
             knots[(i + 1) % n] - knotvs[(i + 1) % n] / 3.f, 
             knots[(i + 1) % n] };
-        if (mgBeziersIntersectBox(box, 4, pts, false))
+        if (mgnear::beziersIntersectBox(box, 4, pts, false))
             return true;
     }
     
     return false;
 }
 
-GEOMAPI float mgCubicSplinesHit(
+float mgnear::cubicSplinesHit(
     int n, const Point2d* knots, const Vector2d* knotvs, bool closed, 
     const Point2d& pt, float tol, Point2d& nearpt, int& segment)
 {
@@ -97,10 +97,10 @@ GEOMAPI float mgCubicSplinesHit(
     segment = -1;
     for (int i = 0; i + 1 < n2; i++)
     {
-        mgCubicSplineToBezier(n, knots, knotvs, i, pts);
+        mgcurv::cubicSplineToBezier(n, knots, knotvs, i, pts);
         if (rect.isIntersect(computeCubicBox(pts)))
         {
-            dist = mgNearestOnBezier(pt, pts, ptTemp);
+            dist = mgnear::nearestOnBezier(pt, pts, ptTemp);
             //dist = pt.distanceTo(ptTemp);
             if (dist < distMin)
             {
@@ -114,7 +114,7 @@ GEOMAPI float mgCubicSplinesHit(
     return distMin;
 }
 
-GEOMAPI int mgBSplinesToBeziers(
+int mgcurv::bsplinesToBeziers(
     Point2d points[/*1+n*3*/], int n, const Point2d* ctlpts, bool closed)
 {
     Point2d pt1, pt2, pt3, pt4;
@@ -144,7 +144,7 @@ GEOMAPI int mgBSplinesToBeziers(
     return i;
 }
 
-GEOMAPI float mgLinesHit(
+float mgnear::linesHit(
     int n, const Point2d* points, bool closed, 
     const Point2d& pt, float tol, Point2d& nearpt, int& segment)
 {
@@ -153,19 +153,21 @@ GEOMAPI float mgLinesHit(
     const Box2d rect (pt, 2 * tol, 2 * tol);
     int n2 = (closed && n > 1) ? n + 1 : n;
     
-    MgPtInAreaRet inArea = (closed ? mgPtInArea(pt, n, points, segment, Tol(tol/5, 0)) : kMgPtInArea);
+    int inArea = (closed ? mglnrel::ptInArea(
+        pt, n, points, segment, Tol(tol/5, 0)) : mglnrel::kPtInArea);
     
     if (closed) {
-        if (inArea == kMgPtOutArea) {
+        if (inArea == mglnrel::kPtOutArea) {
             return distMin;
         }
-        if (inArea == kMgPtAtVertex) {
+        if (inArea == mglnrel::kPtAtVertex) {
             nearpt = points[segment];
             distMin = nearpt.distanceTo(pt);
             return distMin;
         }
-        if (inArea == kMgPtOnEdge) {
-            distMin = mgPtToLine(points[segment], points[(segment+1)%n], pt, nearpt);
+        if (inArea == mglnrel::kPtOnEdge) {
+            distMin = mglnrel::ptToLine(points[segment], 
+                points[(segment+1)%n], pt, nearpt);
             return distMin;
         }
     }
@@ -175,7 +177,7 @@ GEOMAPI float mgLinesHit(
         const Point2d& pt2 = points[(i + 1) % n];
         if (closed || rect.isIntersect(Box2d(points[i], pt2)))
         {
-            dist = mgPtToLine(points[i], pt2, pt, ptTemp);
+            dist = mglnrel::ptToLine(points[i], pt2, pt, ptTemp);
             if (distMin > 1e10f || (dist <= tol && dist < distMin))
             {
                 distMin = dist;
@@ -193,8 +195,8 @@ static inline
 Point2d RoundRectTan(int nFrom, int nTo, const Box2d& rect, float r)
 {
     Point2d pt1, pt2;
-    mgGetRectHandle(rect, nFrom, pt1);
-    mgGetRectHandle(rect, nTo, pt2);
+    mgnear::getRectHandle(rect, nFrom, pt1);
+    mgnear::getRectHandle(rect, nTo, pt2);
     return pt1.rulerPoint(pt2, r, 0.f);
 }
 
@@ -210,7 +212,7 @@ static void _RoundRectHit(
     float dy = rect.height() * 0.5f - ry;
     
     // 按逆时针方向从第一象限到第四象限连接的四段
-    mgEllipseToBezier(ptsBezier, rect.center(), rx, ry);
+    mgcurv::ellipseToBezier(ptsBezier, rect.center(), rx, ry);
     
     pts[3] = ptsBezier[0];
     for (int i = 0; i < 4; i++)
@@ -233,7 +235,7 @@ static void _RoundRectHit(
         
         if (rectTol.isIntersect(Box2d(4, pts)))
         {
-            mgNearestOnBezier(pt, pts, ptTemp);
+            mgnear::nearestOnBezier(pt, pts, ptTemp);
             float dist = pt.distanceTo(ptTemp);
             if (dist <= tol && dist < distMin)
             {
@@ -247,7 +249,7 @@ static void _RoundRectHit(
     }
 }
 
-GEOMAPI float mgRoundRectHit(
+float mgnear::roundRectHit(
     const Box2d& rect, float rx, float ry, 
     const Point2d& pt, float tol, Point2d& nearpt, int& segment)
 {
@@ -284,7 +286,7 @@ GEOMAPI float mgRoundRectHit(
         Box2d rcLine (pts[2 * i], pts[2 * i + 1]);
         if (rcLine.isEmpty() || rectTol.isIntersect(rcLine))
         {
-            dist = mgPtToLine(pts[2 * i], pts[2 * i + 1], pt, ptTemp);
+            dist = mglnrel::ptToLine(pts[2 * i], pts[2 * i + 1], pt, ptTemp);
             if (dist <= tol && dist < distMin)
             {
                 distMin = dist;
@@ -296,13 +298,14 @@ GEOMAPI float mgRoundRectHit(
     
     if (rx > _MGZERO && ry > _MGZERO)
     {
-        _RoundRectHit(rect, rx, ry, pt, tol, rectTol, pts, distMin, nearpt, segment);
+        _RoundRectHit(rect, rx, ry, pt, tol, 
+            rectTol, pts, distMin, nearpt, segment);
     }
 
     return distMin;
 }
 
-GEOMAPI void mgGetRectHandle(const Box2d& rect, int index, Point2d& pt)
+void mgnear::getRectHandle(const Box2d& rect, int index, Point2d& pt)
 {
     switch (index)
     {
@@ -318,13 +321,13 @@ GEOMAPI void mgGetRectHandle(const Box2d& rect, int index, Point2d& pt)
     }
 }
 
-GEOMAPI void mgMoveRectHandle(Box2d& rect, int index, 
+void mgnear::moveRectHandle(Box2d& rect, int index, 
                               const Point2d& pt, bool lockCornerScale)
 {
     Point2d pts[4];
 
     for (int i = 0; i < 4; i++)
-        mgGetRectHandle(rect, index / 4 * 4 + i, pts[i]);
+        mgnear::getRectHandle(rect, index / 4 * 4 + i, pts[i]);
     pts[index % 4] = pt;
 
     if (index >= 0 && index < 4)

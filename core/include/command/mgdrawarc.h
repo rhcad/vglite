@@ -48,6 +48,7 @@ private:
     virtual const char* getName() const { return Name(); }
     virtual void release() { delete this; }
 protected:
+    virtual bool draw(const MgMotion* sender, GiGraphics* gs);
     virtual void setStepPoint(int step, const Point2d& pt);
 };
 

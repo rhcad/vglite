@@ -144,6 +144,9 @@ public:
     //! 返回显示窗口的世界坐标范围
     Box2d getWndRectW() const;
 
+    //! 返回显示窗口的模型坐标范围
+    Box2d getWndRectM() const;
+
     //! 返回最小显示比例
     float getMinViewScale() const;
 

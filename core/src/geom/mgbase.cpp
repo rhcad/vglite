@@ -5,7 +5,7 @@
 #include "mgbase.h"
 
 // 将数转换到数值范围[tmin, tmax)内
-GEOMAPI float mgToRange(float value, float tmin, float tmax)
+float mgbase::toRange(float value, float tmin, float tmax)
 {
     while (value < tmin)
         value += tmax - tmin;
@@ -15,31 +15,31 @@ GEOMAPI float mgToRange(float value, float tmin, float tmax)
 }
 
 // 使角度在[0, 2PI)之间
-GEOMAPI float mgTo0_2PI(float angle)
+float mgbase::to0_2PI(float angle)
 {
-    return mgToRange(angle, 0.f, _M_2PI);
+    return mgbase::toRange(angle, 0.f, _M_2PI);
 }
 
 // 使角度在[-PI, PI)之间
-GEOMAPI float mgToPI(float angle)
+float mgbase::toPI(float angle)
 {
-    return mgToRange(angle, -_M_PI, _M_PI);
+    return mgbase::toRange(angle, -_M_PI, _M_PI);
 }
 
 // 角度从度转换到弧度
-GEOMAPI float mgDeg2Rad(float deg)
+float mgbase::deg2Rad(float deg)
 {
     return deg * _M_D2R;
 }
 
 // 角度从弧度转换到度
-GEOMAPI float mgRad2Deg(float rad)
+float mgbase::rad2Deg(float rad)
 {
     return rad * _M_R2D;
 }
 
 // 度分秒转换到角度(度)
-GEOMAPI float mgDms2Deg(float angle)
+float mgbase::dms2Deg(float angle)
 {
     int nDeg, nMin;
     int sign = 1;
@@ -65,7 +65,7 @@ GEOMAPI float mgDms2Deg(float angle)
 }
 
 // 角度(度)转换到度分秒
-GEOMAPI float mgDeg2Dms(float angle)
+float mgbase::deg2Dms(float angle)
 {
     int nDeg, nMin;
     float dSecond;
@@ -103,32 +103,32 @@ GEOMAPI float mgDeg2Dms(float angle)
 }
 
 // 求两个角度的角平分线角度, [0, 2PI)
-GEOMAPI float mgMidAngle(float fromAngle, float toAngle)
+float mgbase::getMidAngle(float fromAngle, float toAngle)
 {
-    fromAngle = mgTo0_2PI(fromAngle);
-    toAngle = mgTo0_2PI(toAngle);
+    fromAngle = mgbase::to0_2PI(fromAngle);
+    toAngle = mgbase::to0_2PI(toAngle);
     if (!mgEquals(fromAngle, toAngle))
     {
         if (toAngle < fromAngle)
-            return mgTo0_2PI((fromAngle + toAngle + _M_2PI) / 2);
+            return mgbase::to0_2PI((fromAngle + toAngle + _M_2PI) / 2);
     }
     return (fromAngle + toAngle) / 2;
 }
 
 // 求两个角度的夹角, [-PI, PI)
-GEOMAPI float mgDiffAngle(float fromAngle, float toAngle)
+float mgbase::getDiffAngle(float fromAngle, float toAngle)
 {
-    fromAngle = mgTo0_2PI(fromAngle);
-    toAngle = mgTo0_2PI(toAngle);
+    fromAngle = mgbase::to0_2PI(fromAngle);
+    toAngle = mgbase::to0_2PI(toAngle);
     if (mgEquals(fromAngle, toAngle))
         return 0.f;
     if (toAngle < fromAngle)
         toAngle += _M_2PI;
-    return mgToPI(toAngle - fromAngle);
+    return mgbase::toPI(toAngle - fromAngle);
 }
 
 // 计算最大公约数
-GEOMAPI int mgGcd(int x, int y)
+int mgbase::getGcd(int x, int y)
 {
     while (x != y)
     {
@@ -139,7 +139,7 @@ GEOMAPI int mgGcd(int x, int y)
 }
 
 // 四舍五入. 小数位[-6，7]. eg: mgRoundReal(1.25, 1)=1.3
-GEOMAPI float mgRoundReal(float value, int decimal)
+float mgbase::roundReal(float value, int decimal)
 {
     if (decimal < -6) decimal = -6;
     else if (decimal > 7) decimal = 7;

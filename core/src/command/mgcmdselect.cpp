@@ -131,7 +131,7 @@ bool MgCmdSelect::undo(const MgMotion* sender)
     return false;
 }
 
-float mgLineHalfWidthModel(const MgShape* shape, GiGraphics* gs)
+float MgCommand::lineHalfWidth(const MgShape* shape, GiGraphics* gs)
 {
     float w = shape->contextc()->getLineWidth();
     
@@ -142,9 +142,9 @@ float mgLineHalfWidthModel(const MgShape* shape, GiGraphics* gs)
     return w;
 }
 
-float mgLineHalfWidthModel(const MgShape* shape, const MgMotion* sender)
+float MgCommand::lineHalfWidth(const MgShape* shape, const MgMotion* sender)
 {
-    return mgLineHalfWidthModel(shape, sender->view->graph());
+    return lineHalfWidth(shape, sender->view->graph());
 }
 
 static int s_useFinger = -1;
@@ -153,7 +153,7 @@ static int s_useFinger = -1;
 /*! 对于显示比例不同的多个视图，本函数可确保在相应视图中毫米长度相同.
     \ingroup CORE_COMMAND
  */
-float mgDisplayMmToModel(float mm, GiGraphics* gs)
+float MgCommand::displayMmToModel(float mm, GiGraphics* gs)
 {
     return gs->xf().displayToModel(s_useFinger ? mm : mm / 2.f, true);
 }
@@ -161,7 +161,7 @@ float mgDisplayMmToModel(float mm, GiGraphics* gs)
 //! 得到屏幕上的毫米长度对应的模型长度.
 /* \ingroup CORE_COMMAND
  */
-float mgDisplayMmToModel(float mm, const MgMotion* sender)
+float MgCommand::displayMmToModel(float mm, const MgMotion* sender)
 {
     if (s_useFinger < 0) {
         s_useFinger = sender->view->useFinger() ? 1 : 0;
@@ -177,7 +177,7 @@ bool MgCmdSelect::draw(const MgMotion* sender, GiGraphics* gs)
     Point2d pnt;
     GiContext ctxhd(0, GiColor(128, 128, 64, 172), 
                     kGiLineSolid, GiColor(172, 172, 172, 64));
-    float radius = mgDisplayMmToModel(sender->view->useFinger() ? 1.f : 3.f, gs);
+    float radius = displayMmToModel(sender->view->useFinger() ? 1.f : 3.f, gs);
     float r2x = radius * 2.5f;
     bool rorate = (!isEditMode(sender->view)
         && m_boxHandle >= 8 && m_boxHandle < 12);
@@ -223,7 +223,7 @@ bool MgCmdSelect::draw(const MgMotion* sender, GiGraphics* gs)
     if (sender->view->shapes()->getOwner()->isKindOf(kMgShapeComposite)) {
         GiContext ctxshap(0, GiColor(0, 0, 255, 64), kGiLineDot);
         Box2d rect(sender->view->shapes()->getExtent());
-        rect.inflate(mgDisplayMmToModel(2, sender));
+        rect.inflate(displayMmToModel(2, sender));
         gs->drawRect(&ctxshap, rect);
     }
     
@@ -249,24 +249,24 @@ bool MgCmdSelect::draw(const MgMotion* sender, GiGraphics* gs)
         if (m_clones.empty() && !shapes.empty()) {
 #ifdef ENABLE_DRAG_SELBOX
             for (int i = canTransform(shapes.front(), sender) ? 7 : -1; i >= 0; i--) {
-                mgGetRectHandle(selbox, i, pnt);
+                mgnear::getRectHandle(selbox, i, pnt);
                 if (!gs->drawHandle(pnt, 0))
                     gs->drawEllipse(&ctxhd, pnt, radius);
             }
             for (int j = canRotate(shapes.front(), sender) ? 1 : -1;
                 j >= 0; j--) {
-                mgGetRectHandle(selbox, j == 0 ? 7 : 5, pnt);
+                mgnear::getRectHandle(selbox, j == 0 ? 7 : 5, pnt);
                 pnt = pnt.rulerPoint(selbox.center(),
-                                     -mgDisplayMmToModel(10, sender), 0);
+                                     -displayMmToModel(10, sender), 0);
                 
                 float w = -1.f * gs->xf().getWorldToDisplayY(false);
                 float r = pnt.distanceTo(selbox.center());
-                float sangle = mgMin(30.f, mgMax(10.f, mgRad2Deg(12.f / r)));
+                float sangle = mgMin(30.f, mgMax(10.f, mgbase::rad2Deg(12.f / r)));
                 GiContext ctxarc(w, GiColor(0, 255, 0, 128),
                                  j ? kGiLineSolid : kGiLineDot);
                 gs->drawArc(&ctxarc, selbox.center(), r, r,
-                            j ? -mgDeg2Rad(sangle) : mgDeg2Rad(180.f - sangle), 
-                            mgDeg2Rad(2.f * sangle));
+                            j ? -mgbase::deg2Rad(sangle) : mgbase::deg2Rad(180.f - sangle), 
+                            mgbase::deg2Rad(2.f * sangle));
                 
                 if (!gs->drawHandle(pnt, 0))
                     gs->drawEllipse(&ctxhd, pnt, radius);
@@ -371,7 +371,7 @@ bool MgCmdSelect::isSelected(MgShape* shape)
 MgShape* MgCmdSelect::hitTestAll(const MgMotion* sender, 
                                  Point2d &nearpt, int &segment)
 {
-    Box2d limits(sender->pointM, mgDisplayMmToModel(8, sender), 0);
+    Box2d limits(sender->pointM, displayMmToModel(8, sender), 0);
     segment = -1;
     return sender->view->shapes()->hitTest(limits, nearpt, &segment);
 }
@@ -384,7 +384,7 @@ MgShape* MgCmdSelect::getSelectedShape(const MgMotion* sender)
 
 bool MgCmdSelect::canSelect(MgShape* shape, const MgMotion* sender)
 {
-    Box2d limits(sender->startPtM, mgDisplayMmToModel(10, sender), 0);
+    Box2d limits(sender->startPtM, displayMmToModel(10, sender), 0);
     m_segment = -1;
     return shape && shape->shape()->hitTest(limits.center(), limits.width() / 2, 
                                             m_ptNear, m_segment) <= limits.width() / 2;
@@ -398,7 +398,7 @@ int MgCmdSelect::hitTestHandles(MgShape* shape, const Point2d& pointM,
     }
     
     int handleIndex = 0;
-    float minDist = mgDisplayMmToModel(tolmm, sender);
+    float minDist = displayMmToModel(tolmm, sender);
     float nearDist = m_ptNear.distanceTo(pointM);
     int n = shape->shapec()->getHandleCount();
     
@@ -411,7 +411,7 @@ int MgCmdSelect::hitTestHandles(MgShape* shape, const Point2d& pointM,
     }
     
     if (sender->pressDrag && nearDist < minDist / 3
-        && minDist > mgDisplayMmToModel(8, sender)
+        && minDist > displayMmToModel(8, sender)
         && shape->shape()->isKindOf(MgBaseLines::Type()))
     {
         m_insertPt = true;
@@ -473,8 +473,8 @@ bool MgCmdSelect::click(const MgMotion* sender)
             sender->view->selChanged();
         }
         else if (shape && m_selIds.size() == 1 && !shape->shape()->isKindOf(MgSplines::Type())) {
-            bool issmall = (shape->shape()->getExtent().width() < mgDisplayMmToModel(5, sender)
-                            && shape->shape()->getExtent().height() < mgDisplayMmToModel(5, sender));
+            bool issmall = (shape->shape()->getExtent().width() < displayMmToModel(5, sender)
+                            && shape->shape()->getExtent().height() < displayMmToModel(5, sender));
             m_handleIndex = (m_editMode || !issmall ?
                              hitTestHandles(shape, sender->pointM, sender) : 0);
             changed = true;
@@ -600,7 +600,7 @@ bool MgCmdSelect::touchBegan(const MgMotion* sender)
     
     int tmpindex = hitTestHandles(shape, sender->startPtM, sender, 5);
     if (tmpindex < 1) {
-        if (sender->startPtM.distanceTo(m_ptNear) < mgDisplayMmToModel(3, sender)) {
+        if (sender->startPtM.distanceTo(m_ptNear) < displayMmToModel(3, sender)) {
             m_ptStart = m_ptNear;
         }
         else {
@@ -642,18 +642,15 @@ Box2d MgCmdSelect::getBoundingBox(const MgMotion* sender)
     if (!m_selIds.empty())
         selbox.inflate(minDist / 8, minDist / 8);
     
-    Box2d rcview(Box2d(0, 0, sender->view->xform()->getWidth(),
-                       sender->view->xform()->getHeight() )
-                 * sender->view->xform()->displayToModel());
-    
-    rcview.deflate(mgDisplayMmToModel(1, sender));
+    Box2d rcview(sender->view->xform()->getWndRectM());
+    rcview.deflate(displayMmToModel(1, sender));
     selbox.intersectWith(rcview);
     
     Box2d selbox2(selbox);
-    rcview.deflate(mgDisplayMmToModel(12, sender));
+    rcview.deflate(displayMmToModel(12, sender));
     selbox2.intersectWith(rcview);
     
-    return selbox2.isEmpty(mgDisplayMmToModel(5, sender)) ? selbox : selbox2;
+    return selbox2.isEmpty(displayMmToModel(5, sender)) ? selbox : selbox2;
 }
 
 bool MgCmdSelect::canTransform(MgShape* shape, const MgMotion* sender)
@@ -686,11 +683,11 @@ bool MgCmdSelect::isDragRectCorner(const MgMotion* sender, Matrix2d& mat)
     
     Point2d pnt;
     int i;
-    float mindist = mgDisplayMmToModel(5, sender);
+    float mindist = displayMmToModel(5, sender);
     
     for (i = canTransform(getShape(m_selIds[0], sender), sender) ? 7 : -1; i >= 0; i--) {
-        mgGetRectHandle(selbox, i, pnt);
-        float addlen = i < 4 ? 0.f : mgDisplayMmToModel(1, sender); // 边中点优先1毫米
+        mgnear::getRectHandle(selbox, i, pnt);
+        float addlen = i < 4 ? 0.f : displayMmToModel(1, sender); // 边中点优先1毫米
         if (mindist > sender->startPtM.distanceTo(pnt) - addlen) {
             mindist = sender->startPtM.distanceTo(pnt) - addlen;
             m_boxHandle = i;
@@ -699,8 +696,8 @@ bool MgCmdSelect::isDragRectCorner(const MgMotion* sender, Matrix2d& mat)
 
     for (i = canRotate(getShape(m_selIds[0], sender), sender) ? 1 : -1;
         i >= 0; i--) {
-        mgGetRectHandle(selbox, i == 0 ? 7 : 5, pnt);
-        pnt = pnt.rulerPoint(selbox.center(), -mgDisplayMmToModel(10, sender), 0);
+        mgnear::getRectHandle(selbox, i == 0 ? 7 : 5, pnt);
+        pnt = pnt.rulerPoint(selbox.center(), -displayMmToModel(10, sender), 0);
         if (mindist > sender->startPtM.distanceTo(pnt)) {
             mindist = sender->startPtM.distanceTo(pnt);
             m_boxHandle = 8 + i;
@@ -708,7 +705,7 @@ bool MgCmdSelect::isDragRectCorner(const MgMotion* sender, Matrix2d& mat)
     }
     if (m_boxHandle < 8) {
         Box2d newbox(selbox);
-        mgMoveRectHandle(newbox, m_boxHandle, sender->pointM);
+        mgnear::moveRectHandle(newbox, m_boxHandle, sender->pointM);
         
         if (!selbox.isEmpty() && !newbox.isEmpty()) {
             mat = Matrix2d::scaling((newbox.xmax - newbox.xmin) / selbox.width(),
@@ -718,12 +715,12 @@ bool MgCmdSelect::isDragRectCorner(const MgMotion* sender, Matrix2d& mat)
         }
     }
     else if (m_boxHandle < 10) {
-        mgGetRectHandle(selbox, m_boxHandle == 8 ? 7 : 5, pnt);
-        pnt = pnt.rulerPoint(selbox.center(), -mgDisplayMmToModel(10, sender), 0);
+        mgnear::getRectHandle(selbox, m_boxHandle == 8 ? 7 : 5, pnt);
+        pnt = pnt.rulerPoint(selbox.center(), -displayMmToModel(10, sender), 0);
         float angle = (pnt - selbox.center()).angleTo2(sender->pointM - selbox.center());
         
         if (m_boxHandle == 8) {
-            angle = mgDeg2Rad(mgRound(mgRad2Deg(angle)) / 15 * 15.f);
+            angle = mgbase::deg2Rad(mgRound(mgbase::rad2Deg(angle)) / 15 * 15.f);
         }
         mat = Matrix2d::rotation(angle, selbox.center());
         m_ptSnap = selbox.center().polarPoint(angle + (pnt - selbox.center()).angle2(),
@@ -773,7 +770,7 @@ bool MgCmdSelect::touchMoved(const MgMotion* sender)
     Matrix2d mat;
     bool dragCorner = isDragRectCorner(sender, mat);
     
-    if (m_insertPt && pointM.distanceTo(m_ptNear) < mgDisplayMmToModel(5, sender)) {
+    if (m_insertPt && pointM.distanceTo(m_ptNear) < displayMmToModel(5, sender)) {
         pointM = m_ptNear;  // 拖动刚新加的点到起始点时取消新增
     }
     
@@ -823,7 +820,7 @@ bool MgCmdSelect::touchMoved(const MgMotion* sender)
                 m_rotateHandle = oldRotateHandle;
             }
             else if (m_handleIndex > 0 && isEditMode(sender->view)) { // 拖动顶点
-                float tol = mgDisplayMmToModel(3, sender);
+                float tol = displayMmToModel(3, sender);
                 shape->setHandlePoint2(m_handleIndex - 1, 
                     snapPoint(sender, m_clones[i]), tol, _dragData);
             }
@@ -895,14 +892,14 @@ bool MgCmdSelect::isCloneDrag(const MgMotion* sender)
     float dist = sender->pointM.distanceTo(sender->startPtM);
     return (!isEditMode(sender->view)
             && m_boxHandle > 16 && sender->pressDrag
-            && dist > mgDisplayMmToModel(5, sender));
+            && dist > displayMmToModel(5, sender));
 }
 
 bool MgCmdSelect::touchEnded(const MgMotion* sender)
 {
     // 拖动刚新加的点到起始点时取消新增
     if (m_insertPt && m_clones.size() == 1
-        && sender->pointM.distanceTo(m_ptNear) < mgDisplayMmToModel(5, sender)) {
+        && sender->pointM.distanceTo(m_ptNear) < displayMmToModel(5, sender)) {
         m_clones[0]->release();
         m_clones.clear();
     }
@@ -1171,7 +1168,7 @@ bool MgCmdSelect::cloneSelection(const MgMotion* sender)
     
     if (!m_clones.empty()) {
         MgShapesLock locker(MgShapesLock::ReadOnly, sender->view->doc());
-        float dist = mgDisplayMmToModel(10, sender->view->graph());
+        float dist = displayMmToModel(10, sender->view->graph());
         for (size_t i = 0; i < m_clones.size(); i++) {
             m_clones[i]->shape()->offset(Vector2d(dist, -dist), -1);
         }
@@ -1246,7 +1243,7 @@ bool MgCmdSelect::insertVertext(const MgMotion* sender)
         MgBaseLines *lines = (MgBaseLines *)shape->shape();
         float dist = m_ptNear.distanceTo(shape->shape()->getPoint(m_segment));
         
-        ret = (dist > mgDisplayMmToModel(1, sender)
+        ret = (dist > displayMmToModel(1, sender)
                && lines->insertPoint(m_segment, m_ptNear));
         if (ret) {
             shape->shape()->update();
@@ -1431,7 +1428,7 @@ bool MgCmdSelect::twoFingersMove(const MgMotion* sender)
             }
             if (canRotate(basesp, sender)) {            // 以新起点为中心旋转
                 a0 = (sender->point2M - sender->pointM).angle2() - a0;
-                a0 = mgDeg2Rad(mgRoundReal(mgRad2Deg(a0), 0));  // 整度变化
+                a0 = mgbase::deg2Rad(mgbase::roundReal(mgbase::rad2Deg(a0), 0));  // 整度变化
                 mat *= Matrix2d::rotation(a0, sender->pointM);
             }
             

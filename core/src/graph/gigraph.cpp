@@ -63,7 +63,7 @@ bool GiGraphics::beginPaint(GiCanvas* canvas, const RECT_2D& clipBox)
     m_impl->rectDraw = m_impl->clipBox0;
     m_impl->rectDraw.inflate(GiGraphicsImpl::CLIP_INFLATE);
     m_impl->rectDrawM = Box2d(m_impl->rectDraw) * xf().displayToModel();
-    m_impl->rectDrawMaxM = Box2d(0, 0, xf().getWidth(), xf().getHeight()) * xf().displayToModel();
+    m_impl->rectDrawMaxM = xf().getWndRectM();
     m_impl->rectDrawW = m_impl->rectDrawM * xf().modelToWorld();
     m_impl->rectDrawMaxW = m_impl->rectDrawMaxM * xf().modelToWorld();
     
@@ -266,7 +266,7 @@ bool GiGraphics::drawLine(const GiContext* ctx,
 
     Point2d pts[2] = { startPt * S2D(xf(), modelUnit), endPt * S2D(xf(), modelUnit) };
 
-    if (!mgClipLine(pts[0], pts[1], m_impl->rectDraw))
+    if (!mglnrel::clipLine(pts[0], pts[1], m_impl->rectDraw))
         return false;
 
     return rawLine(ctx, pts[0].x, pts[0].y, pts[1].x, pts[1].y);
@@ -297,7 +297,7 @@ static bool DrawEdge(int count, int &i, Point2d* pts, Point2d &ptLast,
     pt1 = ptLast;
     ptLast = pts[i+1];
     pt2 = ptLast;
-    if (!mgClipLine(pt1, pt2, rectDraw))    // 该边不可见
+    if (!mglnrel::clipLine(pt1, pt2, rectDraw))    // 该边不可见
         return false;
 
     si = i;                                 // 收集第一条可见边
@@ -315,7 +315,7 @@ static bool DrawEdge(int count, int &i, Point2d* pts, Point2d &ptLast,
             pt1 = ptLast;
             ptLast = pts[i+1];
             pt2 = ptLast;
-            if (!mgClipLine(pt1, pt2, rectDraw)) // 该边不可见
+            if (!mglnrel::clipLine(pt1, pt2, rectDraw)) // 该边不可见
                 break;
             ei++;
             if (pt2 != ptLast)              // 该边起点可见，终点不可见
@@ -494,7 +494,7 @@ bool GiGraphics::drawArc(const GiContext* ctx,
         return false;
 
     Point2d points[16];
-    int count = mgAngleArcToBezier(points, center,
+    int count = mgcurv::arcToBezier(points, center,
         rx, ry, startAngle, sweepAngle);
     S2D(xf(), modelUnit).TransformPoints(count, points);
 
@@ -508,7 +508,7 @@ bool GiGraphics::drawArc3P(const GiContext* ctx, const Point2d& startpt,
     Point2d center;
     float r, startAngle, sweepAngle;
     
-    return (mgArc3P(startpt, midpt, endpt, center, r, &startAngle, &sweepAngle)
+    return (mgcurv::arc3P(startpt, midpt, endpt, center, r, &startAngle, &sweepAngle)
             && drawArc(ctx, center, r, r, startAngle, sweepAngle, modelUnit));
 }
 
@@ -602,8 +602,8 @@ bool GiGraphics::_drawPolygon(const GiContext* ctx, int count, const Point2d* po
     if (n == 4 && mgEquals(pxs[0].x, pxs[3].x) && mgEquals(pxs[1].x, pxs[2].x)
         && mgEquals(pxs[0].y, pxs[1].y) && mgEquals(pxs[2].y, pxs[3].y))
     {
-        return rawRect(&context, pxs[0].x, pxs[0].y, 
-            pxs[2].x - pxs[0].x, pxs[2].y - pxs[0].y);
+        Box2d rc(pxs[0].x, pxs[0].y, pxs[2].x, pxs[2].y, true);
+        return rawRect(&context, rc.xmin, rc.ymin, rc.width(), rc.height());
     }
 
     return rawPolygon(&context, pxs, n);
@@ -687,7 +687,7 @@ bool GiGraphics::drawEllipse(const GiContext* ctx, const Point2d& center,
     else
     {
         Point2d pxs[13];
-        mgEllipseToBezier(pxs, center, rx, ry);
+        mgcurv::ellipseToBezier(pxs, center, rx, ry);
         matD.TransformPoints(13, pxs);
 
         ret = rawBeginPath();
@@ -723,7 +723,7 @@ bool GiGraphics::drawPie(const GiContext* ctx,
         return false;
 
     Point2d pxs[16];
-    int count = mgAngleArcToBezier(pxs, center,
+    int count = mgcurv::arcToBezier(pxs, center,
         rx, ry, startAngle, sweepAngle);
     if (count < 4)
         return false;
@@ -787,7 +787,7 @@ bool GiGraphics::drawRoundRect(const GiContext* ctx,
     {
         Point2d pxs[16];
 
-        mgRoundRectToBeziers(pxs, rect, rx, ry);
+        mgcurv::roundRectToBeziers(pxs, rect, rx, ry);
         S2D(xf(), modelUnit).TransformPoints(16, pxs);
 
         ret = rawBeginPath();
