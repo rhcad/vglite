@@ -2,7 +2,6 @@ TouchVG
 ======
 A lightweight 2D vector drawing framework using C++ for iOS, Android and Windows.
 
-Installation notes in chinese, see INSTALL.md .
 License: GNU GPL v3. Author: Zhang Yungui <rhcad@hotmail.com>
 
 FAQ and other hints may be found on the Wiki:
@@ -24,4 +23,7 @@ Installation notes in chinese, see INSTALL.md .
   * Open ios/TestVG.xcworkspace in Xcode, then run a demo application.
   * Or type 'sh build.sh' in the ios folder to make libtouchvg.a for iOS applications.
 * Build for Windows:
-  * Open win/Test_vc9.sln in Visual Studio, then run a demo application.
+  * Open win/Test_vc9.sln in Visual Studio （VC++), then run a demo application.
+  * Open win/Test_cs9.sln in Visual Studio （C#), then run a demo application.
+* Build for Linux/Unix:
+  * Type 'make' or 'make python' in the core folder to make libraries.
