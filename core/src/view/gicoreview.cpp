@@ -53,17 +53,17 @@ public:
     GiTransform* xform() { return CALL_VIEW2(xform(), NULL); }
     GiGraphics* graph() { return CALL_VIEW2(graph(), NULL); }
 
-    bool useFinger() { return CALL_VIEW2(deviceView()->useFinger(), true); }
     bool shapeWillAdded(MgShape*) { return true; }
     bool shapeWillDeleted(MgShape*) { return true; }
     bool shapeCanRotated(MgShape*) { return true; }
     bool shapeCanTransform(MgShape*) { return true; }
+    bool shapeCanUnlock(MgShape*) { return true; }
+    bool shapeCanUngroup(MgShape*) { return true; }
     void shapeMoved(MgShape*, int) {}
 
     void commandChanged() {
         CALL_VIEW(deviceView()->commandChanged());
     }
-
     void selectionChanged() {
         CALL_VIEW(deviceView()->selectionChanged());
     }
@@ -72,6 +72,10 @@ public:
         showContextActions(0, NULL, Box2d::kIdentity(), NULL);
         return (shape && shape->getParent()
             && shape->getParent()->removeShape(shape->getID()));
+    }
+
+    bool useFinger() {
+        return CALL_VIEW2(deviceView()->useFinger(), true);
     }
     
     bool isContextActionsVisible() {
@@ -93,11 +97,11 @@ public:
     }
     
     void shapeAdded(MgShape* sp) {
-        if (sp && newids.empty()) {
+        if (newids.empty()) {
             newids.push_back(sp->getID());      // 记下新图形的ID
             regenAppend();                      // 通知视图获取快照并增量重绘
         }
-        else if (sp && newids.back() != 0) {    // 已经regenAppend，但视图还未重绘
+        else if (newids.back() != 0) {    // 已经regenAppend，但视图还未重绘
             newids.insert(newids.begin(), sp->getID()); // 记下更多的ID
         }
         else {                                  // 已经regenAppend并增量重绘
@@ -140,6 +144,13 @@ public:
     void setView(GcBaseView* view) {
         if (curview != view) {
             curview = view;
+        }
+    }
+
+    static void onShapesLocked(MgShapeDoc* doc, void* obj, bool locked) {
+        GiCoreViewImpl* p = (GiCoreViewImpl*)obj;
+        if (!locked && p->curview && p->doc() == doc) {
+            p->curview->deviceView()->contentChanged();
         }
     }
     

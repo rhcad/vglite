@@ -3,11 +3,11 @@
 
 #import <UIKit/UIKit.h>
 
-class IosCanvasAdapter;
+class GiCanvasAdapter;
 
 //! 测试绘图的视图类
 @interface GraphView1 : UIView {
-    IosCanvasAdapter  *_canvas;
+    GiCanvasAdapter  *_canvas;
     CGPoint         _lastpt;
     UIView          *_dynview;
     int             _flags;
@@ -24,8 +24,8 @@ class IosCanvasAdapter;
 - (id)initWithFrame:(CGRect)frame withFlags:(int)t;
 - (void)save;
 - (void)edit;
-- (void)draw:(IosCanvasAdapter*)canvas;
-- (void)dynDraw:(IosCanvasAdapter*)canvas;
+- (void)draw:(GiCanvasAdapter*)canvas;
+- (void)dynDraw:(GiCanvasAdapter*)canvas;
 - (void)showDrawnTime:(int)ms logging:(BOOL)log;
 
 @end

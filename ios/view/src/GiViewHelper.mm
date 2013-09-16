@@ -1,9 +1,9 @@
-//! \file IosViewHelper.mm
-//! \brief 实现iOS绘图视图辅助类 IosViewHelper
+//! \file GiViewHelper.mm
+//! \brief 实现iOS绘图视图辅助类 GiViewHelper
 // Copyright (c) 2012-2013, https://github.com/rhcad/touchvg
 
-#import "IosViewHelper.h"
-#import "IosGraphView.h"
+#import "GiViewHelper.h"
+#import "GiGraphView.h"
 #include "gicoreview.h"
 
 GiColor CGColorToGiColor(CGColorRef color) {
@@ -23,37 +23,37 @@ GiColor CGColorToGiColor(CGColorRef color) {
                    lroundf(rgba[2] * 255.f), lroundf(CGColorGetAlpha(color) * 255.f));
 }
 
-@implementation IosViewHelper
+@implementation GiViewHelper
 
-@synthesize command, shapeCount, content;
+@synthesize command, shapeCount, selectedCount, selectedType, content;
 @synthesize lineWidth, strokeWidth, lineColor, lineAlpha;
 @synthesize lineStyle, fillColor, fillAlpha;
 
-- (id)init:(IosGraphView *)view {
+- (id)init:(GiGraphView *)view {
     self = [super init];
     _view = view;
     return self;
 }
 
-+ (id)instance:(IosGraphView *)view {
-    return [[[IosViewHelper alloc]init:view]autorelease];
++ (id)instance:(GiGraphView *)view {
+    return [[[GiViewHelper alloc]init:view]autorelease];
 }
 
-+ (IosGraphView *)activeView {
-    return [IosGraphView activeView];
++ (GiGraphView *)activeView {
+    return [GiGraphView activeView];
 }
 
-- (IosGraphView *)createGraphView:(CGRect)frame :(UIView *)parentView {
-    _view = [IosGraphView createGraphView:frame :parentView];
+- (GiGraphView *)createGraphView:(CGRect)frame :(UIView *)parentView {
+    _view = [GiGraphView createGraphView:frame :parentView];
     return _view;
 }
 
-- (IosGraphView *)createMagnifierView:(CGRect)frame
-                              refView:(IosGraphView *)refView
+- (GiGraphView *)createMagnifierView:(CGRect)frame
+                              refView:(GiGraphView *)refView
                            parentView:(UIView *)parentView
 {
-    refView = refView ? refView : [IosGraphView activeView];
-    _view = [IosGraphView createMagnifierView:frame refView:refView parentView:parentView];
+    refView = refView ? refView : [GiGraphView activeView];
+    _view = [GiGraphView createMagnifierView:frame refView:refView parentView:parentView];
     return _view;
 }
 
@@ -172,6 +172,14 @@ GiColor CGColorToGiColor(CGColorRef color) {
 
 - (int)shapeCount {
     return [_view coreView]->getShapeCount();
+}
+
+- (int)selectedCount {
+    return [_view coreView]->getSelectedShapeCount();
+}
+
+- (int)selectedType {
+    return [_view coreView]->getSelectedShapeType();
 }
 
 - (BOOL)loadFromFile:(NSString *)vgfile {

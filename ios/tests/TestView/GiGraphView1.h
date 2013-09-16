@@ -2,7 +2,7 @@
 //! \brief 定义iOS绘图视图类 GiGraphView1
 // Copyright (c) 2012-2013, https://github.com/rhcad/touchvg
 
-#import "IosGraphView.h"
+#import "GiGraphView.h"
 
 class ViewAdapter1;
 class GiCoreView;
@@ -20,7 +20,7 @@ class GiCoreView;
 
 @end
 
-@interface GiGraphView2 : IosGraphView
+@interface GiGraphView2 : GiGraphView
 
 - (BOOL)savePng:(NSString *)filename;
 + (NSString *)lastFileName;

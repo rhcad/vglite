@@ -43,7 +43,8 @@ public:
     virtual void redraw() = 0;                  //!< 标记视图待更新显示
     
     virtual bool useFinger() = 0;               //!< 使用手指或鼠标交互
-    virtual void selectionChanged() = 0;              //!< 选择集改变的通知
+    virtual void commandChanged() = 0;          //!< 命令改变
+    virtual void selectionChanged() = 0;        //!< 选择集改变的通知
     
     virtual bool shapeWillAdded(MgShape* shape) = 0;    //!< 通知将添加图形
     virtual void shapeAdded(MgShape* shape) = 0;        //!< 通知已添加图形，由视图重新构建显示
@@ -51,8 +52,9 @@ public:
     virtual bool removeShape(MgShape* shape) = 0;       //!< 删除图形
     virtual bool shapeCanRotated(MgShape* shape) = 0;   //!< 通知是否能旋转图形
     virtual bool shapeCanTransform(MgShape* shape) = 0; //!< 通知是否能对图形变形
+    virtual bool shapeCanUnlock(MgShape* shape) = 0;    //!< 通知是否能对图形解锁
+    virtual bool shapeCanUngroup(MgShape* shape) = 0;   //!< 通知是否能对成组图形解散
     virtual void shapeMoved(MgShape* shape, int segment) = 0;   //!< 通知图形已拖动
-    virtual void commandChanged() = 0;                  //!< 命令改变
     
     virtual bool isContextActionsVisible() = 0;         //!< 返回上下文菜单是否已显示
 #ifndef SWIG

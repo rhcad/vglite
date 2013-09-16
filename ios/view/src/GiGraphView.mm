@@ -1,25 +1,26 @@
-//! \file IosGraphView.mm
-//! \brief 实现iOS绘图视图类 IosGraphView
+//! \file GiGraphView.mm
+//! \brief 实现iOS绘图视图类 GiGraphView
 // Copyright (c) 2012-2013, https://github.com/rhcad/touchvg
 
-#import "IosGraphViewImpl.h"
+#import "GiGraphViewImpl.h"
 #import <QuartzCore/CALayer.h>
 #include <math.h>
 
-#pragma mark - IosViewAdapter implementation
+#pragma mark - GiViewAdapter implementation
 
-IosViewAdapter::IosViewAdapter(UIView *mainView, GiCoreView *coreView)
+GiViewAdapter::GiViewAdapter(UIView *mainView, GiCoreView *coreView)
 : _view(mainView), _dynview(nil), _tmpshot(nil), _drawCount(0) {
     _coreView = new GiCoreView(coreView);
+    memset(&respondsTo, 0, sizeof(respondsTo));
 }
 
-IosViewAdapter::~IosViewAdapter() {
+GiViewAdapter::~GiViewAdapter() {
     _coreView->destoryView(this);
     delete _coreView;
     [_tmpshot release];
 }
 
-UIImage * IosViewAdapter::snapshot(bool autoDraw) {
+UIImage * GiViewAdapter::snapshot(bool autoDraw) {
     if (!autoDraw) {
         _drawCount = 1;
     }
@@ -40,7 +41,7 @@ UIImage * IosViewAdapter::snapshot(bool autoDraw) {
     return image;
 }
 
-bool IosViewAdapter::drawAppend(GiCanvas* canvas) {
+bool GiViewAdapter::drawAppend(GiCanvas* canvas) {
     if (_drawCount > 0) {   // 还在regenAppend调用中
         _drawCount++;       // 让snapshot函数返回nil
         return true;        // 不需要绘图，反正regenAppend调用snapshot将得到nil
@@ -54,7 +55,7 @@ bool IosViewAdapter::drawAppend(GiCanvas* canvas) {
     return false;
 }
 
-void IosViewAdapter::clearCachedData() {
+void GiViewAdapter::clearCachedData() {
     if (_tmpshot) {
         [_tmpshot release];
         _tmpshot = nil;
@@ -62,12 +63,12 @@ void IosViewAdapter::clearCachedData() {
     _coreView->clearCachedData();
 }
 
-void IosViewAdapter::regenAll() {
+void GiViewAdapter::regenAll() {
     [_view setNeedsDisplay];
     [_dynview setNeedsDisplay];
 }
 
-void IosViewAdapter::regenAppend() {
+void GiViewAdapter::regenAppend() {
     [_tmpshot release];
     _tmpshot = nil;                 // renderInContext可能会调用drawRect
     _tmpshot = snapshot(false);     // 获取现有绘图快照
@@ -77,7 +78,7 @@ void IosViewAdapter::regenAppend() {
     [_dynview setNeedsDisplay];
 }
 
-void IosViewAdapter::redraw() {
+void GiViewAdapter::redraw() {
     if (!_dynview && _view && _view.superview) {    // 自动创建动态图形视图
         _dynview = [[IosTempView alloc]initView:_view.frame :this];
         _dynview.autoresizingMask = _view.autoresizingMask;
@@ -87,15 +88,15 @@ void IosViewAdapter::redraw() {
     [_dynview setNeedsDisplay];
 }
 
-bool IosViewAdapter::dispatchGesture(GiGestureType gestureType, GiGestureState gestureState, CGPoint pt) {
+bool GiViewAdapter::dispatchGesture(GiGestureType gestureType, GiGestureState gestureState, CGPoint pt) {
     return _coreView->onGesture(this, gestureType, gestureState, pt.x, pt.y);
 }
 
-bool IosViewAdapter::dispatchPan(GiGestureState gestureState, CGPoint pt, bool switchGesture) {
+bool GiViewAdapter::dispatchPan(GiGestureState gestureState, CGPoint pt, bool switchGesture) {
     return _coreView->onGesture(this, kGiGesturePan, gestureState, pt.x, pt.y, switchGesture);
 }
 
-bool IosViewAdapter::twoFingersMove(UIGestureRecognizer *sender, int state, bool switchGesture) {
+bool GiViewAdapter::twoFingersMove(UIGestureRecognizer *sender, int state, bool switchGesture) {
     CGPoint pt1, pt2;
     
     if ([sender numberOfTouches] == 2) {
@@ -112,26 +113,44 @@ bool IosViewAdapter::twoFingersMove(UIGestureRecognizer *sender, int state, bool
                                      pt1.x, pt1.y, pt2.x, pt2.y, switchGesture);
 }
 
-bool IosViewAdapter::isContextActionsVisible() {
+bool GiViewAdapter::isContextActionsVisible() {
     return false;
 }
 
-bool IosViewAdapter::showContextActions(const mgvector<int>& actions,
+bool GiViewAdapter::showContextActions(const mgvector<int>& actions,
                                         float x, float y, float w, float h) {
     return false;
 }
 
-void IosViewAdapter::commandChanged() {
+void GiViewAdapter::commandChanged() {
+    for (size_t i = 0; i < delegates.size() && respondsTo.didCommandChanged; i++) {
+        if ([delegates[i] respondsToSelector:@selector(onCommandChanged:)]) {
+            [delegates[i] onCommandChanged:_view];
+        }
+    }
 }
 
-void IosViewAdapter::selectionChanged() {
+void GiViewAdapter::selectionChanged() {
+    for (size_t i = 0; i < delegates.size() && respondsTo.didSelectionChanged; i++) {
+        if ([delegates[i] respondsToSelector:@selector(onSelectionChanged:)]) {
+            [delegates[i] onSelectionChanged:_view];
+        }
+    }
+}
+
+void GiViewAdapter::contentChanged() {
+    for (size_t i = 0; i < delegates.size() && respondsTo.didContentChanged; i++) {
+        if ([delegates[i] respondsToSelector:@selector(onContentChanged:)]) {
+            [delegates[i] onContentChanged:_view];
+        }
+    }
 }
 
 #pragma mark - IosTempView implementation
 
 @implementation IosTempView
 
-- (id)initView:(CGRect)frame :(IosViewAdapter *)adapter {
+- (id)initView:(CGRect)frame :(GiViewAdapter *)adapter {
     self = [super initWithFrame:frame];
     if (self) {
         _adapter = adapter;
@@ -142,7 +161,7 @@ void IosViewAdapter::selectionChanged() {
 }
 
 - (void)drawRect:(CGRect)rect {
-    IosCanvasAdapter canvas;
+    GiCanvasAdapter canvas;
     
     if (canvas.beginPaint(UIGraphicsGetCurrentContext())) {
         _adapter->coreView()->dynDraw(_adapter, &canvas);
@@ -152,12 +171,12 @@ void IosViewAdapter::selectionChanged() {
 
 @end
 
-#pragma mark - IosGraphView implementation
+#pragma mark - GiGraphView implementation
 
-static IosGraphView* _activeGraphView = nil;
+static GiGraphView* _activeGraphView = nil;
 GiColor CGColorToGiColor(CGColorRef color);
 
-@implementation IosGraphView
+@implementation GiGraphView
 
 @synthesize panRecognizer = _panRecognizer;
 @synthesize tapRecognizer = _tapRecognizer;
@@ -178,21 +197,21 @@ GiColor CGColorToGiColor(CGColorRef color);
     self.opaque = NO;                               // 透明背景
     self.multipleTouchEnabled = YES;                // 检测多个触点
     
-    GiCoreView::setScreenDpi(IosCanvasAdapter::getScreenDpi());
+    GiCoreView::setScreenDpi(GiCanvasAdapter::getScreenDpi());
     [self setupGestureRecognizers];
     
     if (mainView && coreView) {
-        _adapter = new IosViewAdapter(self, coreView);
+        _adapter = new GiViewAdapter(self, coreView);
         coreView->createMagnifierView(_adapter, mainView);
     }
     else {
-        _adapter = new IosViewAdapter(self, NULL);
+        _adapter = new GiViewAdapter(self, NULL);
         _adapter->coreView()->createView(_adapter);
     }
 }
 
-+ (IosGraphView *)createGraphView:(CGRect)frame :(UIView *)parentView {
-    IosGraphView *v = [[IosGraphView alloc]initWithFrame:frame];
++ (GiGraphView *)createGraphView:(CGRect)frame :(UIView *)parentView {
+    GiGraphView *v = [[GiGraphView alloc]initWithFrame:frame];
     
     v.autoresizingMask = 0xFF;                      // 自动适应大小
     _activeGraphView = v;                           // 设置为当前绘图视图
@@ -204,15 +223,15 @@ GiColor CGColorToGiColor(CGColorRef color);
     return v;
 }
 
-+ (IosGraphView *)createMagnifierView:(CGRect)frame
-                              refView:(IosGraphView *)refView
++ (GiGraphView *)createMagnifierView:(CGRect)frame
+                              refView:(GiGraphView *)refView
                            parentView:(UIView *)parentView
 {
-    refView = refView ? refView : [IosGraphView activeView];
+    refView = refView ? refView : [GiGraphView activeView];
     if (!refView)
         return nil;
     
-    IosGraphView *v = [[IosGraphView alloc]initWithFrame:frame];
+    GiGraphView *v = [[GiGraphView alloc]initWithFrame:frame];
     
     [v initView:[refView viewAdapter] :[refView coreView]];
     [parentView addSubview:v];
@@ -221,7 +240,7 @@ GiColor CGColorToGiColor(CGColorRef color);
     return v;
 }
 
-+ (IosGraphView *)activeView {
++ (GiGraphView *)activeView {
     return _activeGraphView;
 }
 
@@ -264,7 +283,7 @@ GiColor CGColorToGiColor(CGColorRef color);
 
 - (void)drawRect:(CGRect)rect {
     GiCoreView *coreView = _adapter->coreView();
-    IosCanvasAdapter canvas;
+    GiCanvasAdapter canvas;
     
     coreView->onSize(_adapter, self.bounds.size.width, self.bounds.size.height);
     
@@ -298,6 +317,25 @@ GiColor CGColorToGiColor(CGColorRef color);
 - (void)activiteView {
     if (_activeGraphView != self) {
         _activeGraphView = self;
+    }
+}
+
+- (void)addDelegate:(id<GiGraphViewDelegate>)d {
+    if (d) {
+        [self removeDelegate:d];
+        _adapter->delegates.push_back(d);
+        _adapter->respondsTo.didCommandChanged |= [d respondsToSelector:@selector(onCommandChanged:)];
+        _adapter->respondsTo.didSelectionChanged |= [d respondsToSelector:@selector(onSelectionChanged:)];
+        _adapter->respondsTo.didContentChanged |= [d respondsToSelector:@selector(onContentChanged:)];
+    }
+}
+
+- (void)removeDelegate:(id<GiGraphViewDelegate>)d {
+    for (size_t i = 0; i < _adapter->delegates.size(); i++) {
+        if (_adapter->delegates[i] == d) {
+            _adapter->delegates.erase(_adapter->delegates.begin() + i);
+            break;
+        }
     }
 }
 

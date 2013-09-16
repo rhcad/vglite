@@ -1,23 +1,23 @@
-//! \file IosViewHelper.h
-//! \brief 定义iOS绘图视图辅助类 IosViewHelper
+//! \file GiViewHelper.h
+//! \brief 定义iOS绘图视图辅助类 GiViewHelper
 // Copyright (c) 2012-2013, https://github.com/rhcad/touchvg
 
 #import <UIKit/UIKit.h>
 
-@class IosGraphView;
+@class GiGraphView;
 
 //! iOS绘图视图辅助类
 /*! \ingroup GROUP_IOS
  */
-@interface IosViewHelper : NSObject {
-    IosGraphView *_view;
+@interface GiViewHelper : NSObject {
+    GiGraphView *_view;
 }
 
-+ (id)instance:(IosGraphView *)view;                 //!< 创建一个自动释放的本类对象
++ (id)instance:(GiGraphView *)view;                 //!< 创建一个自动释放的本类对象
 
-+ (IosGraphView *)activeView;                        //!< 得到当前激活的绘图视图
-- (IosGraphView *)createGraphView:(CGRect)frame :(UIView *)parentView;   //!< 创建普通图形视图，并记到本类
-- (IosGraphView *)createMagnifierView:(CGRect)frame refView:(IosGraphView *)refView
++ (GiGraphView *)activeView;                        //!< 得到当前激活的绘图视图
+- (GiGraphView *)createGraphView:(CGRect)frame :(UIView *)parentView;   //!< 创建普通图形视图，并记到本类
+- (GiGraphView *)createMagnifierView:(CGRect)frame refView:(GiGraphView *)refView
                            parentView:(UIView *)parentView;  //!< 创建放大镜视图(不需要额外释放)，并记到本类
 
 @property(nonatomic, assign) NSString   *command;   //!< 当前命令名称
@@ -31,6 +31,8 @@
 - (void)setContextEditing:(BOOL)editing;            //!< 线条属性是否正在动态修改
 
 @property(nonatomic, readonly) int shapeCount;      //!< 图形总数
+@property(nonatomic, readonly) int selectedCount;   //!< 选中的图形个数
+@property(nonatomic, readonly) int selectedType;    //!< 选中的图形的类型, MgShapeType
 @property(nonatomic, assign) NSString *content;     //!< 图形的JSON内容
 
 - (BOOL)loadFromFile:(NSString *)vgfile;    //!< 从JSON文件中加载图形

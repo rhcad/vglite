@@ -1,11 +1,11 @@
-//! \file IosCanvasAdapter.mm
-//! \brief 实现画布适配器类 IosCanvasAdapter
+//! \file GiCanvasAdapter.mm
+//! \brief 实现画布适配器类 GiCanvasAdapter
 // Copyright (c) 2012-2013, https://github.com/rhcad/touchvg
 
-#include "IosCanvasAdapter.h"
+#include "GiCanvasAdapter.h"
 #include <sys/sysctl.h>
 
-int IosCanvasAdapter::getScreenDpi()
+int GiCanvasAdapter::getScreenDpi()
 {
     size_t size = 15;
     char machine[15 + 1] = "";
@@ -24,20 +24,20 @@ int IosCanvasAdapter::getScreenDpi()
     return (iPad && !iPadMini) ? 132 : 163;
 }
 
-IosCanvasAdapter::IosCanvasAdapter() : _ctx(NULL)
+GiCanvasAdapter::GiCanvasAdapter() : _ctx(NULL)
 {
 }
 
-IosCanvasAdapter::~IosCanvasAdapter()
+GiCanvasAdapter::~GiCanvasAdapter()
 {
 }
 
-CGContextRef IosCanvasAdapter::context()
+CGContextRef GiCanvasAdapter::context()
 {
     return _ctx;
 }
 
-bool IosCanvasAdapter::beginPaint(CGContextRef context)
+bool GiCanvasAdapter::beginPaint(CGContextRef context)
 {
     if (_ctx || !context) {
         return false;
@@ -58,7 +58,7 @@ bool IosCanvasAdapter::beginPaint(CGContextRef context)
     return true;
 }
 
-void IosCanvasAdapter::endPaint()
+void GiCanvasAdapter::endPaint()
 {
     _ctx = NULL;
 }
@@ -68,7 +68,7 @@ static inline float colorPart(int argb, int bit)
     return (float)((argb >> bit) & 0xFF) / 255.f;
 }
 
-void IosCanvasAdapter::setPen(int argb, float width, int style, float phase)
+void GiCanvasAdapter::setPen(int argb, float width, int style, float phase)
 {
     const CGFloat patDash[]      = { 5, 5, 0 };
     const CGFloat patDot[]       = { 1, 2, 0 };
@@ -99,7 +99,7 @@ void IosCanvasAdapter::setPen(int argb, float width, int style, float phase)
     }
 }
 
-void IosCanvasAdapter::setBrush(int argb, int style)
+void GiCanvasAdapter::setBrush(int argb, int style)
 {
     if (0 == style) {
         float alpha = colorPart(argb, 24);
@@ -109,22 +109,22 @@ void IosCanvasAdapter::setBrush(int argb, int style)
     }
 }
 
-void IosCanvasAdapter::saveClip()
+void GiCanvasAdapter::saveClip()
 {
     CGContextSaveGState(_ctx);
 }
 
-void IosCanvasAdapter::restoreClip()
+void GiCanvasAdapter::restoreClip()
 {
     CGContextRestoreGState(_ctx);
 }
 
-void IosCanvasAdapter::clearRect(float x, float y, float w, float h)
+void GiCanvasAdapter::clearRect(float x, float y, float w, float h)
 {
     CGContextClearRect(_ctx, CGRectMake(x, y, w, h));
 }
 
-void IosCanvasAdapter::drawRect(float x, float y, float w, float h, bool stroke, bool fill)
+void GiCanvasAdapter::drawRect(float x, float y, float w, float h, bool stroke, bool fill)
 {
     if (fill && _fill) {
         CGContextFillRect(_ctx, CGRectMake(x, y, w, h));
@@ -134,14 +134,14 @@ void IosCanvasAdapter::drawRect(float x, float y, float w, float h, bool stroke,
     }
 }
 
-bool IosCanvasAdapter::clipRect(float x, float y, float w, float h)
+bool GiCanvasAdapter::clipRect(float x, float y, float w, float h)
 {
     CGContextClipToRect(_ctx, CGRectMake(x, y, w, h));
     CGRect rect = CGContextGetClipBoundingBox(_ctx);
     return !CGRectIsEmpty(rect);
 }
 
-void IosCanvasAdapter::drawLine(float x1, float y1, float x2, float y2)
+void GiCanvasAdapter::drawLine(float x1, float y1, float x2, float y2)
 {
     CGContextBeginPath(_ctx);
     CGContextMoveToPoint(_ctx, x1, y1);
@@ -149,7 +149,7 @@ void IosCanvasAdapter::drawLine(float x1, float y1, float x2, float y2)
     CGContextStrokePath(_ctx);
 }
 
-void IosCanvasAdapter::drawEllipse(float x, float y, float w, float h, bool stroke, bool fill)
+void GiCanvasAdapter::drawEllipse(float x, float y, float w, float h, bool stroke, bool fill)
 {
     if (fill && _fill) {
         CGContextFillEllipseInRect(_ctx, CGRectMake(x, y, w, h));
@@ -159,51 +159,51 @@ void IosCanvasAdapter::drawEllipse(float x, float y, float w, float h, bool stro
     }
 }
 
-void IosCanvasAdapter::beginPath()
+void GiCanvasAdapter::beginPath()
 {
     CGContextBeginPath(_ctx);
 }
 
-void IosCanvasAdapter::moveTo(float x, float y)
+void GiCanvasAdapter::moveTo(float x, float y)
 {
     CGContextMoveToPoint(_ctx, x, y);
 }
 
-void IosCanvasAdapter::lineTo(float x, float y)
+void GiCanvasAdapter::lineTo(float x, float y)
 {
     CGContextAddLineToPoint(_ctx, x, y);
 }
 
-void IosCanvasAdapter::bezierTo(float c1x, float c1y, float c2x, float c2y, float x, float y)
+void GiCanvasAdapter::bezierTo(float c1x, float c1y, float c2x, float c2y, float x, float y)
 {
     CGContextAddCurveToPoint(_ctx, c1x, c1y, c2x, c2y, x, y);
 }
 
-void IosCanvasAdapter::quadTo(float cpx, float cpy, float x, float y)
+void GiCanvasAdapter::quadTo(float cpx, float cpy, float x, float y)
 {
     CGContextAddQuadCurveToPoint(_ctx, cpx, cpy, x, y);
 }
 
-void IosCanvasAdapter::closePath()
+void GiCanvasAdapter::closePath()
 {
     CGContextClosePath(_ctx);
 }
 
-void IosCanvasAdapter::drawPath(bool stroke, bool fill)
+void GiCanvasAdapter::drawPath(bool stroke, bool fill)
 {
     fill = fill && _fill;
     CGContextDrawPath(_ctx, (stroke && fill) ? kCGPathEOFillStroke
                       : (fill ? kCGPathEOFill : kCGPathStroke));  // will clear the path
 }
 
-bool IosCanvasAdapter::clipPath()
+bool GiCanvasAdapter::clipPath()
 {
     CGContextClip(_ctx);
     CGRect rect = CGContextGetClipBoundingBox(_ctx);
     return !CGRectIsEmpty(rect);
 }
 
-void IosCanvasAdapter::drawHandle(float x, float y, int type)
+void GiCanvasAdapter::drawHandle(float x, float y, int type)
 {
     if (type >= 0 && type < 4) {
         NSString *names[] = { @"vgdot1.png", @"vgdot2.png", @"vgdot3.png", @"app57.png" };
@@ -224,7 +224,7 @@ void IosCanvasAdapter::drawHandle(float x, float y, int type)
     }
 }
 
-void IosCanvasAdapter::drawBitmap(const char* name, float xc, float yc, 
+void GiCanvasAdapter::drawBitmap(const char* name, float xc, float yc, 
                                   float w, float h, float angle)
 {
     UIImage *image = [UIImage imageNamed:@"app57.png"];
@@ -238,7 +238,7 @@ void IosCanvasAdapter::drawBitmap(const char* name, float xc, float yc,
     }
 }
 
-float IosCanvasAdapter::drawTextAt(const char* text, float x, float y, float h, int align)
+float GiCanvasAdapter::drawTextAt(const char* text, float x, float y, float h, int align)
 {
     UIGraphicsPushContext(_ctx);        // 设置为当前上下文，供UIKit显示使用
     

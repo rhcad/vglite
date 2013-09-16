@@ -2,9 +2,9 @@
 //! \brief 实现iOS绘图视图类的手势响应
 // Copyright (c) 2012-2013, https://github.com/rhcad/touchvg
 
-#import "IosGraphViewImpl.h"
+#import "GiGraphViewImpl.h"
 
-@implementation IosGraphView(GestureRecognizer)
+@implementation GiGraphView(GestureRecognizer)
 
 - (void)setupGestureRecognizers {
     UIGestureRecognizer *recognizers[7];

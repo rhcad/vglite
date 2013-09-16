@@ -315,11 +315,17 @@ class touchvgcsPINVOKE {
   [DllImport("touchvgcs", EntryPoint="CSharp_GiView_selectionChangedSwigExplicitGiView")]
   public static extern void GiView_selectionChangedSwigExplicitGiView(HandleRef jarg1);
 
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiView_contentChanged")]
+  public static extern void GiView_contentChanged(HandleRef jarg1);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiView_contentChangedSwigExplicitGiView")]
+  public static extern void GiView_contentChangedSwigExplicitGiView(HandleRef jarg1);
+
   [DllImport("touchvgcs", EntryPoint="CSharp_new_GiView")]
   public static extern IntPtr new_GiView();
 
   [DllImport("touchvgcs", EntryPoint="CSharp_GiView_director_connect")]
-  public static extern void GiView_director_connect(HandleRef jarg1, GiView.SwigDelegateGiView_0 delegate0, GiView.SwigDelegateGiView_1 delegate1, GiView.SwigDelegateGiView_2 delegate2, GiView.SwigDelegateGiView_3 delegate3, GiView.SwigDelegateGiView_4 delegate4, GiView.SwigDelegateGiView_5 delegate5, GiView.SwigDelegateGiView_6 delegate6, GiView.SwigDelegateGiView_7 delegate7);
+  public static extern void GiView_director_connect(HandleRef jarg1, GiView.SwigDelegateGiView_0 delegate0, GiView.SwigDelegateGiView_1 delegate1, GiView.SwigDelegateGiView_2 delegate2, GiView.SwigDelegateGiView_3 delegate3, GiView.SwigDelegateGiView_4 delegate4, GiView.SwigDelegateGiView_5 delegate5, GiView.SwigDelegateGiView_6 delegate6, GiView.SwigDelegateGiView_7 delegate7, GiView.SwigDelegateGiView_8 delegate8);
 
   [DllImport("touchvgcs", EntryPoint="CSharp_GiColor_r_set")]
   public static extern void GiColor_r_set(HandleRef jarg1, byte jarg2);

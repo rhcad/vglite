@@ -1,5 +1,5 @@
-//! \file IosCanvasAdapter.h
-//! \brief 定义画布适配器类 IosCanvasAdapter
+//! \file GiCanvasAdapter.h
+//! \brief 定义画布适配器类 GiCanvasAdapter
 // Copyright (c) 2012-2013, https://github.com/rhcad/touchvg
 
 #include <CoreGraphics/CoreGraphics.h>
@@ -8,11 +8,11 @@
 //! 使用 Quartz 2D 实现的画布适配器类
 /*! \ingroup GROUP_IOS
  */
-class IosCanvasAdapter : public GiCanvas
+class GiCanvasAdapter : public GiCanvas
 {
 public:
-    IosCanvasAdapter();
-    virtual ~IosCanvasAdapter();
+    GiCanvasAdapter();
+    virtual ~GiCanvasAdapter();
     
     //! 在给定上下文上开始绘制
     bool beginPaint(CGContextRef context);

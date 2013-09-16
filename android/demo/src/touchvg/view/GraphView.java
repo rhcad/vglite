@@ -4,6 +4,8 @@
 
 package touchvg.view;
 
+import java.util.ArrayList;
+
 import touchvg.jni.GiCoreView;
 import touchvg.jni.GiView;
 import touchvg.jni.Ints;
@@ -223,6 +225,46 @@ public class GraphView extends View {
 
         super.onDetachedFromWindow();
     }
+    
+    //! 当前命令改变的通知
+    public interface CommandChangedListener {
+        void onCommandChanged(GraphView view);
+    }
+    
+    //! 图形选择集改变的通知
+    public interface SelectionChangedListener {
+        void onSelectionChanged(GraphView view);
+    }
+    
+    //! 图形数据改变的通知
+    public interface ContentChangedListener {
+        void onContentChanged(GraphView view);
+    }
+    
+    private ArrayList<CommandChangedListener> commandChangedListeners;
+    private ArrayList<SelectionChangedListener> selectionChangedListeners;
+    private ArrayList<ContentChangedListener> contentChangedListeners;
+    
+    //! 添加当前命令改变的观察者
+    public void setOnCommandChangedListener(CommandChangedListener listener) {
+        if (this.commandChangedListeners == null)
+            this.commandChangedListeners = new ArrayList<CommandChangedListener>();
+        this.commandChangedListeners.add(listener);
+    }
+    
+    //! 添加图形选择集改变的观察者
+    public void setOnSelectionChangedListener(SelectionChangedListener listener) {
+        if (this.selectionChangedListeners == null)
+            this.selectionChangedListeners = new ArrayList<SelectionChangedListener>();
+        this.selectionChangedListeners.add(listener);
+    }
+    
+    //! 添加图形数据改变的观察者
+    public void setOnContentChangedListener(ContentChangedListener listener) {
+        if (this.contentChangedListeners == null)
+            this.contentChangedListeners = new ArrayList<ContentChangedListener>();
+        this.contentChangedListeners.add(listener);
+    }
 
     //! 视图回调适配器
     /*! \ingroup GROUP_ANDROID
@@ -271,10 +313,29 @@ public class GraphView extends View {
         
         @Override
         public void commandChanged() {
+            if (commandChangedListeners != null) {
+                for (CommandChangedListener listener : commandChangedListeners) {
+                    listener.onCommandChanged(GraphView.this);
+                }
+            }
         }
         
         @Override
         public void selectionChanged() {
+            if (selectionChangedListeners != null) {
+                for (SelectionChangedListener listener : selectionChangedListeners) {
+                    listener.onSelectionChanged(GraphView.this);
+                }
+            }
+        }
+        
+        @Override
+        public void contentChanged() {
+            if (contentChangedListeners != null) {
+                for (ContentChangedListener listener : contentChangedListeners) {
+                    listener.onContentChanged(GraphView.this);
+                }
+            }
         }
     }
 }

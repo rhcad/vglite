@@ -1159,12 +1159,14 @@ bool MgCmdSelect::ungroupSelection(const MgMotion* sender)
         for (sel_iterator it = m_selIds.begin(); it != m_selIds.end(); ++it) {
             shape = sender->view->shapes()->findShape(*it);
             if (shape && shape->shape()->isKindOf(MgGroup::Type())) {
-                MgGroup* group = (MgGroup*)shape->shape();
-
-                group->shapes()->moveAllShapesTo(shape->getParent());
-                if (sender->view->removeShape(shape)) {
-                    shape->release();
-                    count++;
+                if (sender->view->shapeCanUngroup(shape)) {
+                    MgGroup* group = (MgGroup*)shape->shape();
+                    
+                    group->shapes()->moveAllShapesTo(shape->getParent());
+                    if (sender->view->removeShape(shape)) {
+                        shape->release();
+                        count++;
+                    }
                 }
             }
         }
@@ -1337,8 +1339,10 @@ bool MgCmdSelect::setLocked(const MgMotion* sender, bool locked)
     for (sel_iterator it = m_selIds.begin(); it != m_selIds.end(); ++it) {
         MgShape* shape = sender->view->shapes()->findShape(*it);
         if (shape && shape->shape()->getFlag(kMgShapeLocked) != locked) {
-            shape->shape()->setFlag(kMgShapeLocked, locked);
-            count++;
+            if (locked || sender->view->shapeCanUnlock(shape)) {
+                shape->shape()->setFlag(kMgShapeLocked, locked);
+                count++;
+            }
         }
     }
     if (count > 0) {

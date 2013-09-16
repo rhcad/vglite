@@ -79,7 +79,7 @@ public:
     //! 返回图形总数
     int getShapeCount();
 
-	//! 返回图形总数
+	//! 返回选中的图形个数
     int getSelectedShapeCount();
 
 	//! 返回选中的图形的类型, MgShapeType

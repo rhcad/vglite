@@ -180,6 +180,16 @@ public class ViewHelper {
         return mView.coreView().getShapeCount();
     }
     
+    //! 返回选中的图形个数
+    public int getSelectedCount() {
+        return mView.coreView().getSelectedShapeCount();
+    }
+    
+    //! 返回选中的图形的类型, MgShapeType
+    public int getSelectedType() {
+        return mView.coreView().getSelectedShapeType();
+    }
+    
     //! 得到图形的JSON内容
     public String getContent() {
         final String str = mView.coreView().getContent();

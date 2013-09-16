@@ -10,6 +10,7 @@ namespace touchvg.view
 {
     public delegate void CommandChangedEventHandler(object sender, EventArgs e);
     public delegate void SelectionChangedEventHandler(object sender, EventArgs e);
+    public delegate void ContentChangedEventHandler(object sender, EventArgs e);
 
     //! WPF绘图视图类
     /*! \ingroup GROUP_WPF
@@ -23,6 +24,7 @@ namespace touchvg.view
         public WPFTempCanvas TempCanvas { get; private set; }
         public event CommandChangedEventHandler OnCommandChanged;
         public event SelectionChangedEventHandler OnSelectionChanged;
+        public event ContentChangedEventHandler OnContentChanged;
 
         public WPFGraphView(Panel container)
         {
@@ -127,6 +129,12 @@ namespace touchvg.view
             {
                 if (_owner.OnSelectionChanged != null)
                     _owner.OnSelectionChanged.Invoke(_owner, null);
+            }
+
+            public override void contentChanged()
+            {
+                if (_owner.OnContentChanged != null)
+                    _owner.OnContentChanged.Invoke(_owner, null);
             }
 
             public override bool useFinger()

@@ -1,37 +1,43 @@
-//! \file IosGraphViewImpl.h
+//! \file GiGraphViewImpl.h
 //! \brief 定义iOS绘图视图类的内部实现接口
 // Copyright (c) 2012-2013, https://github.com/rhcad/touchvg
 
-#import "IosGraphView.h"
-#include "IosCanvasAdapter.h"
+#import "GiGraphView.h"
+#include "GiCanvasAdapter.h"
 #include "gicoreview.h"
 #include <vector>
 
-class IosViewAdapter;
+class GiViewAdapter;
 
 //! 动态图形的绘图视图类
 @interface IosTempView : UIView {
-    IosViewAdapter   *_adapter;
+    GiViewAdapter   *_adapter;
 }
 
-- (id)initView:(CGRect)frame :(IosViewAdapter *)adapter;
+- (id)initView:(CGRect)frame :(GiViewAdapter *)adapter;
 
 @end
 
 //! 绘图视图适配器
-class IosViewAdapter : public GiView
+class GiViewAdapter : public GiView
 {
 private:
-    UIView      *_view;         //!< 静态图形视图, IosGraphView
+    UIView      *_view;         //!< 静态图形视图, GiGraphView
     UIView      *_dynview;      //!< 动态图形视图, IosTempView
     GiCoreView  *_coreView;     //!< 内核视图分发器
     UIImage     *_tmpshot;      //!< 用于增量绘图的临时快照
     long        _drawCount;     //!< 用于增量绘图的计数
     
 public:
+    std::vector<id> delegates;  //!< GiGraphViewDelegate 观察者数组
+    struct {
+        unsigned int didCommandChanged:1;
+        unsigned int didSelectionChanged:1;
+        unsigned int didContentChanged:1;
+    } respondsTo;
     
-    IosViewAdapter(UIView *mainView, GiCoreView *coreView);
-    virtual ~IosViewAdapter();
+    GiViewAdapter(UIView *mainView, GiCoreView *coreView);
+    virtual ~GiViewAdapter();
     
     GiCoreView *coreView() { return _coreView; }
     UIImage *snapshot(bool autoDraw);
@@ -52,8 +58,8 @@ public:
     bool twoFingersMove(UIGestureRecognizer *sender, int state = -1, bool switchGesture = false);
 };
 
-@interface IosGraphView()<UIGestureRecognizerDelegate> {
-    IosViewAdapter   *_adapter;              //!< 视图回调适配器
+@interface GiGraphView()<UIGestureRecognizerDelegate> {
+    GiViewAdapter   *_adapter;              //!< 视图回调适配器
     
     UIPanGestureRecognizer *_panRecognizer;             //!< 拖动手势识别器
     UITapGestureRecognizer *_tapRecognizer;             //!< 单指点击手势识别器
@@ -75,7 +81,7 @@ public:
 
 @end
 
-@interface IosGraphView(GestureRecognizer)
+@interface GiGraphView(GestureRecognizer)
 
 - (void)setupGestureRecognizers;
 - (BOOL)panHandler:(UIGestureRecognizer *)sender;

@@ -1,5 +1,5 @@
-//! \file IosGraphView.h
-//! \brief 定义iOS绘图视图类 IosGraphView
+//! \file GiGraphView.h
+//! \brief 定义iOS绘图视图类 GiGraphView
 // Copyright (c) 2012-2013, https://github.com/rhcad/touchvg
 
 #import <UIKit/UIKit.h>
@@ -9,10 +9,20 @@ class GiCoreView;
 class GiView;
 #endif
 
+//! 绘图消息的观察者协议
+@protocol GiGraphViewDelegate <NSObject>
+@optional
+
+- (void)onCommandChanged:(id)view;      //!< 当前命令改变的通知
+- (void)onSelectionChanged:(id)view;    //!< 图形选择集改变的通知
+- (void)onContentChanged:(id)view;      //!< 图形数据改变的通知
+
+@end
+
 //! iOS绘图视图类
 /*! \ingroup GROUP_IOS
  */
-@interface IosGraphView : UIView
+@interface GiGraphView : UIView
 
 @property(nonatomic, readonly) UIPanGestureRecognizer *panRecognizer;           //!< 拖动手势识别器
 @property(nonatomic, readonly) UITapGestureRecognizer *tapRecognizer;           //!< 单指点击手势识别器
@@ -23,14 +33,14 @@ class GiView;
 @property(nonatomic)           BOOL gestureEnabled;     //!< 是否允许触摸交互
 
 //! 创建普通图形视图并添加到父视图，不需要额外释放
-+ (IosGraphView *)createGraphView:(CGRect)frame :(UIView *)parentView;
++ (GiGraphView *)createGraphView:(CGRect)frame :(UIView *)parentView;
 
 //! 创建放大镜视图并添加到父视图，不需要额外释放
-+ (IosGraphView *)createMagnifierView:(CGRect)frame
-                              refView:(IosGraphView *)refView
++ (GiGraphView *)createMagnifierView:(CGRect)frame
+                              refView:(GiGraphView *)refView
                            parentView:(UIView *)parentView;
 
-+ (IosGraphView *)activeView;                //!< 得到当前激活的绘图视图
++ (GiGraphView *)activeView;                //!< 得到当前激活的绘图视图
 
 #ifdef __cplusplus
 - (GiView *)viewAdapter;                    //!< 得到视图适配器对象
@@ -40,5 +50,8 @@ class GiView;
 - (UIImage *)snapshot;                      //!< 得到静态图形的快照，自动释放
 - (BOOL)savePng:(NSString *)filename;       //!< 保存静态图形的快照到PNG文件
 - (void)clearCachedData;                    //!< 释放临时数据内存
+
+- (void)addDelegate:(id<GiGraphViewDelegate>)d;     //!< 增加绘图消息观察者
+- (void)removeDelegate:(id<GiGraphViewDelegate>)d;  //!< 去掉绘图消息观察者
 
 @end

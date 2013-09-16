@@ -420,7 +420,7 @@ namespace Swig {
 namespace Swig {
   namespace {
     jclass jclass_touchvgJNI = NULL;
-    jmethodID director_methids[28];
+    jmethodID director_methids[29];
   }
 }
 
@@ -1249,6 +1249,25 @@ void SwigDirector_GiView::selectionChanged() {
   if (swigjobj) jenv->DeleteLocalRef(swigjobj);
 }
 
+void SwigDirector_GiView::contentChanged() {
+  JNIEnvWrapper swigjnienv(this) ;
+  JNIEnv * jenv = swigjnienv.getJNIEnv() ;
+  jobject swigjobj = (jobject) NULL ;
+  
+  if (!swig_override[8]) {
+    GiView::contentChanged();
+    return;
+  }
+  swigjobj = swig_get_self(jenv);
+  if (swigjobj && jenv->IsSameObject(swigjobj, NULL) == JNI_FALSE) {
+    jenv->CallStaticVoidMethod(Swig::jclass_touchvgJNI, Swig::director_methids[28], swigjobj);
+    if (jenv->ExceptionCheck() == JNI_TRUE) return ;
+  } else {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null upcall object");
+  }
+  if (swigjobj) jenv->DeleteLocalRef(swigjobj);
+}
+
 void SwigDirector_GiView::swig_connect_director(JNIEnv *jenv, jobject jself, jclass jcls, bool swig_mem_own, bool weak_global) {
   static struct {
     const char *mname;
@@ -1278,6 +1297,9 @@ void SwigDirector_GiView::swig_connect_director(JNIEnv *jenv, jobject jself, jcl
     },
     {
       "selectionChanged", "()V", NULL 
+    },
+    {
+      "contentChanged", "()V", NULL 
     }
   };
   
@@ -1290,7 +1312,7 @@ void SwigDirector_GiView::swig_connect_director(JNIEnv *jenv, jobject jself, jcl
       baseclass = (jclass) jenv->NewGlobalRef(baseclass);
     }
     bool derived = (jenv->IsSameObject(baseclass, jcls) ? false : true);
-    for (int i = 0; i < 8; ++i) {
+    for (int i = 0; i < 9; ++i) {
       if (!methods[i].base_methid) {
         methods[i].base_methid = jenv->GetMethodID(baseclass, methods[i].mname, methods[i].mdesc);
         if (!methods[i].base_methid) return;
@@ -1990,6 +2012,28 @@ SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiView_1selectionChangedSwig
   (void)jarg1_;
   arg1 = *(GiView **)&jarg1; 
   (arg1)->GiView::selectionChanged();
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiView_1contentChanged(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  GiView *arg1 = (GiView *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiView **)&jarg1; 
+  (arg1)->contentChanged();
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiView_1contentChangedSwigExplicitGiView(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  GiView *arg1 = (GiView *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiView **)&jarg1; 
+  (arg1)->GiView::contentChanged();
 }
 
 
@@ -4091,7 +4135,7 @@ SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_swig_1module_1init(JNIEnv *j
   static struct {
     const char *method;
     const char *signature;
-  } methods[28] = {
+  } methods[29] = {
     {
       "SwigDirector_GiCanvas_setPen", "(Ltouchvg/jni/GiCanvas;IFIF)V" 
     },
@@ -4175,6 +4219,9 @@ SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_swig_1module_1init(JNIEnv *j
     },
     {
       "SwigDirector_GiView_selectionChanged", "(Ltouchvg/jni/GiView;)V" 
+    },
+    {
+      "SwigDirector_GiView_contentChanged", "(Ltouchvg/jni/GiView;)V" 
     }
   };
   Swig::jclass_touchvgJNI = (jclass) jenv->NewGlobalRef(jcls);

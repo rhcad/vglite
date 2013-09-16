@@ -64,6 +64,14 @@
 			Name="view"
 			>
 			<File
+				RelativePath="..\..\ios\view\include\GiCanvasAdapter.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\ios\view\src\GiCanvasAdapter.mm"
+				>
+			</File>
+			<File
 				RelativePath="..\..\ios\view\src\GiGestureHandler.mm"
 				>
 			</File>
@@ -77,14 +85,6 @@
 			</File>
 			<File
 				RelativePath="..\..\ios\view\src\GiGraphViewImpl.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\ios\view\include\GiQuartzCanvas.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\ios\view\src\GiQuartzCanvas.mm"
 				>
 			</File>
 			<File

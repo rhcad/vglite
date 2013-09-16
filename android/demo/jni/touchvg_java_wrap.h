@@ -59,12 +59,13 @@ public:
     virtual bool showContextActions(mgvector< int > const &actions, float x, float y, float w, float h);
     virtual void commandChanged();
     virtual void selectionChanged();
+    virtual void contentChanged();
 public:
     bool swig_overrides(int n) {
-      return (n < 8 ? swig_override[n] : false);
+      return (n < 9 ? swig_override[n] : false);
     }
 protected:
-    bool swig_override[8];
+    bool swig_override[9];
 };
 
 

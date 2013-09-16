@@ -37,11 +37,9 @@ public:
             return actions.count() && x == y && w == h;
     }
 
-    //! 当前命令已改变
-    virtual void commandChanged() {}
-
-    //! 选择集改变的通知
-    virtual void selectionChanged() {}
+    virtual void commandChanged() {}        //!< 当前命令已改变
+    virtual void selectionChanged() {}      //!< 选择集改变的通知
+    virtual void contentChanged() {}        //!< 图形数据改变的通知
 };
 
 #endif // TOUCHVG_CORE_GIVIEW_H

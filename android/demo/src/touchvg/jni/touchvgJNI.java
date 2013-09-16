@@ -52,6 +52,8 @@ public class touchvgJNI {
   public final static native void GiView_commandChangedSwigExplicitGiView(long jarg1, GiView jarg1_);
   public final static native void GiView_selectionChanged(long jarg1, GiView jarg1_);
   public final static native void GiView_selectionChangedSwigExplicitGiView(long jarg1, GiView jarg1_);
+  public final static native void GiView_contentChanged(long jarg1, GiView jarg1_);
+  public final static native void GiView_contentChangedSwigExplicitGiView(long jarg1, GiView jarg1_);
   public final static native long new_GiView();
   public final static native void GiView_director_connect(GiView obj, long cptr, boolean mem_own, boolean weak_global);
   public final static native void GiView_change_ownership(GiView obj, long cptr, boolean take_or_release);
@@ -269,6 +271,9 @@ public class touchvgJNI {
   }
   public static void SwigDirector_GiView_selectionChanged(GiView self) {
     self.selectionChanged();
+  }
+  public static void SwigDirector_GiView_contentChanged(GiView self) {
+    self.contentChanged();
   }
 
   private final static native void swig_module_init();
