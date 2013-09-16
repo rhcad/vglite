@@ -87,7 +87,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\core\include\callback;..\..\core\include\tradecmd;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\storage;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\core\include\canvas;..\..\core\include\tradecmd;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\storage;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;TOUCHVG_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -119,7 +119,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\core\include\callback;..\..\core\include\tradecmd;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\storage;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\core\include\canvas;..\..\core\include\tradecmd;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\storage;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_WIN32;_WIN64;NDEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level4</WarningLevel>
@@ -142,7 +142,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>..\..\core\include\callback;..\..\core\include\tradecmd;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\storage;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\core\include\canvas;..\..\core\include\tradecmd;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\storage;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;TOUCHVG_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -177,7 +177,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>..\..\core\include\callback;..\..\core\include\tradecmd;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\storage;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\core\include\canvas;..\..\core\include\tradecmd;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\storage;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_WIN32;_WIN64;_DEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level4</WarningLevel>
@@ -202,22 +202,22 @@
     <CustomBuild Include="..\..\core\src\view\touchvg.swig">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Swig generating...</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">if not exist $(TargetDir)..\..\csharp\touchvglib\core mkdir $(TargetDir)..\..\csharp\touchvglib\core
-swig.exe -c++ -csharp -namespace "touchvg.core" -module touchvgcs -I"$(ProjectDir)..\..\core\include\callback" -I"$(ProjectDir)..\..\core\include\test" -I"$(ProjectDir)..\..\core\include\view" -I"$(ProjectDir)..\..\core\include\shape" -I"$(ProjectDir)..\..\core\include" -o "$(ProjectDir)..\src\swig\touchvg_csharp_wrap.cpp" -outdir $(TargetDir)..\..\csharp\touchvglib\core %(FullPath)
+swig.exe -c++ -csharp -namespace "touchvg.core" -module touchvgcs -I"$(ProjectDir)..\..\core\include\canvas" -I"$(ProjectDir)..\..\core\include\test" -I"$(ProjectDir)..\..\core\include\view" -I"$(ProjectDir)..\..\core\include\shape" -I"$(ProjectDir)..\..\core\include\graph" -I"$(ProjectDir)..\..\core\include" -o "$(ProjectDir)..\src\swig\touchvg_csharp_wrap.cpp" -outdir $(TargetDir)..\..\csharp\touchvglib\core %(FullPath)
 </Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)..\src\swig\touchvg_csharp_wrap.cpp;%(Outputs)</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Swig generating...</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">if not exist $(TargetDir)..\..\csharp\touchvglib\core mkdir $(TargetDir)..\..\csharp\touchvglib\core
-swig.exe -c++ -csharp -namespace "touchvg.core" -module touchvgcs -I"$(ProjectDir)..\..\core\include\callback" -I"$(ProjectDir)..\..\core\include\test" -I"$(ProjectDir)..\..\core\include\view" -I"$(ProjectDir)..\..\core\include\shape" -I"$(ProjectDir)..\..\core\include" -o "$(ProjectDir)..\src\swig\touchvg_csharp_wrap.cpp" -outdir $(TargetDir)..\..\csharp\touchvglib\core %(FullPath)
+swig.exe -c++ -csharp -namespace "touchvg.core" -module touchvgcs -I"$(ProjectDir)..\..\core\include\canvas" -I"$(ProjectDir)..\..\core\include\test" -I"$(ProjectDir)..\..\core\include\view" -I"$(ProjectDir)..\..\core\include\shape" -I"$(ProjectDir)..\..\core\include\graph" -I"$(ProjectDir)..\..\core\include" -o "$(ProjectDir)..\src\swig\touchvg_csharp_wrap.cpp" -outdir $(TargetDir)..\..\csharp\touchvglib\core %(FullPath)
 </Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)..\src\swig\touchvg_csharp_wrap.cpp;%(Outputs)</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Swig generating...</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">if not exist $(TargetDir)..\..\csharp\touchvglib\core mkdir $(TargetDir)..\..\csharp\touchvglib\core
-swig.exe -c++ -csharp -namespace "touchvg.core" -module touchvgcs -I"$(ProjectDir)..\..\core\include\callback" -I"$(ProjectDir)..\..\core\include\test" -I"$(ProjectDir)..\..\core\include\view" -I"$(ProjectDir)..\..\core\include\shape" -I"$(ProjectDir)..\..\core\include" -o "$(ProjectDir)..\src\swig\touchvg_csharp_wrap.cpp" -outdir $(TargetDir)..\..\csharp\touchvglib\core %(FullPath)
+swig.exe -c++ -csharp -namespace "touchvg.core" -module touchvgcs -I"$(ProjectDir)..\..\core\include\canvas" -I"$(ProjectDir)..\..\core\include\test" -I"$(ProjectDir)..\..\core\include\view" -I"$(ProjectDir)..\..\core\include\shape" -I"$(ProjectDir)..\..\core\include\graph" -I"$(ProjectDir)..\..\core\include" -o "$(ProjectDir)..\src\swig\touchvg_csharp_wrap.cpp" -outdir $(TargetDir)..\..\csharp\touchvglib\core %(FullPath)
 </Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)..\src\swig\touchvg_csharp_wrap.cpp;%(Outputs)</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Swig generating...</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">if not exist $(TargetDir)..\..\csharp\touchvglib\core mkdir $(TargetDir)..\..\csharp\touchvglib\core
-swig.exe -c++ -csharp -namespace "touchvg.core" -module touchvgcs -I"$(ProjectDir)..\..\core\include\callback" -I"$(ProjectDir)..\..\core\include\test" -I"$(ProjectDir)..\..\core\include\view" -I"$(ProjectDir)..\..\core\include\shape" -I"$(ProjectDir)..\..\core\include" -o "$(ProjectDir)..\src\swig\touchvg_csharp_wrap.cpp" -outdir $(TargetDir)..\..\csharp\touchvglib\core %(FullPath)
+swig.exe -c++ -csharp -namespace "touchvg.core" -module touchvgcs -I"$(ProjectDir)..\..\core\include\canvas" -I"$(ProjectDir)..\..\core\include\test" -I"$(ProjectDir)..\..\core\include\view" -I"$(ProjectDir)..\..\core\include\shape" -I"$(ProjectDir)..\..\core\include\graph" -I"$(ProjectDir)..\..\core\include" -o "$(ProjectDir)..\src\swig\touchvg_csharp_wrap.cpp" -outdir $(TargetDir)..\..\csharp\touchvglib\core %(FullPath)
 </Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)..\src\swig\touchvg_csharp_wrap.cpp;%(Outputs)</Outputs>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -278,6 +278,48 @@ swig.exe -c++ -csharp -namespace "touchvg.core" -module touchvgcs -I"$(ProjectDi
     <ClCompile Include="..\..\core\src\tradecmd\tradecmd.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\core\include\command\mgaction.h" />
+    <ClInclude Include="..\..\core\include\command\mgcmd.h" />
+    <ClInclude Include="..\..\core\include\command\mgcmddraw.h" />
+    <ClInclude Include="..\..\core\include\command\mgdrawarc.h" />
+    <ClInclude Include="..\..\core\include\command\mgdrawrect.h" />
+    <ClInclude Include="..\..\core\include\command\mgselect.h" />
+    <ClInclude Include="..\..\core\include\command\mgsnap.h" />
+    <ClInclude Include="..\..\core\include\command\mgview.h" />
+    <ClInclude Include="..\..\core\include\geom\mgbase.h" />
+    <ClInclude Include="..\..\core\include\geom\mgbnd.h" />
+    <ClInclude Include="..\..\core\include\geom\mgbox.h" />
+    <ClInclude Include="..\..\core\include\geom\mgcurv.h" />
+    <ClInclude Include="..\..\core\include\geom\mgdef.h" />
+    <ClInclude Include="..\..\core\include\geom\mglnrel.h" />
+    <ClInclude Include="..\..\core\include\geom\mgmat.h" />
+    <ClInclude Include="..\..\core\include\geom\mgnear.h" />
+    <ClInclude Include="..\..\core\include\geom\mgpnt.h" />
+    <ClInclude Include="..\..\core\include\geom\mgtol.h" />
+    <ClInclude Include="..\..\core\include\geom\mgvec.h" />
+    <ClInclude Include="..\..\core\include\graph\gicolor.h" />
+    <ClInclude Include="..\..\core\include\graph\gicontxt.h" />
+    <ClInclude Include="..\..\core\include\graph\gigraph.h" />
+    <ClInclude Include="..\..\core\include\graph\gilock.h" />
+    <ClInclude Include="..\..\core\include\graph\gipath.h" />
+    <ClInclude Include="..\..\core\include\graph\gixform.h" />
+    <ClInclude Include="..\..\core\include\shape\mgbasicsp.h" />
+    <ClInclude Include="..\..\core\include\shape\mgcomposite.h" />
+    <ClInclude Include="..\..\core\include\shape\mggrid.h" />
+    <ClInclude Include="..\..\core\include\shape\mglayer.h" />
+    <ClInclude Include="..\..\core\include\shape\mglog.h" />
+    <ClInclude Include="..\..\core\include\shape\mgobject.h" />
+    <ClInclude Include="..\..\core\include\shape\mgshape.h" />
+    <ClInclude Include="..\..\core\include\shape\mgshapedoc.h" />
+    <ClInclude Include="..\..\core\include\shape\mgshapes.h" />
+    <ClInclude Include="..\..\core\include\shape\mgshapet.h" />
+    <ClInclude Include="..\..\core\include\shape\mgshapetype.h" />
+    <ClInclude Include="..\..\core\include\shape\mgshape_.h" />
+    <ClInclude Include="..\..\core\include\storage\mgjsonstorage.h" />
+    <ClInclude Include="..\..\core\include\storage\mgstorage.h" />
+    <ClInclude Include="..\..\core\include\storage\mgstoragebs.h" />
+    <ClInclude Include="..\..\core\include\test\RandomShape.h" />
+    <ClInclude Include="..\..\core\include\tradecmd\tradecmd.h" />
     <ClInclude Include="..\..\core\include\view\gicoreview.h" />
     <ClInclude Include="..\..\core\include\view\gigesture.h" />
     <ClInclude Include="..\..\core\src\view\GcBaseView.h" />
@@ -285,8 +327,8 @@ swig.exe -c++ -csharp -namespace "touchvg.core" -module touchvgcs -I"$(ProjectDi
     <ClInclude Include="..\..\core\src\view\GcMagnifierView.h" />
     <ClInclude Include="..\..\core\src\view\GcShapeDoc.h" />
     <ClInclude Include="..\src\swig\touchvg_csharp_wrap.h" />
-    <ClInclude Include="..\..\core\include\callback\gicanvas.h" />
-    <ClInclude Include="..\..\core\include\callback\giview.h" />
+    <ClInclude Include="..\..\core\include\canvas\gicanvas.h" />
+    <ClInclude Include="..\..\core\include\view\giview.h" />
     <ClInclude Include="..\..\core\include\test\testcanvas.h" />
     <ClInclude Include="..\..\core\src\command\mgcmderase.h" />
     <ClInclude Include="..\..\core\src\command\mgcmdmgr.h" />

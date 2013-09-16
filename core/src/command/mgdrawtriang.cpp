@@ -4,8 +4,6 @@
 #include "mgdrawtriang.h"
 #include <mgshapet.h>
 #include <mgbasicsp.h>
-#include <mgbase.h>
-#include "tradecmd.h"
 
 MgCmdDrawTriangle::MgCmdDrawTriangle()
 {
@@ -18,12 +16,6 @@ MgCmdDrawTriangle::~MgCmdDrawTriangle()
 bool MgCmdDrawTriangle::initialize(const MgMotion* sender)
 {
     return _initialize(MgShapeT<MgLines>::create, sender);
-}
-
-bool MgCmdDrawTriangle::draw(const MgMotion* sender, GiGraphics* gs)
-{
-    TradeCmd::drawInTriangle(this, gs);
-    return MgCommandDraw::draw(sender, gs);
 }
 
 bool MgCmdDrawTriangle::touchBegan(const MgMotion* sender)

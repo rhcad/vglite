@@ -5,8 +5,6 @@
 #include "mgdrawline.h"
 #include <mgshapet.h>
 #include <mgbasicsp.h>
-#include <mgbase.h>
-#include "tradecmd.h"
 
 MgCmdDrawLine::MgCmdDrawLine()
 {
@@ -52,10 +50,7 @@ bool MgCmdDrawLine::touchEnded(const MgMotion* sender)
     dynshape()->shape()->update();
 
     if ( ((MgLine*)dynshape()->shape())->length() > displayMmToModel(2, sender)) {
-        MgShape* newsp = _addshape(sender);
-        if (newsp) {
-            TradeCmd::onLineAdded(sender, newsp);
-        }
+        _addshape(sender);
     }
     _delayClear();
 

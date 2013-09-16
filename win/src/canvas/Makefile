@@ -5,7 +5,7 @@ OBJS        =$(SRCS:.cpp=.o)
 INSTALL_DIR ?=$(ROOTDIR)/build
 
 CPPFLAGS    += -Wall ../../include/canvas \
-            -I$(ROOTDIR)/core/include/callback
+            -I$(ROOTDIR)/core/include/canvas
 
 all:        $(TARGET)
 $(TARGET):  $(OBJS)

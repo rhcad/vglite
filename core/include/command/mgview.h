@@ -43,7 +43,7 @@ public:
     virtual void redraw() = 0;                  //!< 标记视图待更新显示
     
     virtual bool useFinger() = 0;               //!< 使用手指或鼠标交互
-    virtual void selChanged() = 0;              //!< 选择集改变的通知
+    virtual void selectionChanged() = 0;              //!< 选择集改变的通知
     
     virtual bool shapeWillAdded(MgShape* shape) = 0;    //!< 通知将添加图形
     virtual void shapeAdded(MgShape* shape) = 0;        //!< 通知已添加图形，由视图重新构建显示

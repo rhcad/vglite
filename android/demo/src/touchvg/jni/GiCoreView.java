@@ -99,12 +99,16 @@ public class GiCoreView {
     return touchvgJNI.GiCoreView_twoFingersMove__SWIG_1(swigCPtr, this, GiView.getCPtr(view), view, state.swigValue(), x1, y1, x2, y2);
   }
 
-  public String command() {
-    return touchvgJNI.GiCoreView_command(swigCPtr, this);
+  public String getCommand() {
+    return touchvgJNI.GiCoreView_getCommand(swigCPtr, this);
   }
 
   public boolean setCommand(GiView view, String name) {
     return touchvgJNI.GiCoreView_setCommand(swigCPtr, this, GiView.getCPtr(view), view, name);
+  }
+
+  public boolean doContextAction(int action) {
+    return touchvgJNI.GiCoreView_doContextAction(swigCPtr, this, action);
   }
 
   public void clearCachedData() {
@@ -117,6 +121,14 @@ public class GiCoreView {
 
   public int getShapeCount() {
     return touchvgJNI.GiCoreView_getShapeCount(swigCPtr, this);
+  }
+
+  public int getSelectedShapeCount() {
+    return touchvgJNI.GiCoreView_getSelectedShapeCount(swigCPtr, this);
+  }
+
+  public int getSelectedShapeType() {
+    return touchvgJNI.GiCoreView_getSelectedShapeType(swigCPtr, this);
   }
 
   public boolean loadFromFile(String vgfile) {
@@ -145,6 +157,30 @@ public class GiCoreView {
 
   public boolean zoomToExtent() {
     return touchvgJNI.GiCoreView_zoomToExtent(swigCPtr, this);
+  }
+
+  public boolean zoomToModel(float x, float y, float w, float h) {
+    return touchvgJNI.GiCoreView_zoomToModel(swigCPtr, this, x, y, w, h);
+  }
+
+  public float calcPenWidth(float lineWidth) {
+    return touchvgJNI.GiCoreView_calcPenWidth(swigCPtr, this, lineWidth);
+  }
+
+  public GiContext getContext(boolean forChange) {
+    return new GiContext(touchvgJNI.GiCoreView_getContext(swigCPtr, this, forChange), false);
+  }
+
+  public void setContext(GiContext ctx, int mask, int apply) {
+    touchvgJNI.GiCoreView_setContext__SWIG_0(swigCPtr, this, GiContext.getCPtr(ctx), ctx, mask, apply);
+  }
+
+  public void setContext(int mask) {
+    touchvgJNI.GiCoreView_setContext__SWIG_1(swigCPtr, this, mask);
+  }
+
+  public void setContextEditing(boolean editing) {
+    touchvgJNI.GiCoreView_setContextEditing(swigCPtr, this, editing);
   }
 
 }

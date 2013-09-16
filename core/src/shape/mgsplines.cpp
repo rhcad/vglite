@@ -4,8 +4,6 @@
 
 #include "mgbasicsp.h"
 #include <mgshape_.h>
-#include <mgnear.h>
-#include <mgcurv.h>
 
 MG_IMPLEMENT_CREATE(MgSplines)
 

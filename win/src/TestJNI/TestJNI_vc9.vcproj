@@ -45,7 +45,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\..\core\include\callback;..\..\..\core\include\test;..\..\..\core\include\view;..\..\..\core\include\command;..\..\..\core\include\tradecmd;..\..\..\core\include\shape;..\..\core\include\storage;..\..\..\core\include\graph;..\..\..\core\include\geom;..\..\..\core\include;&quot;$(JAVA_INCLUDE)&quot;;&quot;$(JAVA_INCLUDE)\win32&quot;"
+				AdditionalIncludeDirectories="..\..\..\core\include\canvas;..\..\..\core\include\test;..\..\..\core\include\view;..\..\..\core\include\command;..\..\..\core\include\tradecmd;..\..\..\core\include\shape;..\..\..\core\include\storage;..\..\..\core\include\graph;..\..\..\core\include\geom;..\..\..\core\include;&quot;$(JAVA_INCLUDE)&quot;;&quot;$(JAVA_INCLUDE)\win32&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				RuntimeLibrary="2"
 				WarningLevel="4"
@@ -127,7 +127,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\..\core\include\callback;..\..\..\core\include\test;..\..\..\core\include\view;..\..\..\core\include\command;..\..\..\core\include\tradecmd;..\..\..\core\include\shape;..\..\core\include\storage;..\..\..\core\include\graph;..\..\..\core\include\geom;..\..\..\core\include;&quot;$(JAVA64_INCLUDE)&quot;;&quot;$(JAVA64_INCLUDE)\win32&quot;"
+				AdditionalIncludeDirectories="..\..\..\core\include\canvas;..\..\..\core\include\test;..\..\..\core\include\view;..\..\..\core\include\command;..\..\..\core\include\tradecmd;..\..\..\core\include\shape;..\..\..\core\include\storage;..\..\..\core\include\graph;..\..\..\core\include\geom;..\..\..\core\include;&quot;$(JAVA64_INCLUDE)&quot;;&quot;$(JAVA64_INCLUDE)\win32&quot;"
 				PreprocessorDefinitions="_WIN32;_WIN64;NDEBUG;_WINDOWS;_USRDLL"
 				RuntimeLibrary="2"
 				WarningLevel="4"
@@ -244,7 +244,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Swig generating..."
-						CommandLine="swig.exe -c++ -java -I&quot;$(ProjectDir)..\..\..\core\include\callback&quot; -I&quot;$(ProjectDir)..\..\..\core\include\test&quot; -I&quot;$(ProjectDir)..\..\..\core\include\view&quot; -I&quot;$(ProjectDir)..\..\..\core\include\shape&quot; -I&quot;$(ProjectDir)..\..\..\core\include&quot; -o &quot;..\..\build\touchvg_java_wrap.cpp&quot; -outdir $(TargetDir) $(InputPath)&#x0D;&#x0A;cd $(TargetDir)&#x0D;&#x0A;&quot;$(JAVA_BIN)javac.exe&quot; *.java&#x0D;&#x0A;"
+						CommandLine="swig.exe -c++ -java -I&quot;$(ProjectDir)..\..\..\core\include\canvas&quot; -I&quot;$(ProjectDir)..\..\..\core\include\test&quot; -I&quot;$(ProjectDir)..\..\..\core\include\view&quot; -I&quot;$(ProjectDir)..\..\..\core\include\graph&quot; -o &quot;..\..\build\touchvg_java_wrap.cpp&quot; -outdir $(TargetDir) $(InputPath)&#x0D;&#x0A;cd $(TargetDir)&#x0D;&#x0A;&quot;$(JAVA_BIN)javac.exe&quot; *.java&#x0D;&#x0A;"
 						Outputs="$(ProjectDir)\..\..\build\touchvg_java_wrap.cpp"
 					/>
 				</FileConfiguration>
@@ -254,7 +254,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Swig generating..."
-						CommandLine="swig.exe -c++ -java -I&quot;$(ProjectDir)..\..\..\core\include\callback&quot; -I&quot;$(ProjectDir)..\..\..\core\include\test&quot; -I&quot;$(ProjectDir)..\..\..\core\include\view&quot; -I&quot;$(ProjectDir)..\..\..\core\include\shape&quot; -I&quot;$(ProjectDir)..\..\..\core\include&quot; -o &quot;..\..\build\touchvg_java_wrap.cpp&quot; -outdir $(TargetDir) $(InputPath)&#x0D;&#x0A;cd $(TargetDir)&#x0D;&#x0A;&quot;$(JAVA64_BIN)javac.exe&quot; *.java&#x0D;&#x0A;"
+						CommandLine="swig.exe -c++ -java -I&quot;$(ProjectDir)..\..\..\core\include\canvas&quot; -I&quot;$(ProjectDir)..\..\..\core\include\test&quot; -I&quot;$(ProjectDir)..\..\..\core\include\view&quot; -I&quot;$(ProjectDir)..\..\..\core\include\graph&quot; -o &quot;..\..\build\touchvg_java_wrap.cpp&quot; -outdir $(TargetDir) $(InputPath)&#x0D;&#x0A;cd $(TargetDir)&#x0D;&#x0A;&quot;$(JAVA64_BIN)javac.exe&quot; *.java&#x0D;&#x0A;"
 						Outputs="..\..\build\touchvg_java_wrap.cpp"
 					/>
 				</FileConfiguration>
@@ -274,7 +274,7 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\..\..\core\include\callback\gicanvas.h"
+				RelativePath="..\..\..\core\include\canvas\gicanvas.h"
 				>
 			</File>
 			<File
@@ -287,26 +287,6 @@
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
-			<File
-				RelativePath="..\..\..\core\src\view\GcGraphView.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\core\src\view\GcMagnifierView.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\core\src\view\GcShapeDoc.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\core\src\view\gicoreview.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\core\src\command\mgcmdmgr.cpp"
-				>
-			</File>
 			<File
 				RelativePath="..\..\..\core\src\test\RandomShape.cpp"
 				>
@@ -459,6 +439,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\core\src\command\mgcmdmgr.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\core\src\command\mgcmdmgr.h"
 					>
 				</File>
@@ -524,6 +508,46 @@
 				>
 				<File
 					RelativePath="..\..\..\core\src\tradecmd\tradecmd.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="view"
+				>
+				<File
+					RelativePath="..\..\..\core\src\view\GcBaseView.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\core\src\view\GcGraphView.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\core\src\view\GcGraphView.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\core\src\view\GcMagnifierView.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\core\src\view\GcMagnifierView.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\core\src\view\GcShapeDoc.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\core\src\view\GcShapeDoc.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\core\src\view\gicoreview.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\core\src\view\gimousehelper.cpp"
 					>
 				</File>
 			</Filter>

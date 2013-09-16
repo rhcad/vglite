@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("touchvg")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("touchvg.lib")]
+[assembly: AssemblyDescription("TouchVG Library with WPF")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("touchvg")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2013")]
+[assembly: AssemblyCompany("TouchVG")]
+[assembly: AssemblyProduct("TouchVG")]
+[assembly: AssemblyCopyright("TouchVG 2013, LGPL v3")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

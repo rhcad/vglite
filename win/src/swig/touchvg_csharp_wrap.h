@@ -92,18 +92,30 @@ public:
     virtual void regenAppend();
     virtual void redraw();
     virtual bool useFinger();
+    virtual bool isContextActionsVisible();
+    virtual bool showContextActions(mgvector< int > const &actions, float x, float y, float w, float h);
+    virtual void commandChanged();
+    virtual void selectionChanged();
 
     typedef void (SWIGSTDCALL* SWIG_Callback0_t)();
     typedef void (SWIGSTDCALL* SWIG_Callback1_t)();
     typedef void (SWIGSTDCALL* SWIG_Callback2_t)();
     typedef unsigned int (SWIGSTDCALL* SWIG_Callback3_t)();
-    void swig_connect_director(SWIG_Callback0_t callbackregenAll, SWIG_Callback1_t callbackregenAppend, SWIG_Callback2_t callbackredraw, SWIG_Callback3_t callbackuseFinger);
+    typedef unsigned int (SWIGSTDCALL* SWIG_Callback4_t)();
+    typedef unsigned int (SWIGSTDCALL* SWIG_Callback5_t)(void *, float, float, float, float);
+    typedef void (SWIGSTDCALL* SWIG_Callback6_t)();
+    typedef void (SWIGSTDCALL* SWIG_Callback7_t)();
+    void swig_connect_director(SWIG_Callback0_t callbackregenAll, SWIG_Callback1_t callbackregenAppend, SWIG_Callback2_t callbackredraw, SWIG_Callback3_t callbackuseFinger, SWIG_Callback4_t callbackisContextActionsVisible, SWIG_Callback5_t callbackshowContextActions, SWIG_Callback6_t callbackcommandChanged, SWIG_Callback7_t callbackselectionChanged);
 
 private:
     SWIG_Callback0_t swig_callbackregenAll;
     SWIG_Callback1_t swig_callbackregenAppend;
     SWIG_Callback2_t swig_callbackredraw;
     SWIG_Callback3_t swig_callbackuseFinger;
+    SWIG_Callback4_t swig_callbackisContextActionsVisible;
+    SWIG_Callback5_t swig_callbackshowContextActions;
+    SWIG_Callback6_t swig_callbackcommandChanged;
+    SWIG_Callback7_t swig_callbackselectionChanged;
     void swig_init_callbacks();
 };
 

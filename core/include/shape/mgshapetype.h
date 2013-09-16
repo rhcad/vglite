@@ -11,6 +11,8 @@
     1-40为内置图形类型，41以上为其他应用可用的类型号
 */
 typedef enum {
+    kMgShapeMultiType = 9999,   //!< 混合图形类型
+    kMgShapeNone = 0,           //!< 没有图形
     kMgShapeList = 1,           //!< 图形列表,MgShapes
     kMgShapeWrapper = 2,        //!< 封装图形,MgShape
     kMgShapeBase = 3,           //!< 图形基类,MgBaseShape

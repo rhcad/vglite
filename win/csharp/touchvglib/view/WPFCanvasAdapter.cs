@@ -2,14 +2,15 @@
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Controls;
-using System.Windows.Media.Animation;
 using System.Globalization;
 using touchvg.core;
 
 namespace touchvg.view
 {
-    public class CanvasAdapter : GiCanvas
+    //! WPF画布接口适配器类
+    /*! \ingroup GROUP_WPF
+     */
+    public class WPFCanvasAdapter : GiCanvas
     {
         private Pen _pen;
         private Brush _brush;
@@ -17,16 +18,23 @@ namespace touchvg.view
         private PathFigure _pathFigure;
         private DrawingContext _dc;
 
-        public CanvasAdapter()
+        public WPFCanvasAdapter()
         {
             _pen = new Pen()
             {
                 Brush = new SolidColorBrush(Colors.Black),
                 Thickness = 1,
                 StartLineCap = PenLineCap.Round,
-                EndLineCap = PenLineCap.Round
+                EndLineCap = PenLineCap.Round,
             };
+            _pen.Freeze();
             _brush = new SolidColorBrush(Colors.Transparent);
+            _brush.Freeze();
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
         }
 
         public void BeginDraw(DrawingContext dc)
@@ -45,6 +53,8 @@ namespace touchvg.view
 
         public override void setPen(int argb, float width, int style, float phase)
         {
+            _pen = _pen.Clone();
+
             if (argb != 0)
             {
                 (_pen.Brush as SolidColorBrush).Color = Color.FromArgb(
@@ -74,8 +84,6 @@ namespace touchvg.view
                 case 4:
                     _pen.DashStyle = DashStyles.DashDotDot;
                     break;
-                case 5:     // 空线
-                    break;
             }
             if (style > 0 && style < 5)
             {
@@ -87,17 +95,20 @@ namespace touchvg.view
                 _pen.StartLineCap = PenLineCap.Round;
                 _pen.EndLineCap = PenLineCap.Round;
             }
+            _pen.Freeze();
         }
 
         public override void setBrush(int argb, int style)
         {
-            if (style == 0 && (_brush is SolidColorBrush))
+            if (style == 0 && _brush is SolidColorBrush)
             {
+                _brush = _brush.Clone();
                 (_brush as SolidColorBrush).Color = Color.FromArgb(
-                    (byte)((argb >> 24) & 0xFF),
-                    (byte)((argb >> 16) & 0xFF),
-                    (byte)((argb >> 8) & 0xFF),
-                    (byte)(argb & 0xFF));
+                        (byte)((argb >> 24) & 0xFF),
+                        (byte)((argb >> 16) & 0xFF),
+                        (byte)((argb >> 8) & 0xFF),
+                        (byte)(argb & 0xFF));
+                _brush.Freeze();
             }
         }
 
@@ -175,9 +186,12 @@ namespace touchvg.view
 
         public override void drawHandle(float x, float y, int type)
         {
-            string[] imageNames = { };
-            if (type >= 0 && type < imageNames.Length)
-                drawBitmap(imageNames[type], x, y, 0, 0, 0);
+            ImageSource source = WPFImageSourceHelper.Instance.HandleImageSource(type);
+            if (source != null)
+            {
+                _dc.DrawImage(source, new Rect(x - source.Width / 2,
+                    y - source.Height / 2, source.Width, source.Height));
+            }
         }
 
         public override void drawBitmap(string name, float xc, float yc, float w, float h, float angle)
@@ -198,8 +212,12 @@ namespace touchvg.view
 
         public override float drawTextAt(string text, float x, float y, float h, int align)
         {
-            FormattedText textFormation = new FormattedText(text, CultureInfo.CurrentCulture, FlowDirection.LeftToRight,
-                new Typeface("宋体"), h, _brush) { TextAlignment = (TextAlignment)Enum.Parse(typeof(TextAlignment), align.ToString()) };
+            FormattedText textFormation = new FormattedText(text,
+                CultureInfo.CurrentCulture, FlowDirection.LeftToRight,
+                new Typeface("宋体"), h, _brush)
+                {
+                    TextAlignment = (TextAlignment)Enum.Parse(typeof(TextAlignment), align.ToString())
+                };
             _dc.DrawText(textFormation, new Point(x, y));
             return (float)textFormation.Width;
         }

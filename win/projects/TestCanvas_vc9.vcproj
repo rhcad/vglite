@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\core\include\callback;..\..\core\include\test;..\include\canvas"
+				AdditionalIncludeDirectories="..\..\core\include\canvas;..\..\core\include\test;..\include\canvas"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -116,7 +116,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="..\..\core\include\callback;..\..\core\include\test;..\include\canvas"
+				AdditionalIncludeDirectories="..\..\core\include\canvas;..\..\core\include\test;..\include\canvas"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -193,7 +193,7 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\..\core\include\callback\gicanvas.h"
+				RelativePath="..\..\core\include\canvas\gicanvas.h"
 				>
 			</File>
 			<File

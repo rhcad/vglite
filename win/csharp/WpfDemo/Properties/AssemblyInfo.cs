@@ -8,11 +8,11 @@ using System.Windows;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("WpfDemo")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("TouchVG WPF Demo")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("WpfDemo")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2013")]
+[assembly: AssemblyCompany("TouchVG")]
+[assembly: AssemblyProduct("TouchVG")]
+[assembly: AssemblyCopyright("TouchVG 2013, LGPL v3")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

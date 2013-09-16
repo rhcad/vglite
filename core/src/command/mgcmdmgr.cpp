@@ -5,7 +5,7 @@
 #include "mgcmdmgr.h"
 #include "mgcmdselect.h"
 #include <mggrid.h>
-#include "tradecmd.h"
+#include <tradecmd.h>
 
 MgCommand* mgCreateCoreCommand(const char* name);
 
@@ -42,7 +42,7 @@ void MgCmdManagerImpl::unloadCommands()
         it->second->release();
     _cmds.clear();
     _cmdname = "";
-    TradeCmd::onUnloadCmds();
+    TradeCmd::onUnloadCommands();
 }
 
 const char* MgCmdManagerImpl::getCommandName()
@@ -175,9 +175,9 @@ MgActionDispatcher* MgCmdManagerImpl::getActionDispatcher()
     return this;
 }
 
-void MgCmdManagerImpl::doContextAction(const MgMotion* sender, int action)
+bool MgCmdManagerImpl::doContextAction(const MgMotion* sender, int action)
 {
-    doAction(sender, action);
+    return doAction(sender, action);
 }
 
 MgSnap* MgCmdManagerImpl::getSnap()

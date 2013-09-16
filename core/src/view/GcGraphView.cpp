@@ -5,21 +5,16 @@
 #include "GcGraphView.h"
 #include "mglog.h"
 
-GcShapeView::GcShapeView(MgView* mgview, GiView *view) : GcBaseView(mgview, view)
-{
-}
+// GcBaseView
+//
 
-GcShapeView::~GcShapeView()
-{
-}
-
-int GcShapeView::drawAll(GiGraphics& gs)
+int GcBaseView::drawAll(GiGraphics& gs)
 {
     MgShapesLock locker(MgShapesLock::ReadOnly, doc());
     return doc()->draw(gs);
 }
 
-int GcShapeView::drawAppend(const int* newids, GiGraphics& gs)
+int GcBaseView::drawAppend(const int* newids, GiGraphics& gs)
 {
     MgShapesLock locker(MgShapesLock::ReadOnly, doc());
     int n = 0;
@@ -32,17 +27,17 @@ int GcShapeView::drawAppend(const int* newids, GiGraphics& gs)
     return n;
 }
 
-void GcShapeView::dynDraw(const MgMotion&, GiGraphics&)
+void GcBaseView::dynDraw(const MgMotion&, GiGraphics&)
 {
 }
 
-void GcShapeView::onSize(int dpi, int w, int h)
+void GcBaseView::onSize(int dpi, int w, int h)
 {
     xform()->setResolution((float)dpi);
     xform()->setWndSize(w, h);
 }
 
-bool GcShapeView::onGesture(const MgMotion& motion)
+bool GcBaseView::onGesture(const MgMotion& motion)
 {
     LOGD("GcShapeView::onGesture %d, %d", motion.gestureType, motion.gestureState);
     if (motion.gestureType != kGiGesturePan){
@@ -62,7 +57,7 @@ bool GcShapeView::onGesture(const MgMotion& motion)
     return true;
 }
 
-bool GcShapeView::twoFingersMove(const MgMotion& motion)
+bool GcBaseView::twoFingersMove(const MgMotion& motion)
 {
     LOGD("GcShapeView::twoFingersMove %d, %d", motion.gestureType, motion.gestureState);
     if (motion.gestureState == kMgGestureBegan) {
@@ -90,7 +85,7 @@ bool GcShapeView::twoFingersMove(const MgMotion& motion)
 // GcGraphView
 //
 
-GcGraphView::GcGraphView(MgView* mgview, GiView *view) : GcShapeView(mgview, view)
+GcGraphView::GcGraphView(MgView* mgview, GiView *view) : GcBaseView(mgview, view)
 {
 }
 

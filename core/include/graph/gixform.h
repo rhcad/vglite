@@ -6,7 +6,6 @@
 #ifndef __GEOMETRY_TRANSFORMSYS_H_
 #define __GEOMETRY_TRANSFORMSYS_H_
 
-#include "gidef.h"
 #include "mgbox.h"
 #include "mgmat.h"
 

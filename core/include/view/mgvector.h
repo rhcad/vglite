@@ -15,12 +15,12 @@ public:
         delete[] _v;
     }
     mgvector(int n) {
-        _v = n > 0 ? new T[n] : NULL;
+        _v = n > 0 ? new T[n] : (T*)0;
         _n = n;
     }
     template<class T2>
     mgvector(const T2 *v, int n) {
-        _v = n > 0 ? new T[n] : NULL;
+        _v = n > 0 ? new T[n] : (T*)0;
         _n = n;
         for (int i = 0; i < _n; i++)
             _v[i] = (T)v[i];

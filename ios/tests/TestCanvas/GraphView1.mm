@@ -4,7 +4,7 @@
 #import "GraphView1.h"
 #import "CalloutView.h"
 #import <QuartzCore/CALayer.h>  // renderInContext
-#include "GiQuartzCanvas.h"
+#include "IosCanvasAdapter.h"
 #include <testcanvas.h>
 #include <mach/mach_time.h>
 
@@ -42,7 +42,7 @@ static int machToMs(uint64_t start)
 {
     GraphView1 *parent = (GraphView1 *)self.superview;
     CGContextRef context = UIGraphicsGetCurrentContext();
-    GiQuartzCanvas canvas;
+    IosCanvasAdapter canvas;
     
     if (canvas.beginPaint(context)) {
         [parent dynDraw:&canvas];
@@ -72,7 +72,7 @@ static int machToMs(uint64_t start)
         self.opaque = NO;                           // 透明背景
         
         _flags = t;
-        _canvas = new GiQuartzCanvas();
+        _canvas = new IosCanvasAdapter();
         _dynview = self;
         if (_flags & 0x10000) {                     // 使用内嵌视图来绘制动态图形
             _dynview = [[DynGraphView1 alloc]initWithFrame:self.bounds];
@@ -88,7 +88,7 @@ static int machToMs(uint64_t start)
     return self;
 }
 
-- (void)dynDraw:(GiQuartzCanvas*)canvas
+- (void)dynDraw:(IosCanvasAdapter*)canvas
 {
     static float phase = 0;
     phase += 1;
@@ -97,7 +97,7 @@ static int machToMs(uint64_t start)
     canvas->drawEllipse(_lastpt.x - 50, _lastpt.y - 50, 100, 100, true, true);
 }
 
-- (void)draw:(GiQuartzCanvas*)canvas
+- (void)draw:(IosCanvasAdapter*)canvas
 {
     CGContextRef c = canvas->context();
     
@@ -205,7 +205,7 @@ static int machToMs(uint64_t start)
     
 #if 1   // 不加速
     CGContextRef ctx = UIGraphicsGetCurrentContext();
-    GiQuartzCanvas canvas;
+    IosCanvasAdapter canvas;
     
     if (canvas.beginPaint(ctx)) {
         [self draw:&canvas];
@@ -252,7 +252,7 @@ static int machToMs(uint64_t start)
     CGContextScaleCTM(ctx, scale, - scale);
     
 #if 1
-    GiQuartzCanvas canvas;
+    IosCanvasAdapter canvas;
     
     if (canvas.beginPaint(ctx)) {
         [self draw:&canvas];

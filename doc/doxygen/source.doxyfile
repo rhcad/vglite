@@ -672,9 +672,13 @@ WARN_LOGFILE           =
 # with spaces.
 
 INPUT                  = ../../core \
-                         ../../win \
+                         ../../win/include \
+                         ../../win/src/canvas \
+                         ../../win/src/view \
                          ../../ios/view \
                          ../../android/demo/src/touchvg \
+                         ../../win/csharp/touchvglib/core \
+                         ../../win/csharp/touchvglib/view \
                          MainPage.txt
 
 # This tag can be used to specify the character encoding of the source files 
@@ -708,7 +712,7 @@ RECURSIVE              = YES
 # run.
 
 EXCLUDE                = ../../core/include/test \
-                         ../../core/include/command/mglog.h \
+                         ../../core/include/shape/mglog.h \
                          ../../core/src/test \
                          ../../core/src/json/rapidjson \
                          ../../core/src/command/TransformCmd.cpp \

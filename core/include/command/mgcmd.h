@@ -6,7 +6,6 @@
 #ifndef __GEOMETRY_MGCOMMAND_H_
 #define __GEOMETRY_MGCOMMAND_H_
 
-#include "mgshape.h"
 #include "mgview.h"
 
 struct MgSelection;
@@ -127,7 +126,7 @@ struct MgCmdManager {
     virtual MgActionDispatcher* getActionDispatcher() = 0;
     
     //! 执行默认的上下文动作
-    virtual void doContextAction(const MgMotion* sender, int action) = 0;
+    virtual bool doContextAction(const MgMotion* sender, int action) = 0;
     
     //! 返回图形特征点捕捉器
     virtual MgSnap* getSnap() = 0;

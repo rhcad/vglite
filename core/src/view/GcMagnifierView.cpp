@@ -6,7 +6,7 @@
 #include "GcGraphView.h"
 
 GcMagnifierView::GcMagnifierView(MgView* mgview, GiView *view, GcGraphView* mainView)
-    : GcShapeView(mgview, view), _mainView(mainView)
+    : GcBaseView(mgview, view), _mainView(mainView)
 {
 }
 

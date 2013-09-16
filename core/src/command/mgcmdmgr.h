@@ -38,7 +38,7 @@ private:
     virtual bool dynamicChangeEnded(MgView* view, bool apply);
     virtual MgSelection* getSelection(MgView* view);
     virtual MgActionDispatcher* getActionDispatcher();
-    virtual void doContextAction(const MgMotion* sender, int action);
+    virtual bool doContextAction(const MgMotion* sender, int action);
     virtual MgSnap* getSnap();
     
 private:

@@ -29,11 +29,19 @@ bool GiMouseHelper::onMouseUp(float x, float y)
             _moved ? kGiGesturePan : kGiGestureTap, 
             kGiGestureEnded, x, y);
     }
+    else if (_rdown) {
+        ret = _coreView->onGesture(_view, kGiGesturePress,
+            kGiGestureBegan, x, y);
+    }
     _ldown = false;
     _rdown = false;
 
     return ret;
 }
+
+#ifndef _MSC_VER
+static inline float _hypotf(float x, float y) { return hypotf(x, y); }
+#endif
 
 bool GiMouseHelper::onMouseMove(float x, float y, bool ldown, bool)
 {

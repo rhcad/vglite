@@ -3,14 +3,13 @@
 // Copyright (c) 2012-2013, https://github.com/rhcad/touchvg
 
 #import "GiGraphView1.h"
+#import "IosViewHelper.h"
 #import <QuartzCore/CALayer.h>
-#include "GiQuartzCanvas.h"
-#include "giview.h"
+#include "IosCanvasAdapter.h"
 #include "gicoreview.h"
-#import "GiViewHelper.h"
 
 //! 动态图形的绘图视图类
-@interface DynDrawView1 : UIView {
+@interface IosTempView1 : UIView {
     ViewAdapter1    *_viewAdapter;
 }
 
@@ -53,7 +52,7 @@ public:
         return image;
     }
     
-    bool drawAppend(GiQuartzCanvas* canvas) {
+    bool drawAppend(IosCanvasAdapter* canvas) {
         if (_tmpshot) {
             [_tmpshot drawAtPoint:CGPointZero];
             [_tmpshot release];
@@ -80,7 +79,7 @@ public:
     
     virtual void redraw() {
         if (!_dynview && _view) {       // 自动创建动态图形视图
-            _dynview = [[DynDrawView1 alloc]initWithFrame:_view.frame :this];
+            _dynview = [[IosTempView1 alloc]initWithFrame:_view.frame :this];
             _dynview.autoresizingMask = _view.autoresizingMask;
             [_view.superview addSubview:_dynview];
             [_dynview release];
@@ -89,7 +88,7 @@ public:
     }
 };
 
-@implementation DynDrawView1
+@implementation IosTempView1
 
 - (id)initWithFrame:(CGRect)frame :(ViewAdapter1 *)viewAdapter
 {
@@ -104,7 +103,7 @@ public:
 
 - (void)drawRect:(CGRect)rect
 {
-    GiQuartzCanvas canvas;
+    IosCanvasAdapter canvas;
     
     if (canvas.beginPaint(UIGraphicsGetCurrentContext())) {
         _viewAdapter->coreView()->dynDraw(_viewAdapter, &canvas);
@@ -130,7 +129,7 @@ public:
         self.autoresizingMask = 0xFF;               // 自动适应大小
         _viewAdapter = new ViewAdapter1(self);
         
-        GiCoreView::setScreenDpi(GiQuartzCanvas::getScreenDpi());
+        GiCoreView::setScreenDpi(IosCanvasAdapter::getScreenDpi());
         [self coreView]->onSize(_viewAdapter, frame.size.width, frame.size.height);
     }
     return self;
@@ -139,7 +138,7 @@ public:
 - (void)drawRect:(CGRect)rect
 {
     CGContextRef context = UIGraphicsGetCurrentContext();
-    GiQuartzCanvas canvas;
+    IosCanvasAdapter canvas;
     
     [self coreView]->onSize(_viewAdapter, self.bounds.size.width, self.bounds.size.height);
     
@@ -217,7 +216,7 @@ static char _lastVgFile[256] = { 0 };
 {
     NSString *vgfile = [[filename stringByDeletingPathExtension]
                         stringByAppendingPathExtension:@"vg"];
-    [GiViewHelper saveToFile:self :vgfile];
+    [[IosViewHelper instance:self] saveToFile:vgfile];
     strncpy(_lastVgFile, [vgfile UTF8String], sizeof(_lastVgFile));
     return [super savePng:filename];
 }

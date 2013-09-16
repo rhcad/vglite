@@ -7,31 +7,10 @@
 
 #include "GcBaseView.h"
 
-//! 内核绘图视图类
-/*! \ingroup CORE_VIEW
- */
-class GcShapeView : public GcBaseView
-{
-public:
-    GcShapeView(MgView* mgview, GiView *view);
-    virtual ~GcShapeView();
-    
-    virtual int drawAll(GiGraphics& gs);
-    virtual int drawAppend(const int* newids, GiGraphics& gs);
-    virtual void dynDraw(const MgMotion& motion, GiGraphics& gs);
-    virtual void onSize(int dpi, int w, int h);
-    virtual bool onGesture(const MgMotion& motion);
-    virtual bool twoFingersMove(const MgMotion& motion);
-
-private:
-    Point2d     _lastCenter;
-    float       _lastScale;
-};
-
 //! 主绘图视图类
 /*! \ingroup CORE_VIEW
  */
-class GcGraphView : public GcShapeView
+class GcGraphView : public GcBaseView
 {
 public:
     GcGraphView(MgView* mgview, GiView *view);

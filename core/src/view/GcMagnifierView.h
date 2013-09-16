@@ -10,7 +10,7 @@
 //! 放大镜视图类
 /*! \ingroup CORE_VIEW
  */
-class GcMagnifierView : public GcShapeView
+class GcMagnifierView : public GcBaseView
 {
 public:
     GcMagnifierView(MgView* mgview, GiView *view, GcGraphView* mainView);

@@ -64,11 +64,19 @@
 			Name="view"
 			>
 			<File
+				RelativePath="..\..\ios\view\src\GiGestureHandler.mm"
+				>
+			</File>
+			<File
 				RelativePath="..\..\ios\view\include\GiGraphView.h"
 				>
 			</File>
 			<File
 				RelativePath="..\..\ios\view\src\GiGraphView.mm"
+				>
+			</File>
+			<File
+				RelativePath="..\..\ios\view\src\GiGraphViewImpl.h"
 				>
 			</File>
 			<File

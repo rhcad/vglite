@@ -30,12 +30,12 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
     memset(&wcex, 0, sizeof(wcex));
     wcex.cbSize = sizeof(wcex);
 
-    wcex.style			= CS_HREDRAW | CS_VREDRAW | CS_DBLCLKS;
-    wcex.lpfnWndProc	= WndProc;
-    wcex.hInstance		= hInstance;
-    wcex.hCursor		= LoadCursor(NULL, IDC_ARROW);
-    wcex.hbrBackground	= (HBRUSH)(COLOR_WINDOW+1);
-    wcex.lpszClassName	= L"Test";
+    wcex.style          = CS_HREDRAW | CS_VREDRAW | CS_DBLCLKS;
+    wcex.lpfnWndProc    = WndProc;
+    wcex.hInstance      = hInstance;
+    wcex.hCursor        = LoadCursor(NULL, IDC_ARROW);
+    wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW+1);
+    wcex.lpszClassName  = L"Test";
 
     return RegisterClassEx(&wcex);
 }
@@ -62,48 +62,58 @@ static ViewAdapter _adapter;
 // 主窗口的消息处理函数
 LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam)
 {
-	_adapter.setWnd(hwnd);
+    bool handled = false;
+
+    _adapter.setWnd(hwnd);
 
     switch (message)
     {
-    case WM_ERASEBKGND:			// 不清除背景，避免闪烁
+    case WM_ERASEBKGND:         // 不清除背景，避免闪烁
+        handled = true;
         break;
     case WM_PAINT:              // 重绘主窗口
-		{
-			PAINTSTRUCT ps;
-			HDC hdc = BeginPaint(hwnd, &ps);
+        {
+            PAINTSTRUCT ps;
+            HDC hdc = BeginPaint(hwnd, &ps);
 
-			SetBkColor(hdc, GetSysColor(COLOR_WINDOW));
-			_adapter.onDraw(hdc);
-			EndPaint(hwnd, &ps);
-		}
+            SetBkColor(hdc, GetSysColor(COLOR_WINDOW));
+            _adapter.onDraw(hdc);
+            EndPaint(hwnd, &ps);
+            handled = true;
+        }
         break;
     case WM_SIZE:               // 改变窗口大小
-		_adapter.onSize(LOWORD(lparam), HIWORD(lparam));
+        _adapter.onSize(LOWORD(lparam), HIWORD(lparam));
+        handled = true;
         break;
     case WM_DESTROY:            // 退出
         PostQuitMessage(0);
+        handled = true;
         break;
     case WM_LBUTTONDBLCLK:      // 双击切换测试图形
         {
             LPCSTR names[] = { "splines", "line", "select", "triangle" };
             static int index = -1;
             index = (index + 1) % (sizeof(names) / sizeof(names[0]));
-            _adapter.setCommand(names[index]);
+            handled = _adapter.setCommand(names[index]);
         }
         break;
-    case WM_LBUTTONDOWN:		// 鼠标按下
-		_adapter.onLButtonDown(GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam), wparam);
+    case WM_LBUTTONDOWN:        // 鼠标按下
+        handled = _adapter.onLButtonDown(GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam), wparam);
         break;
-	case WM_LBUTTONUP:			// 鼠标抬起
-		_adapter.onLButtonUp(GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam));
+    case WM_LBUTTONUP:          // 鼠标抬起
+        handled = _adapter.onLButtonUp(GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam));
         break;
-	case WM_MOUSEMOVE:          // 鼠标移动
-		_adapter.onMouseMove(GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam), wparam);
+    case WM_MOUSEMOVE:          // 鼠标移动
+        handled = _adapter.onMouseMove(GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam), wparam);
         break;
-    default:
-        return DefWindowProc(hwnd, message, wparam, lparam);
+    case WM_RBUTTONDOWN:            // 右键按下
+        handled = _adapter.onRButtonDown(GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam));
+        break;
+    case WM_RBUTTONUP:          // 右键抬起
+        handled = _adapter.onRButtonUp(GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam));
+        break;
     }
 
-    return 0;
+    return handled || DefWindowProc(hwnd, message, wparam, lparam);;
 }

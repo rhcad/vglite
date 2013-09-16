@@ -3,7 +3,8 @@
 
 #import "GiGraphView1.h"
 #import "LargeView1.h"
-#import "GiViewHelper.h"
+#import "IosViewHelper.h"
+#include "gicoreview.h"
 
 static UIViewController *_tmpController = nil;
 
@@ -21,7 +22,7 @@ static void addView(NSMutableArray *arr, NSString* title, UIView* view)
 }
 
 static void addLargeView1(NSMutableArray *arr, NSUInteger &i, NSUInteger index, 
-                         NSString* title, CGRect frame, int type)
+                          NSString* title, CGRect frame, int type)
 {
     LargeView1 *view = nil;
     
@@ -29,6 +30,11 @@ static void addLargeView1(NSMutableArray *arr, NSUInteger &i, NSUInteger index,
         view = [[LargeView1 alloc]initWithFrame:frame withType:type];
     }
     addView(arr, title, view);
+}
+
+static bool fireGesture(IosGraphView *v, int type, int state, float x, float y)
+{
+    return [v coreView]->onGesture([v viewAdapter], (GiGestureType)type, (GiGestureState)state, x, y);
 }
 
 static UIView* addGraphView(NSMutableArray *arr, NSUInteger &i, NSUInteger index,
@@ -47,41 +53,42 @@ static UIView* addGraphView(NSMutableArray *arr, NSUInteger &i, NSUInteger index
         }
         else {
             GiGraphView2 *v2 = [[GiGraphView2 alloc]initWithFrame:wrapview.bounds];
+            IosViewHelper *hlp = [IosViewHelper instance:v2];
             v = v2;
             
             if (type & 32) {
-                [GiViewHelper addShapesForTest:v2];
+                [hlp addShapesForTest];
             }
             type = type & ~32;
             
             if (type == 1) {
-                [GiViewHelper setCommand:v2 :@"splines"];
+                hlp.command = @"splines";
             }
             else if (type == 2) {
-                [GiViewHelper setCommand:v2 :@"select"];
+                hlp.command = @"select";
             }
             else if (type == 3) {
-                [GiViewHelper loadFromFile:v2 :[GiGraphView2 lastFileName]];
-                [GiViewHelper setCommand:v2 :@"select"];
+                [hlp loadFromFile:[GiGraphView2 lastFileName]];
+                hlp.command = @"select";
             }
             else if (type == 4) {
-                [GiViewHelper setCommand:v2 :@"splines"];
-                [GiViewHelper fireGesture:v2 type:1 state:0 x:786 y:434];
-                [GiViewHelper fireGesture:v2 type:1 state:1 x:786 y:434];
-                [GiViewHelper fireGesture:v2 type:1 state:2 x:828 y:444];
-                [GiViewHelper fireGesture:v2 type:1 state:2 x:828 y:444];
-                [GiViewHelper fireGesture:v2 type:1 state:3 x:828 y:444];
-                [GiViewHelper fireGesture:v2 type:1 state:0 x:819 y:408];
-                [GiViewHelper fireGesture:v2 type:1 state:1 x:819 y:408];
-                [GiViewHelper fireGesture:v2 type:1 state:3 x:806 y:444];
-                [GiViewHelper setCommand:v2 :@"select"];
-                [GiViewHelper zoomToExtent:v2];
+                hlp.command = @"splines";
+                fireGesture(v2, 1, 0, 786, 434);
+                fireGesture(v2, 1, 1, 786, 434);
+                fireGesture(v2, 1, 2, 828, 444);
+                fireGesture(v2, 1, 2, 828, 444);
+                fireGesture(v2, 1, 3, 828, 444);
+                fireGesture(v2, 1, 0, 819, 408);
+                fireGesture(v2, 1, 1, 819, 408);
+                fireGesture(v2, 1, 3, 806, 444);
+                hlp.command = @"select";
+                [hlp zoomToExtent];
             }
             else if (type == 5) {
-                [GiViewHelper setCommand:v2 :@"line"];
+                hlp.command = @"line";
             }
             else if (type == 6) {
-                [GiViewHelper setCommand:v2 :@"lines"];
+                hlp.command = @"lines";
             }
         }
         [wrapview addSubview:v];
@@ -98,7 +105,7 @@ static void testMagnifierView(NSMutableArray *arr, NSUInteger &i, NSUInteger ind
     
     if (wrapview) {
         CGRect magframe = CGRectMake(10, 10, 200, 200);
-        UIView *v = [GiViewHelper createMagnifierView:magframe refView:nil parentView:wrapview];
+        UIView *v = [IosGraphView createMagnifierView:magframe refView:nil parentView:wrapview];
         v.backgroundColor = [UIColor greenColor];
     }
 }
@@ -109,14 +116,14 @@ static void gatherTestView(NSMutableArray *arr, NSUInteger index, CGRect frame)
     
     addGraphView(arr, i, index, @"GiGraphView1", frame, 0);
     addLargeView1(arr, i, index, @"GiGraphView1 in large view", frame, 0);
-    addGraphView(arr, i, index, @"GiGraphView splines", frame, 1);
-    addGraphView(arr, i, index, @"GiGraphView draw", frame, 1|32);
-    addGraphView(arr, i, index, @"GiGraphView line", frame, 5);
-    addGraphView(arr, i, index, @"GiGraphView lines", frame, 6);
-    addGraphView(arr, i, index, @"GiGraphView select randShapes", frame, 2|32);
-    addGraphView(arr, i, index, @"GiGraphView select loadShapes", frame, 3);
-    addGraphView(arr, i, index, @"GiGraphView fireGesture", frame, 4);
-    addLargeView1(arr, i, index, @"GiGraphView in large view", frame, 1);
+    addGraphView(arr, i, index, @"IosGraphView splines", frame, 1);
+    addGraphView(arr, i, index, @"IosGraphView draw", frame, 1|32);
+    addGraphView(arr, i, index, @"IosGraphView line", frame, 5);
+    addGraphView(arr, i, index, @"IosGraphView lines", frame, 6);
+    addGraphView(arr, i, index, @"IosGraphView select randShapes", frame, 2|32);
+    addGraphView(arr, i, index, @"IosGraphView select loadShapes", frame, 3);
+    addGraphView(arr, i, index, @"IosGraphView fireGesture", frame, 4);
+    addLargeView1(arr, i, index, @"IosGraphView in large view", frame, 1);
     testMagnifierView(arr, i, index, @"MagnifierView", frame, 1);
 }
 

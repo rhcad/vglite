@@ -6,10 +6,9 @@
 #ifndef __GEOMETRY_MGSELECTION_H_
 #define __GEOMETRY_MGSELECTION_H_
 
-#include "mgshape.h"
-
 class MgView;
 class MgMotion;
+class MgShape;
 
 //! 选择状态
 typedef enum {

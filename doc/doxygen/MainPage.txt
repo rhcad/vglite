@@ -6,6 +6,7 @@
 	\defgroup CORE_COMMAND 交互命令类
 	\defgroup CORE_VIEW 绘图视图类
 	\defgroup GRAPH_WIN Windows图形接口类
+	\defgroup GROUP_WPF WPF图形接口类
 	\defgroup GROUP_IOS iOS图形接口类
 	\defgroup GROUP_ANDROID Android图形接口类
 */
@@ -47,6 +48,9 @@
 		
 	- \ref GRAPH_WIN "Windows图形接口类" \n
 		Windows图形接口库采用GDI/GDI+实现。\n
+		
+    - \ref GROUP_WPF "WPF图形接口类" \n
+		WPF图形接口库采用C#、WPF实现。\n
 		
 	- \ref GROUP_IOS "iOS图形接口类" \n
 		iOS图形接口库采用Quartz 2D实现，还包含了iOS视图和交互控制器。\n

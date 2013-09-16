@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\core\include\callback;..\..\core\include\view;..\include\canvas"
+				AdditionalIncludeDirectories="..\..\core\include\canvas;..\..\core\include\view;..\..\core\include\graph;..\include\canvas"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -117,7 +117,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="..\..\core\include\callback;..\..\core\include\view;..\include\canvas"
+				AdditionalIncludeDirectories="..\..\core\include\canvas;..\..\core\include\view;..\..\core\include\graph;..\include\canvas"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"

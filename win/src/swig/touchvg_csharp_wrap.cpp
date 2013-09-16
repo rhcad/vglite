@@ -329,7 +329,6 @@ namespace Swig {
 
 
 #include "gicanvas.h"
-#include "giview.h"
 #include "gicoreview.h"
 #include "gimousehelper.h"
 #include "testcanvas.h"
@@ -751,11 +750,69 @@ bool SwigDirector_GiView::useFinger() {
   return c_result;
 }
 
-void SwigDirector_GiView::swig_connect_director(SWIG_Callback0_t callbackregenAll, SWIG_Callback1_t callbackregenAppend, SWIG_Callback2_t callbackredraw, SWIG_Callback3_t callbackuseFinger) {
+bool SwigDirector_GiView::isContextActionsVisible() {
+  bool c_result = SwigValueInit< bool >() ;
+  unsigned int jresult = 0 ;
+  
+  if (!swig_callbackisContextActionsVisible) {
+    return GiView::isContextActionsVisible();
+  } else {
+    jresult = (unsigned int) swig_callbackisContextActionsVisible();
+    c_result = jresult ? true : false; 
+  }
+  return c_result;
+}
+
+bool SwigDirector_GiView::showContextActions(mgvector< int > const &actions, float x, float y, float w, float h) {
+  bool c_result = SwigValueInit< bool >() ;
+  unsigned int jresult = 0 ;
+  void * jactions = 0 ;
+  float jx  ;
+  float jy  ;
+  float jw  ;
+  float jh  ;
+  
+  if (!swig_callbackshowContextActions) {
+    return GiView::showContextActions(actions,x,y,w,h);
+  } else {
+    jactions = (mgvector< int > *) &actions; 
+    jx = x;
+    jy = y;
+    jw = w;
+    jh = h;
+    jresult = (unsigned int) swig_callbackshowContextActions(jactions, jx, jy, jw, jh);
+    c_result = jresult ? true : false; 
+  }
+  return c_result;
+}
+
+void SwigDirector_GiView::commandChanged() {
+  if (!swig_callbackcommandChanged) {
+    GiView::commandChanged();
+    return;
+  } else {
+    swig_callbackcommandChanged();
+  }
+}
+
+void SwigDirector_GiView::selectionChanged() {
+  if (!swig_callbackselectionChanged) {
+    GiView::selectionChanged();
+    return;
+  } else {
+    swig_callbackselectionChanged();
+  }
+}
+
+void SwigDirector_GiView::swig_connect_director(SWIG_Callback0_t callbackregenAll, SWIG_Callback1_t callbackregenAppend, SWIG_Callback2_t callbackredraw, SWIG_Callback3_t callbackuseFinger, SWIG_Callback4_t callbackisContextActionsVisible, SWIG_Callback5_t callbackshowContextActions, SWIG_Callback6_t callbackcommandChanged, SWIG_Callback7_t callbackselectionChanged) {
   swig_callbackregenAll = callbackregenAll;
   swig_callbackregenAppend = callbackregenAppend;
   swig_callbackredraw = callbackredraw;
   swig_callbackuseFinger = callbackuseFinger;
+  swig_callbackisContextActionsVisible = callbackisContextActionsVisible;
+  swig_callbackshowContextActions = callbackshowContextActions;
+  swig_callbackcommandChanged = callbackcommandChanged;
+  swig_callbackselectionChanged = callbackselectionChanged;
 }
 
 void SwigDirector_GiView::swig_init_callbacks() {
@@ -763,12 +820,74 @@ void SwigDirector_GiView::swig_init_callbacks() {
   swig_callbackregenAppend = 0;
   swig_callbackredraw = 0;
   swig_callbackuseFinger = 0;
+  swig_callbackisContextActionsVisible = 0;
+  swig_callbackshowContextActions = 0;
+  swig_callbackcommandChanged = 0;
+  swig_callbackselectionChanged = 0;
 }
 
 
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+SWIGEXPORT void SWIGSTDCALL CSharp_delete_Ints(void * jarg1) {
+  mgvector< int > *arg1 = (mgvector< int > *) 0 ;
+  
+  arg1 = (mgvector< int > *)jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_new_Ints(int jarg1) {
+  void * jresult ;
+  int arg1 ;
+  mgvector< int > *result = 0 ;
+  
+  arg1 = (int)jarg1; 
+  result = (mgvector< int > *)new mgvector< int >(arg1);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_Ints_count(void * jarg1) {
+  int jresult ;
+  mgvector< int > *arg1 = (mgvector< int > *) 0 ;
+  int result;
+  
+  arg1 = (mgvector< int > *)jarg1; 
+  result = (int)((mgvector< int > const *)arg1)->count();
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_Ints_get(void * jarg1, int jarg2) {
+  int jresult ;
+  mgvector< int > *arg1 = (mgvector< int > *) 0 ;
+  int arg2 ;
+  int result;
+  
+  arg1 = (mgvector< int > *)jarg1; 
+  arg2 = (int)jarg2; 
+  result = (int)((mgvector< int > const *)arg1)->get(arg2);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_Ints_set(void * jarg1, int jarg2, int jarg3) {
+  mgvector< int > *arg1 = (mgvector< int > *) 0 ;
+  int arg2 ;
+  int arg3 ;
+  
+  arg1 = (mgvector< int > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  (arg1)->set(arg2,arg3);
+}
+
 
 SWIGEXPORT void SWIGSTDCALL CSharp_delete_GiCanvas(void * jarg1) {
   GiCanvas *arg1 = (GiCanvas *) 0 ;
@@ -1145,6 +1264,114 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_GiView_useFingerSwigExplicitGiView(vo
 }
 
 
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_GiView_isContextActionsVisible(void * jarg1) {
+  unsigned int jresult ;
+  GiView *arg1 = (GiView *) 0 ;
+  bool result;
+  
+  arg1 = (GiView *)jarg1; 
+  result = (bool)(arg1)->isContextActionsVisible();
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_GiView_isContextActionsVisibleSwigExplicitGiView(void * jarg1) {
+  unsigned int jresult ;
+  GiView *arg1 = (GiView *) 0 ;
+  bool result;
+  
+  arg1 = (GiView *)jarg1; 
+  result = (bool)(arg1)->GiView::isContextActionsVisible();
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_GiView_showContextActions(void * jarg1, void * jarg2, float jarg3, float jarg4, float jarg5, float jarg6) {
+  unsigned int jresult ;
+  GiView *arg1 = (GiView *) 0 ;
+  mgvector< int > *arg2 = 0 ;
+  float arg3 ;
+  float arg4 ;
+  float arg5 ;
+  float arg6 ;
+  bool result;
+  
+  arg1 = (GiView *)jarg1; 
+  arg2 = (mgvector< int > *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "mgvector< int > const & type is null", 0);
+    return 0;
+  } 
+  arg3 = (float)jarg3; 
+  arg4 = (float)jarg4; 
+  arg5 = (float)jarg5; 
+  arg6 = (float)jarg6; 
+  result = (bool)(arg1)->showContextActions((mgvector< int > const &)*arg2,arg3,arg4,arg5,arg6);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_GiView_showContextActionsSwigExplicitGiView(void * jarg1, void * jarg2, float jarg3, float jarg4, float jarg5, float jarg6) {
+  unsigned int jresult ;
+  GiView *arg1 = (GiView *) 0 ;
+  mgvector< int > *arg2 = 0 ;
+  float arg3 ;
+  float arg4 ;
+  float arg5 ;
+  float arg6 ;
+  bool result;
+  
+  arg1 = (GiView *)jarg1; 
+  arg2 = (mgvector< int > *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "mgvector< int > const & type is null", 0);
+    return 0;
+  } 
+  arg3 = (float)jarg3; 
+  arg4 = (float)jarg4; 
+  arg5 = (float)jarg5; 
+  arg6 = (float)jarg6; 
+  result = (bool)(arg1)->GiView::showContextActions((mgvector< int > const &)*arg2,arg3,arg4,arg5,arg6);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_GiView_commandChanged(void * jarg1) {
+  GiView *arg1 = (GiView *) 0 ;
+  
+  arg1 = (GiView *)jarg1; 
+  (arg1)->commandChanged();
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_GiView_commandChangedSwigExplicitGiView(void * jarg1) {
+  GiView *arg1 = (GiView *) 0 ;
+  
+  arg1 = (GiView *)jarg1; 
+  (arg1)->GiView::commandChanged();
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_GiView_selectionChanged(void * jarg1) {
+  GiView *arg1 = (GiView *) 0 ;
+  
+  arg1 = (GiView *)jarg1; 
+  (arg1)->selectionChanged();
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_GiView_selectionChangedSwigExplicitGiView(void * jarg1) {
+  GiView *arg1 = (GiView *) 0 ;
+  
+  arg1 = (GiView *)jarg1; 
+  (arg1)->GiView::selectionChanged();
+}
+
+
 SWIGEXPORT void * SWIGSTDCALL CSharp_new_GiView() {
   void * jresult ;
   GiView *result = 0 ;
@@ -1155,12 +1382,840 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_new_GiView() {
 }
 
 
-SWIGEXPORT void SWIGSTDCALL CSharp_GiView_director_connect(void *objarg, SwigDirector_GiView::SWIG_Callback0_t callback0, SwigDirector_GiView::SWIG_Callback1_t callback1, SwigDirector_GiView::SWIG_Callback2_t callback2, SwigDirector_GiView::SWIG_Callback3_t callback3) {
+SWIGEXPORT void SWIGSTDCALL CSharp_GiView_director_connect(void *objarg, SwigDirector_GiView::SWIG_Callback0_t callback0, SwigDirector_GiView::SWIG_Callback1_t callback1, SwigDirector_GiView::SWIG_Callback2_t callback2, SwigDirector_GiView::SWIG_Callback3_t callback3, SwigDirector_GiView::SWIG_Callback4_t callback4, SwigDirector_GiView::SWIG_Callback5_t callback5, SwigDirector_GiView::SWIG_Callback6_t callback6, SwigDirector_GiView::SWIG_Callback7_t callback7) {
   GiView *obj = (GiView *)objarg;
   SwigDirector_GiView *director = dynamic_cast<SwigDirector_GiView *>(obj);
   if (director) {
-    director->swig_connect_director(callback0, callback1, callback2, callback3);
+    director->swig_connect_director(callback0, callback1, callback2, callback3, callback4, callback5, callback6, callback7);
   }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_GiColor_r_set(void * jarg1, unsigned char jarg2) {
+  GiColor *arg1 = (GiColor *) 0 ;
+  unsigned char arg2 ;
+  
+  arg1 = (GiColor *)jarg1; 
+  arg2 = (unsigned char)jarg2; 
+  if (arg1) (arg1)->r = arg2;
+}
+
+
+SWIGEXPORT unsigned char SWIGSTDCALL CSharp_GiColor_r_get(void * jarg1) {
+  unsigned char jresult ;
+  GiColor *arg1 = (GiColor *) 0 ;
+  unsigned char result;
+  
+  arg1 = (GiColor *)jarg1; 
+  result = (unsigned char) ((arg1)->r);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_GiColor_g_set(void * jarg1, unsigned char jarg2) {
+  GiColor *arg1 = (GiColor *) 0 ;
+  unsigned char arg2 ;
+  
+  arg1 = (GiColor *)jarg1; 
+  arg2 = (unsigned char)jarg2; 
+  if (arg1) (arg1)->g = arg2;
+}
+
+
+SWIGEXPORT unsigned char SWIGSTDCALL CSharp_GiColor_g_get(void * jarg1) {
+  unsigned char jresult ;
+  GiColor *arg1 = (GiColor *) 0 ;
+  unsigned char result;
+  
+  arg1 = (GiColor *)jarg1; 
+  result = (unsigned char) ((arg1)->g);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_GiColor_b_set(void * jarg1, unsigned char jarg2) {
+  GiColor *arg1 = (GiColor *) 0 ;
+  unsigned char arg2 ;
+  
+  arg1 = (GiColor *)jarg1; 
+  arg2 = (unsigned char)jarg2; 
+  if (arg1) (arg1)->b = arg2;
+}
+
+
+SWIGEXPORT unsigned char SWIGSTDCALL CSharp_GiColor_b_get(void * jarg1) {
+  unsigned char jresult ;
+  GiColor *arg1 = (GiColor *) 0 ;
+  unsigned char result;
+  
+  arg1 = (GiColor *)jarg1; 
+  result = (unsigned char) ((arg1)->b);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_GiColor_a_set(void * jarg1, unsigned char jarg2) {
+  GiColor *arg1 = (GiColor *) 0 ;
+  unsigned char arg2 ;
+  
+  arg1 = (GiColor *)jarg1; 
+  arg2 = (unsigned char)jarg2; 
+  if (arg1) (arg1)->a = arg2;
+}
+
+
+SWIGEXPORT unsigned char SWIGSTDCALL CSharp_GiColor_a_get(void * jarg1) {
+  unsigned char jresult ;
+  GiColor *arg1 = (GiColor *) 0 ;
+  unsigned char result;
+  
+  arg1 = (GiColor *)jarg1; 
+  result = (unsigned char) ((arg1)->a);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_new_GiColor__SWIG_0() {
+  void * jresult ;
+  GiColor *result = 0 ;
+  
+  result = (GiColor *)new GiColor();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_new_GiColor__SWIG_1(int jarg1, int jarg2, int jarg3, int jarg4) {
+  void * jresult ;
+  int arg1 ;
+  int arg2 ;
+  int arg3 ;
+  int arg4 ;
+  GiColor *result = 0 ;
+  
+  arg1 = (int)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  arg4 = (int)jarg4; 
+  result = (GiColor *)new GiColor(arg1,arg2,arg3,arg4);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_new_GiColor__SWIG_2(int jarg1, int jarg2, int jarg3) {
+  void * jresult ;
+  int arg1 ;
+  int arg2 ;
+  int arg3 ;
+  GiColor *result = 0 ;
+  
+  arg1 = (int)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  result = (GiColor *)new GiColor(arg1,arg2,arg3);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_new_GiColor__SWIG_3(void * jarg1) {
+  void * jresult ;
+  GiColor *arg1 = 0 ;
+  GiColor *result = 0 ;
+  
+  arg1 = (GiColor *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "GiColor const & type is null", 0);
+    return 0;
+  } 
+  result = (GiColor *)new GiColor((GiColor const &)*arg1);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_new_GiColor__SWIG_4(int jarg1, unsigned int jarg2) {
+  void * jresult ;
+  int arg1 ;
+  bool arg2 ;
+  GiColor *result = 0 ;
+  
+  arg1 = (int)jarg1; 
+  arg2 = jarg2 ? true : false; 
+  result = (GiColor *)new GiColor(arg1,arg2);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_new_GiColor__SWIG_5(int jarg1) {
+  void * jresult ;
+  int arg1 ;
+  GiColor *result = 0 ;
+  
+  arg1 = (int)jarg1; 
+  result = (GiColor *)new GiColor(arg1);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_GiColor_White() {
+  void * jresult ;
+  GiColor result;
+  
+  result = GiColor::White();
+  jresult = new GiColor((const GiColor &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_GiColor_Black() {
+  void * jresult ;
+  GiColor result;
+  
+  result = GiColor::Black();
+  jresult = new GiColor((const GiColor &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_GiColor_Invalid() {
+  void * jresult ;
+  GiColor result;
+  
+  result = GiColor::Invalid();
+  jresult = new GiColor((const GiColor &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_GiColor_getARGB(void * jarg1) {
+  int jresult ;
+  GiColor *arg1 = (GiColor *) 0 ;
+  int result;
+  
+  arg1 = (GiColor *)jarg1; 
+  result = (int)((GiColor const *)arg1)->getARGB();
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_GiColor_setARGB(void * jarg1, int jarg2) {
+  GiColor *arg1 = (GiColor *) 0 ;
+  int arg2 ;
+  
+  arg1 = (GiColor *)jarg1; 
+  arg2 = (int)jarg2; 
+  (arg1)->setARGB(arg2);
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_GiColor_set__SWIG_0(void * jarg1, int jarg2, int jarg3, int jarg4) {
+  GiColor *arg1 = (GiColor *) 0 ;
+  int arg2 ;
+  int arg3 ;
+  int arg4 ;
+  
+  arg1 = (GiColor *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  arg4 = (int)jarg4; 
+  (arg1)->set(arg2,arg3,arg4);
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_GiColor_set__SWIG_1(void * jarg1, int jarg2, int jarg3, int jarg4, int jarg5) {
+  GiColor *arg1 = (GiColor *) 0 ;
+  int arg2 ;
+  int arg3 ;
+  int arg4 ;
+  int arg5 ;
+  
+  arg1 = (GiColor *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  arg4 = (int)jarg4; 
+  arg5 = (int)jarg5; 
+  (arg1)->set(arg2,arg3,arg4,arg5);
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_GiColor_isInvalid(void * jarg1) {
+  unsigned int jresult ;
+  GiColor *arg1 = (GiColor *) 0 ;
+  bool result;
+  
+  arg1 = (GiColor *)jarg1; 
+  result = (bool)((GiColor const *)arg1)->isInvalid();
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_GiColor_equals(void * jarg1, void * jarg2) {
+  unsigned int jresult ;
+  GiColor *arg1 = (GiColor *) 0 ;
+  GiColor *arg2 = 0 ;
+  bool result;
+  
+  arg1 = (GiColor *)jarg1; 
+  arg2 = (GiColor *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "GiColor const & type is null", 0);
+    return 0;
+  } 
+  result = (bool)((GiColor const *)arg1)->equals((GiColor const &)*arg2);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_delete_GiColor(void * jarg1) {
+  GiColor *arg1 = (GiColor *) 0 ;
+  
+  arg1 = (GiColor *)jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_new_GiContext__SWIG_0() {
+  void * jresult ;
+  GiContext *result = 0 ;
+  
+  result = (GiContext *)new GiContext();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_new_GiContext__SWIG_1(float jarg1, void * jarg2, int jarg3, void * jarg4, unsigned int jarg5) {
+  void * jresult ;
+  float arg1 ;
+  GiColor arg2 ;
+  int arg3 ;
+  GiColor *arg4 = 0 ;
+  bool arg5 ;
+  GiColor *argp2 ;
+  GiContext *result = 0 ;
+  
+  arg1 = (float)jarg1; 
+  argp2 = (GiColor *)jarg2; 
+  if (!argp2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null GiColor", 0);
+    return 0;
+  }
+  arg2 = *argp2; 
+  arg3 = (int)jarg3; 
+  arg4 = (GiColor *)jarg4;
+  if (!arg4) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "GiColor const & type is null", 0);
+    return 0;
+  } 
+  arg5 = jarg5 ? true : false; 
+  result = (GiContext *)new GiContext(arg1,arg2,arg3,(GiColor const &)*arg4,arg5);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_new_GiContext__SWIG_2(float jarg1, void * jarg2, int jarg3, void * jarg4) {
+  void * jresult ;
+  float arg1 ;
+  GiColor arg2 ;
+  int arg3 ;
+  GiColor *arg4 = 0 ;
+  GiColor *argp2 ;
+  GiContext *result = 0 ;
+  
+  arg1 = (float)jarg1; 
+  argp2 = (GiColor *)jarg2; 
+  if (!argp2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null GiColor", 0);
+    return 0;
+  }
+  arg2 = *argp2; 
+  arg3 = (int)jarg3; 
+  arg4 = (GiColor *)jarg4;
+  if (!arg4) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "GiColor const & type is null", 0);
+    return 0;
+  } 
+  result = (GiContext *)new GiContext(arg1,arg2,arg3,(GiColor const &)*arg4);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_new_GiContext__SWIG_3(float jarg1, void * jarg2, int jarg3) {
+  void * jresult ;
+  float arg1 ;
+  GiColor arg2 ;
+  int arg3 ;
+  GiColor *argp2 ;
+  GiContext *result = 0 ;
+  
+  arg1 = (float)jarg1; 
+  argp2 = (GiColor *)jarg2; 
+  if (!argp2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null GiColor", 0);
+    return 0;
+  }
+  arg2 = *argp2; 
+  arg3 = (int)jarg3; 
+  result = (GiContext *)new GiContext(arg1,arg2,arg3);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_new_GiContext__SWIG_4(float jarg1, void * jarg2) {
+  void * jresult ;
+  float arg1 ;
+  GiColor arg2 ;
+  GiColor *argp2 ;
+  GiContext *result = 0 ;
+  
+  arg1 = (float)jarg1; 
+  argp2 = (GiColor *)jarg2; 
+  if (!argp2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null GiColor", 0);
+    return 0;
+  }
+  arg2 = *argp2; 
+  result = (GiContext *)new GiContext(arg1,arg2);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_new_GiContext__SWIG_5(float jarg1) {
+  void * jresult ;
+  float arg1 ;
+  GiContext *result = 0 ;
+  
+  arg1 = (float)jarg1; 
+  result = (GiContext *)new GiContext(arg1);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_new_GiContext__SWIG_6(void * jarg1) {
+  void * jresult ;
+  GiContext *arg1 = 0 ;
+  GiContext *result = 0 ;
+  
+  arg1 = (GiContext *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "GiContext const & type is null", 0);
+    return 0;
+  } 
+  result = (GiContext *)new GiContext((GiContext const &)*arg1);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_GiContext_copy__SWIG_0(void * jarg1, void * jarg2, int jarg3) {
+  void * jresult ;
+  GiContext *arg1 = (GiContext *) 0 ;
+  GiContext *arg2 = 0 ;
+  int arg3 ;
+  GiContext *result = 0 ;
+  
+  arg1 = (GiContext *)jarg1; 
+  arg2 = (GiContext *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "GiContext const & type is null", 0);
+    return 0;
+  } 
+  arg3 = (int)jarg3; 
+  result = (GiContext *) &(arg1)->copy((GiContext const &)*arg2,arg3);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_GiContext_copy__SWIG_1(void * jarg1, void * jarg2) {
+  void * jresult ;
+  GiContext *arg1 = (GiContext *) 0 ;
+  GiContext *arg2 = 0 ;
+  GiContext *result = 0 ;
+  
+  arg1 = (GiContext *)jarg1; 
+  arg2 = (GiContext *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "GiContext const & type is null", 0);
+    return 0;
+  } 
+  result = (GiContext *) &(arg1)->copy((GiContext const &)*arg2);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_GiContext_equals(void * jarg1, void * jarg2) {
+  unsigned int jresult ;
+  GiContext *arg1 = (GiContext *) 0 ;
+  GiContext *arg2 = 0 ;
+  bool result;
+  
+  arg1 = (GiContext *)jarg1; 
+  arg2 = (GiContext *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "GiContext const & type is null", 0);
+    return 0;
+  } 
+  result = (bool)((GiContext const *)arg1)->equals((GiContext const &)*arg2);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_GiContext_getLineStyle(void * jarg1) {
+  int jresult ;
+  GiContext *arg1 = (GiContext *) 0 ;
+  int result;
+  
+  arg1 = (GiContext *)jarg1; 
+  result = (int)((GiContext const *)arg1)->getLineStyle();
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_GiContext_setLineStyle(void * jarg1, int jarg2) {
+  GiContext *arg1 = (GiContext *) 0 ;
+  int arg2 ;
+  
+  arg1 = (GiContext *)jarg1; 
+  arg2 = (int)jarg2; 
+  (arg1)->setLineStyle(arg2);
+}
+
+
+SWIGEXPORT float SWIGSTDCALL CSharp_GiContext_getLineWidth(void * jarg1) {
+  float jresult ;
+  GiContext *arg1 = (GiContext *) 0 ;
+  float result;
+  
+  arg1 = (GiContext *)jarg1; 
+  result = (float)((GiContext const *)arg1)->getLineWidth();
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_GiContext_isAutoScale(void * jarg1) {
+  unsigned int jresult ;
+  GiContext *arg1 = (GiContext *) 0 ;
+  bool result;
+  
+  arg1 = (GiContext *)jarg1; 
+  result = (bool)((GiContext const *)arg1)->isAutoScale();
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_GiContext_setLineWidth(void * jarg1, float jarg2, unsigned int jarg3) {
+  GiContext *arg1 = (GiContext *) 0 ;
+  float arg2 ;
+  bool arg3 ;
+  
+  arg1 = (GiContext *)jarg1; 
+  arg2 = (float)jarg2; 
+  arg3 = jarg3 ? true : false; 
+  (arg1)->setLineWidth(arg2,arg3);
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_GiContext_isNullLine(void * jarg1) {
+  unsigned int jresult ;
+  GiContext *arg1 = (GiContext *) 0 ;
+  bool result;
+  
+  arg1 = (GiContext *)jarg1; 
+  result = (bool)((GiContext const *)arg1)->isNullLine();
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_GiContext_setNullLine(void * jarg1) {
+  GiContext *arg1 = (GiContext *) 0 ;
+  
+  arg1 = (GiContext *)jarg1; 
+  (arg1)->setNullLine();
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_GiContext_getLineColor(void * jarg1) {
+  void * jresult ;
+  GiContext *arg1 = (GiContext *) 0 ;
+  GiColor result;
+  
+  arg1 = (GiContext *)jarg1; 
+  result = ((GiContext const *)arg1)->getLineColor();
+  jresult = new GiColor((const GiColor &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_GiContext_setLineColor__SWIG_0(void * jarg1, void * jarg2) {
+  GiContext *arg1 = (GiContext *) 0 ;
+  GiColor *arg2 = 0 ;
+  
+  arg1 = (GiContext *)jarg1; 
+  arg2 = (GiColor *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "GiColor const & type is null", 0);
+    return ;
+  } 
+  (arg1)->setLineColor((GiColor const &)*arg2);
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_GiContext_setLineColor__SWIG_1(void * jarg1, int jarg2, int jarg3, int jarg4) {
+  GiContext *arg1 = (GiContext *) 0 ;
+  int arg2 ;
+  int arg3 ;
+  int arg4 ;
+  
+  arg1 = (GiContext *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  arg4 = (int)jarg4; 
+  (arg1)->setLineColor(arg2,arg3,arg4);
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_GiContext_setLineColor__SWIG_2(void * jarg1, int jarg2, int jarg3, int jarg4, int jarg5) {
+  GiContext *arg1 = (GiContext *) 0 ;
+  int arg2 ;
+  int arg3 ;
+  int arg4 ;
+  int arg5 ;
+  
+  arg1 = (GiContext *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  arg4 = (int)jarg4; 
+  arg5 = (int)jarg5; 
+  (arg1)->setLineColor(arg2,arg3,arg4,arg5);
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_GiContext_getLineARGB(void * jarg1) {
+  int jresult ;
+  GiContext *arg1 = (GiContext *) 0 ;
+  int result;
+  
+  arg1 = (GiContext *)jarg1; 
+  result = (int)((GiContext const *)arg1)->getLineARGB();
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_GiContext_setLineARGB(void * jarg1, int jarg2) {
+  GiContext *arg1 = (GiContext *) 0 ;
+  int arg2 ;
+  
+  arg1 = (GiContext *)jarg1; 
+  arg2 = (int)jarg2; 
+  (arg1)->setLineARGB(arg2);
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_GiContext_getLineAlpha(void * jarg1) {
+  int jresult ;
+  GiContext *arg1 = (GiContext *) 0 ;
+  int result;
+  
+  arg1 = (GiContext *)jarg1; 
+  result = (int)((GiContext const *)arg1)->getLineAlpha();
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_GiContext_setLineAlpha(void * jarg1, int jarg2) {
+  GiContext *arg1 = (GiContext *) 0 ;
+  int arg2 ;
+  
+  arg1 = (GiContext *)jarg1; 
+  arg2 = (int)jarg2; 
+  (arg1)->setLineAlpha(arg2);
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_GiContext_hasFillColor(void * jarg1) {
+  unsigned int jresult ;
+  GiContext *arg1 = (GiContext *) 0 ;
+  bool result;
+  
+  arg1 = (GiContext *)jarg1; 
+  result = (bool)((GiContext const *)arg1)->hasFillColor();
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_GiContext_setNoFillColor(void * jarg1) {
+  GiContext *arg1 = (GiContext *) 0 ;
+  
+  arg1 = (GiContext *)jarg1; 
+  (arg1)->setNoFillColor();
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_GiContext_getFillColor(void * jarg1) {
+  void * jresult ;
+  GiContext *arg1 = (GiContext *) 0 ;
+  GiColor result;
+  
+  arg1 = (GiContext *)jarg1; 
+  result = ((GiContext const *)arg1)->getFillColor();
+  jresult = new GiColor((const GiColor &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_GiContext_setFillColor__SWIG_0(void * jarg1, void * jarg2) {
+  GiContext *arg1 = (GiContext *) 0 ;
+  GiColor *arg2 = 0 ;
+  
+  arg1 = (GiContext *)jarg1; 
+  arg2 = (GiColor *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "GiColor const & type is null", 0);
+    return ;
+  } 
+  (arg1)->setFillColor((GiColor const &)*arg2);
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_GiContext_setFillColor__SWIG_1(void * jarg1, int jarg2, int jarg3, int jarg4) {
+  GiContext *arg1 = (GiContext *) 0 ;
+  int arg2 ;
+  int arg3 ;
+  int arg4 ;
+  
+  arg1 = (GiContext *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  arg4 = (int)jarg4; 
+  (arg1)->setFillColor(arg2,arg3,arg4);
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_GiContext_setFillColor__SWIG_2(void * jarg1, int jarg2, int jarg3, int jarg4, int jarg5) {
+  GiContext *arg1 = (GiContext *) 0 ;
+  int arg2 ;
+  int arg3 ;
+  int arg4 ;
+  int arg5 ;
+  
+  arg1 = (GiContext *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  arg4 = (int)jarg4; 
+  arg5 = (int)jarg5; 
+  (arg1)->setFillColor(arg2,arg3,arg4,arg5);
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_GiContext_getFillARGB(void * jarg1) {
+  int jresult ;
+  GiContext *arg1 = (GiContext *) 0 ;
+  int result;
+  
+  arg1 = (GiContext *)jarg1; 
+  result = (int)((GiContext const *)arg1)->getFillARGB();
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_GiContext_setFillARGB(void * jarg1, int jarg2) {
+  GiContext *arg1 = (GiContext *) 0 ;
+  int arg2 ;
+  
+  arg1 = (GiContext *)jarg1; 
+  arg2 = (int)jarg2; 
+  (arg1)->setFillARGB(arg2);
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_GiContext_getFillAlpha(void * jarg1) {
+  int jresult ;
+  GiContext *arg1 = (GiContext *) 0 ;
+  int result;
+  
+  arg1 = (GiContext *)jarg1; 
+  result = (int)((GiContext const *)arg1)->getFillAlpha();
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_GiContext_setFillAlpha(void * jarg1, int jarg2) {
+  GiContext *arg1 = (GiContext *) 0 ;
+  int arg2 ;
+  
+  arg1 = (GiContext *)jarg1; 
+  arg2 = (int)jarg2; 
+  (arg1)->setFillAlpha(arg2);
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_GiContext_isAutoFillColor(void * jarg1) {
+  unsigned int jresult ;
+  GiContext *arg1 = (GiContext *) 0 ;
+  bool result;
+  
+  arg1 = (GiContext *)jarg1; 
+  result = (bool)((GiContext const *)arg1)->isAutoFillColor();
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_GiContext_setAutoFillColor(void * jarg1, unsigned int jarg2) {
+  GiContext *arg1 = (GiContext *) 0 ;
+  bool arg2 ;
+  
+  arg1 = (GiContext *)jarg1; 
+  arg2 = jarg2 ? true : false; 
+  (arg1)->setAutoFillColor(arg2);
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_GiContext_getType(void * jarg1) {
+  int jresult ;
+  GiContext *arg1 = (GiContext *) 0 ;
+  int result;
+  
+  arg1 = (GiContext *)jarg1; 
+  result = (int)((GiContext const *)arg1)->getType();
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_delete_GiContext(void * jarg1) {
+  GiContext *arg1 = (GiContext *) 0 ;
+  
+  arg1 = (GiContext *)jarg1; 
+  delete arg1;
 }
 
 
@@ -1416,13 +2471,13 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_GiCoreView_twoFingersMove__SWIG_1(voi
 }
 
 
-SWIGEXPORT char * SWIGSTDCALL CSharp_GiCoreView_command(void * jarg1) {
+SWIGEXPORT char * SWIGSTDCALL CSharp_GiCoreView_getCommand(void * jarg1) {
   char * jresult ;
   GiCoreView *arg1 = (GiCoreView *) 0 ;
   char *result = 0 ;
   
   arg1 = (GiCoreView *)jarg1; 
-  result = (char *)((GiCoreView const *)arg1)->command();
+  result = (char *)((GiCoreView const *)arg1)->getCommand();
   jresult = SWIG_csharp_string_callback((const char *)result); 
   return jresult;
 }
@@ -1439,6 +2494,20 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_GiCoreView_setCommand(void * jarg1, v
   arg2 = (GiView *)jarg2; 
   arg3 = (char *)jarg3; 
   result = (bool)(arg1)->setCommand(arg2,(char const *)arg3);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_GiCoreView_doContextAction(void * jarg1, int jarg2) {
+  unsigned int jresult ;
+  GiCoreView *arg1 = (GiCoreView *) 0 ;
+  int arg2 ;
+  bool result;
+  
+  arg1 = (GiCoreView *)jarg1; 
+  arg2 = (int)jarg2; 
+  result = (bool)(arg1)->doContextAction(arg2);
   jresult = result; 
   return jresult;
 }
@@ -1471,6 +2540,30 @@ SWIGEXPORT int SWIGSTDCALL CSharp_GiCoreView_getShapeCount(void * jarg1) {
   
   arg1 = (GiCoreView *)jarg1; 
   result = (int)(arg1)->getShapeCount();
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_GiCoreView_getSelectedShapeCount(void * jarg1) {
+  int jresult ;
+  GiCoreView *arg1 = (GiCoreView *) 0 ;
+  int result;
+  
+  arg1 = (GiCoreView *)jarg1; 
+  result = (int)(arg1)->getSelectedShapeCount();
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_GiCoreView_getSelectedShapeType(void * jarg1) {
+  int jresult ;
+  GiCoreView *arg1 = (GiCoreView *) 0 ;
+  int result;
+  
+  arg1 = (GiCoreView *)jarg1; 
+  result = (int)(arg1)->getSelectedShapeType();
   jresult = result; 
   return jresult;
 }
@@ -1563,6 +2656,92 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_GiCoreView_zoomToExtent(void * jarg1)
   result = (bool)(arg1)->zoomToExtent();
   jresult = result; 
   return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_GiCoreView_zoomToModel(void * jarg1, float jarg2, float jarg3, float jarg4, float jarg5) {
+  unsigned int jresult ;
+  GiCoreView *arg1 = (GiCoreView *) 0 ;
+  float arg2 ;
+  float arg3 ;
+  float arg4 ;
+  float arg5 ;
+  bool result;
+  
+  arg1 = (GiCoreView *)jarg1; 
+  arg2 = (float)jarg2; 
+  arg3 = (float)jarg3; 
+  arg4 = (float)jarg4; 
+  arg5 = (float)jarg5; 
+  result = (bool)(arg1)->zoomToModel(arg2,arg3,arg4,arg5);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT float SWIGSTDCALL CSharp_GiCoreView_calcPenWidth(void * jarg1, float jarg2) {
+  float jresult ;
+  GiCoreView *arg1 = (GiCoreView *) 0 ;
+  float arg2 ;
+  float result;
+  
+  arg1 = (GiCoreView *)jarg1; 
+  arg2 = (float)jarg2; 
+  result = (float)(arg1)->calcPenWidth(arg2);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_GiCoreView_getContext(void * jarg1, unsigned int jarg2) {
+  void * jresult ;
+  GiCoreView *arg1 = (GiCoreView *) 0 ;
+  bool arg2 ;
+  GiContext *result = 0 ;
+  
+  arg1 = (GiCoreView *)jarg1; 
+  arg2 = jarg2 ? true : false; 
+  result = (GiContext *) &(arg1)->getContext(arg2);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_GiCoreView_setContext__SWIG_0(void * jarg1, void * jarg2, int jarg3, int jarg4) {
+  GiCoreView *arg1 = (GiCoreView *) 0 ;
+  GiContext *arg2 = 0 ;
+  int arg3 ;
+  int arg4 ;
+  
+  arg1 = (GiCoreView *)jarg1; 
+  arg2 = (GiContext *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "GiContext const & type is null", 0);
+    return ;
+  } 
+  arg3 = (int)jarg3; 
+  arg4 = (int)jarg4; 
+  (arg1)->setContext((GiContext const &)*arg2,arg3,arg4);
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_GiCoreView_setContext__SWIG_1(void * jarg1, int jarg2) {
+  GiCoreView *arg1 = (GiCoreView *) 0 ;
+  int arg2 ;
+  
+  arg1 = (GiCoreView *)jarg1; 
+  arg2 = (int)jarg2; 
+  (arg1)->setContext(arg2);
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_GiCoreView_setContextEditing(void * jarg1, unsigned int jarg2) {
+  GiCoreView *arg1 = (GiCoreView *) 0 ;
+  bool arg2 ;
+  
+  arg1 = (GiCoreView *)jarg1; 
+  arg2 = jarg2 ? true : false; 
+  (arg1)->setContextEditing(arg2);
 }
 
 

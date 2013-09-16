@@ -5,6 +5,7 @@
 
 #include "gigraph.h"
 #include "gicanvas.h"
+#include "gilock.h"
 
 //! GiGraphics的内部实现类
 class GiGraphicsImpl

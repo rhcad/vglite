@@ -7,6 +7,7 @@
 #define __GEOMETRY_MGSHAPE_H_
 
 #include "gigraph.h"
+#include "gilock.h"
 #include "mgobject.h"
 
 class MgBaseShape;

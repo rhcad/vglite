@@ -6,6 +6,7 @@ package touchvg.view;
 
 import touchvg.jni.GiCoreView;
 import touchvg.jni.GiView;
+import touchvg.jni.Ints;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -99,6 +100,7 @@ public class GraphView extends View {
     //! 设置背景色
     public void setBackgroundColor(int color) {
         mBkColor = color;
+        mCoreView.setBkColor(mViewAdapter, color);
         regen(false);
     }
 
@@ -223,6 +225,8 @@ public class GraphView extends View {
     }
 
     //! 视图回调适配器
+    /*! \ingroup GROUP_ANDROID
+     */
     private class ViewAdapter extends GiView {
         @Override
         public void regenAll() {
@@ -253,6 +257,24 @@ public class GraphView extends View {
             if (!mRegenning) {
                 invalidate();
             }
+        }
+        
+        @Override
+        public boolean isContextActionsVisible() {
+            return false;
+        }
+        
+        @Override
+        public boolean showContextActions(Ints actions, float x, float y, float w, float h) {
+            return false;
+        }
+        
+        @Override
+        public void commandChanged() {
+        }
+        
+        @Override
+        public void selectionChanged() {
         }
     }
 }

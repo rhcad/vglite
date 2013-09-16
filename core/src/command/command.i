@@ -15,7 +15,6 @@
 %include <mgbox.h>
 %include <mgmat.h>
 
-%include <gidef.h>
 %include <gicolor.h>
 %include <gicontxt.h>
 %include <gixform.h>

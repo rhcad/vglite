@@ -1,15 +1,14 @@
 //! \file mgstoragebs.h
-//! \brief 定义序列化基类 MgStorageBase
+//! \brief 定义供SWIG输出给其他语言用的序列化基类 MgStorageBase
 // Copyright (c) 2004-2012, Zhang Yungui
 // License: LGPL, https://github.com/rhcad/touchvg
 
-#ifndef __GEOMETRY_MGSTORAGEBASE_H_
+#if !defined(__GEOMETRY_MGSTORAGEBASE_H_) && defined(SWIG_MGVECTOR_H)
 #define __GEOMETRY_MGSTORAGEBASE_H_
 
 #include "mgstorage.h"
-#include "mgvector.h"
 
-//! 序列化基类
+//! 供SWIG输出给其他语言用的序列化基类
 /*! \ingroup CORE_SHAPE
  */
 class MgStorageBase : public MgStorage

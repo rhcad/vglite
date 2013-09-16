@@ -7,15 +7,25 @@
 #define __GEOMETRY_PATH_H_
 
 #include "mgpnt.h"
-#include "gidef.h"
 
 class GiPathImpl;
 class GiGraphics;
 class GiContext;
 
+//! 矢量路径节点类型
+/*! \see GiPath
+*/
+typedef enum {
+    kGiCloseFigure = 1,
+    kGiLineTo = 2,
+    kGiBeziersTo = 4,
+    kGiMoveTo = 6,
+} GiPathNode;
+
 //! 矢量路径类
 /*!
     \ingroup GRAPH_INTERFACE
+    \see GiPathNode
 */
 class GiPath
 {

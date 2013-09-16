@@ -7,25 +7,15 @@ void mgRegisterTradeCmds()
     //registerCommand<MgCmdDrawCube>();
 }
 
-int mgGetDimensions(MgView* view, float* vars, char* types, int count)
-{
-    for (int i = 0; i < count; i++) {
-        vars[i] = 0;
-        types[i] = 0;
-    }
-    MgCommand* cmd = view->cmds()->getCommand();
-    return cmd ? cmd->getDimensions(view, vars, types, count) : 0;
-}
-
-void TradeCmd::onUnloadCmds()
+void TradeCmd::onUnloadCommands()
 {
 }
 
-void TradeCmd::drawInTriangle(MgCommandDraw*, GiGraphics*)
+void TradeCmd::drawInShapeCommand(const char*, MgCommandDraw*, GiGraphics*)
 {
 }
 
-bool TradeCmd::selectActionHided(const MgMotion*)
+bool TradeCmd::selectActionsNeedHided(const MgMotion*)
 {
     return false;
 }
@@ -44,16 +34,19 @@ bool TradeCmd::doEndAction(const MgMotion*, int)
     return false;
 }
 
-void TradeCmd::onLineAdded(const MgMotion*, MgShape*)
+void TradeCmd::onShapeAdded(const MgMotion*, MgShape*)
 {
 }
 
-void TradeCmd::onInitSelCmd(const MgMotion*)
+void TradeCmd::onDocLoaded(const MgMotion*)
 {
 }
 
-void TradeCmd::drawInSelect(const MgShape*, int,
-                            const MgMotion*, GiGraphics*, bool)
+void TradeCmd::onEnterSelectCommand(const MgMotion*)
+{
+}
+
+void TradeCmd::drawInSelectCommand(const MgShape*, int, const MgMotion*, GiGraphics*)
 {
 }
 

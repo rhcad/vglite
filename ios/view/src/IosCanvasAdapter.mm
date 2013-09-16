@@ -1,11 +1,11 @@
-//! \file GiQuartzCanvas.mm
-//! \brief 实现画布适配器类 GiQuartzCanvas
+//! \file IosCanvasAdapter.mm
+//! \brief 实现画布适配器类 IosCanvasAdapter
 // Copyright (c) 2012-2013, https://github.com/rhcad/touchvg
 
-#include "GiQuartzCanvas.h"
+#include "IosCanvasAdapter.h"
 #include <sys/sysctl.h>
 
-int GiQuartzCanvas::getScreenDpi()
+int IosCanvasAdapter::getScreenDpi()
 {
     size_t size = 15;
     char machine[15 + 1] = "";
@@ -24,20 +24,20 @@ int GiQuartzCanvas::getScreenDpi()
     return (iPad && !iPadMini) ? 132 : 163;
 }
 
-GiQuartzCanvas::GiQuartzCanvas() : _ctx(NULL)
+IosCanvasAdapter::IosCanvasAdapter() : _ctx(NULL)
 {
 }
 
-GiQuartzCanvas::~GiQuartzCanvas()
+IosCanvasAdapter::~IosCanvasAdapter()
 {
 }
 
-CGContextRef GiQuartzCanvas::context()
+CGContextRef IosCanvasAdapter::context()
 {
     return _ctx;
 }
 
-bool GiQuartzCanvas::beginPaint(CGContextRef context)
+bool IosCanvasAdapter::beginPaint(CGContextRef context)
 {
     if (_ctx || !context) {
         return false;
@@ -52,13 +52,13 @@ bool GiQuartzCanvas::beginPaint(CGContextRef context)
     
     CGContextSetLineCap(_ctx, kCGLineCapRound);     // 圆端
     CGContextSetLineJoin(_ctx, kCGLineJoinRound);   // 折线转角圆弧过渡
-
+    
     CGContextSetRGBFillColor(_ctx, 0, 0, 0, 0);     // 默认不填充
     
     return true;
 }
 
-void GiQuartzCanvas::endPaint()
+void IosCanvasAdapter::endPaint()
 {
     _ctx = NULL;
 }
@@ -68,7 +68,7 @@ static inline float colorPart(int argb, int bit)
     return (float)((argb >> bit) & 0xFF) / 255.f;
 }
 
-void GiQuartzCanvas::setPen(int argb, float width, int style, float phase)
+void IosCanvasAdapter::setPen(int argb, float width, int style, float phase)
 {
     const CGFloat patDash[]      = { 5, 5, 0 };
     const CGFloat patDot[]       = { 1, 2, 0 };
@@ -99,7 +99,7 @@ void GiQuartzCanvas::setPen(int argb, float width, int style, float phase)
     }
 }
 
-void GiQuartzCanvas::setBrush(int argb, int style)
+void IosCanvasAdapter::setBrush(int argb, int style)
 {
     if (0 == style) {
         float alpha = colorPart(argb, 24);
@@ -109,22 +109,22 @@ void GiQuartzCanvas::setBrush(int argb, int style)
     }
 }
 
-void GiQuartzCanvas::saveClip()
+void IosCanvasAdapter::saveClip()
 {
     CGContextSaveGState(_ctx);
 }
 
-void GiQuartzCanvas::restoreClip()
+void IosCanvasAdapter::restoreClip()
 {
     CGContextRestoreGState(_ctx);
 }
 
-void GiQuartzCanvas::clearRect(float x, float y, float w, float h)
+void IosCanvasAdapter::clearRect(float x, float y, float w, float h)
 {
     CGContextClearRect(_ctx, CGRectMake(x, y, w, h));
 }
 
-void GiQuartzCanvas::drawRect(float x, float y, float w, float h, bool stroke, bool fill)
+void IosCanvasAdapter::drawRect(float x, float y, float w, float h, bool stroke, bool fill)
 {
     if (fill && _fill) {
         CGContextFillRect(_ctx, CGRectMake(x, y, w, h));
@@ -134,14 +134,14 @@ void GiQuartzCanvas::drawRect(float x, float y, float w, float h, bool stroke, b
     }
 }
 
-bool GiQuartzCanvas::clipRect(float x, float y, float w, float h)
+bool IosCanvasAdapter::clipRect(float x, float y, float w, float h)
 {
     CGContextClipToRect(_ctx, CGRectMake(x, y, w, h));
     CGRect rect = CGContextGetClipBoundingBox(_ctx);
     return !CGRectIsEmpty(rect);
 }
 
-void GiQuartzCanvas::drawLine(float x1, float y1, float x2, float y2)
+void IosCanvasAdapter::drawLine(float x1, float y1, float x2, float y2)
 {
     CGContextBeginPath(_ctx);
     CGContextMoveToPoint(_ctx, x1, y1);
@@ -149,7 +149,7 @@ void GiQuartzCanvas::drawLine(float x1, float y1, float x2, float y2)
     CGContextStrokePath(_ctx);
 }
 
-void GiQuartzCanvas::drawEllipse(float x, float y, float w, float h, bool stroke, bool fill)
+void IosCanvasAdapter::drawEllipse(float x, float y, float w, float h, bool stroke, bool fill)
 {
     if (fill && _fill) {
         CGContextFillEllipseInRect(_ctx, CGRectMake(x, y, w, h));
@@ -159,51 +159,51 @@ void GiQuartzCanvas::drawEllipse(float x, float y, float w, float h, bool stroke
     }
 }
 
-void GiQuartzCanvas::beginPath()
+void IosCanvasAdapter::beginPath()
 {
     CGContextBeginPath(_ctx);
 }
 
-void GiQuartzCanvas::moveTo(float x, float y)
+void IosCanvasAdapter::moveTo(float x, float y)
 {
     CGContextMoveToPoint(_ctx, x, y);
 }
 
-void GiQuartzCanvas::lineTo(float x, float y)
+void IosCanvasAdapter::lineTo(float x, float y)
 {
     CGContextAddLineToPoint(_ctx, x, y);
 }
 
-void GiQuartzCanvas::bezierTo(float c1x, float c1y, float c2x, float c2y, float x, float y)
+void IosCanvasAdapter::bezierTo(float c1x, float c1y, float c2x, float c2y, float x, float y)
 {
     CGContextAddCurveToPoint(_ctx, c1x, c1y, c2x, c2y, x, y);
 }
 
-void GiQuartzCanvas::quadTo(float cpx, float cpy, float x, float y)
+void IosCanvasAdapter::quadTo(float cpx, float cpy, float x, float y)
 {
     CGContextAddQuadCurveToPoint(_ctx, cpx, cpy, x, y);
 }
 
-void GiQuartzCanvas::closePath()
+void IosCanvasAdapter::closePath()
 {
     CGContextClosePath(_ctx);
 }
 
-void GiQuartzCanvas::drawPath(bool stroke, bool fill)
+void IosCanvasAdapter::drawPath(bool stroke, bool fill)
 {
     fill = fill && _fill;
     CGContextDrawPath(_ctx, (stroke && fill) ? kCGPathEOFillStroke
                       : (fill ? kCGPathEOFill : kCGPathStroke));  // will clear the path
 }
 
-bool GiQuartzCanvas::clipPath()
+bool IosCanvasAdapter::clipPath()
 {
     CGContextClip(_ctx);
     CGRect rect = CGContextGetClipBoundingBox(_ctx);
     return !CGRectIsEmpty(rect);
 }
 
-void GiQuartzCanvas::drawHandle(float x, float y, int type)
+void IosCanvasAdapter::drawHandle(float x, float y, int type)
 {
     if (type >= 0 && type < 4) {
         NSString *names[] = { @"vgdot1.png", @"vgdot2.png", @"vgdot3.png", @"app57.png" };
@@ -224,8 +224,8 @@ void GiQuartzCanvas::drawHandle(float x, float y, int type)
     }
 }
 
-void GiQuartzCanvas::drawBitmap(const char* name, float xc, float yc, 
-                                float w, float h, float angle)
+void IosCanvasAdapter::drawBitmap(const char* name, float xc, float yc, 
+                                  float w, float h, float angle)
 {
     UIImage *image = [UIImage imageNamed:@"app57.png"];
     if (image) {
@@ -238,7 +238,7 @@ void GiQuartzCanvas::drawBitmap(const char* name, float xc, float yc,
     }
 }
 
-float GiQuartzCanvas::drawTextAt(const char* text, float x, float y, float h, int align)
+float IosCanvasAdapter::drawTextAt(const char* text, float x, float y, float h, int align)
 {
     UIGraphicsPushContext(_ctx);        // 设置为当前上下文，供UIKit显示使用
     

@@ -163,7 +163,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\android\demo\src\touchvg\view\GraphViewHelper.java"
+					RelativePath="..\..\android\demo\src\touchvg\view\ViewHelper.java"
 					>
 				</File>
 				<File

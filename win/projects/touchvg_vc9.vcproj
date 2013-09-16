@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\core\include\callback;..\..\core\include\tradecmd;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\storage;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test;..\include\canvas"
+				AdditionalIncludeDirectories="..\..\core\include\canvas;..\..\core\include\tradecmd;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\storage;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test;..\include\canvas"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -105,7 +105,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="..\..\core\include\callback;..\..\core\include\tradecmd;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\storage;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test;..\include\canvas"
+				AdditionalIncludeDirectories="..\..\core\include\canvas;..\..\core\include\tradecmd;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\storage;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test;..\include\canvas"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -477,14 +477,18 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<Filter
-				Name="callback"
+				Name="canvas"
 				>
 				<File
-					RelativePath="..\..\core\include\callback\gicanvas.h"
+					RelativePath="..\..\core\include\canvas\gicanvas.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\core\include\callback\giview.h"
+					RelativePath="..\..\core\include\view\giview.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\include\view\mgvector.h"
 					>
 				</File>
 			</Filter>
@@ -604,7 +608,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\core\include\graph\gidef.h"
+					RelativePath="..\..\core\include\graph\gilock.h"
 					>
 				</File>
 				<File
@@ -701,10 +705,6 @@
 				</File>
 				<File
 					RelativePath="..\..\core\include\storage\mgstoragebs.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\core\include\storage\mgvector.h"
 					>
 				</File>
 			</Filter>

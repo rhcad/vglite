@@ -9,6 +9,11 @@
 package touchvg.jni;
 
 public class touchvgJNI {
+  public final static native void delete_Ints(long jarg1);
+  public final static native long new_Ints(int jarg1);
+  public final static native int Ints_count(long jarg1, Ints jarg1_);
+  public final static native int Ints_get(long jarg1, Ints jarg1_, int jarg2);
+  public final static native void Ints_set(long jarg1, Ints jarg1_, int jarg2, int jarg3);
   public final static native void delete_GiCanvas(long jarg1);
   public final static native void GiCanvas_setPen(long jarg1, GiCanvas jarg1_, int jarg2, float jarg3, int jarg4, float jarg5);
   public final static native void GiCanvas_setBrush(long jarg1, GiCanvas jarg1_, int jarg2, int jarg3);
@@ -39,9 +44,91 @@ public class touchvgJNI {
   public final static native void GiView_redraw(long jarg1, GiView jarg1_);
   public final static native boolean GiView_useFinger(long jarg1, GiView jarg1_);
   public final static native boolean GiView_useFingerSwigExplicitGiView(long jarg1, GiView jarg1_);
+  public final static native boolean GiView_isContextActionsVisible(long jarg1, GiView jarg1_);
+  public final static native boolean GiView_isContextActionsVisibleSwigExplicitGiView(long jarg1, GiView jarg1_);
+  public final static native boolean GiView_showContextActions(long jarg1, GiView jarg1_, long jarg2, Ints jarg2_, float jarg3, float jarg4, float jarg5, float jarg6);
+  public final static native boolean GiView_showContextActionsSwigExplicitGiView(long jarg1, GiView jarg1_, long jarg2, Ints jarg2_, float jarg3, float jarg4, float jarg5, float jarg6);
+  public final static native void GiView_commandChanged(long jarg1, GiView jarg1_);
+  public final static native void GiView_commandChangedSwigExplicitGiView(long jarg1, GiView jarg1_);
+  public final static native void GiView_selectionChanged(long jarg1, GiView jarg1_);
+  public final static native void GiView_selectionChangedSwigExplicitGiView(long jarg1, GiView jarg1_);
   public final static native long new_GiView();
   public final static native void GiView_director_connect(GiView obj, long cptr, boolean mem_own, boolean weak_global);
   public final static native void GiView_change_ownership(GiView obj, long cptr, boolean take_or_release);
+  public final static native void GiColor_r_set(long jarg1, GiColor jarg1_, short jarg2);
+  public final static native short GiColor_r_get(long jarg1, GiColor jarg1_);
+  public final static native void GiColor_g_set(long jarg1, GiColor jarg1_, short jarg2);
+  public final static native short GiColor_g_get(long jarg1, GiColor jarg1_);
+  public final static native void GiColor_b_set(long jarg1, GiColor jarg1_, short jarg2);
+  public final static native short GiColor_b_get(long jarg1, GiColor jarg1_);
+  public final static native void GiColor_a_set(long jarg1, GiColor jarg1_, short jarg2);
+  public final static native short GiColor_a_get(long jarg1, GiColor jarg1_);
+  public final static native long new_GiColor__SWIG_0();
+  public final static native long new_GiColor__SWIG_1(int jarg1, int jarg2, int jarg3, int jarg4);
+  public final static native long new_GiColor__SWIG_2(int jarg1, int jarg2, int jarg3);
+  public final static native long new_GiColor__SWIG_3(long jarg1, GiColor jarg1_);
+  public final static native long new_GiColor__SWIG_4(int jarg1, boolean jarg2);
+  public final static native long new_GiColor__SWIG_5(int jarg1);
+  public final static native long GiColor_White();
+  public final static native long GiColor_Black();
+  public final static native long GiColor_Invalid();
+  public final static native int GiColor_getARGB(long jarg1, GiColor jarg1_);
+  public final static native void GiColor_setARGB(long jarg1, GiColor jarg1_, int jarg2);
+  public final static native void GiColor_set__SWIG_0(long jarg1, GiColor jarg1_, int jarg2, int jarg3, int jarg4);
+  public final static native void GiColor_set__SWIG_1(long jarg1, GiColor jarg1_, int jarg2, int jarg3, int jarg4, int jarg5);
+  public final static native boolean GiColor_isInvalid(long jarg1, GiColor jarg1_);
+  public final static native boolean GiColor_equals(long jarg1, GiColor jarg1_, long jarg2, GiColor jarg2_);
+  public final static native void delete_GiColor(long jarg1);
+  public final static native int kGiLineSolid_get();
+  public final static native int kContextCopyNone_get();
+  public final static native int kContextLineRGB_get();
+  public final static native int kContextLineAlpha_get();
+  public final static native int kContextLineARGB_get();
+  public final static native int kContextLineWidth_get();
+  public final static native int kContextLineStyle_get();
+  public final static native int kContextFillRGB_get();
+  public final static native int kContextFillAlpha_get();
+  public final static native int kContextFillARGB_get();
+  public final static native int kContextCopyAll_get();
+  public final static native long new_GiContext__SWIG_0();
+  public final static native long new_GiContext__SWIG_1(float jarg1, long jarg2, GiColor jarg2_, int jarg3, long jarg4, GiColor jarg4_, boolean jarg5);
+  public final static native long new_GiContext__SWIG_2(float jarg1, long jarg2, GiColor jarg2_, int jarg3, long jarg4, GiColor jarg4_);
+  public final static native long new_GiContext__SWIG_3(float jarg1, long jarg2, GiColor jarg2_, int jarg3);
+  public final static native long new_GiContext__SWIG_4(float jarg1, long jarg2, GiColor jarg2_);
+  public final static native long new_GiContext__SWIG_5(float jarg1);
+  public final static native long new_GiContext__SWIG_6(long jarg1, GiContext jarg1_);
+  public final static native long GiContext_copy__SWIG_0(long jarg1, GiContext jarg1_, long jarg2, GiContext jarg2_, int jarg3);
+  public final static native long GiContext_copy__SWIG_1(long jarg1, GiContext jarg1_, long jarg2, GiContext jarg2_);
+  public final static native boolean GiContext_equals(long jarg1, GiContext jarg1_, long jarg2, GiContext jarg2_);
+  public final static native int GiContext_getLineStyle(long jarg1, GiContext jarg1_);
+  public final static native void GiContext_setLineStyle(long jarg1, GiContext jarg1_, int jarg2);
+  public final static native float GiContext_getLineWidth(long jarg1, GiContext jarg1_);
+  public final static native boolean GiContext_isAutoScale(long jarg1, GiContext jarg1_);
+  public final static native void GiContext_setLineWidth(long jarg1, GiContext jarg1_, float jarg2, boolean jarg3);
+  public final static native boolean GiContext_isNullLine(long jarg1, GiContext jarg1_);
+  public final static native void GiContext_setNullLine(long jarg1, GiContext jarg1_);
+  public final static native long GiContext_getLineColor(long jarg1, GiContext jarg1_);
+  public final static native void GiContext_setLineColor__SWIG_0(long jarg1, GiContext jarg1_, long jarg2, GiColor jarg2_);
+  public final static native void GiContext_setLineColor__SWIG_1(long jarg1, GiContext jarg1_, int jarg2, int jarg3, int jarg4);
+  public final static native void GiContext_setLineColor__SWIG_2(long jarg1, GiContext jarg1_, int jarg2, int jarg3, int jarg4, int jarg5);
+  public final static native int GiContext_getLineARGB(long jarg1, GiContext jarg1_);
+  public final static native void GiContext_setLineARGB(long jarg1, GiContext jarg1_, int jarg2);
+  public final static native int GiContext_getLineAlpha(long jarg1, GiContext jarg1_);
+  public final static native void GiContext_setLineAlpha(long jarg1, GiContext jarg1_, int jarg2);
+  public final static native boolean GiContext_hasFillColor(long jarg1, GiContext jarg1_);
+  public final static native void GiContext_setNoFillColor(long jarg1, GiContext jarg1_);
+  public final static native long GiContext_getFillColor(long jarg1, GiContext jarg1_);
+  public final static native void GiContext_setFillColor__SWIG_0(long jarg1, GiContext jarg1_, long jarg2, GiColor jarg2_);
+  public final static native void GiContext_setFillColor__SWIG_1(long jarg1, GiContext jarg1_, int jarg2, int jarg3, int jarg4);
+  public final static native void GiContext_setFillColor__SWIG_2(long jarg1, GiContext jarg1_, int jarg2, int jarg3, int jarg4, int jarg5);
+  public final static native int GiContext_getFillARGB(long jarg1, GiContext jarg1_);
+  public final static native void GiContext_setFillARGB(long jarg1, GiContext jarg1_, int jarg2);
+  public final static native int GiContext_getFillAlpha(long jarg1, GiContext jarg1_);
+  public final static native void GiContext_setFillAlpha(long jarg1, GiContext jarg1_, int jarg2);
+  public final static native boolean GiContext_isAutoFillColor(long jarg1, GiContext jarg1_);
+  public final static native void GiContext_setAutoFillColor(long jarg1, GiContext jarg1_, boolean jarg2);
+  public final static native int GiContext_getType(long jarg1, GiContext jarg1_);
+  public final static native void delete_GiContext(long jarg1);
   public final static native long new_GiCoreView__SWIG_0(long jarg1, GiCoreView jarg1_);
   public final static native long new_GiCoreView__SWIG_1();
   public final static native void delete_GiCoreView(long jarg1);
@@ -59,11 +146,14 @@ public class touchvgJNI {
   public final static native boolean GiCoreView_onGesture__SWIG_1(long jarg1, GiCoreView jarg1_, long jarg2, GiView jarg2_, int jarg3, int jarg4, float jarg5, float jarg6);
   public final static native boolean GiCoreView_twoFingersMove__SWIG_0(long jarg1, GiCoreView jarg1_, long jarg2, GiView jarg2_, int jarg3, float jarg4, float jarg5, float jarg6, float jarg7, boolean jarg8);
   public final static native boolean GiCoreView_twoFingersMove__SWIG_1(long jarg1, GiCoreView jarg1_, long jarg2, GiView jarg2_, int jarg3, float jarg4, float jarg5, float jarg6, float jarg7);
-  public final static native String GiCoreView_command(long jarg1, GiCoreView jarg1_);
+  public final static native String GiCoreView_getCommand(long jarg1, GiCoreView jarg1_);
   public final static native boolean GiCoreView_setCommand(long jarg1, GiCoreView jarg1_, long jarg2, GiView jarg2_, String jarg3);
+  public final static native boolean GiCoreView_doContextAction(long jarg1, GiCoreView jarg1_, int jarg2);
   public final static native void GiCoreView_clearCachedData(long jarg1, GiCoreView jarg1_);
   public final static native int GiCoreView_addShapesForTest(long jarg1, GiCoreView jarg1_);
   public final static native int GiCoreView_getShapeCount(long jarg1, GiCoreView jarg1_);
+  public final static native int GiCoreView_getSelectedShapeCount(long jarg1, GiCoreView jarg1_);
+  public final static native int GiCoreView_getSelectedShapeType(long jarg1, GiCoreView jarg1_);
   public final static native boolean GiCoreView_loadFromFile(long jarg1, GiCoreView jarg1_, String jarg2);
   public final static native boolean GiCoreView_saveToFile__SWIG_0(long jarg1, GiCoreView jarg1_, String jarg2, boolean jarg3);
   public final static native boolean GiCoreView_saveToFile__SWIG_1(long jarg1, GiCoreView jarg1_, String jarg2);
@@ -71,6 +161,12 @@ public class touchvgJNI {
   public final static native void GiCoreView_freeContent(long jarg1, GiCoreView jarg1_);
   public final static native boolean GiCoreView_setContent(long jarg1, GiCoreView jarg1_, String jarg2);
   public final static native boolean GiCoreView_zoomToExtent(long jarg1, GiCoreView jarg1_);
+  public final static native boolean GiCoreView_zoomToModel(long jarg1, GiCoreView jarg1_, float jarg2, float jarg3, float jarg4, float jarg5);
+  public final static native float GiCoreView_calcPenWidth(long jarg1, GiCoreView jarg1_, float jarg2);
+  public final static native long GiCoreView_getContext(long jarg1, GiCoreView jarg1_, boolean jarg2);
+  public final static native void GiCoreView_setContext__SWIG_0(long jarg1, GiCoreView jarg1_, long jarg2, GiContext jarg2_, int jarg3, int jarg4);
+  public final static native void GiCoreView_setContext__SWIG_1(long jarg1, GiCoreView jarg1_, int jarg2);
+  public final static native void GiCoreView_setContextEditing(long jarg1, GiCoreView jarg1_, boolean jarg2);
   public final static native void TestCanvas_initRand();
   public final static native int TestCanvas_randInt(int jarg1, int jarg2);
   public final static native float TestCanvas_randFloat(float jarg1, float jarg2);
@@ -161,6 +257,18 @@ public class touchvgJNI {
   }
   public static boolean SwigDirector_GiView_useFinger(GiView self) {
     return self.useFinger();
+  }
+  public static boolean SwigDirector_GiView_isContextActionsVisible(GiView self) {
+    return self.isContextActionsVisible();
+  }
+  public static boolean SwigDirector_GiView_showContextActions(GiView self, long actions, float x, float y, float w, float h) {
+    return self.showContextActions(new Ints(actions, false), x, y, w, h);
+  }
+  public static void SwigDirector_GiView_commandChanged(GiView self) {
+    self.commandChanged();
+  }
+  public static void SwigDirector_GiView_selectionChanged(GiView self) {
+    self.selectionChanged();
   }
 
   private final static native void swig_module_init();

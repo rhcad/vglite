@@ -55,12 +55,16 @@ public:
     virtual void regenAppend();
     virtual void redraw();
     virtual bool useFinger();
+    virtual bool isContextActionsVisible();
+    virtual bool showContextActions(mgvector< int > const &actions, float x, float y, float w, float h);
+    virtual void commandChanged();
+    virtual void selectionChanged();
 public:
     bool swig_overrides(int n) {
-      return (n < 4 ? swig_override[n] : false);
+      return (n < 8 ? swig_override[n] : false);
     }
 protected:
-    bool swig_override[4];
+    bool swig_override[8];
 };
 
 

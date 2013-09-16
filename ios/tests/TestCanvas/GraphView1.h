@@ -3,11 +3,11 @@
 
 #import <UIKit/UIKit.h>
 
-class GiQuartzCanvas;
+class IosCanvasAdapter;
 
 //! 测试绘图的视图类
 @interface GraphView1 : UIView {
-    GiQuartzCanvas  *_canvas;
+    IosCanvasAdapter  *_canvas;
     CGPoint         _lastpt;
     UIView          *_dynview;
     int             _flags;
@@ -24,8 +24,8 @@ class GiQuartzCanvas;
 - (id)initWithFrame:(CGRect)frame withFlags:(int)t;
 - (void)save;
 - (void)edit;
-- (void)draw:(GiQuartzCanvas*)canvas;
-- (void)dynDraw:(GiQuartzCanvas*)canvas;
+- (void)draw:(IosCanvasAdapter*)canvas;
+- (void)dynDraw:(IosCanvasAdapter*)canvas;
 - (void)showDrawnTime:(int)ms logging:(BOOL)log;
 
 @end

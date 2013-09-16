@@ -420,12 +420,11 @@ namespace Swig {
 namespace Swig {
   namespace {
     jclass jclass_touchvgJNI = NULL;
-    jmethodID director_methids[24];
+    jmethodID director_methids[28];
   }
 }
 
 #include "gicanvas.h"
-#include "giview.h"
 #include "gicoreview.h"
 #include "gimousehelper.h"
 #include "testcanvas.h"
@@ -1158,6 +1157,98 @@ bool SwigDirector_GiView::useFinger() {
   return c_result;
 }
 
+bool SwigDirector_GiView::isContextActionsVisible() {
+  bool c_result = SwigValueInit< bool >() ;
+  jboolean jresult = 0 ;
+  JNIEnvWrapper swigjnienv(this) ;
+  JNIEnv * jenv = swigjnienv.getJNIEnv() ;
+  jobject swigjobj = (jobject) NULL ;
+  
+  if (!swig_override[4]) {
+    return GiView::isContextActionsVisible();
+  }
+  swigjobj = swig_get_self(jenv);
+  if (swigjobj && jenv->IsSameObject(swigjobj, NULL) == JNI_FALSE) {
+    jresult = (jboolean) jenv->CallStaticBooleanMethod(Swig::jclass_touchvgJNI, Swig::director_methids[24], swigjobj);
+    if (jenv->ExceptionCheck() == JNI_TRUE) return c_result;
+    c_result = jresult ? true : false; 
+  } else {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null upcall object");
+  }
+  if (swigjobj) jenv->DeleteLocalRef(swigjobj);
+  return c_result;
+}
+
+bool SwigDirector_GiView::showContextActions(mgvector< int > const &actions, float x, float y, float w, float h) {
+  bool c_result = SwigValueInit< bool >() ;
+  jboolean jresult = 0 ;
+  JNIEnvWrapper swigjnienv(this) ;
+  JNIEnv * jenv = swigjnienv.getJNIEnv() ;
+  jobject swigjobj = (jobject) NULL ;
+  jlong jactions = 0 ;
+  jfloat jx  ;
+  jfloat jy  ;
+  jfloat jw  ;
+  jfloat jh  ;
+  
+  if (!swig_override[5]) {
+    return GiView::showContextActions(actions,x,y,w,h);
+  }
+  swigjobj = swig_get_self(jenv);
+  if (swigjobj && jenv->IsSameObject(swigjobj, NULL) == JNI_FALSE) {
+    *(mgvector< int > **)&jactions = (mgvector< int > *) &actions; 
+    jx = (jfloat) x;
+    jy = (jfloat) y;
+    jw = (jfloat) w;
+    jh = (jfloat) h;
+    jresult = (jboolean) jenv->CallStaticBooleanMethod(Swig::jclass_touchvgJNI, Swig::director_methids[25], swigjobj, jactions, jx, jy, jw, jh);
+    if (jenv->ExceptionCheck() == JNI_TRUE) return c_result;
+    c_result = jresult ? true : false; 
+  } else {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null upcall object");
+  }
+  if (swigjobj) jenv->DeleteLocalRef(swigjobj);
+  return c_result;
+}
+
+void SwigDirector_GiView::commandChanged() {
+  JNIEnvWrapper swigjnienv(this) ;
+  JNIEnv * jenv = swigjnienv.getJNIEnv() ;
+  jobject swigjobj = (jobject) NULL ;
+  
+  if (!swig_override[6]) {
+    GiView::commandChanged();
+    return;
+  }
+  swigjobj = swig_get_self(jenv);
+  if (swigjobj && jenv->IsSameObject(swigjobj, NULL) == JNI_FALSE) {
+    jenv->CallStaticVoidMethod(Swig::jclass_touchvgJNI, Swig::director_methids[26], swigjobj);
+    if (jenv->ExceptionCheck() == JNI_TRUE) return ;
+  } else {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null upcall object");
+  }
+  if (swigjobj) jenv->DeleteLocalRef(swigjobj);
+}
+
+void SwigDirector_GiView::selectionChanged() {
+  JNIEnvWrapper swigjnienv(this) ;
+  JNIEnv * jenv = swigjnienv.getJNIEnv() ;
+  jobject swigjobj = (jobject) NULL ;
+  
+  if (!swig_override[7]) {
+    GiView::selectionChanged();
+    return;
+  }
+  swigjobj = swig_get_self(jenv);
+  if (swigjobj && jenv->IsSameObject(swigjobj, NULL) == JNI_FALSE) {
+    jenv->CallStaticVoidMethod(Swig::jclass_touchvgJNI, Swig::director_methids[27], swigjobj);
+    if (jenv->ExceptionCheck() == JNI_TRUE) return ;
+  } else {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null upcall object");
+  }
+  if (swigjobj) jenv->DeleteLocalRef(swigjobj);
+}
+
 void SwigDirector_GiView::swig_connect_director(JNIEnv *jenv, jobject jself, jclass jcls, bool swig_mem_own, bool weak_global) {
   static struct {
     const char *mname;
@@ -1175,6 +1266,18 @@ void SwigDirector_GiView::swig_connect_director(JNIEnv *jenv, jobject jself, jcl
     },
     {
       "useFinger", "()Z", NULL 
+    },
+    {
+      "isContextActionsVisible", "()Z", NULL 
+    },
+    {
+      "showContextActions", "(Ltouchvg/jni/Ints;FFFF)Z", NULL 
+    },
+    {
+      "commandChanged", "()V", NULL 
+    },
+    {
+      "selectionChanged", "()V", NULL 
     }
   };
   
@@ -1187,7 +1290,7 @@ void SwigDirector_GiView::swig_connect_director(JNIEnv *jenv, jobject jself, jcl
       baseclass = (jclass) jenv->NewGlobalRef(baseclass);
     }
     bool derived = (jenv->IsSameObject(baseclass, jcls) ? false : true);
-    for (int i = 0; i < 4; ++i) {
+    for (int i = 0; i < 8; ++i) {
       if (!methods[i].base_methid) {
         methods[i].base_methid = jenv->GetMethodID(baseclass, methods[i].mname, methods[i].mdesc);
         if (!methods[i].base_methid) return;
@@ -1207,6 +1310,77 @@ void SwigDirector_GiView::swig_connect_director(JNIEnv *jenv, jobject jself, jcl
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_delete_1Ints(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  mgvector< int > *arg1 = (mgvector< int > *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(mgvector< int > **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_touchvg_jni_touchvgJNI_new_1Ints(JNIEnv *jenv, jclass jcls, jint jarg1) {
+  jlong jresult = 0 ;
+  int arg1 ;
+  mgvector< int > *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (int)jarg1; 
+  result = (mgvector< int > *)new mgvector< int >(arg1);
+  *(mgvector< int > **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_touchvg_jni_touchvgJNI_Ints_1count(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  mgvector< int > *arg1 = (mgvector< int > *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(mgvector< int > **)&jarg1; 
+  result = (int)((mgvector< int > const *)arg1)->count();
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_touchvg_jni_touchvgJNI_Ints_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  jint jresult = 0 ;
+  mgvector< int > *arg1 = (mgvector< int > *) 0 ;
+  int arg2 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(mgvector< int > **)&jarg1; 
+  arg2 = (int)jarg2; 
+  result = (int)((mgvector< int > const *)arg1)->get(arg2);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_Ints_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jint jarg3) {
+  mgvector< int > *arg1 = (mgvector< int > *) 0 ;
+  int arg2 ;
+  int arg3 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(mgvector< int > **)&jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  (arg1)->set(arg2,arg3);
+}
+
 
 SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_delete_1GiCanvas(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   GiCanvas *arg1 = (GiCanvas *) 0 ;
@@ -1685,6 +1859,140 @@ SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiView_1useFingerSwigExp
 }
 
 
+SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiView_1isContextActionsVisible(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  GiView *arg1 = (GiView *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiView **)&jarg1; 
+  result = (bool)(arg1)->isContextActionsVisible();
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiView_1isContextActionsVisibleSwigExplicitGiView(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  GiView *arg1 = (GiView *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiView **)&jarg1; 
+  result = (bool)(arg1)->GiView::isContextActionsVisible();
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiView_1showContextActions(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jfloat jarg3, jfloat jarg4, jfloat jarg5, jfloat jarg6) {
+  jboolean jresult = 0 ;
+  GiView *arg1 = (GiView *) 0 ;
+  mgvector< int > *arg2 = 0 ;
+  float arg3 ;
+  float arg4 ;
+  float arg5 ;
+  float arg6 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(GiView **)&jarg1; 
+  arg2 = *(mgvector< int > **)&jarg2;
+  if (!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "mgvector< int > const & reference is null");
+    return 0;
+  } 
+  arg3 = (float)jarg3; 
+  arg4 = (float)jarg4; 
+  arg5 = (float)jarg5; 
+  arg6 = (float)jarg6; 
+  result = (bool)(arg1)->showContextActions((mgvector< int > const &)*arg2,arg3,arg4,arg5,arg6);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiView_1showContextActionsSwigExplicitGiView(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jfloat jarg3, jfloat jarg4, jfloat jarg5, jfloat jarg6) {
+  jboolean jresult = 0 ;
+  GiView *arg1 = (GiView *) 0 ;
+  mgvector< int > *arg2 = 0 ;
+  float arg3 ;
+  float arg4 ;
+  float arg5 ;
+  float arg6 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(GiView **)&jarg1; 
+  arg2 = *(mgvector< int > **)&jarg2;
+  if (!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "mgvector< int > const & reference is null");
+    return 0;
+  } 
+  arg3 = (float)jarg3; 
+  arg4 = (float)jarg4; 
+  arg5 = (float)jarg5; 
+  arg6 = (float)jarg6; 
+  result = (bool)(arg1)->GiView::showContextActions((mgvector< int > const &)*arg2,arg3,arg4,arg5,arg6);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiView_1commandChanged(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  GiView *arg1 = (GiView *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiView **)&jarg1; 
+  (arg1)->commandChanged();
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiView_1commandChangedSwigExplicitGiView(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  GiView *arg1 = (GiView *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiView **)&jarg1; 
+  (arg1)->GiView::commandChanged();
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiView_1selectionChanged(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  GiView *arg1 = (GiView *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiView **)&jarg1; 
+  (arg1)->selectionChanged();
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiView_1selectionChangedSwigExplicitGiView(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  GiView *arg1 = (GiView *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiView **)&jarg1; 
+  (arg1)->GiView::selectionChanged();
+}
+
+
 SWIGEXPORT jlong JNICALL Java_touchvg_jni_touchvgJNI_new_1GiView(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
   GiView *result = 0 ;
@@ -1714,6 +2022,1151 @@ SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiView_1change_1ownership(JN
   if (director) {
     director->swig_java_change_ownership(jenv, jself, jtake_or_release ? true : false);
   }
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiColor_1r_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jshort jarg2) {
+  GiColor *arg1 = (GiColor *) 0 ;
+  unsigned char arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiColor **)&jarg1; 
+  arg2 = (unsigned char)jarg2; 
+  if (arg1) (arg1)->r = arg2;
+}
+
+
+SWIGEXPORT jshort JNICALL Java_touchvg_jni_touchvgJNI_GiColor_1r_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jshort jresult = 0 ;
+  GiColor *arg1 = (GiColor *) 0 ;
+  unsigned char result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiColor **)&jarg1; 
+  result = (unsigned char) ((arg1)->r);
+  jresult = (jshort)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiColor_1g_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jshort jarg2) {
+  GiColor *arg1 = (GiColor *) 0 ;
+  unsigned char arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiColor **)&jarg1; 
+  arg2 = (unsigned char)jarg2; 
+  if (arg1) (arg1)->g = arg2;
+}
+
+
+SWIGEXPORT jshort JNICALL Java_touchvg_jni_touchvgJNI_GiColor_1g_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jshort jresult = 0 ;
+  GiColor *arg1 = (GiColor *) 0 ;
+  unsigned char result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiColor **)&jarg1; 
+  result = (unsigned char) ((arg1)->g);
+  jresult = (jshort)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiColor_1b_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jshort jarg2) {
+  GiColor *arg1 = (GiColor *) 0 ;
+  unsigned char arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiColor **)&jarg1; 
+  arg2 = (unsigned char)jarg2; 
+  if (arg1) (arg1)->b = arg2;
+}
+
+
+SWIGEXPORT jshort JNICALL Java_touchvg_jni_touchvgJNI_GiColor_1b_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jshort jresult = 0 ;
+  GiColor *arg1 = (GiColor *) 0 ;
+  unsigned char result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiColor **)&jarg1; 
+  result = (unsigned char) ((arg1)->b);
+  jresult = (jshort)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiColor_1a_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jshort jarg2) {
+  GiColor *arg1 = (GiColor *) 0 ;
+  unsigned char arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiColor **)&jarg1; 
+  arg2 = (unsigned char)jarg2; 
+  if (arg1) (arg1)->a = arg2;
+}
+
+
+SWIGEXPORT jshort JNICALL Java_touchvg_jni_touchvgJNI_GiColor_1a_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jshort jresult = 0 ;
+  GiColor *arg1 = (GiColor *) 0 ;
+  unsigned char result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiColor **)&jarg1; 
+  result = (unsigned char) ((arg1)->a);
+  jresult = (jshort)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_touchvg_jni_touchvgJNI_new_1GiColor_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  GiColor *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (GiColor *)new GiColor();
+  *(GiColor **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_touchvg_jni_touchvgJNI_new_1GiColor_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jint jarg1, jint jarg2, jint jarg3, jint jarg4) {
+  jlong jresult = 0 ;
+  int arg1 ;
+  int arg2 ;
+  int arg3 ;
+  int arg4 ;
+  GiColor *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (int)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  arg4 = (int)jarg4; 
+  result = (GiColor *)new GiColor(arg1,arg2,arg3,arg4);
+  *(GiColor **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_touchvg_jni_touchvgJNI_new_1GiColor_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jint jarg1, jint jarg2, jint jarg3) {
+  jlong jresult = 0 ;
+  int arg1 ;
+  int arg2 ;
+  int arg3 ;
+  GiColor *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (int)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  result = (GiColor *)new GiColor(arg1,arg2,arg3);
+  *(GiColor **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_touchvg_jni_touchvgJNI_new_1GiColor_1_1SWIG_13(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  GiColor *arg1 = 0 ;
+  GiColor *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiColor **)&jarg1;
+  if (!arg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "GiColor const & reference is null");
+    return 0;
+  } 
+  result = (GiColor *)new GiColor((GiColor const &)*arg1);
+  *(GiColor **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_touchvg_jni_touchvgJNI_new_1GiColor_1_1SWIG_14(JNIEnv *jenv, jclass jcls, jint jarg1, jboolean jarg2) {
+  jlong jresult = 0 ;
+  int arg1 ;
+  bool arg2 ;
+  GiColor *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (int)jarg1; 
+  arg2 = jarg2 ? true : false; 
+  result = (GiColor *)new GiColor(arg1,arg2);
+  *(GiColor **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_touchvg_jni_touchvgJNI_new_1GiColor_1_1SWIG_15(JNIEnv *jenv, jclass jcls, jint jarg1) {
+  jlong jresult = 0 ;
+  int arg1 ;
+  GiColor *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (int)jarg1; 
+  result = (GiColor *)new GiColor(arg1);
+  *(GiColor **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_touchvg_jni_touchvgJNI_GiColor_1White(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  GiColor result;
+  
+  (void)jenv;
+  (void)jcls;
+  result = GiColor::White();
+  *(GiColor **)&jresult = new GiColor((const GiColor &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_touchvg_jni_touchvgJNI_GiColor_1Black(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  GiColor result;
+  
+  (void)jenv;
+  (void)jcls;
+  result = GiColor::Black();
+  *(GiColor **)&jresult = new GiColor((const GiColor &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_touchvg_jni_touchvgJNI_GiColor_1Invalid(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  GiColor result;
+  
+  (void)jenv;
+  (void)jcls;
+  result = GiColor::Invalid();
+  *(GiColor **)&jresult = new GiColor((const GiColor &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_touchvg_jni_touchvgJNI_GiColor_1getARGB(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  GiColor *arg1 = (GiColor *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiColor **)&jarg1; 
+  result = (int)((GiColor const *)arg1)->getARGB();
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiColor_1setARGB(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  GiColor *arg1 = (GiColor *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiColor **)&jarg1; 
+  arg2 = (int)jarg2; 
+  (arg1)->setARGB(arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiColor_1set_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jint jarg3, jint jarg4) {
+  GiColor *arg1 = (GiColor *) 0 ;
+  int arg2 ;
+  int arg3 ;
+  int arg4 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiColor **)&jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  arg4 = (int)jarg4; 
+  (arg1)->set(arg2,arg3,arg4);
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiColor_1set_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jint jarg3, jint jarg4, jint jarg5) {
+  GiColor *arg1 = (GiColor *) 0 ;
+  int arg2 ;
+  int arg3 ;
+  int arg4 ;
+  int arg5 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiColor **)&jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  arg4 = (int)jarg4; 
+  arg5 = (int)jarg5; 
+  (arg1)->set(arg2,arg3,arg4,arg5);
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiColor_1isInvalid(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  GiColor *arg1 = (GiColor *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiColor **)&jarg1; 
+  result = (bool)((GiColor const *)arg1)->isInvalid();
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiColor_1equals(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  jboolean jresult = 0 ;
+  GiColor *arg1 = (GiColor *) 0 ;
+  GiColor *arg2 = 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(GiColor **)&jarg1; 
+  arg2 = *(GiColor **)&jarg2;
+  if (!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "GiColor const & reference is null");
+    return 0;
+  } 
+  result = (bool)((GiColor const *)arg1)->equals((GiColor const &)*arg2);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_delete_1GiColor(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  GiColor *arg1 = (GiColor *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(GiColor **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT jint JNICALL Java_touchvg_jni_touchvgJNI_kGiLineSolid_1get(JNIEnv *jenv, jclass jcls) {
+  jint jresult = 0 ;
+  GiLineStyle result;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (GiLineStyle)kGiLineSolid;
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_touchvg_jni_touchvgJNI_kContextCopyNone_1get(JNIEnv *jenv, jclass jcls) {
+  jint jresult = 0 ;
+  GiContextBits result;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (GiContextBits)kContextCopyNone;
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_touchvg_jni_touchvgJNI_kContextLineRGB_1get(JNIEnv *jenv, jclass jcls) {
+  jint jresult = 0 ;
+  GiContextBits result;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (GiContextBits)kContextLineRGB;
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_touchvg_jni_touchvgJNI_kContextLineAlpha_1get(JNIEnv *jenv, jclass jcls) {
+  jint jresult = 0 ;
+  GiContextBits result;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (GiContextBits)kContextLineAlpha;
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_touchvg_jni_touchvgJNI_kContextLineARGB_1get(JNIEnv *jenv, jclass jcls) {
+  jint jresult = 0 ;
+  GiContextBits result;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (GiContextBits)kContextLineARGB;
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_touchvg_jni_touchvgJNI_kContextLineWidth_1get(JNIEnv *jenv, jclass jcls) {
+  jint jresult = 0 ;
+  GiContextBits result;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (GiContextBits)kContextLineWidth;
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_touchvg_jni_touchvgJNI_kContextLineStyle_1get(JNIEnv *jenv, jclass jcls) {
+  jint jresult = 0 ;
+  GiContextBits result;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (GiContextBits)kContextLineStyle;
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_touchvg_jni_touchvgJNI_kContextFillRGB_1get(JNIEnv *jenv, jclass jcls) {
+  jint jresult = 0 ;
+  GiContextBits result;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (GiContextBits)kContextFillRGB;
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_touchvg_jni_touchvgJNI_kContextFillAlpha_1get(JNIEnv *jenv, jclass jcls) {
+  jint jresult = 0 ;
+  GiContextBits result;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (GiContextBits)kContextFillAlpha;
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_touchvg_jni_touchvgJNI_kContextFillARGB_1get(JNIEnv *jenv, jclass jcls) {
+  jint jresult = 0 ;
+  GiContextBits result;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (GiContextBits)kContextFillARGB;
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_touchvg_jni_touchvgJNI_kContextCopyAll_1get(JNIEnv *jenv, jclass jcls) {
+  jint jresult = 0 ;
+  GiContextBits result;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (GiContextBits)kContextCopyAll;
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_touchvg_jni_touchvgJNI_new_1GiContext_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  GiContext *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (GiContext *)new GiContext();
+  *(GiContext **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_touchvg_jni_touchvgJNI_new_1GiContext_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jfloat jarg1, jlong jarg2, jobject jarg2_, jint jarg3, jlong jarg4, jobject jarg4_, jboolean jarg5) {
+  jlong jresult = 0 ;
+  float arg1 ;
+  GiColor arg2 ;
+  int arg3 ;
+  GiColor *arg4 = 0 ;
+  bool arg5 ;
+  GiColor *argp2 ;
+  GiContext *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg2_;
+  (void)jarg4_;
+  arg1 = (float)jarg1; 
+  argp2 = *(GiColor **)&jarg2; 
+  if (!argp2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GiColor");
+    return 0;
+  }
+  arg2 = *argp2; 
+  arg3 = (int)jarg3; 
+  arg4 = *(GiColor **)&jarg4;
+  if (!arg4) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "GiColor const & reference is null");
+    return 0;
+  } 
+  arg5 = jarg5 ? true : false; 
+  result = (GiContext *)new GiContext(arg1,arg2,arg3,(GiColor const &)*arg4,arg5);
+  *(GiContext **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_touchvg_jni_touchvgJNI_new_1GiContext_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jfloat jarg1, jlong jarg2, jobject jarg2_, jint jarg3, jlong jarg4, jobject jarg4_) {
+  jlong jresult = 0 ;
+  float arg1 ;
+  GiColor arg2 ;
+  int arg3 ;
+  GiColor *arg4 = 0 ;
+  GiColor *argp2 ;
+  GiContext *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg2_;
+  (void)jarg4_;
+  arg1 = (float)jarg1; 
+  argp2 = *(GiColor **)&jarg2; 
+  if (!argp2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GiColor");
+    return 0;
+  }
+  arg2 = *argp2; 
+  arg3 = (int)jarg3; 
+  arg4 = *(GiColor **)&jarg4;
+  if (!arg4) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "GiColor const & reference is null");
+    return 0;
+  } 
+  result = (GiContext *)new GiContext(arg1,arg2,arg3,(GiColor const &)*arg4);
+  *(GiContext **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_touchvg_jni_touchvgJNI_new_1GiContext_1_1SWIG_13(JNIEnv *jenv, jclass jcls, jfloat jarg1, jlong jarg2, jobject jarg2_, jint jarg3) {
+  jlong jresult = 0 ;
+  float arg1 ;
+  GiColor arg2 ;
+  int arg3 ;
+  GiColor *argp2 ;
+  GiContext *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg2_;
+  arg1 = (float)jarg1; 
+  argp2 = *(GiColor **)&jarg2; 
+  if (!argp2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GiColor");
+    return 0;
+  }
+  arg2 = *argp2; 
+  arg3 = (int)jarg3; 
+  result = (GiContext *)new GiContext(arg1,arg2,arg3);
+  *(GiContext **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_touchvg_jni_touchvgJNI_new_1GiContext_1_1SWIG_14(JNIEnv *jenv, jclass jcls, jfloat jarg1, jlong jarg2, jobject jarg2_) {
+  jlong jresult = 0 ;
+  float arg1 ;
+  GiColor arg2 ;
+  GiColor *argp2 ;
+  GiContext *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg2_;
+  arg1 = (float)jarg1; 
+  argp2 = *(GiColor **)&jarg2; 
+  if (!argp2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GiColor");
+    return 0;
+  }
+  arg2 = *argp2; 
+  result = (GiContext *)new GiContext(arg1,arg2);
+  *(GiContext **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_touchvg_jni_touchvgJNI_new_1GiContext_1_1SWIG_15(JNIEnv *jenv, jclass jcls, jfloat jarg1) {
+  jlong jresult = 0 ;
+  float arg1 ;
+  GiContext *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (float)jarg1; 
+  result = (GiContext *)new GiContext(arg1);
+  *(GiContext **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_touchvg_jni_touchvgJNI_new_1GiContext_1_1SWIG_16(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  GiContext *arg1 = 0 ;
+  GiContext *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiContext **)&jarg1;
+  if (!arg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "GiContext const & reference is null");
+    return 0;
+  } 
+  result = (GiContext *)new GiContext((GiContext const &)*arg1);
+  *(GiContext **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_touchvg_jni_touchvgJNI_GiContext_1copy_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jint jarg3) {
+  jlong jresult = 0 ;
+  GiContext *arg1 = (GiContext *) 0 ;
+  GiContext *arg2 = 0 ;
+  int arg3 ;
+  GiContext *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(GiContext **)&jarg1; 
+  arg2 = *(GiContext **)&jarg2;
+  if (!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "GiContext const & reference is null");
+    return 0;
+  } 
+  arg3 = (int)jarg3; 
+  result = (GiContext *) &(arg1)->copy((GiContext const &)*arg2,arg3);
+  *(GiContext **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_touchvg_jni_touchvgJNI_GiContext_1copy_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  jlong jresult = 0 ;
+  GiContext *arg1 = (GiContext *) 0 ;
+  GiContext *arg2 = 0 ;
+  GiContext *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(GiContext **)&jarg1; 
+  arg2 = *(GiContext **)&jarg2;
+  if (!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "GiContext const & reference is null");
+    return 0;
+  } 
+  result = (GiContext *) &(arg1)->copy((GiContext const &)*arg2);
+  *(GiContext **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiContext_1equals(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  jboolean jresult = 0 ;
+  GiContext *arg1 = (GiContext *) 0 ;
+  GiContext *arg2 = 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(GiContext **)&jarg1; 
+  arg2 = *(GiContext **)&jarg2;
+  if (!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "GiContext const & reference is null");
+    return 0;
+  } 
+  result = (bool)((GiContext const *)arg1)->equals((GiContext const &)*arg2);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_touchvg_jni_touchvgJNI_GiContext_1getLineStyle(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  GiContext *arg1 = (GiContext *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiContext **)&jarg1; 
+  result = (int)((GiContext const *)arg1)->getLineStyle();
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiContext_1setLineStyle(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  GiContext *arg1 = (GiContext *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiContext **)&jarg1; 
+  arg2 = (int)jarg2; 
+  (arg1)->setLineStyle(arg2);
+}
+
+
+SWIGEXPORT jfloat JNICALL Java_touchvg_jni_touchvgJNI_GiContext_1getLineWidth(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jfloat jresult = 0 ;
+  GiContext *arg1 = (GiContext *) 0 ;
+  float result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiContext **)&jarg1; 
+  result = (float)((GiContext const *)arg1)->getLineWidth();
+  jresult = (jfloat)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiContext_1isAutoScale(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  GiContext *arg1 = (GiContext *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiContext **)&jarg1; 
+  result = (bool)((GiContext const *)arg1)->isAutoScale();
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiContext_1setLineWidth(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jfloat jarg2, jboolean jarg3) {
+  GiContext *arg1 = (GiContext *) 0 ;
+  float arg2 ;
+  bool arg3 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiContext **)&jarg1; 
+  arg2 = (float)jarg2; 
+  arg3 = jarg3 ? true : false; 
+  (arg1)->setLineWidth(arg2,arg3);
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiContext_1isNullLine(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  GiContext *arg1 = (GiContext *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiContext **)&jarg1; 
+  result = (bool)((GiContext const *)arg1)->isNullLine();
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiContext_1setNullLine(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  GiContext *arg1 = (GiContext *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiContext **)&jarg1; 
+  (arg1)->setNullLine();
+}
+
+
+SWIGEXPORT jlong JNICALL Java_touchvg_jni_touchvgJNI_GiContext_1getLineColor(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  GiContext *arg1 = (GiContext *) 0 ;
+  GiColor result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiContext **)&jarg1; 
+  result = ((GiContext const *)arg1)->getLineColor();
+  *(GiColor **)&jresult = new GiColor((const GiColor &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiContext_1setLineColor_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  GiContext *arg1 = (GiContext *) 0 ;
+  GiColor *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(GiContext **)&jarg1; 
+  arg2 = *(GiColor **)&jarg2;
+  if (!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "GiColor const & reference is null");
+    return ;
+  } 
+  (arg1)->setLineColor((GiColor const &)*arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiContext_1setLineColor_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jint jarg3, jint jarg4) {
+  GiContext *arg1 = (GiContext *) 0 ;
+  int arg2 ;
+  int arg3 ;
+  int arg4 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiContext **)&jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  arg4 = (int)jarg4; 
+  (arg1)->setLineColor(arg2,arg3,arg4);
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiContext_1setLineColor_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jint jarg3, jint jarg4, jint jarg5) {
+  GiContext *arg1 = (GiContext *) 0 ;
+  int arg2 ;
+  int arg3 ;
+  int arg4 ;
+  int arg5 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiContext **)&jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  arg4 = (int)jarg4; 
+  arg5 = (int)jarg5; 
+  (arg1)->setLineColor(arg2,arg3,arg4,arg5);
+}
+
+
+SWIGEXPORT jint JNICALL Java_touchvg_jni_touchvgJNI_GiContext_1getLineARGB(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  GiContext *arg1 = (GiContext *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiContext **)&jarg1; 
+  result = (int)((GiContext const *)arg1)->getLineARGB();
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiContext_1setLineARGB(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  GiContext *arg1 = (GiContext *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiContext **)&jarg1; 
+  arg2 = (int)jarg2; 
+  (arg1)->setLineARGB(arg2);
+}
+
+
+SWIGEXPORT jint JNICALL Java_touchvg_jni_touchvgJNI_GiContext_1getLineAlpha(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  GiContext *arg1 = (GiContext *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiContext **)&jarg1; 
+  result = (int)((GiContext const *)arg1)->getLineAlpha();
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiContext_1setLineAlpha(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  GiContext *arg1 = (GiContext *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiContext **)&jarg1; 
+  arg2 = (int)jarg2; 
+  (arg1)->setLineAlpha(arg2);
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiContext_1hasFillColor(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  GiContext *arg1 = (GiContext *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiContext **)&jarg1; 
+  result = (bool)((GiContext const *)arg1)->hasFillColor();
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiContext_1setNoFillColor(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  GiContext *arg1 = (GiContext *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiContext **)&jarg1; 
+  (arg1)->setNoFillColor();
+}
+
+
+SWIGEXPORT jlong JNICALL Java_touchvg_jni_touchvgJNI_GiContext_1getFillColor(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  GiContext *arg1 = (GiContext *) 0 ;
+  GiColor result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiContext **)&jarg1; 
+  result = ((GiContext const *)arg1)->getFillColor();
+  *(GiColor **)&jresult = new GiColor((const GiColor &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiContext_1setFillColor_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  GiContext *arg1 = (GiContext *) 0 ;
+  GiColor *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(GiContext **)&jarg1; 
+  arg2 = *(GiColor **)&jarg2;
+  if (!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "GiColor const & reference is null");
+    return ;
+  } 
+  (arg1)->setFillColor((GiColor const &)*arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiContext_1setFillColor_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jint jarg3, jint jarg4) {
+  GiContext *arg1 = (GiContext *) 0 ;
+  int arg2 ;
+  int arg3 ;
+  int arg4 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiContext **)&jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  arg4 = (int)jarg4; 
+  (arg1)->setFillColor(arg2,arg3,arg4);
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiContext_1setFillColor_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jint jarg3, jint jarg4, jint jarg5) {
+  GiContext *arg1 = (GiContext *) 0 ;
+  int arg2 ;
+  int arg3 ;
+  int arg4 ;
+  int arg5 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiContext **)&jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  arg4 = (int)jarg4; 
+  arg5 = (int)jarg5; 
+  (arg1)->setFillColor(arg2,arg3,arg4,arg5);
+}
+
+
+SWIGEXPORT jint JNICALL Java_touchvg_jni_touchvgJNI_GiContext_1getFillARGB(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  GiContext *arg1 = (GiContext *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiContext **)&jarg1; 
+  result = (int)((GiContext const *)arg1)->getFillARGB();
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiContext_1setFillARGB(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  GiContext *arg1 = (GiContext *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiContext **)&jarg1; 
+  arg2 = (int)jarg2; 
+  (arg1)->setFillARGB(arg2);
+}
+
+
+SWIGEXPORT jint JNICALL Java_touchvg_jni_touchvgJNI_GiContext_1getFillAlpha(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  GiContext *arg1 = (GiContext *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiContext **)&jarg1; 
+  result = (int)((GiContext const *)arg1)->getFillAlpha();
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiContext_1setFillAlpha(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  GiContext *arg1 = (GiContext *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiContext **)&jarg1; 
+  arg2 = (int)jarg2; 
+  (arg1)->setFillAlpha(arg2);
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiContext_1isAutoFillColor(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  GiContext *arg1 = (GiContext *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiContext **)&jarg1; 
+  result = (bool)((GiContext const *)arg1)->isAutoFillColor();
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiContext_1setAutoFillColor(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  GiContext *arg1 = (GiContext *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiContext **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  (arg1)->setAutoFillColor(arg2);
+}
+
+
+SWIGEXPORT jint JNICALL Java_touchvg_jni_touchvgJNI_GiContext_1getType(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  GiContext *arg1 = (GiContext *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiContext **)&jarg1; 
+  result = (int)((GiContext const *)arg1)->getType();
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_delete_1GiContext(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  GiContext *arg1 = (GiContext *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(GiContext **)&jarg1; 
+  delete arg1;
 }
 
 
@@ -2034,7 +3487,7 @@ SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1twoFingersMo
 }
 
 
-SWIGEXPORT jstring JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1command(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jstring JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1getCommand(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jstring jresult = 0 ;
   GiCoreView *arg1 = (GiCoreView *) 0 ;
   char *result = 0 ;
@@ -2043,7 +3496,7 @@ SWIGEXPORT jstring JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1command(JNIEn
   (void)jcls;
   (void)jarg1_;
   arg1 = *(GiCoreView **)&jarg1; 
-  result = (char *)((GiCoreView const *)arg1)->command();
+  result = (char *)((GiCoreView const *)arg1)->getCommand();
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
@@ -2070,6 +3523,23 @@ SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1setCommand(J
   result = (bool)(arg1)->setCommand(arg2,(char const *)arg3);
   jresult = (jboolean)result; 
   if (arg3) jenv->ReleaseStringUTFChars(jarg3, (const char *)arg3);
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1doContextAction(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  jboolean jresult = 0 ;
+  GiCoreView *arg1 = (GiCoreView *) 0 ;
+  int arg2 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiCoreView **)&jarg1; 
+  arg2 = (int)jarg2; 
+  result = (bool)(arg1)->doContextAction(arg2);
+  jresult = (jboolean)result; 
   return jresult;
 }
 
@@ -2110,6 +3580,36 @@ SWIGEXPORT jint JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1getShapeCount(JN
   (void)jarg1_;
   arg1 = *(GiCoreView **)&jarg1; 
   result = (int)(arg1)->getShapeCount();
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1getSelectedShapeCount(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  GiCoreView *arg1 = (GiCoreView *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiCoreView **)&jarg1; 
+  result = (int)(arg1)->getSelectedShapeCount();
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1getSelectedShapeType(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  GiCoreView *arg1 = (GiCoreView *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiCoreView **)&jarg1; 
+  result = (int)(arg1)->getSelectedShapeType();
   jresult = (jint)result; 
   return jresult;
 }
@@ -2243,6 +3743,111 @@ SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1zoomToExtent
   result = (bool)(arg1)->zoomToExtent();
   jresult = (jboolean)result; 
   return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1zoomToModel(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jfloat jarg2, jfloat jarg3, jfloat jarg4, jfloat jarg5) {
+  jboolean jresult = 0 ;
+  GiCoreView *arg1 = (GiCoreView *) 0 ;
+  float arg2 ;
+  float arg3 ;
+  float arg4 ;
+  float arg5 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiCoreView **)&jarg1; 
+  arg2 = (float)jarg2; 
+  arg3 = (float)jarg3; 
+  arg4 = (float)jarg4; 
+  arg5 = (float)jarg5; 
+  result = (bool)(arg1)->zoomToModel(arg2,arg3,arg4,arg5);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jfloat JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1calcPenWidth(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jfloat jarg2) {
+  jfloat jresult = 0 ;
+  GiCoreView *arg1 = (GiCoreView *) 0 ;
+  float arg2 ;
+  float result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiCoreView **)&jarg1; 
+  arg2 = (float)jarg2; 
+  result = (float)(arg1)->calcPenWidth(arg2);
+  jresult = (jfloat)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1getContext(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  jlong jresult = 0 ;
+  GiCoreView *arg1 = (GiCoreView *) 0 ;
+  bool arg2 ;
+  GiContext *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiCoreView **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  result = (GiContext *) &(arg1)->getContext(arg2);
+  *(GiContext **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1setContext_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jint jarg3, jint jarg4) {
+  GiCoreView *arg1 = (GiCoreView *) 0 ;
+  GiContext *arg2 = 0 ;
+  int arg3 ;
+  int arg4 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(GiCoreView **)&jarg1; 
+  arg2 = *(GiContext **)&jarg2;
+  if (!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "GiContext const & reference is null");
+    return ;
+  } 
+  arg3 = (int)jarg3; 
+  arg4 = (int)jarg4; 
+  (arg1)->setContext((GiContext const &)*arg2,arg3,arg4);
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1setContext_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  GiCoreView *arg1 = (GiCoreView *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiCoreView **)&jarg1; 
+  arg2 = (int)jarg2; 
+  (arg1)->setContext(arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1setContextEditing(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  GiCoreView *arg1 = (GiCoreView *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiCoreView **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  (arg1)->setContextEditing(arg2);
 }
 
 
@@ -2486,7 +4091,7 @@ SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_swig_1module_1init(JNIEnv *j
   static struct {
     const char *method;
     const char *signature;
-  } methods[24] = {
+  } methods[28] = {
     {
       "SwigDirector_GiCanvas_setPen", "(Ltouchvg/jni/GiCanvas;IFIF)V" 
     },
@@ -2558,6 +4163,18 @@ SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_swig_1module_1init(JNIEnv *j
     },
     {
       "SwigDirector_GiView_useFinger", "(Ltouchvg/jni/GiView;)Z" 
+    },
+    {
+      "SwigDirector_GiView_isContextActionsVisible", "(Ltouchvg/jni/GiView;)Z" 
+    },
+    {
+      "SwigDirector_GiView_showContextActions", "(Ltouchvg/jni/GiView;JFFFF)Z" 
+    },
+    {
+      "SwigDirector_GiView_commandChanged", "(Ltouchvg/jni/GiView;)V" 
+    },
+    {
+      "SwigDirector_GiView_selectionChanged", "(Ltouchvg/jni/GiView;)V" 
     }
   };
   Swig::jclass_touchvgJNI = (jclass) jenv->NewGlobalRef(jcls);

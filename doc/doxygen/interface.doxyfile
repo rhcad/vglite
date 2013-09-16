@@ -673,7 +673,8 @@ WARN_LOGFILE           =
 INPUT                  = ../../core/include \
                          ../../win/include \
                          ../../ios/view/include \
-                         ../../android/demo/src/touchvg \
+                         ../../android/demo/src/touchvg/view \
+                         ../../win/csharp/touchvglib/view \
                          MainPage.txt
 
 # This tag can be used to specify the character encoding of the source files 
@@ -707,8 +708,7 @@ RECURSIVE              = YES
 # run.
 
 EXCLUDE                = ../../core/include/test \
-                         ../../core/include/command/mglog.h \
-                         ../../android/demo/src/touchvg/jni \
+                         ../../core/include/shape/mglog.h \
                          ../../win/src/TestCanvas \
                          ../../win/src/TestJNI
 

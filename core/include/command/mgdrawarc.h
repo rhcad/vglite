@@ -9,8 +9,8 @@
 
 //! 三点圆弧绘图命令类
 /*! \ingroup CORE_COMMAND
-    \see MgArc
-*/
+ \see MgArc
+ */
 class MgCmdArc3P : public MgCommandDraw
 {
 protected:
@@ -28,15 +28,15 @@ protected:
     virtual void setStepPoint(int step, const Point2d& pt);
     virtual bool initialize(const MgMotion* sender);
     virtual bool draw(const MgMotion* sender, GiGraphics* gs);
-
+    
 protected:
     Point2d _points[3];
 };
 
 //! 圆心+起点+终点圆弧绘图命令类
 /*! \ingroup CORE_COMMAND
-    \see MgArc
-*/
+ \see MgArc
+ */
 class MgCmdArcCSE : public MgCmdArc3P
 {
 protected:
@@ -54,8 +54,8 @@ protected:
 
 //! 切线圆弧绘图命令类
 /*! \ingroup CORE_COMMAND
-    \see MgArc
-*/
+ \see MgArc
+ */
 class MgCmdArcTan : public MgCmdArc3P
 {
 protected:

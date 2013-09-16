@@ -4,9 +4,6 @@
 
 #include "mgbasicsp.h"
 #include <mgshape_.h>
-#include <mgnear.h>
-#include <mgcurv.h>
-#include <mgbase.h>
 #include <mgstorage.h>
 #include <mglog.h>
 

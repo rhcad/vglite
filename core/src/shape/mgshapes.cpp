@@ -302,8 +302,9 @@ int MgShapes::dyndraw(int mode, GiGraphics& gs, const GiContext *ctx, int segmen
     int count = 0;
     
     for (I::citerator it = im->shapes.begin(); it != im->shapes.end(); ++it) {
-        if ((*it)->shapec()->getExtent().isIntersect(clip)) {
-            if ((*it)->draw(mode, gs, ctx, segment))
+        const MgShape* sp = *it;
+        if (sp->shapec()->getExtent().isIntersect(clip)) {
+            if (sp->draw(mode, gs, ctx, segment))
                 count++;
         }
     }

@@ -6,9 +6,10 @@
 #ifndef __GEOMETRY_MGSNAP_H_
 #define __GEOMETRY_MGSNAP_H_
 
-#include "mgshape.h"
-
 class MgMotion;
+class Point2d;
+class GiGraphics;
+class MgShape;
 
 //! 特征点类型
 typedef enum {

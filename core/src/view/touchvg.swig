@@ -15,11 +15,13 @@
 
 %{
 #include "gicanvas.h"
-#include "giview.h"
 #include "gicoreview.h"
 #include "gimousehelper.h"
 #include "testcanvas.h"
 %}
+
+%include "mgvector.h"
+%template(Ints) mgvector<int>;
 
 %feature("director") GiCanvas;
 %include "gicanvas.h"
@@ -27,11 +29,14 @@
 %feature("director") GiView;
 %include "giview.h"
 
+%include "gicolor.h"
+%include "gicontxt.h"
+
 %include "gigesture.h"
 %include "gicoreview.h"
 %include "testcanvas.h"
 
-#ifndef SWIGJAVA
+#ifndef __ANDROID__
 %include "gimousehelper.h"
 #endif
 

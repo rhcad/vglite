@@ -3,6 +3,7 @@
 // License: LGPL, https://github.com/rhcad/touchvg
 
 #include "gixform.h"
+#include "gilock.h"
 
 //! GiTransform的内部数据
 struct GiTransformImpl

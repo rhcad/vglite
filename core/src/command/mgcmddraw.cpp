@@ -6,6 +6,7 @@
 #include <mgsnap.h>
 #include <mgselect.h>
 #include <mgaction.h>
+#include <tradecmd.h>
 
 int      g_newShapeID = 0;
 
@@ -59,6 +60,7 @@ MgShape* MgCommandDraw::_addshape(const MgMotion* sender, MgShape* shape, bool a
     if ((locker.locked() || !autolock) && sender->view->shapeWillAdded(shape)) {
         newsp = sender->view->shapes()->addShape(*shape);
         sender->view->shapeAdded(newsp);
+        TradeCmd::onShapeAdded(sender, newsp);
         g_newShapeID = newsp->getID();
     }
     if (m_shape && sender->view->context()) {

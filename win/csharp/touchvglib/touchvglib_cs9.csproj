@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>touchvg</RootNamespace>
-    <AssemblyName>touchvglib</AssemblyName>
+    <AssemblyName>touchvg.lib</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,34 +40,45 @@
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Xml.Linq">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data.DataSetExtensions">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <Reference Include="System.Drawing" />
     <Reference Include="WindowsBase">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="core\GiCanvas.cs" />
+    <Compile Include="core\GiColor.cs" />
+    <Compile Include="core\GiContext.cs" />
+    <Compile Include="core\GiContextBits.cs" />
     <Compile Include="core\GiCoreView.cs" />
     <Compile Include="core\GiGestureState.cs" />
     <Compile Include="core\GiGestureType.cs" />
+    <Compile Include="core\GiLineStyle.cs" />
     <Compile Include="core\GiMouseHelper.cs" />
     <Compile Include="core\GiView.cs" />
+    <Compile Include="core\Ints.cs" />
     <Compile Include="core\TestCanvas.cs" />
     <Compile Include="core\touchvgcs.cs" />
     <Compile Include="core\touchvgcsPINVOKE.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="view\CanvasAdapter.cs" />
-    <Compile Include="view\GraphView.cs" />
+    <Compile Include="Resource1.Designer.cs">
+      <DependentUpon>Resource1.resx</DependentUpon>
+    </Compile>
+    <Compile Include="view\WPFCanvasAdapter.cs" />
+    <Compile Include="view\WPFMainCanvas.cs" />
+    <Compile Include="view\WPFViewHelper.cs" />
+    <Compile Include="view\WPFGraphView.cs" />
+    <Compile Include="view\WPFImageSourceHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resource1.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\vgdot1.png" />
+    <Content Include="Resources\vgdot2.png" />
+    <Content Include="Resources\vgdot3.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

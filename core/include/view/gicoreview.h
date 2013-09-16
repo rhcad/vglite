@@ -6,10 +6,12 @@
 #define TOUCHVG_CORE_VIEWDISPATCHER_H
 
 #include "gigesture.h"
+#include "giview.h"
+#include "gicontxt.h"
 
-class GiView;
 class GiCanvas;
 class GiCoreViewImpl;
+class MgView;
 
 //! 内核视图分发器类
 /*! 本对象拥有图形文档对象，负责显示和手势动作的分发。
@@ -60,10 +62,13 @@ public:
             float x1, float y1, float x2, float y2, bool switchGesture = false);
     
     //! 返回当前命令名称
-    const char* command() const;
+    const char* getCommand() const;
     
     //! 启动命令
     bool setCommand(GiView* view, const char* name);
+
+    //! 执行上下文动作
+    bool doContextAction(int action);
     
     //! 释放临时数据内存
     void clearCachedData();
@@ -73,6 +78,12 @@ public:
     
     //! 返回图形总数
     int getShapeCount();
+
+	//! 返回图形总数
+    int getSelectedShapeCount();
+
+	//! 返回选中的图形的类型, MgShapeType
+    int getSelectedShapeType();
 
     //! 从JSON文件中加载图形
     bool loadFromFile(const char* vgfile);
@@ -89,8 +100,35 @@ public:
     //! 从JSON内容中加载图形
     bool setContent(const char* content);
     
-    //! 放缩显示全部内容
+    //! 放缩显示全部内容到视图区域
     bool zoomToExtent();
+    
+    //! 放缩显示指定范围到视图区域
+    bool zoomToModel(float x, float y, float w, float h);
+    
+    //! 计算画笔的像素宽度
+    float calcPenWidth(float lineWidth);
+
+    //! 返回当前绘图属性
+    GiContext& getContext(bool forChange);
+
+    //! 绘图属性改变后提交更新
+    /** 在 getContext(true) 后调用本函数。
+     * \param ctx 绘图属性
+     * \param mask 需要应用哪些属性(GiContextBits)，-1表示全部属性，0则不修改，按位组合值见 GiContextBits
+     * \param apply 0表示还要继续动态修改属性，1表示结束动态修改并提交，-1表示结束动态修改并放弃改动
+     */
+    void setContext(const GiContext& ctx, int mask, int apply);
+    
+    //! 绘图属性改变后提交更新
+    void setContext(int mask);
+    
+    //! 设置线条属性是否正在动态修改. getContext(false)将重置为未动态修改.
+    void setContextEditing(bool editing);
+
+#ifndef SWIG
+    MgView* viewAdapter();
+#endif
 
 private:
     GiCoreViewImpl* impl;

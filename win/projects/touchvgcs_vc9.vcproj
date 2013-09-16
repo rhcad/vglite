@@ -45,7 +45,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\core\include\callback;..\..\core\include\tradecmd;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\storage;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test"
+				AdditionalIncludeDirectories="..\..\core\include\canvas;..\..\core\include\tradecmd;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\storage;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;TOUCHVG_EXPORTS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -127,7 +127,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\core\include\callback;..\..\core\include\tradecmd;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\storage;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test"
+				AdditionalIncludeDirectories="..\..\core\include\canvas;..\..\core\include\tradecmd;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\storage;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test"
 				PreprocessorDefinitions="_WIN32;_WIN64;NDEBUG;_WINDOWS;_USRDLL"
 				RuntimeLibrary="2"
 				WarningLevel="4"
@@ -206,7 +206,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				WholeProgramOptimization="false"
-				AdditionalIncludeDirectories="..\..\core\include\callback;..\..\core\include\tradecmd;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\storage;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test"
+				AdditionalIncludeDirectories="..\..\core\include\canvas;..\..\core\include\tradecmd;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\storage;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;TOUCHVG_EXPORTS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -290,7 +290,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				WholeProgramOptimization="false"
-				AdditionalIncludeDirectories="..\..\core\include\callback;..\..\core\include\tradecmd;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\storage;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test"
+				AdditionalIncludeDirectories="..\..\core\include\canvas;..\..\core\include\tradecmd;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\storage;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test"
 				PreprocessorDefinitions="_WIN32;_WIN64;_DEBUG;_WINDOWS;_USRDLL"
 				RuntimeLibrary="3"
 				WarningLevel="4"
@@ -361,7 +361,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Swig generating..."
-						CommandLine="if not exist $(TargetDir)..\..\csharp\touchvglib\core mkdir $(TargetDir)..\..\csharp\touchvglib\core&#x0D;&#x0A;swig.exe -c++ -csharp -namespace &quot;touchvg.core&quot; -module touchvgcs -I&quot;$(ProjectDir)..\..\core\include\callback&quot; -I&quot;$(ProjectDir)..\..\core\include\test&quot; -I&quot;$(ProjectDir)..\..\core\include\view&quot; -I&quot;$(ProjectDir)..\..\core\include\shape&quot; -I&quot;$(ProjectDir)..\..\core\include&quot; -o &quot;$(ProjectDir)..\src\swig\touchvg_csharp_wrap.cpp&quot; -outdir $(TargetDir)..\..\csharp\touchvglib\core $(InputPath)&#x0D;&#x0A;"
+						CommandLine="if not exist $(TargetDir)..\..\csharp\touchvglib\core mkdir $(TargetDir)..\..\csharp\touchvglib\core&#x0D;&#x0A;swig.exe -c++ -csharp -namespace &quot;touchvg.core&quot; -module touchvgcs -I&quot;$(ProjectDir)..\..\core\include\canvas&quot; -I&quot;$(ProjectDir)..\..\core\include\test&quot; -I&quot;$(ProjectDir)..\..\core\include\view&quot; -I&quot;$(ProjectDir)..\..\core\include\graph&quot; -o &quot;$(ProjectDir)..\src\swig\touchvg_csharp_wrap.cpp&quot; -outdir $(TargetDir)..\..\csharp\touchvglib\core $(InputPath)&#x0D;&#x0A;"
 						Outputs="$(ProjectDir)..\src\swig\touchvg_csharp_wrap.cpp"
 					/>
 				</FileConfiguration>
@@ -371,7 +371,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Swig generating..."
-						CommandLine="if not exist $(TargetDir)..\..\csharp\touchvglib\core mkdir $(TargetDir)..\..\csharp\touchvglib\core&#x0D;&#x0A;swig.exe -c++ -csharp -namespace &quot;touchvg.core&quot; -module touchvgcs -I&quot;$(ProjectDir)..\..\core\include\callback&quot; -I&quot;$(ProjectDir)..\..\core\include\test&quot; -I&quot;$(ProjectDir)..\..\core\include\view&quot; -I&quot;$(ProjectDir)..\..\core\include\shape&quot; -I&quot;$(ProjectDir)..\..\core\include&quot; -o &quot;$(ProjectDir)..\src\swig\touchvg_csharp_wrap.cpp&quot; -outdir $(TargetDir)..\..\csharp\touchvglib\core $(InputPath)&#x0D;&#x0A;"
+						CommandLine="if not exist $(TargetDir)..\..\csharp\touchvglib\core mkdir $(TargetDir)..\..\csharp\touchvglib\core&#x0D;&#x0A;swig.exe -c++ -csharp -namespace &quot;touchvg.core&quot; -module touchvgcs -I&quot;$(ProjectDir)..\..\core\include\canvas&quot; -I&quot;$(ProjectDir)..\..\core\include\test&quot; -I&quot;$(ProjectDir)..\..\core\include\view&quot; -I&quot;$(ProjectDir)..\..\core\include\graph&quot; -o &quot;$(ProjectDir)..\src\swig\touchvg_csharp_wrap.cpp&quot; -outdir $(TargetDir)..\..\csharp\touchvglib\core $(InputPath)&#x0D;&#x0A;"
 						Outputs="$(ProjectDir)..\src\swig\touchvg_csharp_wrap.cpp"
 					/>
 				</FileConfiguration>
@@ -381,7 +381,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Swig generating..."
-						CommandLine="if not exist $(TargetDir)..\..\csharp\touchvglib\core mkdir $(TargetDir)..\..\csharp\touchvglib\core&#x0D;&#x0A;swig.exe -c++ -csharp -namespace &quot;touchvg.core&quot; -module touchvgcs -I&quot;$(ProjectDir)..\..\core\include\callback&quot; -I&quot;$(ProjectDir)..\..\core\include\test&quot; -I&quot;$(ProjectDir)..\..\core\include\view&quot; -I&quot;$(ProjectDir)..\..\core\include\shape&quot; -I&quot;$(ProjectDir)..\..\core\include&quot; -o &quot;$(ProjectDir)..\src\swig\touchvg_csharp_wrap.cpp&quot; -outdir $(TargetDir)..\..\csharp\touchvglib\core $(InputPath)&#x0D;&#x0A;"
+						CommandLine="if not exist $(TargetDir)..\..\csharp\touchvglib\core mkdir $(TargetDir)..\..\csharp\touchvglib\core&#x0D;&#x0A;swig.exe -c++ -csharp -namespace &quot;touchvg.core&quot; -module touchvgcs -I&quot;$(ProjectDir)..\..\core\include\canvas&quot; -I&quot;$(ProjectDir)..\..\core\include\test&quot; -I&quot;$(ProjectDir)..\..\core\include\view&quot; -I&quot;$(ProjectDir)..\..\core\include\graph&quot; -o &quot;$(ProjectDir)..\src\swig\touchvg_csharp_wrap.cpp&quot; -outdir $(TargetDir)..\..\csharp\touchvglib\core $(InputPath)&#x0D;&#x0A;"
 						Outputs="$(ProjectDir)..\src\swig\touchvg_csharp_wrap.cpp"
 					/>
 				</FileConfiguration>
@@ -391,7 +391,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Swig generating..."
-						CommandLine="if not exist $(TargetDir)..\..\csharp\touchvglib\core mkdir $(TargetDir)..\..\csharp\touchvglib\core&#x0D;&#x0A;swig.exe -c++ -csharp -namespace &quot;touchvg.core&quot; -module touchvgcs -I&quot;$(ProjectDir)..\..\core\include\callback&quot; -I&quot;$(ProjectDir)..\..\core\include\test&quot; -I&quot;$(ProjectDir)..\..\core\include\view&quot; -I&quot;$(ProjectDir)..\..\core\include\shape&quot; -I&quot;$(ProjectDir)..\..\core\include&quot; -o &quot;$(ProjectDir)..\src\swig\touchvg_csharp_wrap.cpp&quot; -outdir $(TargetDir)..\..\csharp\touchvglib\core $(InputPath)&#x0D;&#x0A;"
+						CommandLine="if not exist $(TargetDir)..\..\csharp\touchvglib\core mkdir $(TargetDir)..\..\csharp\touchvglib\core&#x0D;&#x0A;swig.exe -c++ -csharp -namespace &quot;touchvg.core&quot; -module touchvgcs -I&quot;$(ProjectDir)..\..\core\include\canvas&quot; -I&quot;$(ProjectDir)..\..\core\include\test&quot; -I&quot;$(ProjectDir)..\..\core\include\view&quot; -I&quot;$(ProjectDir)..\..\core\include\graph&quot; -o &quot;$(ProjectDir)..\src\swig\touchvg_csharp_wrap.cpp&quot; -outdir $(TargetDir)..\..\csharp\touchvglib\core $(InputPath)&#x0D;&#x0A;"
 						Outputs="$(ProjectDir)..\src\swig\touchvg_csharp_wrap.cpp"
 					/>
 				</FileConfiguration>
@@ -411,7 +411,15 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\..\core\include\callback\gicanvas.h"
+				RelativePath="..\..\core\include\canvas\gicanvas.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\include\graph\gicolor.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\include\graph\gicontxt.h"
 				>
 			</File>
 			<File
@@ -427,7 +435,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\core\include\callback\giview.h"
+				RelativePath="..\..\core\include\view\giview.h"
 				>
 			</File>
 			<File
@@ -440,23 +448,27 @@
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
-			<File
-				RelativePath="..\..\core\src\test\RandomShape.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\core\src\test\testcanvas.cpp"
-				>
-			</File>
 			<Filter
 				Name="command"
 				>
+				<File
+					RelativePath="..\..\core\include\command\mgaction.h"
+					>
+				</File>
 				<File
 					RelativePath="..\..\core\src\command\mgactions.cpp"
 					>
 				</File>
 				<File
+					RelativePath="..\..\core\include\command\mgcmd.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\core\src\command\mgcmddraw.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\include\command\mgcmddraw.h"
 					>
 				</File>
 				<File
@@ -492,6 +504,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\core\include\command\mgdrawarc.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\core\src\command\mgdrawline.cpp"
 					>
 				</File>
@@ -512,6 +528,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\core\include\command\mgdrawrect.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\core\src\command\mgdrawsplines.cpp"
 					>
 				</File>
@@ -528,6 +548,18 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\core\include\command\mgselect.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\include\command\mgsnap.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\include\command\mgview.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\core\src\command\TransformCmd.cpp"
 					>
 				</File>
@@ -536,7 +568,15 @@
 				Name="shape"
 				>
 				<File
+					RelativePath="..\..\core\include\shape\mgbasicsp.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\core\src\shape\mgcomposite.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\include\shape\mgcomposite.h"
 					>
 				</File>
 				<File
@@ -548,11 +588,15 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\core\src\json\mgjsonstorage.cpp"
+					RelativePath="..\..\core\include\shape\mggrid.h"
 					>
 				</File>
 				<File
 					RelativePath="..\..\core\src\shape\mglayer.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\include\shape\mglayer.h"
 					>
 				</File>
 				<File
@@ -561,6 +605,14 @@
 				</File>
 				<File
 					RelativePath="..\..\core\src\shape\mglines.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\include\shape\mglog.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\include\shape\mgobject.h"
 					>
 				</File>
 				<File
@@ -576,11 +628,35 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\core\include\shape\mgshape.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\include\shape\mgshape_.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\core\src\shape\mgshapedoc.cpp"
 					>
 				</File>
 				<File
+					RelativePath="..\..\core\include\shape\mgshapedoc.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\core\src\shape\mgshapes.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\include\shape\mgshapes.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\include\shape\mgshapet.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\include\shape\mgshapetype.h"
 					>
 				</File>
 				<File
@@ -604,11 +680,27 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\core\include\graph\gigraph.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\include\graph\gilock.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\core\src\graph\gipath.cpp"
 					>
 				</File>
 				<File
+					RelativePath="..\..\core\include\graph\gipath.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\core\src\graph\gixform.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\include\graph\gixform.h"
 					>
 				</File>
 			</Filter>
@@ -620,7 +712,15 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\core\include\geom\mgbase.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\core\src\geom\mgbnd.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\include\geom\mgbnd.h"
 					>
 				</File>
 				<File
@@ -628,7 +728,19 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\core\include\geom\mgbox.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\core\src\geom\mgcurv.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\include\geom\mgcurv.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\include\geom\mgdef.h"
 					>
 				</File>
 				<File
@@ -636,7 +748,15 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\core\include\geom\mglnrel.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\core\src\geom\mgmat.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\include\geom\mgmat.h"
 					>
 				</File>
 				<File
@@ -644,11 +764,27 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\core\include\geom\mgnear.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\core\src\geom\mgnearbz.cpp"
 					>
 				</File>
 				<File
+					RelativePath="..\..\core\include\geom\mgpnt.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\include\geom\mgtol.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\core\src\geom\mgvec.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\include\geom\mgvec.h"
 					>
 				</File>
 			</Filter>
@@ -659,12 +795,24 @@
 					RelativePath="..\..\core\src\tradecmd\tradecmd.cpp"
 					>
 				</File>
+				<File
+					RelativePath="..\..\core\include\tradecmd\tradecmd.h"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="view"
 				>
 				<File
+					RelativePath="..\..\core\src\view\GcBaseView.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\core\src\view\GcGraphView.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\view\GcGraphView.h"
 					>
 				</File>
 				<File
@@ -672,7 +820,15 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\core\src\view\GcMagnifierView.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\core\src\view\GcShapeDoc.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\view\GcShapeDoc.h"
 					>
 				</File>
 				<File
@@ -681,6 +837,46 @@
 				</File>
 				<File
 					RelativePath="..\..\core\src\view\gimousehelper.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\include\view\mgvector.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="storage"
+				>
+				<File
+					RelativePath="..\..\core\src\json\mgjsonstorage.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\include\storage\mgjsonstorage.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\include\storage\mgstorage.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\include\storage\mgstoragebs.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="test"
+				>
+				<File
+					RelativePath="..\..\core\src\test\RandomShape.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\include\test\RandomShape.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\test\testcanvas.cpp"
 					>
 				</File>
 			</Filter>

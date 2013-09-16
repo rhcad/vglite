@@ -189,6 +189,21 @@ class touchvgcsPINVOKE {
   }
 
 
+  [DllImport("touchvgcs", EntryPoint="CSharp_delete_Ints")]
+  public static extern void delete_Ints(HandleRef jarg1);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_new_Ints")]
+  public static extern IntPtr new_Ints(int jarg1);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_Ints_count")]
+  public static extern int Ints_count(HandleRef jarg1);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_Ints_get")]
+  public static extern int Ints_get(HandleRef jarg1, int jarg2);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_Ints_set")]
+  public static extern void Ints_set(HandleRef jarg1, int jarg2, int jarg3);
+
   [DllImport("touchvgcs", EntryPoint="CSharp_delete_GiCanvas")]
   public static extern void delete_GiCanvas(HandleRef jarg1);
 
@@ -276,11 +291,224 @@ class touchvgcsPINVOKE {
   [DllImport("touchvgcs", EntryPoint="CSharp_GiView_useFingerSwigExplicitGiView")]
   public static extern bool GiView_useFingerSwigExplicitGiView(HandleRef jarg1);
 
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiView_isContextActionsVisible")]
+  public static extern bool GiView_isContextActionsVisible(HandleRef jarg1);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiView_isContextActionsVisibleSwigExplicitGiView")]
+  public static extern bool GiView_isContextActionsVisibleSwigExplicitGiView(HandleRef jarg1);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiView_showContextActions")]
+  public static extern bool GiView_showContextActions(HandleRef jarg1, HandleRef jarg2, float jarg3, float jarg4, float jarg5, float jarg6);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiView_showContextActionsSwigExplicitGiView")]
+  public static extern bool GiView_showContextActionsSwigExplicitGiView(HandleRef jarg1, HandleRef jarg2, float jarg3, float jarg4, float jarg5, float jarg6);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiView_commandChanged")]
+  public static extern void GiView_commandChanged(HandleRef jarg1);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiView_commandChangedSwigExplicitGiView")]
+  public static extern void GiView_commandChangedSwigExplicitGiView(HandleRef jarg1);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiView_selectionChanged")]
+  public static extern void GiView_selectionChanged(HandleRef jarg1);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiView_selectionChangedSwigExplicitGiView")]
+  public static extern void GiView_selectionChangedSwigExplicitGiView(HandleRef jarg1);
+
   [DllImport("touchvgcs", EntryPoint="CSharp_new_GiView")]
   public static extern IntPtr new_GiView();
 
   [DllImport("touchvgcs", EntryPoint="CSharp_GiView_director_connect")]
-  public static extern void GiView_director_connect(HandleRef jarg1, GiView.SwigDelegateGiView_0 delegate0, GiView.SwigDelegateGiView_1 delegate1, GiView.SwigDelegateGiView_2 delegate2, GiView.SwigDelegateGiView_3 delegate3);
+  public static extern void GiView_director_connect(HandleRef jarg1, GiView.SwigDelegateGiView_0 delegate0, GiView.SwigDelegateGiView_1 delegate1, GiView.SwigDelegateGiView_2 delegate2, GiView.SwigDelegateGiView_3 delegate3, GiView.SwigDelegateGiView_4 delegate4, GiView.SwigDelegateGiView_5 delegate5, GiView.SwigDelegateGiView_6 delegate6, GiView.SwigDelegateGiView_7 delegate7);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiColor_r_set")]
+  public static extern void GiColor_r_set(HandleRef jarg1, byte jarg2);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiColor_r_get")]
+  public static extern byte GiColor_r_get(HandleRef jarg1);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiColor_g_set")]
+  public static extern void GiColor_g_set(HandleRef jarg1, byte jarg2);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiColor_g_get")]
+  public static extern byte GiColor_g_get(HandleRef jarg1);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiColor_b_set")]
+  public static extern void GiColor_b_set(HandleRef jarg1, byte jarg2);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiColor_b_get")]
+  public static extern byte GiColor_b_get(HandleRef jarg1);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiColor_a_set")]
+  public static extern void GiColor_a_set(HandleRef jarg1, byte jarg2);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiColor_a_get")]
+  public static extern byte GiColor_a_get(HandleRef jarg1);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_new_GiColor__SWIG_0")]
+  public static extern IntPtr new_GiColor__SWIG_0();
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_new_GiColor__SWIG_1")]
+  public static extern IntPtr new_GiColor__SWIG_1(int jarg1, int jarg2, int jarg3, int jarg4);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_new_GiColor__SWIG_2")]
+  public static extern IntPtr new_GiColor__SWIG_2(int jarg1, int jarg2, int jarg3);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_new_GiColor__SWIG_3")]
+  public static extern IntPtr new_GiColor__SWIG_3(HandleRef jarg1);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_new_GiColor__SWIG_4")]
+  public static extern IntPtr new_GiColor__SWIG_4(int jarg1, bool jarg2);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_new_GiColor__SWIG_5")]
+  public static extern IntPtr new_GiColor__SWIG_5(int jarg1);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiColor_White")]
+  public static extern IntPtr GiColor_White();
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiColor_Black")]
+  public static extern IntPtr GiColor_Black();
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiColor_Invalid")]
+  public static extern IntPtr GiColor_Invalid();
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiColor_getARGB")]
+  public static extern int GiColor_getARGB(HandleRef jarg1);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiColor_setARGB")]
+  public static extern void GiColor_setARGB(HandleRef jarg1, int jarg2);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiColor_set__SWIG_0")]
+  public static extern void GiColor_set__SWIG_0(HandleRef jarg1, int jarg2, int jarg3, int jarg4);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiColor_set__SWIG_1")]
+  public static extern void GiColor_set__SWIG_1(HandleRef jarg1, int jarg2, int jarg3, int jarg4, int jarg5);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiColor_isInvalid")]
+  public static extern bool GiColor_isInvalid(HandleRef jarg1);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiColor_equals")]
+  public static extern bool GiColor_equals(HandleRef jarg1, HandleRef jarg2);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_delete_GiColor")]
+  public static extern void delete_GiColor(HandleRef jarg1);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_new_GiContext__SWIG_0")]
+  public static extern IntPtr new_GiContext__SWIG_0();
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_new_GiContext__SWIG_1")]
+  public static extern IntPtr new_GiContext__SWIG_1(float jarg1, HandleRef jarg2, int jarg3, HandleRef jarg4, bool jarg5);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_new_GiContext__SWIG_2")]
+  public static extern IntPtr new_GiContext__SWIG_2(float jarg1, HandleRef jarg2, int jarg3, HandleRef jarg4);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_new_GiContext__SWIG_3")]
+  public static extern IntPtr new_GiContext__SWIG_3(float jarg1, HandleRef jarg2, int jarg3);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_new_GiContext__SWIG_4")]
+  public static extern IntPtr new_GiContext__SWIG_4(float jarg1, HandleRef jarg2);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_new_GiContext__SWIG_5")]
+  public static extern IntPtr new_GiContext__SWIG_5(float jarg1);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_new_GiContext__SWIG_6")]
+  public static extern IntPtr new_GiContext__SWIG_6(HandleRef jarg1);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiContext_copy__SWIG_0")]
+  public static extern IntPtr GiContext_copy__SWIG_0(HandleRef jarg1, HandleRef jarg2, int jarg3);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiContext_copy__SWIG_1")]
+  public static extern IntPtr GiContext_copy__SWIG_1(HandleRef jarg1, HandleRef jarg2);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiContext_equals")]
+  public static extern bool GiContext_equals(HandleRef jarg1, HandleRef jarg2);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiContext_getLineStyle")]
+  public static extern int GiContext_getLineStyle(HandleRef jarg1);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiContext_setLineStyle")]
+  public static extern void GiContext_setLineStyle(HandleRef jarg1, int jarg2);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiContext_getLineWidth")]
+  public static extern float GiContext_getLineWidth(HandleRef jarg1);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiContext_isAutoScale")]
+  public static extern bool GiContext_isAutoScale(HandleRef jarg1);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiContext_setLineWidth")]
+  public static extern void GiContext_setLineWidth(HandleRef jarg1, float jarg2, bool jarg3);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiContext_isNullLine")]
+  public static extern bool GiContext_isNullLine(HandleRef jarg1);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiContext_setNullLine")]
+  public static extern void GiContext_setNullLine(HandleRef jarg1);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiContext_getLineColor")]
+  public static extern IntPtr GiContext_getLineColor(HandleRef jarg1);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiContext_setLineColor__SWIG_0")]
+  public static extern void GiContext_setLineColor__SWIG_0(HandleRef jarg1, HandleRef jarg2);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiContext_setLineColor__SWIG_1")]
+  public static extern void GiContext_setLineColor__SWIG_1(HandleRef jarg1, int jarg2, int jarg3, int jarg4);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiContext_setLineColor__SWIG_2")]
+  public static extern void GiContext_setLineColor__SWIG_2(HandleRef jarg1, int jarg2, int jarg3, int jarg4, int jarg5);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiContext_getLineARGB")]
+  public static extern int GiContext_getLineARGB(HandleRef jarg1);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiContext_setLineARGB")]
+  public static extern void GiContext_setLineARGB(HandleRef jarg1, int jarg2);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiContext_getLineAlpha")]
+  public static extern int GiContext_getLineAlpha(HandleRef jarg1);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiContext_setLineAlpha")]
+  public static extern void GiContext_setLineAlpha(HandleRef jarg1, int jarg2);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiContext_hasFillColor")]
+  public static extern bool GiContext_hasFillColor(HandleRef jarg1);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiContext_setNoFillColor")]
+  public static extern void GiContext_setNoFillColor(HandleRef jarg1);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiContext_getFillColor")]
+  public static extern IntPtr GiContext_getFillColor(HandleRef jarg1);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiContext_setFillColor__SWIG_0")]
+  public static extern void GiContext_setFillColor__SWIG_0(HandleRef jarg1, HandleRef jarg2);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiContext_setFillColor__SWIG_1")]
+  public static extern void GiContext_setFillColor__SWIG_1(HandleRef jarg1, int jarg2, int jarg3, int jarg4);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiContext_setFillColor__SWIG_2")]
+  public static extern void GiContext_setFillColor__SWIG_2(HandleRef jarg1, int jarg2, int jarg3, int jarg4, int jarg5);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiContext_getFillARGB")]
+  public static extern int GiContext_getFillARGB(HandleRef jarg1);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiContext_setFillARGB")]
+  public static extern void GiContext_setFillARGB(HandleRef jarg1, int jarg2);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiContext_getFillAlpha")]
+  public static extern int GiContext_getFillAlpha(HandleRef jarg1);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiContext_setFillAlpha")]
+  public static extern void GiContext_setFillAlpha(HandleRef jarg1, int jarg2);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiContext_isAutoFillColor")]
+  public static extern bool GiContext_isAutoFillColor(HandleRef jarg1);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiContext_setAutoFillColor")]
+  public static extern void GiContext_setAutoFillColor(HandleRef jarg1, bool jarg2);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiContext_getType")]
+  public static extern int GiContext_getType(HandleRef jarg1);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_delete_GiContext")]
+  public static extern void delete_GiContext(HandleRef jarg1);
 
   [DllImport("touchvgcs", EntryPoint="CSharp_new_GiCoreView__SWIG_0")]
   public static extern IntPtr new_GiCoreView__SWIG_0(HandleRef jarg1);
@@ -333,11 +561,14 @@ class touchvgcsPINVOKE {
   [DllImport("touchvgcs", EntryPoint="CSharp_GiCoreView_twoFingersMove__SWIG_1")]
   public static extern bool GiCoreView_twoFingersMove__SWIG_1(HandleRef jarg1, HandleRef jarg2, int jarg3, float jarg4, float jarg5, float jarg6, float jarg7);
 
-  [DllImport("touchvgcs", EntryPoint="CSharp_GiCoreView_command")]
-  public static extern string GiCoreView_command(HandleRef jarg1);
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiCoreView_getCommand")]
+  public static extern string GiCoreView_getCommand(HandleRef jarg1);
 
   [DllImport("touchvgcs", EntryPoint="CSharp_GiCoreView_setCommand")]
   public static extern bool GiCoreView_setCommand(HandleRef jarg1, HandleRef jarg2, string jarg3);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiCoreView_doContextAction")]
+  public static extern bool GiCoreView_doContextAction(HandleRef jarg1, int jarg2);
 
   [DllImport("touchvgcs", EntryPoint="CSharp_GiCoreView_clearCachedData")]
   public static extern void GiCoreView_clearCachedData(HandleRef jarg1);
@@ -347,6 +578,12 @@ class touchvgcsPINVOKE {
 
   [DllImport("touchvgcs", EntryPoint="CSharp_GiCoreView_getShapeCount")]
   public static extern int GiCoreView_getShapeCount(HandleRef jarg1);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiCoreView_getSelectedShapeCount")]
+  public static extern int GiCoreView_getSelectedShapeCount(HandleRef jarg1);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiCoreView_getSelectedShapeType")]
+  public static extern int GiCoreView_getSelectedShapeType(HandleRef jarg1);
 
   [DllImport("touchvgcs", EntryPoint="CSharp_GiCoreView_loadFromFile")]
   public static extern bool GiCoreView_loadFromFile(HandleRef jarg1, string jarg2);
@@ -368,6 +605,24 @@ class touchvgcsPINVOKE {
 
   [DllImport("touchvgcs", EntryPoint="CSharp_GiCoreView_zoomToExtent")]
   public static extern bool GiCoreView_zoomToExtent(HandleRef jarg1);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiCoreView_zoomToModel")]
+  public static extern bool GiCoreView_zoomToModel(HandleRef jarg1, float jarg2, float jarg3, float jarg4, float jarg5);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiCoreView_calcPenWidth")]
+  public static extern float GiCoreView_calcPenWidth(HandleRef jarg1, float jarg2);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiCoreView_getContext")]
+  public static extern IntPtr GiCoreView_getContext(HandleRef jarg1, bool jarg2);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiCoreView_setContext__SWIG_0")]
+  public static extern void GiCoreView_setContext__SWIG_0(HandleRef jarg1, HandleRef jarg2, int jarg3, int jarg4);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiCoreView_setContext__SWIG_1")]
+  public static extern void GiCoreView_setContext__SWIG_1(HandleRef jarg1, int jarg2);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiCoreView_setContextEditing")]
+  public static extern void GiCoreView_setContextEditing(HandleRef jarg1, bool jarg2);
 
   [DllImport("touchvgcs", EntryPoint="CSharp_TestCanvas_initRand")]
   public static extern void TestCanvas_initRand();

@@ -4,8 +4,6 @@
 
 #include "mgbasicsp.h"
 #include <mgshape_.h>
-#include <mgnear.h>
-#include <mgcurv.h>
 #include <mgstorage.h>
 
 MG_IMPLEMENT_CREATE(MgRoundRect)

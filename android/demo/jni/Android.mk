@@ -16,7 +16,7 @@ ifeq ($(TARGET_ARCH),arm)
 LOCAL_CFLAGS += -Wno-psabi
 endif
 
-LOCAL_C_INCLUDES := $(COREINC)/callback \
+LOCAL_C_INCLUDES := $(COREINC)/canvas \
                     $(COREINC)/test \
                     $(COREINC)/tradecmd \
                     $(COREINC)/view \

@@ -5,7 +5,7 @@ package vgdemo.testview.view;
 import android.app.Activity;
 import android.content.Context;
 import touchvg.view.GraphView;
-import touchvg.view.GraphViewHelper;
+import touchvg.view.ViewHelper;
 
 public class GraphView1 extends GraphView {
     
@@ -13,7 +13,7 @@ public class GraphView1 extends GraphView {
         super(context);
         
         int flags = ((Activity) context).getIntent().getExtras().getInt("flags");
-        final GraphViewHelper helper = new GraphViewHelper(this);
+        final ViewHelper helper = new ViewHelper(this);
         
         if ((flags & 32) != 0) {
             helper.addShapesForTest();

@@ -20,14 +20,15 @@ typedef enum {
 
 //! 设置属性的位掩码类型
 typedef enum {
+	kContextCopyNone  = 0,		//!< 不设置属性
     kContextLineRGB   = 0x01,   //!< 设置线色的RGB分量
     kContextLineAlpha = 0x02,   //!< 设置线色的透明度分量
-    kContextLineColor = 0x03,   //!< 设置线色的所有分量
+    kContextLineARGB  = 0x03,   //!< 设置线色的所有分量
     kContextLineWidth = 0x04,   //!< 设置线宽
     kContextLineStyle = 0x08,   //!< 设置线型
     kContextFillRGB   = 0x10,   //!< 设置填充色的RGB分量
     kContextFillAlpha = 0x20,   //!< 设置填充色的透明度分量
-    kContextFillColor = 0x30,   //!< 设置填充色的所有分量
+    kContextFillARGB  = 0x30,   //!< 设置填充色的所有分量
     kContextCopyAll   = 0xFF,   //!< 设置所有属性
 } GiContextBits;
 

@@ -66,6 +66,22 @@ public class GiView {
     return (getClass() == GiView.class) ? touchvgJNI.GiView_useFinger(swigCPtr, this) : touchvgJNI.GiView_useFingerSwigExplicitGiView(swigCPtr, this);
   }
 
+  public boolean isContextActionsVisible() {
+    return (getClass() == GiView.class) ? touchvgJNI.GiView_isContextActionsVisible(swigCPtr, this) : touchvgJNI.GiView_isContextActionsVisibleSwigExplicitGiView(swigCPtr, this);
+  }
+
+  public boolean showContextActions(Ints actions, float x, float y, float w, float h) {
+    return (getClass() == GiView.class) ? touchvgJNI.GiView_showContextActions(swigCPtr, this, Ints.getCPtr(actions), actions, x, y, w, h) : touchvgJNI.GiView_showContextActionsSwigExplicitGiView(swigCPtr, this, Ints.getCPtr(actions), actions, x, y, w, h);
+  }
+
+  public void commandChanged() {
+    if (getClass() == GiView.class) touchvgJNI.GiView_commandChanged(swigCPtr, this); else touchvgJNI.GiView_commandChangedSwigExplicitGiView(swigCPtr, this);
+  }
+
+  public void selectionChanged() {
+    if (getClass() == GiView.class) touchvgJNI.GiView_selectionChanged(swigCPtr, this); else touchvgJNI.GiView_selectionChangedSwigExplicitGiView(swigCPtr, this);
+  }
+
   public GiView() {
     this(touchvgJNI.new_GiView(), true);
     touchvgJNI.GiView_director_connect(this, swigCPtr, swigCMemOwn, true);

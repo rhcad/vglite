@@ -7,7 +7,7 @@ xcopy ..\..\core\include\graph\*.h %destpath%\graph\ /Y
 xcopy ..\..\core\include\shape\*.h %destpath%\shape\ /Y
 xcopy ..\..\core\include\storage\*.h %destpath%\storage\ /Y
 xcopy ..\..\core\include\command\*.h %destpath%\command\ /Y
-xcopy ..\..\core\include\callback\*.h %destpath%\callback\ /Y
+xcopy ..\..\core\include\canvas\*.h %destpath%\canvas\ /Y
 xcopy ..\..\core\include\view\*.h %destpath%\view\ /Y
 
 xcopy ..\..\core\src\geom\*.h %destpath%\geom\ /Y
@@ -34,5 +34,5 @@ rem xcopy ..\..\win\src\view\*.cpp %destpath%\winview\ /Y
 xcopy ..\..\ios\view\include\*.h %destpath%\iosview\ /Y
 xcopy ..\..\ios\view\src\*.mm %destpath%\iosview\ /Y
 
-rem xcopy ..\..\android\demo\src\touchvg\view\*.java %destpath%\android\ /Y
-rem xcopy ..\..\win\csharp\touchvglib\view\*.cs %destpath%\WPF\ /Y
+xcopy ..\..\android\demo\src\touchvg\view\*.java %destpath%\android\ /Y
+xcopy ..\..\win\csharp\touchvglib\view\*.cs %destpath%\WPF\ /Y

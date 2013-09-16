@@ -110,13 +110,18 @@ public class GiCoreView : IDisposable {
     return ret;
   }
 
-  public string command() {
-    string ret = touchvgcsPINVOKE.GiCoreView_command(swigCPtr);
+  public string getCommand() {
+    string ret = touchvgcsPINVOKE.GiCoreView_getCommand(swigCPtr);
     return ret;
   }
 
   public bool setCommand(GiView view, string name) {
     bool ret = touchvgcsPINVOKE.GiCoreView_setCommand(swigCPtr, GiView.getCPtr(view), name);
+    return ret;
+  }
+
+  public bool doContextAction(int action) {
+    bool ret = touchvgcsPINVOKE.GiCoreView_doContextAction(swigCPtr, action);
     return ret;
   }
 
@@ -131,6 +136,16 @@ public class GiCoreView : IDisposable {
 
   public int getShapeCount() {
     int ret = touchvgcsPINVOKE.GiCoreView_getShapeCount(swigCPtr);
+    return ret;
+  }
+
+  public int getSelectedShapeCount() {
+    int ret = touchvgcsPINVOKE.GiCoreView_getSelectedShapeCount(swigCPtr);
+    return ret;
+  }
+
+  public int getSelectedShapeType() {
+    int ret = touchvgcsPINVOKE.GiCoreView_getSelectedShapeType(swigCPtr);
     return ret;
   }
 
@@ -166,6 +181,34 @@ public class GiCoreView : IDisposable {
   public bool zoomToExtent() {
     bool ret = touchvgcsPINVOKE.GiCoreView_zoomToExtent(swigCPtr);
     return ret;
+  }
+
+  public bool zoomToModel(float x, float y, float w, float h) {
+    bool ret = touchvgcsPINVOKE.GiCoreView_zoomToModel(swigCPtr, x, y, w, h);
+    return ret;
+  }
+
+  public float calcPenWidth(float lineWidth) {
+    float ret = touchvgcsPINVOKE.GiCoreView_calcPenWidth(swigCPtr, lineWidth);
+    return ret;
+  }
+
+  public GiContext getContext(bool forChange) {
+    GiContext ret = new GiContext(touchvgcsPINVOKE.GiCoreView_getContext(swigCPtr, forChange), false);
+    return ret;
+  }
+
+  public void setContext(GiContext ctx, int mask, int apply) {
+    touchvgcsPINVOKE.GiCoreView_setContext__SWIG_0(swigCPtr, GiContext.getCPtr(ctx), mask, apply);
+    if (touchvgcsPINVOKE.SWIGPendingException.Pending) throw touchvgcsPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public void setContext(int mask) {
+    touchvgcsPINVOKE.GiCoreView_setContext__SWIG_1(swigCPtr, mask);
+  }
+
+  public void setContextEditing(bool editing) {
+    touchvgcsPINVOKE.GiCoreView_setContextEditing(swigCPtr, editing);
   }
 
 }

@@ -5,7 +5,6 @@
 #include "mgdrawsplines.h"
 #include <mgshapet.h>
 #include <mgbasicsp.h>
-#include <mgbase.h>
 
 MgCmdDrawSplines::MgCmdDrawSplines() : m_freehand(true)
 {

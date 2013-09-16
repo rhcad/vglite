@@ -5,7 +5,6 @@
 #include "mgdrawlines.h"
 #include <mgshapet.h>
 #include <mgbasicsp.h>
-#include <mgbase.h>
 
 // MgCmdDrawLines
 //
@@ -32,6 +31,8 @@ bool MgCmdDrawLines::undo(const MgMotion* sender)
     return MgCommandDraw::_undo(sender);
 }
 
+static bool _lastClicked = false;
+
 bool MgCmdDrawLines::touchBegan(const MgMotion* sender)
 {
     if (0 == m_step) {
@@ -45,6 +46,7 @@ bool MgCmdDrawLines::touchBegan(const MgMotion* sender)
         dynshape()->shape()->setPoint(m_step, snapPoint(sender));
     }
     dynshape()->shape()->update();
+	_lastClicked = true;
     
     return _touchBegan(sender);
 }
@@ -61,6 +63,7 @@ bool MgCmdDrawLines::touchMoved(const MgMotion* sender)
     }
     
     dynshape()->shape()->update();
+	_lastClicked = false;
     
     return _touchMoved(sender);
 }
@@ -88,6 +91,7 @@ bool MgCmdDrawLines::touchEnded(const MgMotion* sender)
             _addshape(sender);
             _delayClear();
             m_step = 0;
+			_lastClicked = false;
         }
         else if (++m_step >= dynshape()->shape()->getPointCount()) {
             ((MgBaseLines*)dynshape()->shape())->addPoint(pnt);
@@ -99,10 +103,13 @@ bool MgCmdDrawLines::touchEnded(const MgMotion* sender)
 
 bool MgCmdDrawLines::doubleClick(const MgMotion* sender)
 {
-    if (m_step > 1) {
-        while (m_step > 1 && displayMmToModel(3.f, sender) >
-            sender->pointM.distanceTo(dynshape()->shape()->getPoint(m_step))) {
-            ((MgBaseLines*)dynshape()->shape())->removePoint(m_step--);
+    MgBaseLines* lines = (MgBaseLines*)dynshape()->shape();
+	Point2d pnt(_lastClicked ? lines->endPoint() : sender->pointM);
+    
+    if (m_step > (lines->isClosed() ? 2 : 1)) {
+		while (lines->getPointCount() > (lines->isClosed() ? 2 : 1)
+               && displayMmToModel(5.f, sender) > pnt.distanceTo(lines->endPoint())) {
+            lines->removePoint(lines->getPointCount() - 1);
         }
         _addshape(sender);
         _delayClear();
@@ -113,8 +120,10 @@ bool MgCmdDrawLines::doubleClick(const MgMotion* sender)
 
 bool MgCmdDrawLines::cancel(const MgMotion* sender)
 {
-    if (m_step > 1) {
-        ((MgBaseLines*)dynshape()->shape())->removePoint(m_step--);
+    MgBaseLines* lines = (MgBaseLines*)dynshape()->shape();
+    
+    if (m_step > (lines->isClosed() ? 2 : 1)) {
+        lines->removePoint(m_step--);
         _addshape(sender);
         _delayClear();
         m_step = 0;

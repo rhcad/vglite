@@ -25,7 +25,6 @@ private:
     virtual void release() { delete this; }
 
     virtual bool initialize(const MgMotion* sender);
-    virtual bool draw(const MgMotion* sender, GiGraphics* gs);
     virtual bool touchBegan(const MgMotion* sender);
     virtual bool touchMoved(const MgMotion* sender);
     virtual bool touchEnded(const MgMotion* sender);

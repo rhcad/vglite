@@ -9,7 +9,7 @@ INCLUDES += -I$(ROOTDIR)/core/include/geom \
             -I$(ROOTDIR)/core/include/command \
             -I$(ROOTDIR)/core/include/tradecmd \
             -I$(ROOTDIR)/core/include/view \
-            -I$(ROOTDIR)/core/include/callback \
+            -I$(ROOTDIR)/core/include/canvas \
             -I$(ROOTDIR)/core/include/test
 
 SOURCES   =$(wildcard *.cpp) \

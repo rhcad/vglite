@@ -4,10 +4,7 @@
 
 #include "mgbasicsp.h"
 #include <mgshape_.h>
-#include <mgnear.h>
-#include <mglnrel.h>
 #include <mgstorage.h>
-#include <mgbase.h>
 
 MG_IMPLEMENT_CREATE(MgLine)
 

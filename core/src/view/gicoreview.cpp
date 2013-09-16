@@ -3,41 +3,13 @@
 // Copyright (c) 2012-2013, https://github.com/rhcad/touchvg
 
 #include "gicoreview.h"
-#include "giview.h"
-#include "gicanvas.h"
-#include "testcanvas.h"
-#include <stdio.h>
-#include <vector>
-
 #include "GcShapeDoc.h"
 #include "GcMagnifierView.h"
 #include "mgcmd.h"
 #include <RandomShape.h>
-#include <mglog.h>
 #include <mgjsonstorage.h>
-
-//! 测试视图
-class GcDummyView : public GcBaseView
-{
-public:
-    GcDummyView(MgView* mgview, GiView *view) : GcBaseView(mgview, view) {}
-    virtual ~GcDummyView() {}
-    
-    virtual int drawAll(GiGraphics& gs);
-    virtual int drawAppend(const int* newids, GiGraphics& gs);
-    virtual void dynDraw(const MgMotion& motion, GiGraphics& gs);
-    virtual void onSize(int dpi, int w, int h);
-    virtual bool onGesture(const MgMotion& motion);
-    virtual bool twoFingersMove(const MgMotion& motion);
-
-private:
-    void drawPoints(GiCanvas* canvas);
-    
-    std::vector<float>   _pts;
-};
-
-// GiCoreView
-//
+#include <tradecmd.h>
+#include <mgshapetype.h>
 
 #define CALL_VIEW(func) if (curview) curview->func
 #define CALL_VIEW2(func, v) curview ? curview->func : v
@@ -54,9 +26,13 @@ public:
     std::vector<int>    newids;
     int             gestureHandler;
     MgJsonStorage   defaultStorage;
+    long            regenPending;
+    long            appendPending;
+    long            redrawPending;
     
 public:
-    GiCoreViewImpl() : curview(NULL), refcount(1), gestureHandler(0) {
+    GiCoreViewImpl() : curview(NULL), refcount(1), gestureHandler(0)
+        , regenPending(-1), appendPending(-1), redrawPending(-1) {
         motion.view = this;
         motion.gestureType = 0;
         motion.gestureState = kMgGesturePossible;
@@ -78,18 +54,43 @@ public:
     GiGraphics* graph() { return CALL_VIEW2(graph(), NULL); }
 
     bool useFinger() { return CALL_VIEW2(deviceView()->useFinger(), true); }
-    void selChanged() {}
     bool shapeWillAdded(MgShape*) { return true; }
     bool shapeWillDeleted(MgShape*) { return true; }
-    bool removeShape(MgShape*) { return true; }
     bool shapeCanRotated(MgShape*) { return true; }
     bool shapeCanTransform(MgShape*) { return true; }
     void shapeMoved(MgShape*, int) {}
-    void commandChanged() {}
+
+    void commandChanged() {
+        CALL_VIEW(deviceView()->commandChanged());
+    }
+
+    void selectionChanged() {
+        CALL_VIEW(deviceView()->selectionChanged());
+    }
+
+    bool removeShape(MgShape* shape) {
+        showContextActions(0, NULL, Box2d::kIdentity(), NULL);
+        return (shape && shape->getParent()
+            && shape->getParent()->removeShape(shape->getID()));
+    }
     
-    bool isContextActionsVisible() { return false; }
-    bool showContextActions(int, const int*,
-                            const Box2d&, const MgShape*) { return false; }
+    bool isContextActionsVisible() {
+        return CALL_VIEW2(deviceView()->isContextActionsVisible(), false);
+    }
+
+    bool showContextActions(int /*selState*/, const int* actions, 
+                            const Box2d& selbox, const MgShape*)
+    {
+        int n = 0;
+        for (; actions && actions[n] > 0; n++) {}
+
+        if (n > 0 && motion.pressDrag && isContextActionsVisible()) {
+            return false;
+        }
+        mgvector<int> arr(actions, n);
+        return CALL_VIEW2(deviceView()->showContextActions(arr, selbox.xmin, 
+            selbox.ymin, selbox.width(), selbox.height()), false);
+    }
     
     void shapeAdded(MgShape* sp) {
         if (sp && newids.empty()) {
@@ -105,19 +106,34 @@ public:
     }
     
     void redraw() {
-        CALL_VIEW(deviceView()->redraw());                  // 将调用dynDraw
+        if (redrawPending >= 0) {
+            redrawPending++;
+        }
+        else {
+            CALL_VIEW(deviceView()->redraw());  // 将调用dynDraw
+        }
     }
     
     void regenAll() {
         newids.clear();
-        for (int i = 0; i < _doc->getViewCount(); i++) {
-            _doc->getView(i)->deviceView()->regenAll();     // 将调用drawAll
+        if (regenPending >= 0) {
+            regenPending++;
+        }
+        else {  // 将调用drawAll
+            for (int i = 0; i < _doc->getViewCount(); i++) {
+                _doc->getView(i)->deviceView()->regenAll();
+            }
         }
     }
     
     void regenAppend() {
-        for (int i = 0; i < _doc->getViewCount(); i++) {
-            _doc->getView(i)->deviceView()->regenAppend();  // 将调用drawAppend
+        if (appendPending >= 0) {
+            appendPending++;
+        }
+        else {  // 将调用drawAppend
+            for (int i = 0; i < _doc->getViewCount(); i++) {
+                _doc->getView(i)->deviceView()->regenAppend();
+            }
         }
     }
     
@@ -133,6 +149,45 @@ public:
 };
 
 static int _dpi = 96;
+
+class DrawLocker
+{
+    GiCoreViewImpl* _impl;
+public:
+    DrawLocker(GiCoreViewImpl* impl) : _impl(impl) {
+		if (_impl->regenPending >= 0
+			|| _impl->appendPending >= 0
+			|| _impl->redrawPending >= 0)
+		{
+			_impl = NULL;
+		}
+		else {
+			_impl->regenPending = 0;
+			_impl->appendPending = 0;
+			_impl->redrawPending = 0;
+		}
+    }
+
+    ~DrawLocker() {
+		if (!_impl) {
+			return;
+		}
+        long regenPending = _impl->regenPending;
+        long appendPending = _impl->appendPending;
+        long redrawPending = _impl->redrawPending;
+
+        _impl->regenPending = -1;
+        _impl->appendPending = -1;
+        _impl->redrawPending = -1;
+
+        if (regenPending > 0)
+            _impl->regenAll();
+        else if (appendPending > 0)
+            _impl->regenAppend();
+        else if (redrawPending > 0)
+            _impl->redraw();
+    }
+};
 
 GcBaseView::GcBaseView(MgView* mgview, GiView *view)
     : _mgview(mgview), _view(view), _gs(&_xf)
@@ -168,14 +223,17 @@ GiCoreView::~GiCoreView()
     }
 }
 
+MgView* GiCoreView::viewAdapter()
+{
+    return impl;
+}
+
 void GiCoreView::createView(GiView* view, int type)
 {
     if (view && !impl->_doc->findView(view)) {
-        if (type == 1) {
-            impl->curview = new GcGraphView(impl, view);
-        }
-        else {
-            new GcDummyView(impl, view);
+        impl->curview = new GcGraphView(impl, view);
+        if (type == 0) {
+            setCommand(view, "splines");
         }
     }
 }
@@ -290,6 +348,7 @@ void GiCoreView::onSize(GiView* view, int w, int h)
 bool GiCoreView::onGesture(GiView* view, GiGestureType type,
                            GiGestureState state, float x, float y, bool switchGesture)
 {
+    DrawLocker locker(impl);
     GcBaseView* aview = impl->_doc->findView(view);
     bool ret = false;
 
@@ -332,6 +391,7 @@ bool GiCoreView::onGesture(GiView* view, GiGestureType type,
 bool GiCoreView::twoFingersMove(GiView* view, GiGestureState state,
                                 float x1, float y1, float x2, float y2, bool switchGesture)
 {
+    DrawLocker locker(impl);
     GcBaseView* aview = impl->_doc->findView(view);
     bool ret = false;
 
@@ -371,13 +431,14 @@ bool GiCoreView::twoFingersMove(GiView* view, GiGestureState state,
     return ret;
 }
 
-const char* GiCoreView::command() const
+const char* GiCoreView::getCommand() const
 {
     return impl->_cmds->getCommandName();
 }
 
 bool GiCoreView::setCommand(GiView* view, const char* name)
 {
+    DrawLocker locker(impl);
     GcBaseView* aview = impl->_doc->findView(view);
     bool ret = false;
     
@@ -387,6 +448,12 @@ bool GiCoreView::setCommand(GiView* view, const char* name)
     }
     
     return ret;
+}
+
+bool GiCoreView::doContextAction(int action)
+{
+    DrawLocker locker(impl);
+    return impl->_cmds->doContextAction(&impl->motion, action);
 }
 
 void GiCoreView::clearCachedData()
@@ -407,9 +474,38 @@ int GiCoreView::getShapeCount()
     return impl->doc()->getShapeCount();
 }
 
+int GiCoreView::getSelectedShapeCount()
+{
+	return impl->cmds()->getSelection(impl, 0, NULL);
+}
+
+int GiCoreView::getSelectedShapeType()
+{
+	int n = impl->cmds()->getSelection(impl, 0, NULL);
+	int type = 0;
+	std::vector<MgShape*> arr(n, (MgShape*)0);
+
+	if (n > 0) {
+		n = impl->cmds()->getSelection(impl, n, (MgShape**)&arr.front());
+		for (int i = 0; i < n; i++) {
+			if (type == 0) {
+				type = arr[i]->shapec()->getType();
+			}
+			else if (type != arr[i]->shapec()->getType()) {
+				type = kMgShapeMultiType;
+				break;
+			}
+		}
+	}
+
+	return type;
+}
+
 static bool loadShapes(GiCoreViewImpl* impl, MgStorage* s)
 {
     bool ret = true;
+
+	impl->_cmds->setCommand(&impl->motion, impl->_cmds->getCommandName());
 
     if (s) {
         MgShapesLock locker(MgShapesLock::Load, impl->doc());
@@ -420,6 +516,7 @@ static bool loadShapes(GiCoreViewImpl* impl, MgStorage* s)
         impl->doc()->clear();
     }
     impl->regenAll();
+	TradeCmd::onDocLoaded(&impl->motion);
 
     return ret;
 }
@@ -446,6 +543,7 @@ void GiCoreView::freeContent()
 
 bool GiCoreView::setContent(const char* content)
 {
+	DrawLocker locker(impl);
     bool ret = loadShapes(impl, impl->defaultStorage.storageForRead(content));
     impl->defaultStorage.clear();
     return ret;
@@ -459,6 +557,7 @@ bool GiCoreView::loadFromFile(const char* vgfile)
 #else
     FILE *fp = fopen(vgfile, "rt");
 #endif
+	DrawLocker locker(impl);
     MgJsonStorage s;
     bool ret = loadShapes(impl, s.storageForRead(fp));
     
@@ -499,14 +598,97 @@ bool GiCoreView::zoomToExtent()
     return ret;
 }
 
+bool GiCoreView::zoomToModel(float x, float y, float w, float h)
+{
+    Box2d rect(Box2d(x, y, x + w, y + h) * impl->xform()->modelToWorld());
+    bool ret = impl->xform()->zoomTo(rect);
+    if (ret) {
+        impl->regenAll();
+    }
+    return ret;
+}
+
+float GiCoreView::calcPenWidth(float lineWidth)
+{
+    return impl->graph()->calcPenWidth(lineWidth, false);
+}
+
+static GiContext _tmpContext;
+static bool _contextEditing = false;
+
+GiContext& GiCoreView::getContext(bool forChange)
+{
+    if (!forChange) {
+        _contextEditing = false;
+    }
+    
+    MgShape* shape = NULL;
+    impl->_cmds->getSelection(impl, 1, &shape, forChange);
+    _tmpContext = shape ? *shape->context() : *impl->context();
+    
+    return _tmpContext;
+}
+
+void GiCoreView::setContext(int mask)
+{
+    setContext(_tmpContext, mask, _contextEditing ? 0 : 1);
+}
+
+void GiCoreView::setContextEditing(bool editing)
+{
+    if (_contextEditing != editing) {
+        _contextEditing = editing;
+        if (!editing) {
+            DrawLocker locker(impl);
+            impl->_cmds->dynamicChangeEnded(impl, true);
+        }
+    }
+}
+
+void GiCoreView::setContext(const GiContext& ctx, int mask, int apply)
+{
+    DrawLocker locker(impl);
+
+    if (mask != 0) {
+        int n = impl->_cmds->getSelection(impl, 0, NULL, true);
+        std::vector<MgShape*> shapes(n, (MgShape*)0);
+
+        if (n > 0 && impl->_cmds->getSelection(impl, n, 
+            (MgShape**)&shapes.front(), true) > 0)
+        {
+            for (int i = 0; i < n; i++) {
+                if (shapes[i]) {
+                    shapes[i]->context()->copy(ctx, mask);
+                }
+            }
+            impl->redraw();
+        }
+        else {
+            impl->context()->copy(ctx, mask);
+        }
+    }
+
+    if (apply != 0) {
+        impl->_cmds->dynamicChangeEnded(impl, apply > 0);
+    }
+}
+
 bool GiCoreViewImpl::drawCommand(GcBaseView* view, const MgMotion& motion, GiGraphics& gs)
 {
+    bool ret = false;
+
     if (view == curview) {
         MgDynShapeLock locker(false);
         MgCommand* cmd = _cmds->getCommand();
-        return cmd && cmd->draw(&motion, &gs);
+
+        ret = cmd && cmd->draw(&motion, &gs);
+        if (ret && cmd->isDrawingCommand()) {
+            TradeCmd::drawInShapeCommand(_cmds->getCommandName(), 
+                (MgCommandDraw *)cmd, &gs);
+        }
     }
-    return false;
+
+    return ret;
 }
 
 bool GiCoreViewImpl::gestureToCommand(const MgMotion& motion)
@@ -545,89 +727,4 @@ bool GiCoreViewImpl::gestureToCommand(const MgMotion& motion)
     }
 
     return false;
-}
-
-// GcDummyView
-//
-
-int GcDummyView::drawAll(GiGraphics& gs)
-{
-    int n = TestCanvas::randInt(900, 1000);
-    TestCanvas::test(gs.getCanvas(), 0x08, n, true);
-    return n;
-}
-
-void GcDummyView::drawPoints(GiCanvas* canvas)
-{
-    if (!_pts.empty()) {
-        canvas->drawEllipse(_pts[_pts.size() - 2] - 50.f,
-                           _pts.back() - 50.f, 100, 100, true, true);
-        canvas->beginPath();
-        canvas->moveTo(_pts[0], _pts[1]);
-        for (size_t i = 2; i + 1 < _pts.size(); i += 2) {
-            canvas->lineTo(_pts[i], _pts[i+1]);
-        }
-        canvas->drawPath(true, false);
-    }
-}
-
-int GcDummyView::drawAppend(const int*, GiGraphics& gs)
-{
-    GiCanvas* canvas = gs.getCanvas();
-    canvas->setPen(TestCanvas::randInt(20, 0xFF) << 24 | TestCanvas::randInt(0, 0xFFFFFF),
-                  TestCanvas::randFloat(1, 10), -1, 0);
-    canvas->setBrush(TestCanvas::randInt(10, 0xFF) << 24 | TestCanvas::randInt(0, 0xFFFFFF), 0);
-    drawPoints(canvas);
-    _pts.clear();
-    return 1;
-}
-
-void GcDummyView::dynDraw(const MgMotion& motion, GiGraphics& gs)
-{
-    if (motion.gestureState == kMgGestureBegan
-        || motion.gestureState == kMgGestureMoved) {
-        static float phase = 0;
-        GiCanvas* canvas = gs.getCanvas();
-
-        phase -= 1;
-        canvas->setPen(0, 0, 1, phase);
-        canvas->setBrush(0x80005500, 0);
-        drawPoints(canvas);
-
-        float x = _pts[_pts.size() - 2];
-        float y = _pts.back();
-        char text[40] = "";
-#if defined(_MSC_VER) && _MSC_VER >= 1400 // VC8
-        sprintf_s(text, sizeof(text), "%.1f, %.1f", x, y);
-#else
-        sprintf(text, "%.1f, %.1f", x, y);
-#endif
-        canvas->drawTextAt(text, x < 80 ? 80 : x, y < 80 ? 80 : y - 70, 20, 1);
-    }
-}
-
-void GcDummyView::onSize(int, int, int)
-{
-}
-
-bool GcDummyView::onGesture(const MgMotion& motion)
-{
-    if (motion.gestureState == kMgGestureBegan) {
-        _pts.clear();
-    }
-    _pts.push_back(motion.point.x);
-    _pts.push_back(motion.point.y);
-    
-    if (motion.gestureType == kGiGesturePan && motion.gestureState == kMgGestureEnded) {
-        deviceView()->regenAppend();
-    }
-    else {
-        deviceView()->redraw();
-    }
-    return true;
-}
-
-bool GcDummyView::twoFingersMove(const MgMotion&)
-{
-    return true;
 }

@@ -1,17 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using touchvg.view;
+using System.Windows.Media;
+
 namespace WpfDemo
 {
     /// <summary>
@@ -45,13 +38,19 @@ namespace WpfDemo
             "圆心圆弧",  "arc_cse",
             "切线圆弧",  "arc_tan",
             "坐标系测试",  "xfdemo",
-            "点击测试",  "hittest"};
-        private GraphView _view;
+            "点击测试",  "hittest"
+        };
+
+        private WPFGraphView _view;
+        private WPFViewHelper _helper;
+        private bool _updateLocked = false;
 
         void Window1_Loaded(object sender, RoutedEventArgs e)
         {
-            _view = new GraphView();
-            _view.CreateControl(canvas1);
+            _view = new WPFGraphView(canvas1);
+            _helper = new WPFViewHelper(_view);
+            _view.OnCommandChanged += new CommandChangedEventHandler(View_OnCommandChanged);
+            _view.OnSelectionChanged +=new touchvg.view.SelectionChangedEventHandler(View_OnSelectionChanged);
 
             List<KeyValuePair<string, string>> commandSource = new List<KeyValuePair<string, string>>();
             for (int i = 0; i < _commands.Length; i += 2)
@@ -66,20 +65,60 @@ namespace WpfDemo
 
         void Window1_Unloaded(object sender, RoutedEventArgs e)
         {
+            _helper.Dispose();
         }
 
         private void comboBox1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (_view != null)
-                _view.Command = comboBox1.SelectedValue.ToString();
+            if (_helper != null && !_updateLocked)
+            {
+                _helper.Command = comboBox1.SelectedValue.ToString();
+                View_OnSelectionChanged(sender, e);
+            }
+        }
+
+        void View_OnCommandChanged(object sender, EventArgs e)
+        {
+            string cmdname = comboBox1.SelectedValue.ToString();
+            if (!_helper.Command.Equals(cmdname))
+            {
+                _updateLocked = true;
+                comboBox1.SelectedValue = _helper.Command;
+                _updateLocked = false;
+            }
+        }
+
+        void View_OnSelectionChanged(object sender, EventArgs e)
+        {
+            if (!_updateLocked)
+            {
+                _updateLocked = true;
+                alphaSlider.Value = (double)_helper.LineAlpha;
+                widthSlider.Value = (double)_helper.LineWidth;
+                _updateLocked = false;
+            }
+        }
+
+        private void alphaSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (_helper != null && !_updateLocked)
+                _helper.LineAlpha = (int)(sender as Slider).Value;
+        }
+
+        private void widthSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (_helper != null && !_updateLocked)
+                _helper.LineWidth = (int)(sender as Slider).Value;
         }
 
         private void redBtn_Click(object sender, RoutedEventArgs e)
         {
+            _helper.LineColor = Colors.Red;
         }
 
         private void blueBtn_Click(object sender, RoutedEventArgs e)
         {
+            _helper.LineColor = Colors.Blue;
         }
     }
 }

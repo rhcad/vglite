@@ -58,6 +58,25 @@ public class GiView : IDisposable {
     return ret;
   }
 
+  public virtual bool isContextActionsVisible() {
+    bool ret = (SwigDerivedClassHasMethod("isContextActionsVisible", swigMethodTypes4) ? touchvgcsPINVOKE.GiView_isContextActionsVisibleSwigExplicitGiView(swigCPtr) : touchvgcsPINVOKE.GiView_isContextActionsVisible(swigCPtr));
+    return ret;
+  }
+
+  public virtual bool showContextActions(Ints actions, float x, float y, float w, float h) {
+    bool ret = (SwigDerivedClassHasMethod("showContextActions", swigMethodTypes5) ? touchvgcsPINVOKE.GiView_showContextActionsSwigExplicitGiView(swigCPtr, Ints.getCPtr(actions), x, y, w, h) : touchvgcsPINVOKE.GiView_showContextActions(swigCPtr, Ints.getCPtr(actions), x, y, w, h));
+    if (touchvgcsPINVOKE.SWIGPendingException.Pending) throw touchvgcsPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public virtual void commandChanged() {
+    if (SwigDerivedClassHasMethod("commandChanged", swigMethodTypes6)) touchvgcsPINVOKE.GiView_commandChangedSwigExplicitGiView(swigCPtr); else touchvgcsPINVOKE.GiView_commandChanged(swigCPtr);
+  }
+
+  public virtual void selectionChanged() {
+    if (SwigDerivedClassHasMethod("selectionChanged", swigMethodTypes7)) touchvgcsPINVOKE.GiView_selectionChangedSwigExplicitGiView(swigCPtr); else touchvgcsPINVOKE.GiView_selectionChanged(swigCPtr);
+  }
+
   public GiView() : this(touchvgcsPINVOKE.new_GiView(), true) {
     SwigDirectorConnect();
   }
@@ -71,7 +90,15 @@ public class GiView : IDisposable {
       swigDelegate2 = new SwigDelegateGiView_2(SwigDirectorredraw);
     if (SwigDerivedClassHasMethod("useFinger", swigMethodTypes3))
       swigDelegate3 = new SwigDelegateGiView_3(SwigDirectoruseFinger);
-    touchvgcsPINVOKE.GiView_director_connect(swigCPtr, swigDelegate0, swigDelegate1, swigDelegate2, swigDelegate3);
+    if (SwigDerivedClassHasMethod("isContextActionsVisible", swigMethodTypes4))
+      swigDelegate4 = new SwigDelegateGiView_4(SwigDirectorisContextActionsVisible);
+    if (SwigDerivedClassHasMethod("showContextActions", swigMethodTypes5))
+      swigDelegate5 = new SwigDelegateGiView_5(SwigDirectorshowContextActions);
+    if (SwigDerivedClassHasMethod("commandChanged", swigMethodTypes6))
+      swigDelegate6 = new SwigDelegateGiView_6(SwigDirectorcommandChanged);
+    if (SwigDerivedClassHasMethod("selectionChanged", swigMethodTypes7))
+      swigDelegate7 = new SwigDelegateGiView_7(SwigDirectorselectionChanged);
+    touchvgcsPINVOKE.GiView_director_connect(swigCPtr, swigDelegate0, swigDelegate1, swigDelegate2, swigDelegate3, swigDelegate4, swigDelegate5, swigDelegate6, swigDelegate7);
   }
 
   private bool SwigDerivedClassHasMethod(string methodName, Type[] methodTypes) {
@@ -96,20 +123,48 @@ public class GiView : IDisposable {
     return useFinger();
   }
 
+  private bool SwigDirectorisContextActionsVisible() {
+    return isContextActionsVisible();
+  }
+
+  private bool SwigDirectorshowContextActions(IntPtr actions, float x, float y, float w, float h) {
+    return showContextActions(new Ints(actions, false), x, y, w, h);
+  }
+
+  private void SwigDirectorcommandChanged() {
+    commandChanged();
+  }
+
+  private void SwigDirectorselectionChanged() {
+    selectionChanged();
+  }
+
   public delegate void SwigDelegateGiView_0();
   public delegate void SwigDelegateGiView_1();
   public delegate void SwigDelegateGiView_2();
   public delegate bool SwigDelegateGiView_3();
+  public delegate bool SwigDelegateGiView_4();
+  public delegate bool SwigDelegateGiView_5(IntPtr actions, float x, float y, float w, float h);
+  public delegate void SwigDelegateGiView_6();
+  public delegate void SwigDelegateGiView_7();
 
   private SwigDelegateGiView_0 swigDelegate0;
   private SwigDelegateGiView_1 swigDelegate1;
   private SwigDelegateGiView_2 swigDelegate2;
   private SwigDelegateGiView_3 swigDelegate3;
+  private SwigDelegateGiView_4 swigDelegate4;
+  private SwigDelegateGiView_5 swigDelegate5;
+  private SwigDelegateGiView_6 swigDelegate6;
+  private SwigDelegateGiView_7 swigDelegate7;
 
   private static Type[] swigMethodTypes0 = new Type[] {  };
   private static Type[] swigMethodTypes1 = new Type[] {  };
   private static Type[] swigMethodTypes2 = new Type[] {  };
   private static Type[] swigMethodTypes3 = new Type[] {  };
+  private static Type[] swigMethodTypes4 = new Type[] {  };
+  private static Type[] swigMethodTypes5 = new Type[] { typeof(Ints), typeof(float), typeof(float), typeof(float), typeof(float) };
+  private static Type[] swigMethodTypes6 = new Type[] {  };
+  private static Type[] swigMethodTypes7 = new Type[] {  };
 }
 
 }

@@ -330,7 +330,7 @@ public:
     bool rawLineTo(float x, float y);
     bool rawBezierTo(float c1x, float c1y, float c2x, float c2y, float x, float y);
     bool rawClosePath();
-    bool rawText(const char* text, float x, float y, float h, int align = 0);
+    bool rawText(const char* text, float x, float y, float h, int align = 1);
     bool rawImage(const char* name, float xc, float yc, float w, float h, float angle);
 #endif
     

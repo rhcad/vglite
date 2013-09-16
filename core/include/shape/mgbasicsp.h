@@ -8,6 +8,13 @@
 
 #include "mgshape.h"
 
+#ifndef SWIG
+#include "mgbase.h"
+#include "mgnear.h"
+#include "mgcurv.h"
+#include "mglnrel.h"
+#endif
+
 //! 线段图形类
 /*! \ingroup CORE_SHAPE
 */

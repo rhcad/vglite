@@ -4,7 +4,6 @@
 
 #include "mgbasicsp.h"
 #include <mgshape_.h>
-#include <mgnear.h>
 #include <mgstorage.h>
 
 // MgBaseRect
