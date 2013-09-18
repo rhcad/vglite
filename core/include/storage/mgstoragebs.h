@@ -9,7 +9,7 @@
 #include "mgstorage.h"
 
 //! 供SWIG输出给其他语言用的序列化基类
-/*! \ingroup CORE_SHAPE
+/*! \ingroup CORE_STORAGE
  */
 class MgStorageBase : public MgStorage
 {

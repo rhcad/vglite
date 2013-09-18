@@ -10,8 +10,6 @@ using System.Drawing;
 namespace touchvg.view
 {
     //! WPF绘图图像源的缓存类
-    /*! \ingroup GROUP_WPF
-     */
     public class WPFImageSourceHelper : IDisposable
     {
         [DllImport("gdi32.dll", SetLastError = true)]
@@ -19,9 +17,10 @@ namespace touchvg.view
 
         public static ImageSource BitmapToImageSource(Bitmap bitmap)
         {
-            IntPtr ip = bitmap.GetHbitmap();
+            IntPtr ip = null;
             BitmapSource bitmapSource = null;
             try {
+                ip = bitmap.GetHbitmap();
                 bitmapSource = Imaging.CreateBitmapSourceFromHBitmap(ip, IntPtr.Zero, 
                     Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
             }
@@ -84,13 +83,12 @@ namespace touchvg.view
             AddActionImage(18, Resource1.vg_ungroup);
             AddActionImage(19, Resource1.vg_overturn);
 
-            _handleImages = new ImageSource[4];
+            _handleImages = new ImageSource[5];
             _handleImages[0] = WPFImageSourceHelper.BitmapToImageSource(Resource1.vgdot1);
             _handleImages[1] = WPFImageSourceHelper.BitmapToImageSource(Resource1.vgdot2);
             _handleImages[2] = WPFImageSourceHelper.BitmapToImageSource(Resource1.vgdot3);
-            var tempBitmap = (System.Drawing.Bitmap)Resource1.vgdot3.Clone();
-            tempBitmap.RotateFlip(System.Drawing.RotateFlipType.Rotate180FlipY);
-            _handleImages[3] = WPFImageSourceHelper.BitmapToImageSource(tempBitmap);
+            _handleImages[3] = WPFImageSourceHelper.BitmapToImageSource(Resource1.vg_lock);
+            _handleImages[4] = WPFImageSourceHelper.BitmapToImageSource(Resource1.vg_unlock);
         }
 
         private void AddActionImage(int key, Bitmap bitmap)

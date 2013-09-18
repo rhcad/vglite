@@ -5,6 +5,7 @@
 #import "GiGraphViewImpl.h"
 #import <QuartzCore/CALayer.h>
 #include <math.h>
+#include "demotrade.h"
 
 #pragma mark - GiViewAdapter implementation
 
@@ -12,6 +13,7 @@ GiViewAdapter::GiViewAdapter(UIView *mainView, GiCoreView *coreView)
 : _view(mainView), _dynview(nil), _tmpshot(nil), _drawCount(0) {
     _coreView = new GiCoreView(coreView);
     memset(&respondsTo, 0, sizeof(respondsTo));
+    DemoTrade::registerCmds();
 }
 
 GiViewAdapter::~GiViewAdapter() {

@@ -39,6 +39,7 @@ MgCommand* mgCreateCoreCommand(const char* name)
         { MgCmdDrawLines::Name(), MgCmdDrawLines::Create },
         { MgCmdDrawFreeLines::Name(), MgCmdDrawFreeLines::Create },
         { MgCmdDrawSplines::Name(), MgCmdDrawSplines::Create },
+		{ MgCmdDrawSplineMouse::Name(), MgCmdDrawSplineMouse::Create },
         { MgCmdDrawTriangle::Name(), MgCmdDrawTriangle::Create },
         { MgCmdParallelogram::Name(), MgCmdParallelogram::Create },
         { MgCmdDrawGrid::Name(), MgCmdDrawGrid::Create },
@@ -66,7 +67,7 @@ MgCommand* mgCreateCoreCommand(const char* name)
  */
 MgShape* mgAddImageShape(const MgMotion* sender, const char* name, float width, float height)
 {
-    if (!name || width < 1 || height < 1)
+    if (!name || *name == 0 || width < 1 || height < 1)
         return NULL;
     
     Vector2d size(Vector2d(width, height) * sender->view->xform()->displayToWorld());

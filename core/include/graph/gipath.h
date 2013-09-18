@@ -9,8 +9,6 @@
 #include "mgpnt.h"
 
 class GiPathImpl;
-class GiGraphics;
-class GiContext;
 
 //! 矢量路径节点类型
 /*! \see GiPath
@@ -25,7 +23,7 @@ typedef enum {
 //! 矢量路径类
 /*!
     \ingroup GRAPH_INTERFACE
-    \see GiPathNode
+    \see GiGraphics, GiPathNode
 */
 class GiPath
 {
@@ -107,7 +105,7 @@ public:
     */
     bool linesTo(int count, const Point2d* points);
 
-    //! 添加绘制贝塞尔曲线到新位置的指令节点
+    //! 添加绘制三次贝塞尔曲线到新位置的指令节点
     /*!
         \param count 曲线控制点的点数，不含起点，必须为3的倍数
         \param points 曲线控制点的位置的数组，不含起点，元素个数为count
@@ -137,9 +135,6 @@ public:
         \return 是否正确添加
     */
     bool closeFigure();
-
-    //! 绘制路径
-    bool draw(GiGraphics& gs, const GiContext* ctx, bool fill);
 
 private:
     GiPathImpl*   m_data;

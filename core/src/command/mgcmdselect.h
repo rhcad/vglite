@@ -27,6 +27,7 @@ public:
 public:
     virtual int getSelection(MgView* view, int count, MgShape** shapes, bool forChange = false);
     virtual MgSelState getSelectState(MgView* view);
+    virtual int getSelectType(MgView* view);
     virtual bool selectAll(const MgMotion* sender);
     virtual bool deleteSelection(const MgMotion* sender);
     virtual bool cloneSelection(const MgMotion* sender);

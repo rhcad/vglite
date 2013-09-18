@@ -8,6 +8,7 @@
 
 #include "gixform.h"
 #include "gicontxt.h"
+#include "gipath.h"
 
 #ifndef SWIG
 class GiGraphicsImpl;
@@ -295,6 +296,10 @@ public:
     */
     bool drawClosedBSplines(const GiContext* ctx, 
         int count, const Point2d* ctlpts, bool modelUnit = true);
+
+    //! 显示路径对象
+    bool drawPath(const GiContext* ctx, const GiPath& path, 
+        bool fill, bool modelUnit = true);
     
     //! 在给定中心位置显示特殊符号
     /*!

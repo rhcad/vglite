@@ -6,7 +6,7 @@
 #include <mgselect.h>
 #include <mgshapetype.h>
 #include <mglog.h>
-#include <tradecmd.h>
+#include "tradecmd.h"
 
 bool MgCmdManagerImpl::showInDrawing(const MgMotion* sender, const MgShape* shape)
 {
@@ -117,7 +117,7 @@ bool MgCmdManagerImpl::showInSelect(const MgMotion* sender, int selState, const 
 bool MgCmdManagerImpl::doAction(const MgMotion* sender, int action)
 {
     MgView* view = sender->view;
-    MgSelection *sel = getSelection(view);
+    MgSelection *sel = getSelection();
     bool ret = false;
     
     switch (action) {

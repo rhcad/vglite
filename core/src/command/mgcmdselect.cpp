@@ -12,7 +12,7 @@
 #include <mgaction.h>
 #include <mgshapetype.h>
 #include <mgcomposite.h>
-#include <tradecmd.h>
+#include "tradecmd.h"
 
 extern int g_newShapeID;     // 用于进入命令时自动选中图形
 
@@ -33,8 +33,8 @@ int MgCmdSelect::getSelection(MgView* view, int count,
         return maxCount;
     
     count = mgMin(count, maxCount);
-	MgShapesLock locker(MgShapesLock::ReadOnly, 
-		m_clones.empty() && count > 0 ? view->doc() : NULL);
+    MgShapesLock locker(MgShapesLock::ReadOnly, 
+        m_clones.empty() && count > 0 ? view->doc() : NULL);
 
     for (int i = 0; i < count; i++) {
         if (m_clones.empty()) {
@@ -1047,6 +1047,28 @@ MgSelState MgCmdSelect::getSelectState(MgView* view)
     }
     
     return state;
+}
+
+int MgCmdSelect::getSelectType(MgView* view)
+{
+    int n = getSelection(view, 0, NULL);
+    int type = 0;
+    std::vector<MgShape*> arr(n, (MgShape*)0);
+
+    if (n > 0) {
+        n = getSelection(view, n, (MgShape**)&arr.front());
+        for (int i = 0; i < n; i++) {
+            if (type == 0) {
+                type = arr[i]->shapec()->getType();
+            }
+            else if (type != arr[i]->shapec()->getType()) {
+                type = kMgShapeMultiType;
+                break;
+            }
+        }
+    }
+
+    return type;
 }
 
 bool MgCmdSelect::selectAll(const MgMotion* sender)

@@ -1012,6 +1012,52 @@ bool GiGraphics::drawClosedBSplines(const GiContext* ctx,
     return ret;
 }
 
+bool GiGraphics::drawPath(const GiContext* ctx, const GiPath& path, 
+                          bool fill, bool modelUnit)
+{
+    int n = path.getCount();
+    if (n == 0)
+        return false;
+
+    Matrix2d matD(S2D(xf(), modelUnit));
+    const Point2d* pts = path.getPoints();
+    const char* types = path.getTypes();
+    Point2d a, b, c;
+
+    rawBeginPath();
+
+    for (int i = 0; i < n; i++) {
+        switch (types[i] & ~kGiCloseFigure) {
+        case kGiMoveTo:
+            a = pts[i] * matD;
+            rawMoveTo(a.x, a.y);
+            break;
+
+        case kGiLineTo:
+            a = pts[i] * matD;
+            rawLineTo(a.x, a.y);
+            break;
+
+        case kGiBeziersTo:
+            if (i + 2 >= n)
+                return false;
+            a = pts[i] * matD;
+            b = pts[i+1] * matD;
+            c = pts[i+2] * matD;
+            rawBezierTo(a.x, a.y, b.x, b.y, c.x, c.y);
+            i += 2;
+            break;
+
+        default:
+            return false;
+        }
+        if (types[i] & kGiCloseFigure)
+            rawClosePath();
+    }
+
+    return rawEndPath(ctx, fill);
+}
+
 bool GiGraphics::setPen(const GiContext* ctx)
 {
     bool changed = !(m_impl->ctxused & 1);

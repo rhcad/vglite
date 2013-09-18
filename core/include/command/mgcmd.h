@@ -120,7 +120,7 @@ struct MgCmdManager {
     virtual bool dynamicChangeEnded(MgView* view, bool apply) = 0;
     
     //! 返回选择集对象
-    virtual MgSelection* getSelection(MgView* view) = 0;
+    virtual MgSelection* getSelection() = 0;
     
     //! 返回上下文动作分发对象
     virtual MgActionDispatcher* getActionDispatcher() = 0;

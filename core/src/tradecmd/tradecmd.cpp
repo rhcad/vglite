@@ -1,10 +1,22 @@
 // tradecmd.cpp
 #include "tradecmd.h"
+#include "demotrade_.h"
+#include <mgcmd.h>
 
-void mgRegisterTradeCmds()
+void DemoTrade_::registerCmds()
 {
     //MgShapeT<MgCube>::registerCreator();
-    //registerCommand<MgCmdDrawCube>();
+    //mgRegisterCommand<MgCmdDrawCube>();
+}
+
+int DemoTrade_::getDimensions(MgView* view, float* vars, char* types, int n)
+{
+    MgCommand* cmd = view->cmds()->getCommand();
+    for (int i = 0; i < n; i++) {
+        vars[i] = 0;
+        types[i] = 0;
+    }
+    return cmd ? cmd->getDimensions(view, vars, types, n) : 0;
 }
 
 void TradeCmd::onUnloadCommands()

@@ -15,7 +15,7 @@
 class MgCmdDrawSplines : public MgCommandDraw
 {
 protected:
-    MgCmdDrawSplines();
+    MgCmdDrawSplines(bool freehand = true);
     virtual ~MgCmdDrawSplines();
 
 public:
@@ -41,6 +41,21 @@ private:
     bool canAddPoint(const MgMotion* sender, bool ended);
     
     bool    m_freehand;
+};
+
+//! 用点击绘制样条曲线的命令类
+/*! \ingroup CORE_COMMAND
+    \see MgSplines
+*/
+class MgCmdDrawSplineMouse : public MgCmdDrawSplines
+{
+protected:
+    MgCmdDrawSplineMouse() : MgCmdDrawSplines(false) {}
+    virtual ~MgCmdDrawSplineMouse() {}
+
+public:
+    static const char* Name() { return "spline_mouse"; }
+    static MgCommand* Create() { return new MgCmdDrawSplineMouse; }
 };
 
 #endif // __GEOMETRY_MGCOMMAND_DRAW_SPLINES_H_

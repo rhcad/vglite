@@ -35,6 +35,7 @@ typedef enum {
 
 class MgMotion;
 class MgShape;
+class Box2d;
 
 //! 上下文动作分发接口
 /*! \ingroup CORE_COMMAND

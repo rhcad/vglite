@@ -6,7 +6,7 @@
 #include <mgshapet.h>
 #include <mgbasicsp.h>
 
-MgCmdDrawSplines::MgCmdDrawSplines() : m_freehand(true)
+MgCmdDrawSplines::MgCmdDrawSplines(bool freehand) : m_freehand(freehand)
 {
 }
 
@@ -16,7 +16,6 @@ MgCmdDrawSplines::~MgCmdDrawSplines()
 
 bool MgCmdDrawSplines::initialize(const MgMotion* sender)
 {
-    m_freehand = sender->view->useFinger();
     return _initialize(MgShapeT<MgSplines>::create, sender);
 }
 
@@ -61,7 +60,6 @@ bool MgCmdDrawSplines::touchBegan(const MgMotion* sender)
         lines->resize(2);
         lines->setClosed(false);
         m_step = 1;
-        m_freehand = sender->view->useFinger();
         Point2d pnt(m_freehand ? sender->startPtM : snapPoint(sender, true));
         dynshape()->shape()->setPoint(0, pnt);
         dynshape()->shape()->setPoint(1, pnt);

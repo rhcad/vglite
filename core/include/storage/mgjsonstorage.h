@@ -12,7 +12,7 @@
 struct MgStorage;
 
 //! JSON序列化类
-/*! \ingroup CORE_SHAPE
+/*! \ingroup CORE_STORAGE
  */
 class MgJsonStorage
 {

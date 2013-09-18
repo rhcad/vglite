@@ -28,6 +28,7 @@ protected:
     virtual void setStepPoint(int step, const Point2d& pt);
     virtual bool initialize(const MgMotion* sender);
     virtual bool draw(const MgMotion* sender, GiGraphics* gs);
+    virtual void drawArcHandle(const MgMotion* sender, GiGraphics* gs);
     
 protected:
     Point2d _points[3];

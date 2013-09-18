@@ -4,7 +4,6 @@
 
 #include "mgbasicsp.h"
 #include <mgshape_.h>
-#include <mgstorage.h>
 #include <mglog.h>
 
 MG_IMPLEMENT_CREATE(MgEllipse)

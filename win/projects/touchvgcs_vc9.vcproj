@@ -411,6 +411,10 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath="..\..\core\include\view\demotrade.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\core\include\canvas\gicanvas.h"
 				>
 			</File>
@@ -792,6 +796,10 @@
 				Name="tradecmd"
 				>
 				<File
+					RelativePath="..\..\core\include\tradecmd\demotrade_.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\core\src\tradecmd\tradecmd.cpp"
 					>
 				</File>
@@ -803,6 +811,10 @@
 			<Filter
 				Name="view"
 				>
+				<File
+					RelativePath="..\..\core\src\view\demotrade.cpp"
+					>
+				</File>
 				<File
 					RelativePath="..\..\core\src\view\GcBaseView.h"
 					>

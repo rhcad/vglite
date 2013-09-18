@@ -10,6 +10,8 @@
 class GiViewAdapter;
 
 //! 动态图形的绘图视图类
+/*! \class IosTempView
+ */
 @interface IosTempView : UIView {
     GiViewAdapter   *_adapter;
 }
@@ -52,12 +54,16 @@ public:
                                     float x, float y, float w, float h);
     virtual void commandChanged();
     virtual void selectionChanged();
+    virtual void contentChanged();
     
     bool dispatchGesture(GiGestureType gestureType, GiGestureState gestureState, CGPoint pt);
     bool dispatchPan(GiGestureState gestureState, CGPoint pt, bool switchGesture = false);
     bool twoFingersMove(UIGestureRecognizer *sender, int state = -1, bool switchGesture = false);
 };
 
+/*! \category GiGraphView()
+    \brief GiGraphView 的内部实现定义
+ */
 @interface GiGraphView()<UIGestureRecognizerDelegate> {
     GiViewAdapter   *_adapter;              //!< 视图回调适配器
     
@@ -81,6 +87,9 @@ public:
 
 @end
 
+/*! \category GiGraphView(GestureRecognizer)
+    \brief 手势响应实现部分
+ */
 @interface GiGraphView(GestureRecognizer)
 
 - (void)setupGestureRecognizers;

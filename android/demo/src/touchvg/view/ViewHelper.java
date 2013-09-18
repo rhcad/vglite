@@ -8,6 +8,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import touchvg.jni.Chars;
+import touchvg.jni.DemoTrade;
+import touchvg.jni.Floats;
 import touchvg.jni.GiContextBits;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -235,5 +238,22 @@ public class ViewHelper {
             }
         }
         return true;
+    }
+    
+    //! 得到当前图形的各种度量尺寸
+    public String getDimensions(float[] vars) {
+        Floats v = new Floats(vars.length);
+        Chars types = new Chars(vars.length);
+        int n = DemoTrade.getDimensions(mView.coreView(), v, types);
+        
+        if (n > 0) {
+            StringBuffer buf = new StringBuffer(n);
+            for (int i = 0; i < n; i++) {
+                buf.setCharAt(i, types.get(i));
+                vars[i] = v.get(i);
+            }
+            return buf.toString();
+        }
+        return "";
     }
 }

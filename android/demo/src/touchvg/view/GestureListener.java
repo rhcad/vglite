@@ -13,8 +13,6 @@ import android.view.MotionEvent;
 import android.view.View;
 
 //! Android绘图手势识别类
-/*! \ingroup GROUP_ANDROID
- */
 public class GestureListener extends SimpleOnGestureListener {
     private static final int STOPPED = 0;
     private static final int READY_MOVE = 1;

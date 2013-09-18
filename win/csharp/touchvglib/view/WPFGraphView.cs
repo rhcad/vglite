@@ -31,6 +31,7 @@ namespace touchvg.view
             this.CoreView = new GiCoreView();
             this._view = new WPFViewAdapter(this);
             this.CoreView.createView(this._view);
+            DemoTrade.registerCmds();
 
             MainCanvas = new WPFMainCanvas(this.CoreView, _view) { Width = container.ActualWidth, Height = container.ActualHeight };
             TempCanvas = new WPFTempCanvas(this.CoreView, _view) { Width = container.ActualWidth, Height = container.ActualHeight };

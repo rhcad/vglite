@@ -186,6 +186,9 @@
     <ClCompile Include="..\..\core\src\json\mgjsonstorage.cpp">
       <Filter>Source Files\storage</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\core\src\view\demotrade.cpp">
+      <Filter>Source Files\view</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\swig\touchvg_csharp_wrap.h">
@@ -366,6 +369,12 @@
       <Filter>Source Files\shape</Filter>
     </ClInclude>
     <ClInclude Include="..\..\core\include\tradecmd\tradecmd.h">
+      <Filter>Source Files\tradecmd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\core\include\view\demotrade.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\core\include\tradecmd\demotrade_.h">
       <Filter>Source Files\tradecmd</Filter>
     </ClInclude>
   </ItemGroup>

@@ -33,6 +33,9 @@ struct MgSelection {
     
     //! 返回选择状态
     virtual MgSelState getSelectState(MgView* view) = 0;
+
+    //! 返回选中的图形的类型, MgShapeType
+    virtual int getSelectType(MgView* view) = 0;
     
     //! 选中所有图形
     virtual bool selectAll(const MgMotion* sender) = 0;

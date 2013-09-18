@@ -8,8 +8,6 @@ using touchvg.core;
 namespace touchvg.view
 {
     //! WPF静态图形画布视图类
-    /*! \ingroup GROUP_WPF
-     */
     public class WPFMainCanvas : Canvas
     {
         GiCoreView _coreView;
@@ -44,8 +42,6 @@ namespace touchvg.view
     }
 
     //! WPF动态图形画布视图类
-    /*! \ingroup GROUP_WPF
-     */
     public class WPFTempCanvas : Canvas
     {
         GiCoreView _coreView;

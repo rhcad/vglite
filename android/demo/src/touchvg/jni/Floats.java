@@ -8,16 +8,16 @@
 
 package touchvg.jni;
 
-public class Ints {
+public class Floats {
   private long swigCPtr;
   protected boolean swigCMemOwn;
 
-  protected Ints(long cPtr, boolean cMemoryOwn) {
+  protected Floats(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(Ints obj) {
+  protected static long getCPtr(Floats obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
@@ -29,26 +29,26 @@ public class Ints {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        touchvgJNI.delete_Ints(swigCPtr);
+        touchvgJNI.delete_Floats(swigCPtr);
       }
       swigCPtr = 0;
     }
   }
 
-  public Ints(int n) {
-    this(touchvgJNI.new_Ints(n), true);
+  public Floats(int n) {
+    this(touchvgJNI.new_Floats(n), true);
   }
 
   public int count() {
-    return touchvgJNI.Ints_count(swigCPtr, this);
+    return touchvgJNI.Floats_count(swigCPtr, this);
   }
 
-  public int get(int index) {
-    return touchvgJNI.Ints_get(swigCPtr, this, index);
+  public float get(int index) {
+    return touchvgJNI.Floats_get(swigCPtr, this, index);
   }
 
-  public void set(int index, int value) {
-    touchvgJNI.Ints_set(swigCPtr, this, index, value);
+  public void set(int index, float value) {
+    touchvgJNI.Floats_set(swigCPtr, this, index, value);
   }
 
 }

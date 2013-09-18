@@ -4,9 +4,7 @@
 
 #include "gipath.h"
 #include <mgcurv.h>
-
 #include <vector>
-using std::vector;
 
 // 返回STL数组(vector)变量的元素个数
 template<class T> inline static int getSize(T& arr)
@@ -96,12 +94,12 @@ int GiPath::getCount() const
 
 const Point2d* GiPath::getPoints() const
 {
-    return m_data->points.size() > 0 ? &m_data->points.front() : NULL;
+    return m_data->points.empty() ? NULL : &m_data->points.front();
 }
 
 const char* GiPath::getTypes() const
 {
-    return m_data->types.size() > 0 ? &m_data->types.front() : NULL;
+    return m_data->types.empty() ? NULL : &m_data->types.front();
 }
 
 void GiPath::clear()
@@ -351,54 +349,6 @@ bool GiPath::genericRoundLines(int count, const Point2d* points,
         this->closeFigure();
     else
         this->lineTo(points[count - 1]);
-
-    return true;
-}
-
-#include <gigraph.h>
-
-bool GiPath::draw(GiGraphics& gs, const GiContext* ctx, bool fill)
-{
-    Matrix2d matD(gs.xf().modelToDisplay());
-    Point2d a, b, c;
-
-    if (m_data->points.empty() || m_data->points.size() != m_data->types.size())
-        return false;
-
-    gs.rawBeginPath();
-
-    for (size_t i = 0; i < m_data->points.size(); i++)
-    {
-        switch (m_data->types[i] & ~kGiCloseFigure)
-       {
-       case kGiMoveTo:
-           a = m_data->points[i] * matD;
-           gs.rawMoveTo(a.x, a.y);
-           break;
-
-       case kGiLineTo:
-           a = m_data->points[i] * matD;
-           gs.rawLineTo(a.x, a.y);
-           break;
-
-       case kGiBeziersTo:
-           if (i + 2 >= m_data->points.size())
-               return false;
-           a = m_data->points[i] * matD;
-           b = m_data->points[i+1] * matD;
-           c = m_data->points[i+2] * matD;
-           gs.rawBezierTo(a.x, a.y, b.x, b.y, c.x, c.y);
-           i += 2;
-           break;
-
-       default:
-           return false;
-       }
-       if (m_data->types[i] & kGiCloseFigure)
-           gs.rawClosePath();
-   }
-
-    gs.rawEndPath(ctx, fill);
 
     return true;
 }

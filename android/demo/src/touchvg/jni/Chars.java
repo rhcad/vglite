@@ -8,16 +8,16 @@
 
 package touchvg.jni;
 
-public class Ints {
+public class Chars {
   private long swigCPtr;
   protected boolean swigCMemOwn;
 
-  protected Ints(long cPtr, boolean cMemoryOwn) {
+  protected Chars(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(Ints obj) {
+  protected static long getCPtr(Chars obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
@@ -29,26 +29,26 @@ public class Ints {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        touchvgJNI.delete_Ints(swigCPtr);
+        touchvgJNI.delete_Chars(swigCPtr);
       }
       swigCPtr = 0;
     }
   }
 
-  public Ints(int n) {
-    this(touchvgJNI.new_Ints(n), true);
+  public Chars(int n) {
+    this(touchvgJNI.new_Chars(n), true);
   }
 
   public int count() {
-    return touchvgJNI.Ints_count(swigCPtr, this);
+    return touchvgJNI.Chars_count(swigCPtr, this);
   }
 
-  public int get(int index) {
-    return touchvgJNI.Ints_get(swigCPtr, this, index);
+  public char get(int index) {
+    return touchvgJNI.Chars_get(swigCPtr, this, index);
   }
 
-  public void set(int index, int value) {
-    touchvgJNI.Ints_set(swigCPtr, this, index, value);
+  public void set(int index, char value) {
+    touchvgJNI.Chars_set(swigCPtr, this, index, value);
   }
 
 }

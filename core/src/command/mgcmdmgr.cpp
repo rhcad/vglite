@@ -5,7 +5,7 @@
 #include "mgcmdmgr.h"
 #include "mgcmdselect.h"
 #include <mggrid.h>
-#include <tradecmd.h>
+#include "tradecmd.h"
 
 MgCommand* mgCreateCoreCommand(const char* name);
 
@@ -89,7 +89,7 @@ bool MgCmdManagerImpl::setCommand(const MgMotion* sender, const char* name)
     MgCommand* cmd = findCommand(name);
     
     if (strcmp(name, "erase") == 0 && _cmdname == "select") {   // 在选择命令中点橡皮擦
-        MgSelection *sel = getSelection(sender->view);
+        MgSelection *sel = getSelection();
         if (sel && sel->deleteSelection(sender)) {      // 直接删除选中的图形
             return false;                               // 不切换到橡皮擦命令
         }
@@ -165,7 +165,7 @@ bool MgCmdManagerImpl::dynamicChangeEnded(MgView* view, bool apply)
     return changed;
 }
 
-MgSelection* MgCmdManagerImpl::getSelection(MgView*)
+MgSelection* MgCmdManagerImpl::getSelection()
 {
     return (MgCmdSelect*)findCommand(MgCmdSelect::Name());
 }

@@ -54,6 +54,7 @@
 		AE91B96017CF228B00253178 /* mgdrawarc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE91B95F17CF228B00253178 /* mgdrawarc.cpp */; };
 		AEADC21F16EB570800484962 /* LargeView1.mm in Sources */ = {isa = PBXBuildFile; fileRef = AEADC21E16EB570800484962 /* LargeView1.mm */; };
 		AEB27EF51785737E00761059 /* mglayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AEB27EF41785737E00761059 /* mglayer.cpp */; };
+		AED6020B17E86262004D74FF /* demotrade.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AED6020A17E86262004D74FF /* demotrade.cpp */; };
 		AEF20B7317953B3E00CC6FD5 /* mgactions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AEF20B5D17953B3E00CC6FD5 /* mgactions.cpp */; };
 		AEF20B7617953B3E00CC6FD5 /* mgcmddraw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AEF20B6117953B3E00CC6FD5 /* mgcmddraw.cpp */; };
 		AEF20B7717953B3E00CC6FD5 /* mgcmderase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AEF20B6217953B3E00CC6FD5 /* mgcmderase.cpp */; };
@@ -193,12 +194,14 @@
 		AE75570417E6F9B700EEE81A /* GiCanvasAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GiCanvasAdapter.h; path = ../../view/include/GiCanvasAdapter.h; sourceTree = "<group>"; };
 		AE75570517E6F9B700EEE81A /* GiGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GiGraphView.h; path = ../../view/include/GiGraphView.h; sourceTree = "<group>"; };
 		AE75570617E6F9B700EEE81A /* GiViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GiViewHelper.h; path = ../../view/include/GiViewHelper.h; sourceTree = "<group>"; };
-		AE7BBDB817C5B8BD00F70FDB /* tradecmd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tradecmd.h; path = ../../include/tradecmd/tradecmd.h; sourceTree = "<group>"; };
 		AE815F341718EDCB006BC607 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		AE91B95F17CF228B00253178 /* mgdrawarc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mgdrawarc.cpp; sourceTree = "<group>"; };
 		AEADC21D16EB570800484962 /* LargeView1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LargeView1.h; sourceTree = "<group>"; };
 		AEADC21E16EB570800484962 /* LargeView1.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LargeView1.mm; sourceTree = "<group>"; };
 		AEB27EF41785737E00761059 /* mglayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mglayer.cpp; sourceTree = "<group>"; };
+		AED6020617E86241004D74FF /* demotrade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = demotrade.h; sourceTree = "<group>"; };
+		AED6020917E86254004D74FF /* demotrade_.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = demotrade_.h; sourceTree = "<group>"; };
+		AED6020A17E86262004D74FF /* demotrade.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = demotrade.cpp; sourceTree = "<group>"; };
 		AED77F9D17E021FE00B182A9 /* giview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = giview.h; sourceTree = "<group>"; };
 		AED77F9E17E021FE00B182A9 /* mgvector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mgvector.h; sourceTree = "<group>"; };
 		AEEF796717D86D1900B57909 /* mgdrawrect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mgdrawrect.h; sourceTree = "<group>"; };
@@ -354,6 +357,7 @@
 		AE06FEBD17D7323F004E8ED8 /* tradecmd */ = {
 			isa = PBXGroup;
 			children = (
+				AED6020917E86254004D74FF /* demotrade_.h */,
 				AE06FEBE17D7323F004E8ED8 /* tradecmd.h */,
 			);
 			path = tradecmd;
@@ -362,6 +366,7 @@
 		AE06FEBF17D7323F004E8ED8 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				AED6020617E86241004D74FF /* demotrade.h */,
 				AED77F9D17E021FE00B182A9 /* giview.h */,
 				AED77F9E17E021FE00B182A9 /* mgvector.h */,
 				AE06FEC017D7323F004E8ED8 /* gicoreview.h */,
@@ -555,6 +560,7 @@
 		AE1A76B51782E3D7007FB031 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				AED6020A17E86262004D74FF /* demotrade.cpp */,
 				AE2B50DD1797F108006A1E80 /* GcBaseView.h */,
 				AE2B50DE1797F108006A1E80 /* GcGraphView.h */,
 				AE2B50DF1797F108006A1E80 /* GcMagnifierView.h */,
@@ -570,7 +576,6 @@
 		AE4206DE17C4C8BC00E992F4 /* tradecmd */ = {
 			isa = PBXGroup;
 			children = (
-				AE7BBDB817C5B8BD00F70FDB /* tradecmd.h */,
 				AE4206DF17C4C8BC00E992F4 /* tradecmd.cpp */,
 			);
 			path = tradecmd;
@@ -797,6 +802,7 @@
 				AE75570117E6F9AC00EEE81A /* GiGestureHandler.mm in Sources */,
 				AE75570217E6F9AC00EEE81A /* GiGraphView.mm in Sources */,
 				AE75570317E6F9AC00EEE81A /* GiViewHelper.mm in Sources */,
+				AED6020B17E86262004D74FF /* demotrade.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

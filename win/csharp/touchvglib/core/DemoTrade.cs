@@ -11,20 +11,20 @@ namespace touchvg.core {
 using System;
 using System.Runtime.InteropServices;
 
-public class Ints : IDisposable {
+public class DemoTrade : IDisposable {
   private HandleRef swigCPtr;
   protected bool swigCMemOwn;
 
-  internal Ints(IntPtr cPtr, bool cMemoryOwn) {
+  internal DemoTrade(IntPtr cPtr, bool cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = new HandleRef(this, cPtr);
   }
 
-  internal static HandleRef getCPtr(Ints obj) {
+  internal static HandleRef getCPtr(DemoTrade obj) {
     return (obj == null) ? new HandleRef(null, IntPtr.Zero) : obj.swigCPtr;
   }
 
-  ~Ints() {
+  ~DemoTrade() {
     Dispose();
   }
 
@@ -33,7 +33,7 @@ public class Ints : IDisposable {
       if (swigCPtr.Handle != IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          touchvgcsPINVOKE.delete_Ints(swigCPtr);
+          touchvgcsPINVOKE.delete_DemoTrade(swigCPtr);
         }
         swigCPtr = new HandleRef(null, IntPtr.Zero);
       }
@@ -41,21 +41,17 @@ public class Ints : IDisposable {
     }
   }
 
-  public Ints(int n) : this(touchvgcsPINVOKE.new_Ints(n), true) {
+  public static void registerCmds() {
+    touchvgcsPINVOKE.DemoTrade_registerCmds();
   }
 
-  public int count() {
-    int ret = touchvgcsPINVOKE.Ints_count(swigCPtr);
+  public static int getDimensions(GiCoreView coreView, Floats vars, Chars types) {
+    int ret = touchvgcsPINVOKE.DemoTrade_getDimensions(GiCoreView.getCPtr(coreView), Floats.getCPtr(vars), Chars.getCPtr(types));
+    if (touchvgcsPINVOKE.SWIGPendingException.Pending) throw touchvgcsPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public int get(int index) {
-    int ret = touchvgcsPINVOKE.Ints_get(swigCPtr, index);
-    return ret;
-  }
-
-  public void set(int index, int value) {
-    touchvgcsPINVOKE.Ints_set(swigCPtr, index, value);
+  public DemoTrade() : this(touchvgcsPINVOKE.new_DemoTrade(), true) {
   }
 
 }

@@ -8,12 +8,14 @@
 #include "mgcmd.h"
 #include <RandomShape.h>
 #include <mgjsonstorage.h>
-#include <tradecmd.h>
-#include <mgshapetype.h>
+#include "tradecmd.h"
+#include <mgselect.h>
 
 #define CALL_VIEW(func) if (curview) curview->func
 #define CALL_VIEW2(func, v) curview ? curview->func : v
+
 MgCmdManager* mgCreateCmdManager();
+MgShape* mgAddImageShape(const MgMotion* sender, const char* name, float width, float height);
 
 class GiCoreViewImpl : public MgView
 {
@@ -166,23 +168,23 @@ class DrawLocker
     GiCoreViewImpl* _impl;
 public:
     DrawLocker(GiCoreViewImpl* impl) : _impl(impl) {
-		if (_impl->regenPending >= 0
-			|| _impl->appendPending >= 0
-			|| _impl->redrawPending >= 0)
-		{
-			_impl = NULL;
-		}
-		else {
-			_impl->regenPending = 0;
-			_impl->appendPending = 0;
-			_impl->redrawPending = 0;
-		}
+        if (_impl->regenPending >= 0
+            || _impl->appendPending >= 0
+            || _impl->redrawPending >= 0)
+        {
+            _impl = NULL;
+        }
+        else {
+            _impl->regenPending = 0;
+            _impl->appendPending = 0;
+            _impl->redrawPending = 0;
+        }
     }
 
     ~DrawLocker() {
-		if (!_impl) {
-			return;
-		}
+        if (!_impl) {
+            return;
+        }
         long regenPending = _impl->regenPending;
         long appendPending = _impl->appendPending;
         long redrawPending = _impl->redrawPending;
@@ -487,36 +489,20 @@ int GiCoreView::getShapeCount()
 
 int GiCoreView::getSelectedShapeCount()
 {
-	return impl->cmds()->getSelection(impl, 0, NULL);
+    return impl->cmds()->getSelection(impl, 0, NULL);
 }
 
 int GiCoreView::getSelectedShapeType()
 {
-	int n = impl->cmds()->getSelection(impl, 0, NULL);
-	int type = 0;
-	std::vector<MgShape*> arr(n, (MgShape*)0);
-
-	if (n > 0) {
-		n = impl->cmds()->getSelection(impl, n, (MgShape**)&arr.front());
-		for (int i = 0; i < n; i++) {
-			if (type == 0) {
-				type = arr[i]->shapec()->getType();
-			}
-			else if (type != arr[i]->shapec()->getType()) {
-				type = kMgShapeMultiType;
-				break;
-			}
-		}
-	}
-
-	return type;
+    MgSelection* sel = impl->cmds()->getSelection();
+    return sel ? sel->getSelectType(impl) : 0;
 }
 
 static bool loadShapes(GiCoreViewImpl* impl, MgStorage* s)
 {
     bool ret = true;
 
-	impl->_cmds->setCommand(&impl->motion, impl->_cmds->getCommandName());
+    impl->_cmds->setCommand(&impl->motion, impl->_cmds->getCommandName());
 
     if (s) {
         MgShapesLock locker(MgShapesLock::Load, impl->doc());
@@ -527,7 +513,7 @@ static bool loadShapes(GiCoreViewImpl* impl, MgStorage* s)
         impl->doc()->clear();
     }
     impl->regenAll();
-	TradeCmd::onDocLoaded(&impl->motion);
+    TradeCmd::onDocLoaded(&impl->motion);
 
     return ret;
 }
@@ -554,7 +540,7 @@ void GiCoreView::freeContent()
 
 bool GiCoreView::setContent(const char* content)
 {
-	DrawLocker locker(impl);
+    DrawLocker locker(impl);
     bool ret = loadShapes(impl, impl->defaultStorage.storageForRead(content));
     impl->defaultStorage.clear();
     return ret;
@@ -568,7 +554,7 @@ bool GiCoreView::loadFromFile(const char* vgfile)
 #else
     FILE *fp = fopen(vgfile, "rt");
 #endif
-	DrawLocker locker(impl);
+    DrawLocker locker(impl);
     MgJsonStorage s;
     bool ret = loadShapes(impl, s.storageForRead(fp));
     
@@ -682,6 +668,11 @@ void GiCoreView::setContext(const GiContext& ctx, int mask, int apply)
     if (apply != 0) {
         impl->_cmds->dynamicChangeEnded(impl, apply > 0);
     }
+}
+
+bool GiCoreView::addImageShape(const char* name, float width, float height)
+{
+    return !!mgAddImageShape(&impl->motion, name, width, height);
 }
 
 bool GiCoreViewImpl::drawCommand(GcBaseView* view, const MgMotion& motion, GiGraphics& gs)

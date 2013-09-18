@@ -36,7 +36,7 @@ private:
     virtual void unloadCommands();
     virtual int getSelection(MgView* view, int count, MgShape** shapes, bool forChange = false);
     virtual bool dynamicChangeEnded(MgView* view, bool apply);
-    virtual MgSelection* getSelection(MgView* view);
+    virtual MgSelection* getSelection();
     virtual MgActionDispatcher* getActionDispatcher();
     virtual bool doContextAction(const MgMotion* sender, int action);
     virtual MgSnap* getSnap();

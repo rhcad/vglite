@@ -8,16 +8,16 @@
 
 package touchvg.jni;
 
-public class Ints {
+public class DemoTrade {
   private long swigCPtr;
   protected boolean swigCMemOwn;
 
-  protected Ints(long cPtr, boolean cMemoryOwn) {
+  protected DemoTrade(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(Ints obj) {
+  protected static long getCPtr(DemoTrade obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
@@ -29,26 +29,22 @@ public class Ints {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        touchvgJNI.delete_Ints(swigCPtr);
+        touchvgJNI.delete_DemoTrade(swigCPtr);
       }
       swigCPtr = 0;
     }
   }
 
-  public Ints(int n) {
-    this(touchvgJNI.new_Ints(n), true);
+  public static void registerCmds() {
+    touchvgJNI.DemoTrade_registerCmds();
   }
 
-  public int count() {
-    return touchvgJNI.Ints_count(swigCPtr, this);
+  public static int getDimensions(GiCoreView coreView, Floats vars, Chars types) {
+    return touchvgJNI.DemoTrade_getDimensions(GiCoreView.getCPtr(coreView), coreView, Floats.getCPtr(vars), vars, Chars.getCPtr(types), types);
   }
 
-  public int get(int index) {
-    return touchvgJNI.Ints_get(swigCPtr, this, index);
-  }
-
-  public void set(int index, int value) {
-    touchvgJNI.Ints_set(swigCPtr, this, index, value);
+  public DemoTrade() {
+    this(touchvgJNI.new_DemoTrade(), true);
   }
 
 }

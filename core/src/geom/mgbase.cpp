@@ -138,7 +138,7 @@ int mgbase::getGcd(int x, int y)
     return x;
 }
 
-// 四舍五入. 小数位[-6，7]. eg: mgRoundReal(1.25, 1)=1.3
+// 四舍五入. 小数位[-6，7]. eg: mgbase::roundReal(1.25, 1)=1.3
 float mgbase::roundReal(float value, int decimal)
 {
     if (decimal < -6) decimal = -6;

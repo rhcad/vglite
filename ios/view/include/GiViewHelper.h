@@ -44,4 +44,6 @@
 - (BOOL)zoomToModel:(CGRect)rect;           //!< 放缩显示指定范围到视图区域
 - (int)addShapesForTest;                    //!< 添加测试图形
 
+- (NSString *)getDimensions:(int)maxsize :(float*)vars; //!< 得到当前图形的各种度量尺寸
+
 @end

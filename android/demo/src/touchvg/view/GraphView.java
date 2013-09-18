@@ -6,6 +6,7 @@ package touchvg.view;
 
 import java.util.ArrayList;
 
+import touchvg.jni.DemoTrade;
 import touchvg.jni.GiCoreView;
 import touchvg.jni.GiView;
 import touchvg.jni.Ints;
@@ -56,6 +57,7 @@ public class GraphView extends View {
         mCanvasAdapter = new CanvasAdapter(this);
         mCanvasRegen = new CanvasAdapter(this);
         mViewAdapter = new ViewAdapter();
+        DemoTrade.registerCmds();
     }
 
     private void initView(Context context) {
@@ -267,8 +269,6 @@ public class GraphView extends View {
     }
 
     //! 视图回调适配器
-    /*! \ingroup GROUP_ANDROID
-     */
     private class ViewAdapter extends GiView {
         @Override
         public void regenAll() {

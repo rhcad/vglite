@@ -18,10 +18,13 @@
 #include "gicoreview.h"
 #include "gimousehelper.h"
 #include "testcanvas.h"
+#include "demotrade.h"
 %}
 
 %include "mgvector.h"
 %template(Ints) mgvector<int>;
+%template(Floats) mgvector<float>;
+%template(Chars) mgvector<char>;
 
 %feature("director") GiCanvas;
 %include "gicanvas.h"
@@ -39,6 +42,8 @@
 #ifndef __ANDROID__
 %include "gimousehelper.h"
 #endif
+
+%include "demotrade.h"
 
 #ifdef SWIGJAVA
 %{

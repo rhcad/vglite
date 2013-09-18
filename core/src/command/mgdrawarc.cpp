@@ -13,13 +13,18 @@ bool MgCmdArc3P::initialize(const MgMotion* sender)
     return _initialize(MgShapeT<MgArc>::create, sender);
 }
 
-bool MgCmdArc3P::draw(const MgMotion* sender, GiGraphics* gs)
+void MgCmdArc3P::drawArcHandle(const MgMotion*, GiGraphics* gs)
 {
     if (m_step > 0 && m_step < 3) {
         gs->drawHandle(_points[m_step], 1);
     }
+}
+
+bool MgCmdArc3P::draw(const MgMotion* sender, GiGraphics* gs)
+{
+    drawArcHandle(sender, gs);
     if (m_step > 0) {
-        GiContext ctx(0, GiColor(0, 126, 0, 64), kGiLineDashDot);
+        GiContext ctx(-3, GiColor(0, 126, 0, 32), kGiLineDashDot);
         gs->drawLine(&ctx, _points[0], _points[1]);
         MgArc* arc = (MgArc*)dynshape()->shape();
         gs->drawEllipse(&ctx, arc->getCenter(), arc->getRadius());

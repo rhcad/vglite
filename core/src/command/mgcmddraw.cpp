@@ -6,7 +6,7 @@
 #include <mgsnap.h>
 #include <mgselect.h>
 #include <mgaction.h>
-#include <tradecmd.h>
+#include "tradecmd.h"
 
 int      g_newShapeID = 0;
 

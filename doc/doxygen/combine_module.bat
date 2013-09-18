@@ -9,6 +9,7 @@ xcopy ..\..\core\include\storage\*.h %destpath%\storage\ /Y
 xcopy ..\..\core\include\command\*.h %destpath%\command\ /Y
 xcopy ..\..\core\include\canvas\*.h %destpath%\canvas\ /Y
 xcopy ..\..\core\include\view\*.h %destpath%\view\ /Y
+xcopy ..\..\core\include\tradecmd\*.h %destpath%\tradecmd\ /Y
 
 xcopy ..\..\core\src\geom\*.h %destpath%\geom\ /Y
 xcopy ..\..\core\src\geom\*.cpp %destpath%\geom\ /Y
@@ -22,6 +23,8 @@ xcopy ..\..\core\src\json\*.h %destpath%\json\ /Y
 xcopy ..\..\core\src\json\*.cpp %destpath%\json\ /Y
 xcopy ..\..\core\src\view\*.h %destpath%\view\ /Y
 xcopy ..\..\core\src\view\*.cpp %destpath%\view\ /Y
+xcopy ..\..\core\src\tradecmd\*.h %destpath%\demotrade\ /Y
+xcopy ..\..\core\src\tradecmd\*.cpp %destpath%\demotrade\ /Y
 move /Y %destpath%\storage\mgjsonstorage.h %destpath%\json\
 
 rem xcopy ..\..\win\include\canvas\*.h %destpath%\winview\ /Y

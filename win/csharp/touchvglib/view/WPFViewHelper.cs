@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Media;
 using touchvg.core;
+using System.Text;
 
 namespace touchvg.view
 {
@@ -188,6 +189,26 @@ namespace touchvg.view
         public bool Save(string vgfile)
         {
             return CoreView.saveToFile(vgfile);
+        }
+
+        //! 得到当前图形的各种度量尺寸
+        public string getDimensions(float[] vars)
+        {
+            Floats v = new Floats(vars.Length);
+            Chars types = new Chars(vars.Length);
+            int n = DemoTrade.getDimensions(CoreView, v, types);
+
+            if (n > 0)
+            {
+                StringBuilder buf = new StringBuilder(n);
+                for (int i = 0; i < n; i++)
+                {
+                    buf.Append(v.get(i));
+                    vars[i] = v.get(i);
+                }
+                return buf.ToString();
+            }
+            return "";
         }
     }
 }

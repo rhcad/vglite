@@ -125,6 +125,15 @@ public:
     
     //! 设置线条属性是否正在动态修改. getContext(false)将重置为未动态修改.
     void setContextEditing(bool editing);
+    
+    //! 添加一个容纳图像的矩形图形
+    /*!
+        \param name 图像的标识名称，例如可用无路径的文件名
+        \param width 图像矩形的宽度，单位为点
+        \param height 图像矩形的高度，单位为点
+        \return 是否添加成功
+     */
+    bool addImageShape(const char* name, float width, float height);
 
 #ifndef SWIG
     MgView* viewAdapter();

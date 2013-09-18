@@ -202,23 +202,19 @@
     <CustomBuild Include="..\..\core\src\view\touchvg.swig">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Swig generating...</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">if not exist $(TargetDir)..\..\csharp\touchvglib\core mkdir $(TargetDir)..\..\csharp\touchvglib\core
-swig.exe -c++ -csharp -namespace "touchvg.core" -module touchvgcs -I"$(ProjectDir)..\..\core\include\canvas" -I"$(ProjectDir)..\..\core\include\test" -I"$(ProjectDir)..\..\core\include\view" -I"$(ProjectDir)..\..\core\include\shape" -I"$(ProjectDir)..\..\core\include\graph" -I"$(ProjectDir)..\..\core\include" -o "$(ProjectDir)..\src\swig\touchvg_csharp_wrap.cpp" -outdir $(TargetDir)..\..\csharp\touchvglib\core %(FullPath)
-</Command>
+swig.exe -c++ -csharp -namespace "touchvg.core" -module touchvgcs -I"$(ProjectDir)..\..\core\include\canvas" -I"$(ProjectDir)..\..\core\include\test" -I"$(ProjectDir)..\..\core\include\view" -I"$(ProjectDir)..\..\core\include\graph" -o "$(ProjectDir)..\src\swig\touchvg_csharp_wrap.cpp" -outdir $(TargetDir)..\..\csharp\touchvglib\core %(FullPath)</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)..\src\swig\touchvg_csharp_wrap.cpp;%(Outputs)</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Swig generating...</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">if not exist $(TargetDir)..\..\csharp\touchvglib\core mkdir $(TargetDir)..\..\csharp\touchvglib\core
-swig.exe -c++ -csharp -namespace "touchvg.core" -module touchvgcs -I"$(ProjectDir)..\..\core\include\canvas" -I"$(ProjectDir)..\..\core\include\test" -I"$(ProjectDir)..\..\core\include\view" -I"$(ProjectDir)..\..\core\include\shape" -I"$(ProjectDir)..\..\core\include\graph" -I"$(ProjectDir)..\..\core\include" -o "$(ProjectDir)..\src\swig\touchvg_csharp_wrap.cpp" -outdir $(TargetDir)..\..\csharp\touchvglib\core %(FullPath)
-</Command>
+swig.exe -c++ -csharp -namespace "touchvg.core" -module touchvgcs -I"$(ProjectDir)..\..\core\include\canvas" -I"$(ProjectDir)..\..\core\include\test" -I"$(ProjectDir)..\..\core\include\view" -I"$(ProjectDir)..\..\core\include\graph" -o "$(ProjectDir)..\src\swig\touchvg_csharp_wrap.cpp" -outdir $(TargetDir)..\..\csharp\touchvglib\core %(FullPath)</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)..\src\swig\touchvg_csharp_wrap.cpp;%(Outputs)</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Swig generating...</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">if not exist $(TargetDir)..\..\csharp\touchvglib\core mkdir $(TargetDir)..\..\csharp\touchvglib\core
-swig.exe -c++ -csharp -namespace "touchvg.core" -module touchvgcs -I"$(ProjectDir)..\..\core\include\canvas" -I"$(ProjectDir)..\..\core\include\test" -I"$(ProjectDir)..\..\core\include\view" -I"$(ProjectDir)..\..\core\include\shape" -I"$(ProjectDir)..\..\core\include\graph" -I"$(ProjectDir)..\..\core\include" -o "$(ProjectDir)..\src\swig\touchvg_csharp_wrap.cpp" -outdir $(TargetDir)..\..\csharp\touchvglib\core %(FullPath)
-</Command>
+swig.exe -c++ -csharp -namespace "touchvg.core" -module touchvgcs -I"$(ProjectDir)..\..\core\include\canvas" -I"$(ProjectDir)..\..\core\include\test" -I"$(ProjectDir)..\..\core\include\view" -I"$(ProjectDir)..\..\core\include\graph" -o "$(ProjectDir)..\src\swig\touchvg_csharp_wrap.cpp" -outdir $(TargetDir)..\..\csharp\touchvglib\core %(FullPath)</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)..\src\swig\touchvg_csharp_wrap.cpp;%(Outputs)</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Swig generating...</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">if not exist $(TargetDir)..\..\csharp\touchvglib\core mkdir $(TargetDir)..\..\csharp\touchvglib\core
-swig.exe -c++ -csharp -namespace "touchvg.core" -module touchvgcs -I"$(ProjectDir)..\..\core\include\canvas" -I"$(ProjectDir)..\..\core\include\test" -I"$(ProjectDir)..\..\core\include\view" -I"$(ProjectDir)..\..\core\include\shape" -I"$(ProjectDir)..\..\core\include\graph" -I"$(ProjectDir)..\..\core\include" -o "$(ProjectDir)..\src\swig\touchvg_csharp_wrap.cpp" -outdir $(TargetDir)..\..\csharp\touchvglib\core %(FullPath)
-</Command>
+swig.exe -c++ -csharp -namespace "touchvg.core" -module touchvgcs -I"$(ProjectDir)..\..\core\include\canvas" -I"$(ProjectDir)..\..\core\include\test" -I"$(ProjectDir)..\..\core\include\view" -I"$(ProjectDir)..\..\core\include\graph" -o "$(ProjectDir)..\src\swig\touchvg_csharp_wrap.cpp" -outdir $(TargetDir)..\..\csharp\touchvglib\core %(FullPath)</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)..\src\swig\touchvg_csharp_wrap.cpp;%(Outputs)</Outputs>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -227,6 +223,7 @@ swig.exe -c++ -csharp -namespace "touchvg.core" -module touchvgcs -I"$(ProjectDi
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\core\src\view\demotrade.cpp" />
     <ClCompile Include="..\..\core\src\view\GcGraphView.cpp" />
     <ClCompile Include="..\..\core\src\view\GcMagnifierView.cpp" />
     <ClCompile Include="..\..\core\src\view\GcShapeDoc.cpp" />
@@ -319,6 +316,8 @@ swig.exe -c++ -csharp -namespace "touchvg.core" -module touchvgcs -I"$(ProjectDi
     <ClInclude Include="..\..\core\include\storage\mgstorage.h" />
     <ClInclude Include="..\..\core\include\storage\mgstoragebs.h" />
     <ClInclude Include="..\..\core\include\test\RandomShape.h" />
+    <ClInclude Include="..\..\core\include\tradecmd\demotrade_.h" />
+    <ClInclude Include="..\..\core\include\view\demotrade.h" />
     <ClInclude Include="..\..\core\include\tradecmd\tradecmd.h" />
     <ClInclude Include="..\..\core\include\view\gicoreview.h" />
     <ClInclude Include="..\..\core\include\view\gigesture.h" />

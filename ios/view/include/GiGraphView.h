@@ -10,6 +10,9 @@ class GiView;
 #endif
 
 //! 绘图消息的观察者协议
+/*! \ingroup GROUP_IOS
+    \see GiGraphView
+ */
 @protocol GiGraphViewDelegate <NSObject>
 @optional
 
@@ -21,6 +24,7 @@ class GiView;
 
 //! iOS绘图视图类
 /*! \ingroup GROUP_IOS
+    \see GiGraphViewDelegate
  */
 @interface GiGraphView : UIView
 
@@ -37,8 +41,8 @@ class GiView;
 
 //! 创建放大镜视图并添加到父视图，不需要额外释放
 + (GiGraphView *)createMagnifierView:(CGRect)frame
-                              refView:(GiGraphView *)refView
-                           parentView:(UIView *)parentView;
+                             refView:(GiGraphView *)refView
+                          parentView:(UIView *)parentView;
 
 + (GiGraphView *)activeView;                //!< 得到当前激活的绘图视图
 

@@ -63,6 +63,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="core\Chars.cs" />
+    <Compile Include="core\DemoTrade.cs" />
+    <Compile Include="core\Floats.cs" />
     <Compile Include="core\GiCanvas.cs" />
     <Compile Include="core\GiColor.cs" />
     <Compile Include="core\GiContext.cs" />

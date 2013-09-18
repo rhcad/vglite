@@ -238,6 +238,10 @@
 				Name="view"
 				>
 				<File
+					RelativePath="..\..\core\src\view\demotrade.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\core\src\view\GcBaseView.h"
 					>
 				</File>
@@ -483,14 +487,6 @@
 					RelativePath="..\..\core\include\canvas\gicanvas.h"
 					>
 				</File>
-				<File
-					RelativePath="..\..\core\include\view\giview.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\core\include\view\mgvector.h"
-					>
-				</File>
 			</Filter>
 			<Filter
 				Name="command"
@@ -532,6 +528,10 @@
 				Name="view"
 				>
 				<File
+					RelativePath="..\..\core\include\view\demotrade.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\core\include\view\gicoreview.h"
 					>
 				</File>
@@ -541,6 +541,14 @@
 				</File>
 				<File
 					RelativePath="..\..\core\include\view\gimousehelper.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\include\view\giview.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\include\view\mgvector.h"
 					>
 				</File>
 			</Filter>
@@ -608,11 +616,11 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\core\include\graph\gilock.h"
+					RelativePath="..\..\core\include\graph\gigraph.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\core\include\graph\gigraph.h"
+					RelativePath="..\..\core\include\graph\gilock.h"
 					>
 				</File>
 				<File
@@ -687,6 +695,10 @@
 			<Filter
 				Name="tradecmd"
 				>
+				<File
+					RelativePath="..\..\core\include\tradecmd\demotrade_.h"
+					>
+				</File>
 				<File
 					RelativePath="..\..\core\include\tradecmd\tradecmd.h"
 					>
