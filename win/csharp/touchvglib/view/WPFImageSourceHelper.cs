@@ -17,10 +17,11 @@ namespace touchvg.view
 
         public static ImageSource BitmapToImageSource(Bitmap bitmap)
         {
-            IntPtr ip = null;
+            if (bitmap == null)
+                return null;
+            IntPtr ip = bitmap.GetHbitmap();
             BitmapSource bitmapSource = null;
             try {
-                ip = bitmap.GetHbitmap();
                 bitmapSource = Imaging.CreateBitmapSourceFromHBitmap(ip, IntPtr.Zero, 
                     Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
             }
