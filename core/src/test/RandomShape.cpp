@@ -13,9 +13,9 @@ void RandomParam::init()
     }
 }
 
-float RandomParam::RandF(float dMin, float dMax)
+float RandomParam::RandF(float fMin, float fMax)
 {
-    return (rand() % mgRound((dMax - dMin) * 10)) * 0.1f + dMin;
+    return (rand() % mgRound((fMax - fMin) * 10)) * 0.1f + fMin;
 }
 
 int RandomParam::RandInt(int nMin, int nMax)
@@ -30,10 +30,12 @@ unsigned char RandomParam::RandUInt8(int nMin, int nMax)
 
 void RandomParam::setShapeProp(GiContext* context)
 {
-    context->setLineColor(GiColor(RandUInt8(0, 255), RandUInt8(0, 255), RandUInt8(0, 255), RandUInt8(32, 255)));
-    context->setLineWidth(RandF(-10, 100), true);
+    context->setLineColor(GiColor(RandUInt8(10, 255), RandUInt8(0, 255), RandUInt8(0, 255), RandUInt8(32, 255)));
+    context->setLineWidth(RandF(-20, 200), true);
     context->setLineStyle((randomLineStyle ? (GiLineStyle)RandInt(kGiLineSolid, kGiLineDashDotdot) : kGiLineSolid));
-    context->setFillColor(GiColor(RandUInt8(0, 255), RandUInt8(0, 255), RandUInt8(0, 255), RandUInt8(32, 240)));
+    if (fill) {
+        context->setFillColor(GiColor(RandUInt8(0, 255), RandUInt8(0, 255), RandUInt8(0, 255), RandUInt8(32, 240)));
+    }
 }
 
 int RandomParam::addShapes(MgShapes* shapes)
@@ -82,16 +84,15 @@ int RandomParam::addShapes(MgShapes* shapes)
         }
         else if (2 == type)
         {
+            MgShapeT<MgEllipse> shape;
+            
+            Box2d rect(Point2d(RandF(-1000, 1000), RandF(-1000, 1000)), RandF(1, 200), 0);
+            shape._shape.setRect2P(rect.leftTop(), rect.rightBottom());
+            sp = shapes->addShape(shape);
             arcCount--;
-            /*
-            ArcItem* shape = new ArcItem();
+            ret++;
+            
             setShapeProp(sp->context());
-            shape->center.set(RandDbl(-1000, 1000), RandDbl(-1000, 1000));
-            shape->rx = RandDbl(1, 1000);
-            shape->ry = RandDbl(1, 1000);
-            shape->startAngle = RandDbl(0, _M_2PI);
-            shape->sweepAngle = RandDbl(0, _M_PI_2 * 6);
-            */
         }
         else if (1 == type)
         {

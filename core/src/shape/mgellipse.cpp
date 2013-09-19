@@ -175,6 +175,11 @@ float MgArc::getEndAngle() const
     return (getEndPoint() - getCenter()).angle2();
 }
 
+bool MgArc::_isClosed() const
+{
+    return fabsf(getSweepAngle()) > _M_2PI - 1e-3f;
+}
+
 float MgArc::getSweepAngle() const
 {
     const float midAngle = (getMidPoint() - getCenter()).angle2();

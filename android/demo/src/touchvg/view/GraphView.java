@@ -21,18 +21,20 @@ import android.view.View;
 
 //! Android绘图视图类
 /*! \ingroup GROUP_ANDROID
+ *  建议使用FrameLayout作为容器创建绘图视图，使用LinearLayout将无法显示上下文操作按钮。
  */
 public class GraphView extends View {
     private static GraphView mActiveView;   // 当前激活视图
-    private CanvasAdapter mCanvasAdapter;   // 画布适配器
-    private CanvasAdapter mCanvasRegen;     // 画布适配器
+    private CanvasAdapter mCanvasAdapter;   // onDraw用的画布适配器
+    private CanvasAdapter mCanvasRegen;     // regen用的画布适配器
     private ViewAdapter mViewAdapter;       // 视图回调适配器
     private GiCoreView mCoreView;           // 内核视图分发器
-    private GestureDetector mGestureDetector;      // 手势识别器
+    private GestureDetector mGestureDetector; // 手势识别器
     private GestureListener mGestureListener; // 手势识别实现
     private boolean mGestureEnable = true;  // 是否允许交互
     private boolean mRegenning = false;     // 是否正在regenAll
     private Bitmap mCachedBitmap;           // 缓存快照
+    private Bitmap mRegenBitmap;            // regen用的缓存位图
     private int mBkColor = Color.TRANSPARENT;
 
     //! 普通绘图视图的构造函数
@@ -70,11 +72,20 @@ public class GraphView extends View {
 
         this.setOnTouchListener(new OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
-                mActiveView = GraphView.this;
+                if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
+                    activateView();
+                }
                 return mGestureEnable && (mGestureListener.onTouch(v, event)
                         || mGestureDetector.onTouchEvent(event));
             }
         });
+    }
+    
+    private void activateView() {
+        mViewAdapter.removeContextButtons();
+        if (mActiveView != this) {
+            mActiveView = this;
+        }
     }
 
     //! 返回当前激活视图
@@ -133,7 +144,7 @@ public class GraphView extends View {
         if (mCachedBitmap != null) {
             drawShapes(canvas, mCanvasAdapter, true);
         }
-        else if (!regen(false)) {
+        else if (!regen(false)) {       // 首次onDraw，但视图太大无法创建缓存位图
             canvas.drawColor(mBkColor);
             drawShapes(canvas, mCanvasAdapter, true);
         }
@@ -169,6 +180,10 @@ public class GraphView extends View {
                 mCachedBitmap = Bitmap.createBitmap(getWidth(),
                         getHeight(), Bitmap.Config.ARGB_8888);
             }
+            else if (mRegenBitmap == null) {
+                mRegenBitmap = Bitmap.createBitmap(getWidth(),
+                        getHeight(), Bitmap.Config.ARGB_8888);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -177,16 +192,24 @@ public class GraphView extends View {
             mRegenning = true;
             new Thread(new Runnable() {
                 public void run() {
-                    synchronized(mCachedBitmap) {
-                        mCachedBitmap.eraseColor(mBkColor);
-                        drawShapes(new Canvas(mCachedBitmap), mCanvasRegen, false);
+                    Bitmap bmp = mRegenBitmap != null ? mRegenBitmap : mCachedBitmap;
+                    synchronized(bmp) {
+                        bmp.eraseColor(mBkColor);
+                        drawShapes(new Canvas(bmp), mCanvasRegen, false);
+                    }
+                    if (mRegenBitmap != null) {
+                        if (mCachedBitmap != null) {
+                            mCachedBitmap.recycle();
+                        }
+                        mCachedBitmap = mRegenBitmap;
+                        mRegenBitmap = null;
                     }
                     mRegenning = false;
                     postInvalidate();
                 }
             }).start();
         }
-        else if (fromRegenAll) {
+        else if (fromRegenAll) {    // 视图太大，无法后台绘制，将直接在onDraw中显示
             invalidate();
         }
 
@@ -270,6 +293,22 @@ public class GraphView extends View {
 
     //! 视图回调适配器
     private class ViewAdapter extends GiView {
+        private ContextAction mContextAction;
+        
+        public synchronized void delete() {
+            if (mContextAction != null) {
+                mContextAction.release();
+                mContextAction = null;
+            }
+            super.delete();
+        }
+        
+        public void removeContextButtons() {
+            if (mContextAction != null) {
+                mContextAction.removeButtonLayout();
+            }
+        }
+        
         @Override
         public void regenAll() {
             if (mCachedBitmap != null &&
@@ -296,19 +335,23 @@ public class GraphView extends View {
 
         @Override
         public void redraw() {
-            if (!mRegenning) {
-                invalidate();
-            }
+            invalidate();
         }
         
         @Override
         public boolean isContextActionsVisible() {
-            return false;
+            return mContextAction != null && mContextAction.isVisible();
         }
         
         @Override
         public boolean showContextActions(Ints actions, float x, float y, float w, float h) {
-            return false;
+            if (actions.count() == 0 && mContextAction == null) {
+                return true;
+            }
+            if (mContextAction == null) {
+                mContextAction = new ContextAction(getContext(), mCoreView, GraphView.this);
+            }
+            return mContextAction.showActions(actions, x, y, w, h);
         }
         
         @Override

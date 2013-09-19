@@ -403,6 +403,7 @@ public:
     
 protected:
     bool isCurve() const { return true; }
+    bool _isClosed() const;
     bool _hitTestBox(const Box2d& rect) const;
     bool _save(MgStorage* s) const;
     bool _load(MgStorage* s);

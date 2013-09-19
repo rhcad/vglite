@@ -9,7 +9,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.LinearLayout;
+import android.widget.FrameLayout;
 
 public class DummyActivity extends Activity {
 
@@ -34,8 +34,9 @@ public class DummyActivity extends Activity {
             this.setContentView(view);
         }
         else {
-            LinearLayout layout = new LinearLayout(this);
-            layout.setOrientation(LinearLayout.VERTICAL);
+            //LinearLayout layout = new LinearLayout(this);
+            //layout.setOrientation(LinearLayout.VERTICAL);
+            final FrameLayout layout = new FrameLayout(this);
             layout.setBackgroundResource(R.drawable.translucent_bg);    // 测试图片平铺
             this.setContentView(layout);
             

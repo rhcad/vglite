@@ -83,8 +83,6 @@ namespace touchvg.view
         }
 
         //! WPF绘图视图适配器类
-        /*! \ingroup GROUP_WPF
-         */
         private class WPFViewAdapter : GiView
         {
             WPFGraphView _owner;
@@ -144,8 +142,8 @@ namespace touchvg.view
             }
 
             private static string[] buttonCaptions = { null, "全选", "重选", "绘图",
-            "取消", "删除", "克隆", "定长", "不定长", "锁定", "解锁", "编辑","不编辑", 
-            "闭合", "不闭合", "加点", "删点", "成组", "解组", "翻转","剪开", "角标", "三视图" };
+            "取消", "删除", "克隆", "定长", "不定长", "锁定", "解锁", "编辑","返回",
+            "闭合", "不闭合", "加点", "删点", "成组", "解组", "翻转" };
 
             public override bool isContextActionsVisible()
             {

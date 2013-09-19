@@ -14,6 +14,8 @@ import touchvg.jni.Floats;
 import touchvg.jni.GiContextBits;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.FrameLayout;
 
 //! Android绘图视图辅助类
 /*! \ingroup GROUP_ANDROID
@@ -26,21 +28,27 @@ public class ViewHelper {
         mView = view;
     }
     
-    //! 创建普通绘图视图，并记下此视图
-    public GraphView createGraphView(Context context) {
+    //! 自动创建FrameLayout布局，在其中创建普通绘图视图，并记下此视图
+    public FrameLayout createGraphView(Context context) {
         mView = new GraphView(context);
-        return mView;
+        final FrameLayout layout = new FrameLayout(context);
+        layout.addView(mView, new LayoutParams(
+                LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+        return layout;
     }
     
     /**
-     * @brief 创建放大镜视图，并记下此视图
+     * @brief 自动创建FrameLayout布局，在其中创建放大镜视图，并记下此视图
      * @param context 视图上下文对象
      * @param mainView 参照的主视图对象，如果为null则取本对象的视图或当前激活视图
-     * @return 创建的新视图对象
+     * @return 容纳新绘图视图的FrameLayout布局对象
      */
-    public GraphView createMagnifierView(Context context, GraphView mainView) {
+    public FrameLayout createMagnifierView(Context context, GraphView mainView) {
         mView = new GraphView(context, mainView != null ? mainView : mView);
-        return mView;
+        final FrameLayout layout = new FrameLayout(context);
+        layout.addView(mView, new LayoutParams(
+                LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+        return layout;
     }
     
     //! 返回当前激活视图
