@@ -2,40 +2,31 @@ set destpath=..\all.tmp\touchvg
 
 del /Q/S  %destpath%
 
-xcopy ..\..\core\include\geom\*.h %destpath%\geom\ /Y
-xcopy ..\..\core\include\graph\*.h %destpath%\graph\ /Y
-xcopy ..\..\core\include\shape\*.h %destpath%\shape\ /Y
-xcopy ..\..\core\include\storage\*.h %destpath%\storage\ /Y
-xcopy ..\..\core\include\command\*.h %destpath%\command\ /Y
-xcopy ..\..\core\include\canvas\*.h %destpath%\canvas\ /Y
-xcopy ..\..\core\include\view\*.h %destpath%\view\ /Y
-xcopy ..\..\core\include\tradecmd\*.h %destpath%\tradecmd\ /Y
+xcopy ..\..\core\include\geom\*.* %destpath%\geom\ /Y
+xcopy ..\..\core\include\graph\*.* %destpath%\graph\ /Y
+xcopy ..\..\core\include\shape\*.* %destpath%\shape\ /Y
+xcopy ..\..\core\include\storage\*.* %destpath%\storage\ /Y
+xcopy ..\..\core\include\command\*.* %destpath%\command\ /Y
+xcopy ..\..\core\include\canvas\*.* %destpath%\canvas\ /Y
+xcopy ..\..\core\include\view\*.* %destpath%\view\ /Y
+xcopy ..\..\core\include\tradecmd\*.* %destpath%\tradecmd\ /Y
 
-xcopy ..\..\core\src\geom\*.h %destpath%\geom_src\ /Y
-xcopy ..\..\core\src\geom\*.cpp %destpath%\geom_src\ /Y
-xcopy ..\..\core\src\graph\*.h %destpath%\graph_src\ /Y
-xcopy ..\..\core\src\graph\*.cpp %destpath%\graph_src\ /Y
-xcopy ..\..\core\src\shape\*.h %destpath%\shape_src\ /Y
-xcopy ..\..\core\src\shape\*.cpp %destpath%\shape_src\ /Y
-xcopy ..\..\core\src\command\*.h %destpath%\command_src\ /Y
-xcopy ..\..\core\src\command\*.cpp %destpath%\command_src\ /Y
-xcopy ..\..\core\src\json\*.h %destpath%\json\ /Y
-xcopy ..\..\core\src\json\*.cpp %destpath%\json\ /Y
-xcopy ..\..\core\src\view\*.h %destpath%\view_src\ /Y
-xcopy ..\..\core\src\view\*.cpp %destpath%\view_src\ /Y
-xcopy ..\..\core\src\tradecmd\*.h %destpath%\demotrade\ /Y
-xcopy ..\..\core\src\tradecmd\*.cpp %destpath%\demotrade_src\ /Y
+xcopy ..\..\core\src\geom\*.* %destpath%\geom_src\ /Y
+xcopy ..\..\core\src\graph\*.* %destpath%\graph_src\ /Y
+xcopy ..\..\core\src\shape\*.* %destpath%\shape_src\ /Y
+xcopy ..\..\core\src\command\*.* %destpath%\command_src\ /Y
+xcopy ..\..\core\src\json\*.* %destpath%\json\ /Y
+xcopy ..\..\core\src\view\*.* %destpath%\view_src\ /Y
+xcopy ..\..\core\src\tradecmd\*.* %destpath%\demotrade\ /Y
 move /Y %destpath%\storage\mgjsonstorage.h %destpath%\json\
 
-rem xcopy ..\..\win\include\canvas\*.h %destpath%\winview\ /Y
-rem xcopy ..\..\win\src\canvas\*.h %destpath%\winview_src\ /Y
-rem xcopy ..\..\win\src\canvas\*.cpp %destpath%\winview_src\ /Y
-rem xcopy ..\..\win\include\view\*.h %destpath%\winview\ /Y
-rem xcopy ..\..\win\src\view\*.h %destpath%\winview_src\ /Y
-rem xcopy ..\..\win\src\view\*.cpp %destpath%\winview_src\ /Y
+rem xcopy ..\..\win\include\canvas\*.* %destpath%\winview\ /Y
+rem xcopy ..\..\win\src\canvas\*.* %destpath%\winview_src\ /Y
+rem xcopy ..\..\win\include\view\*.* %destpath%\winview\ /Y
+rem xcopy ..\..\win\src\view\*.* %destpath%\winview_src\ /Y
 
-xcopy ..\..\ios\view\include\*.h %destpath%\iosview\ /Y
-xcopy ..\..\ios\view\src\*.mm %destpath%\iosview_src\ /Y
+xcopy ..\..\ios\view\include\*.* %destpath%\iosview\ /Y
+xcopy ..\..\ios\view\src\*.* %destpath%\iosview_src\ /Y
 
 xcopy ..\..\android\demo\src\touchvg\view\*.java %destpath%\android\ /Y
 xcopy ..\..\win\csharp\touchvglib\view\*.cs %destpath%\WPF\ /Y

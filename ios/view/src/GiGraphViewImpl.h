@@ -62,7 +62,7 @@ public:
 };
 
 /*! \category GiGraphView()
-    \brief GiGraphView 的内部实现定义
+    \brief GiGraphView 的内部数据定义
  */
 @interface GiGraphView()<UIGestureRecognizerDelegate> {
     GiViewAdapter   *_adapter;              //!< 视图回调适配器
@@ -83,12 +83,10 @@ public:
     BOOL            _gestureRecognized;     //!< 识别出手势
 }
 
-- (void)activiteView;                       //!< 设置为当前活动视图
-
 @end
 
 /*! \category GiGraphView(GestureRecognizer)
-    \brief 手势响应实现部分
+    \brief GiGraphView 的手势响应实现部分
  */
 @interface GiGraphView(GestureRecognizer)
 

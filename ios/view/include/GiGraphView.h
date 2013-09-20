@@ -36,7 +36,7 @@ class GiView;
 @property(nonatomic, readonly) UIRotationGestureRecognizer *rotationRecognizer; //!< 双指旋转手势识别器
 @property(nonatomic)           BOOL gestureEnabled;     //!< 是否允许触摸交互
 
-//! 创建普通图形视图并添加到父视图，不需要额外释放
+//! 创建普通图形视图，并添加到父视图、设置为当前视图，不需要额外释放
 + (GiGraphView *)createGraphView:(CGRect)frame :(UIView *)parentView;
 
 //! 创建放大镜视图并添加到父视图，不需要额外释放
@@ -45,9 +45,10 @@ class GiView;
                           parentView:(UIView *)parentView;
 
 + (GiGraphView *)activeView;                //!< 得到当前激活的绘图视图
+- (void)activiteView;                       //!< 设置为当前活动视图，触摸时自动调用
 
 #ifdef __cplusplus
-- (GiView *)viewAdapter;                    //!< 得到视图适配器对象
+- (GiView *)viewAdapter;                    //!< 得到视图适配器对象, GiViewAdapter
 - (GiCoreView *)coreView;                   //!< 得到跨平台内核视图
 #endif
 
