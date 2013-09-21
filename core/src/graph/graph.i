@@ -15,5 +15,5 @@
 %include <gicontxt.h>
 %include <gixform.h>
 %include <gicanvas.h>
-%include <gigraph.h>
 %include <gipath.h>
+%include <gigraph.h>

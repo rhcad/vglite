@@ -19,6 +19,7 @@
 %include <gicolor.h>
 %include <gicontxt.h>
 %include <gixform.h>
+%include <gipath.h>
 %include <gigraph.h>
 
 %include <mgobject.h>
