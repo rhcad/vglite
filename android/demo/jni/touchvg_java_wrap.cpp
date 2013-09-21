@@ -3674,6 +3674,51 @@ SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1twoFingersMo
 }
 
 
+SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1isPressDragging(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  GiCoreView *arg1 = (GiCoreView *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiCoreView **)&jarg1; 
+  result = (bool)(arg1)->isPressDragging();
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1getGestureType(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  GiCoreView *arg1 = (GiCoreView *) 0 ;
+  GiGestureType result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiCoreView **)&jarg1; 
+  result = (GiGestureType)(arg1)->getGestureType();
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1getGestureState(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  GiCoreView *arg1 = (GiCoreView *) 0 ;
+  GiGestureState result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiCoreView **)&jarg1; 
+  result = (GiGestureState)(arg1)->getGestureState();
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
 SWIGEXPORT jstring JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1getCommand(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jstring jresult = 0 ;
   GiCoreView *arg1 = (GiCoreView *) 0 ;

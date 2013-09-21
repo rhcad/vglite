@@ -99,6 +99,18 @@ public class GiCoreView {
     return touchvgJNI.GiCoreView_twoFingersMove__SWIG_1(swigCPtr, this, GiView.getCPtr(view), view, state.swigValue(), x1, y1, x2, y2);
   }
 
+  public boolean isPressDragging() {
+    return touchvgJNI.GiCoreView_isPressDragging(swigCPtr, this);
+  }
+
+  public GiGestureType getGestureType() {
+    return GiGestureType.swigToEnum(touchvgJNI.GiCoreView_getGestureType(swigCPtr, this));
+  }
+
+  public GiGestureState getGestureState() {
+    return GiGestureState.swigToEnum(touchvgJNI.GiCoreView_getGestureState(swigCPtr, this));
+  }
+
   public String getCommand() {
     return touchvgJNI.GiCoreView_getCommand(swigCPtr, this);
   }

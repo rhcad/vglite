@@ -2615,6 +2615,42 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_GiCoreView_twoFingersMove__SWIG_1(voi
 }
 
 
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_GiCoreView_isPressDragging(void * jarg1) {
+  unsigned int jresult ;
+  GiCoreView *arg1 = (GiCoreView *) 0 ;
+  bool result;
+  
+  arg1 = (GiCoreView *)jarg1; 
+  result = (bool)(arg1)->isPressDragging();
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_GiCoreView_getGestureType(void * jarg1) {
+  int jresult ;
+  GiCoreView *arg1 = (GiCoreView *) 0 ;
+  GiGestureType result;
+  
+  arg1 = (GiCoreView *)jarg1; 
+  result = (GiGestureType)(arg1)->getGestureType();
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_GiCoreView_getGestureState(void * jarg1) {
+  int jresult ;
+  GiCoreView *arg1 = (GiCoreView *) 0 ;
+  GiGestureState result;
+  
+  arg1 = (GiCoreView *)jarg1; 
+  result = (GiGestureState)(arg1)->getGestureState();
+  jresult = result; 
+  return jresult;
+}
+
+
 SWIGEXPORT char * SWIGSTDCALL CSharp_GiCoreView_getCommand(void * jarg1) {
   char * jresult ;
   GiCoreView *arg1 = (GiCoreView *) 0 ;

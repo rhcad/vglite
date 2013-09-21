@@ -158,6 +158,9 @@ public class touchvgJNI {
   public final static native boolean GiCoreView_onGesture__SWIG_1(long jarg1, GiCoreView jarg1_, long jarg2, GiView jarg2_, int jarg3, int jarg4, float jarg5, float jarg6);
   public final static native boolean GiCoreView_twoFingersMove__SWIG_0(long jarg1, GiCoreView jarg1_, long jarg2, GiView jarg2_, int jarg3, float jarg4, float jarg5, float jarg6, float jarg7, boolean jarg8);
   public final static native boolean GiCoreView_twoFingersMove__SWIG_1(long jarg1, GiCoreView jarg1_, long jarg2, GiView jarg2_, int jarg3, float jarg4, float jarg5, float jarg6, float jarg7);
+  public final static native boolean GiCoreView_isPressDragging(long jarg1, GiCoreView jarg1_);
+  public final static native int GiCoreView_getGestureType(long jarg1, GiCoreView jarg1_);
+  public final static native int GiCoreView_getGestureState(long jarg1, GiCoreView jarg1_);
   public final static native String GiCoreView_getCommand(long jarg1, GiCoreView jarg1_);
   public final static native boolean GiCoreView_setCommand(long jarg1, GiCoreView jarg1_, long jarg2, GiView jarg2_, String jarg3);
   public final static native boolean GiCoreView_doContextAction(long jarg1, GiCoreView jarg1_, int jarg2);

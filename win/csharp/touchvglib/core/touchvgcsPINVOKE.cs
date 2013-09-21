@@ -597,6 +597,15 @@ class touchvgcsPINVOKE {
   [DllImport("touchvgcs", EntryPoint="CSharp_GiCoreView_twoFingersMove__SWIG_1")]
   public static extern bool GiCoreView_twoFingersMove__SWIG_1(HandleRef jarg1, HandleRef jarg2, int jarg3, float jarg4, float jarg5, float jarg6, float jarg7);
 
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiCoreView_isPressDragging")]
+  public static extern bool GiCoreView_isPressDragging(HandleRef jarg1);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiCoreView_getGestureType")]
+  public static extern int GiCoreView_getGestureType(HandleRef jarg1);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiCoreView_getGestureState")]
+  public static extern int GiCoreView_getGestureState(HandleRef jarg1);
+
   [DllImport("touchvgcs", EntryPoint="CSharp_GiCoreView_getCommand")]
   public static extern string GiCoreView_getCommand(HandleRef jarg1);
 

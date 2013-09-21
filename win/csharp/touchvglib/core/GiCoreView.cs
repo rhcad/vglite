@@ -110,6 +110,21 @@ public class GiCoreView : IDisposable {
     return ret;
   }
 
+  public bool isPressDragging() {
+    bool ret = touchvgcsPINVOKE.GiCoreView_isPressDragging(swigCPtr);
+    return ret;
+  }
+
+  public GiGestureType getGestureType() {
+    GiGestureType ret = (GiGestureType)touchvgcsPINVOKE.GiCoreView_getGestureType(swigCPtr);
+    return ret;
+  }
+
+  public GiGestureState getGestureState() {
+    GiGestureState ret = (GiGestureState)touchvgcsPINVOKE.GiCoreView_getGestureState(swigCPtr);
+    return ret;
+  }
+
   public string getCommand() {
     string ret = touchvgcsPINVOKE.GiCoreView_getCommand(swigCPtr);
     return ret;
