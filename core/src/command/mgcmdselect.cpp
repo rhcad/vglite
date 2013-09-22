@@ -454,7 +454,6 @@ bool MgCmdSelect::click(const MgMotion* sender)
     int     segment = -1;
     MgShape *shape = NULL;
     bool    canSelAgain;
-    bool    changed = false;
     
     if (!m_showSel) {                   // 上次是禁止亮显
         m_showSel = true;               // 恢复亮显选中的图形
@@ -469,7 +468,7 @@ bool MgCmdSelect::click(const MgMotion* sender)
     
     if (!canSelAgain) {                 // 没有选中或点中其他图形
         shape = hitTestAll(sender, nearpt, segment);
-        changed = ((int)m_selIds.size() != (shape ? 1 : 0))
+        bool changed = ((int)m_selIds.size() != (shape ? 1 : 0))
             || (shape && shape->getID() != m_id);
 
         m_selIds.clear();               // 清除选择集
@@ -489,20 +488,14 @@ bool MgCmdSelect::click(const MgMotion* sender)
                             && shape->shape()->getExtent().height() < displayMmToModel(5, sender));
             m_handleIndex = (m_editMode || !issmall ?
                              hitTestHandles(shape, sender->pointM, sender) : 0);
-            changed = true;
-        }
-        else if (m_selIds.empty()) {
-            changed = true;
         }
     }
     else {
-        int handleIndex = m_handleIndex;
         m_handleIndex = 0;
         if (isEditMode(sender->view) || (canRotate(shape, sender)
                 && !shape->shapec()->isKindOf(MgSplines::Type()))) {
             m_handleIndex = hitTestHandles(shape, sender->pointM, sender);
         }
-        changed = (handleIndex != m_handleIndex);
     }
     if (!isEditMode(sender->view) && canRotate(shape, sender)
         && !shape->shapec()->isKindOf(MgSplines::Type())) {
@@ -511,7 +504,7 @@ bool MgCmdSelect::click(const MgMotion* sender)
     g_newShapeID = m_id;
     sender->view->redraw();
     
-    if (!sender->pressDrag && changed && (m_editMode || m_handleIndex == 0)) {
+    if (!sender->pressDrag && (m_editMode || m_handleIndex == 0)) {
         MgActionDispatcher* dispatcher = sender->cmds()->getActionDispatcher();
         dispatcher->showInSelect(sender, getSelectState(sender->view),
                                  shape, getBoundingBox(sender));
@@ -1095,6 +1088,7 @@ bool MgCmdSelect::selectAll(const MgMotion* sender)
     if (oldn != m_selIds.size() || !m_selIds.empty()) {
         sender->view->selectionChanged();
     }
+    longPress(sender);
     
     return oldn != m_selIds.size();
 }
@@ -1163,6 +1157,7 @@ bool MgCmdSelect::groupSelection(const MgMotion* sender)
     if (count > 0) {
         sender->view->regenAll();
         sender->view->selectionChanged();
+        longPress(sender);
     }
     
     return count > 0;
@@ -1202,6 +1197,7 @@ bool MgCmdSelect::ungroupSelection(const MgMotion* sender)
     if (count > 0) {
         sender->view->regenAll();
         sender->view->selectionChanged();
+        longPress(sender);
     }
     
     return count > 0;
@@ -1217,7 +1213,6 @@ bool MgCmdSelect::cloneSelection(const MgMotion* sender)
         for (size_t i = 0; i < m_clones.size(); i++) {
             m_clones[i]->shape()->offset(Vector2d(dist, -dist), -1);
         }
-        longPress(sender);
     }
     
     return applyCloneShapes(sender->view, true, true) && longPress(sender);
@@ -1272,6 +1267,7 @@ bool MgCmdSelect::deleteVertext(const MgMotion* sender)
         }
     }
     m_insertPt = false;
+    longPress(sender);
     
     return ret;
 }
@@ -1297,6 +1293,7 @@ bool MgCmdSelect::insertVertext(const MgMotion* sender)
         }
     }
     m_insertPt = false;
+    longPress(sender);
     
     return ret;
 }
@@ -1314,6 +1311,7 @@ bool MgCmdSelect::switchClosed(const MgMotion* sender)
         lines->setClosed(!lines->isClosed());
         shape->shape()->update();
         sender->view->regenAll();
+        longPress(sender);
         ret = true;
     }
     
@@ -1341,6 +1339,7 @@ bool MgCmdSelect::setFixedLength(const MgMotion* sender, bool fixed)
     }
     if (count > 0) {
         sender->view->regenAll();
+        longPress(sender);
     }
     
     return count > 0;
@@ -1369,6 +1368,7 @@ bool MgCmdSelect::setLocked(const MgMotion* sender, bool locked)
     }
     if (count > 0) {
         sender->view->regenAll();
+        longPress(sender);
     }
     
     return count > 0;

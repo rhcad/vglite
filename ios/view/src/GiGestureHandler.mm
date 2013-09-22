@@ -93,6 +93,22 @@
     [super touchesEnded:touches withEvent:event];
 }
 
+- (void)ignoreTouch:(NSValue *)pointValue :(UIView *)handledButton {
+    CGPoint pt = [self.window convertPoint:[pointValue CGPointValue] toView:self];
+    
+    if (handledButton) {
+        _buttonHandled = YES;
+    }
+    if (CGPointEqualToPoint(_ignorePt, pt) && _adapter->isContextActionsVisible()) {
+        [self performSelector:@selector(hideContextActions) withObject:nil afterDelay:0.5];
+    }
+    _ignorePt = pt;
+}
+
+- (void)onContextActionsDisplay:(NSMutableArray *)buttons {
+    _buttonHandled = NO;
+}
+
 // 手势即将开始，在 touchesBegan 后发生，即将调用本类的相应手势响应函数
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)recognizer {
     if (_points.empty()) {
@@ -102,10 +118,15 @@
         [self dispatchTapPending];                              // 分发挂起的单击手势
     }
     
-    BOOL allow = YES;
+    BOOL allow = (!_buttonHandled ||
+                  (recognizer != _tapRecognizer && recognizer != _pressRecognizer));
+    
+    _buttonHandled = NO;
+    _ignorePt = CGPointMake(-1, -1);
     
     // 将状态为 UIGestureRecognizerStatePossible 的手势传递到内核，看是否允许此手势
-    if (recognizer == _pinchRecognizer || recognizer == _rotationRecognizer
+    if (!allow) {}
+    else if (recognizer == _pinchRecognizer || recognizer == _rotationRecognizer
         || recognizer == _panRecognizer) {
         allow = [self panHandler:recognizer];
     }

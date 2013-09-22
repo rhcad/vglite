@@ -444,6 +444,21 @@ bool GiCoreView::twoFingersMove(GiView* view, GiGestureState state,
     return ret;
 }
 
+bool GiCoreView::isPressDragging()
+{
+    return impl->motion.pressDrag;
+}
+
+GiGestureType GiCoreView::getGestureType()
+{
+    return (GiGestureType)impl->motion.gestureType;
+}
+
+GiGestureState GiCoreView::getGestureState()
+{
+    return (GiGestureState)impl->motion.gestureState;
+}
+
 const char* GiCoreView::getCommand() const
 {
     return impl->_cmds->getCommandName();

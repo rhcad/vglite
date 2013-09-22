@@ -205,8 +205,9 @@ bool GiCanvasAdapter::clipPath()
 
 void GiCanvasAdapter::drawHandle(float x, float y, int type)
 {
-    if (type >= 0 && type < 4) {
-        NSString *names[] = { @"vgdot1.png", @"vgdot2.png", @"vgdot3.png", @"app57.png" };
+    if (type >= 0 && type < 5) {
+        NSString *names[] = { @"vgdot1.png", @"vgdot2.png", @"vgdot3.png", 
+            @"vg_lock.png", @"vg_unlock.png" };
         UIImage *image = [UIImage imageNamed:names[type]];
         if (image) {
             CGImageRef img = [image CGImage];

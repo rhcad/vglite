@@ -139,6 +139,7 @@
 		AEEF796917D86D3100B57909 /* mgdrawrect.h in Headers */ = {isa = PBXBuildFile; fileRef = AEEF796817D86D3100B57909 /* mgdrawrect.h */; };
 		AEF1B1D817E29D2C005B5132 /* GiViewHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = AEF1B1D717E29D2C005B5132 /* GiViewHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AEF1B1DA17E29D36005B5132 /* GiViewHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = AEF1B1D917E29D36005B5132 /* GiViewHelper.mm */; };
+		C98E05C617EE54E300BDFE65 /* GiViewAdapter.mm in Sources */ = {isa = PBXBuildFile; fileRef = C98E05C517EE54E300BDFE65 /* GiViewAdapter.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -295,6 +296,7 @@
 		AEEF796817D86D3100B57909 /* mgdrawrect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mgdrawrect.h; sourceTree = "<group>"; };
 		AEF1B1D717E29D2C005B5132 /* GiViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GiViewHelper.h; path = ../../view/include/GiViewHelper.h; sourceTree = "<group>"; };
 		AEF1B1D917E29D36005B5132 /* GiViewHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = GiViewHelper.mm; path = ../../view/src/GiViewHelper.mm; sourceTree = "<group>"; };
+		C98E05C517EE54E300BDFE65 /* GiViewAdapter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = GiViewAdapter.mm; path = ../../view/src/GiViewAdapter.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -688,6 +690,7 @@
 				AEF1B1D917E29D36005B5132 /* GiViewHelper.mm */,
 				AEE5C70E17E17D1100AFF74D /* GiGraphViewImpl.h */,
 				AE2A3A6A178FC617000194AE /* GiGraphView.mm */,
+				C98E05C517EE54E300BDFE65 /* GiViewAdapter.mm */,
 				AEE5C70D17E17D1100AFF74D /* GiGestureHandler.mm */,
 				AE2A3A6B178FC617000194AE /* GiCanvasAdapter.mm */,
 			);
@@ -932,6 +935,7 @@
 				AEE5C70F17E17D1100AFF74D /* GiGestureHandler.mm in Sources */,
 				AEF1B1DA17E29D36005B5132 /* GiViewHelper.mm in Sources */,
 				AED6020D17E8626A004D74FF /* demotrade.cpp in Sources */,
+				C98E05C617EE54E300BDFE65 /* GiViewAdapter.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

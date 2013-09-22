@@ -20,7 +20,7 @@ class GiViewAdapter;
 
 @end
 
-//! 绘图视图适配器
+//! iOS绘图视图适配器
 class GiViewAdapter : public GiView
 {
 private:
@@ -29,6 +29,8 @@ private:
     GiCoreView  *_coreView;     //!< 内核视图分发器
     UIImage     *_tmpshot;      //!< 用于增量绘图的临时快照
     long        _drawCount;     //!< 用于增量绘图的计数
+    NSMutableArray *_buttons;
+    NSMutableDictionary *_buttonImages;
     
 public:
     std::vector<id> delegates;  //!< GiGraphViewDelegate 观察者数组
@@ -52,6 +54,8 @@ public:
     virtual bool isContextActionsVisible();
     virtual bool showContextActions(const mgvector<int>& actions,
                                     float x, float y, float w, float h);
+    void hideContextActions();
+    
     virtual void commandChanged();
     virtual void selectionChanged();
     virtual void contentChanged();
@@ -59,6 +63,11 @@ public:
     bool dispatchGesture(GiGestureType gestureType, GiGestureState gestureState, CGPoint pt);
     bool dispatchPan(GiGestureState gestureState, CGPoint pt, bool switchGesture = false);
     bool twoFingersMove(UIGestureRecognizer *sender, int state = -1, bool switchGesture = false);
+    
+private:
+    void setContextButton(UIButton *btn, NSString *caption, NSString *imageName);
+    void setContextButtonPosition(UIButton *btn, int n, int index, CGRect selbox);
+    void moveActionsInView();
 };
 
 /*! \category GiGraphView()
@@ -81,6 +90,8 @@ public:
     int                     _tapCount;      //!< 点击次数
     int                     _touchCount;    //!< 触点个数
     BOOL            _gestureRecognized;     //!< 识别出手势
+    BOOL                    _buttonHandled;
+    CGPoint                 _ignorePt;
 }
 
 @end

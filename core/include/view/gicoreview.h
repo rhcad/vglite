@@ -61,6 +61,10 @@ public:
     bool twoFingersMove(GiView* view, GiGestureState state,
             float x1, float y1, float x2, float y2, bool switchGesture = false);
     
+    bool isPressDragging();             //!< 是否按下并拖动
+    GiGestureType getGestureType();     //!< 得到当前手势类型
+    GiGestureState getGestureState();   //!< 得到当前手势状态
+    
     //! 返回当前命令名称
     const char* getCommand() const;
     

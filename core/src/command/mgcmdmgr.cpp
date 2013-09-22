@@ -177,7 +177,7 @@ MgActionDispatcher* MgCmdManagerImpl::getActionDispatcher()
 
 bool MgCmdManagerImpl::doContextAction(const MgMotion* sender, int action)
 {
-    return doAction(sender, action);
+    return action != 0 && doAction(sender, action);
 }
 
 MgSnap* MgCmdManagerImpl::getSnap()
