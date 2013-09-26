@@ -1,10 +1,10 @@
 //! \file mgshapet.h
 //! \brief 定义矢量图形模板类 MgShapeT
-// Copyright (c) 2004-2012, Zhang Yungui
+// Copyright (c) 2004-2013, Zhang Yungui
 // License: LGPL, https://github.com/rhcad/touchvg
 
-#ifndef __GEOMETRY_MGSHAPE_TEMPL_H_
-#define __GEOMETRY_MGSHAPE_TEMPL_H_
+#ifndef TOUCHVG_MGSHAPE_TEMPL_H_
+#define TOUCHVG_MGSHAPE_TEMPL_H_
 
 #include "mgshape.h"
 
@@ -32,7 +32,7 @@ public:
     
     virtual ~MgShapeT() {
     }
-    
+
     GiContext* context() {
         return &_context;
     }
@@ -57,10 +57,13 @@ public:
         ContextT tmpctx(getContext(gs, ctx));
         return shapec()->draw(mode, gs, tmpctx, segment);
     }
-    
-    static void registerCreator() {
-        MgShape::registerCreator(Type(), create);
+
+#ifdef TOUCHVG_SHAPE_FACTORY_H_
+	//! 登记类型号对应的图形创建函数
+	static void registerCreator(MgShapeFactory* factory) {
+		factory->registerShape(Type(), create);
     }
+#endif
     
     static MgShape* create() {
         return new ThisClass;
@@ -164,4 +167,4 @@ protected:
     }
 };
 
-#endif // __GEOMETRY_MGSHAPE_TEMPL_H_
+#endif // TOUCHVG_MGSHAPE_TEMPL_H_

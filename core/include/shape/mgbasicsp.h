@@ -1,10 +1,10 @@
 //! \file mgbasicsp.h
 //! \brief 定义基本图形类
-// Copyright (c) 2004-2012, Zhang Yungui
+// Copyright (c) 2004-2013, Zhang Yungui
 // License: LGPL, https://github.com/rhcad/touchvg
 
-#ifndef __GEOMETRY_BASICSHAPE_H_
-#define __GEOMETRY_BASICSHAPE_H_
+#ifndef TOUCHVG_BASICSHAPE_H_
+#define TOUCHVG_BASICSHAPE_H_
 
 #include "mgshape.h"
 
@@ -47,13 +47,12 @@ protected:
     bool isCurve() const { return false; }
     bool _hitTestBox(const Box2d& rect) const;
     bool _save(MgStorage* s) const;
-    bool _load(MgStorage* s);
+    bool _load(MgShapeFactory* factory, MgStorage* s);
     int _getHandleCount() const;
     Point2d _getHandlePoint(int index) const;
     bool _setHandlePoint(int index, const Point2d& pt, float tol);
     bool _isHandleFixed(int index) const;
     int _getHandleType(int index) const;
-    int _getDimensions(const Matrix2d& m2w, float* vars, char* types, int count) const;
 
 private:
     Point2d     _points[2];
@@ -126,7 +125,7 @@ protected:
     bool _setHandlePoint(int index, const Point2d& pt, float tol);
     bool _hitTestBox(const Box2d& rect) const;
     bool _save(MgStorage* s) const;
-    bool _load(MgStorage* s);
+    bool _load(MgShapeFactory* factory, MgStorage* s);
 
 protected:
     Point2d     _points[4]; // 从左上角起顺时针的四个角点
@@ -138,9 +137,6 @@ protected:
 class MgRect : public MgBaseRect
 {
     MG_INHERIT_CREATE(MgRect, MgBaseRect, 11)
-    
-protected:
-    int _getDimensions(const Matrix2d& m2w, float* vars, char* types, int count) const;
 };
 
 //! 椭圆图形类
@@ -196,7 +192,7 @@ protected:
     void _clear();
     float _hitTest(const Point2d& pt, float tol, Point2d& nearpt, int& segment) const;
     bool _save(MgStorage* s) const;
-    bool _load(MgStorage* s);
+    bool _load(MgShapeFactory* factory, MgStorage* s);
 
 protected:
     float      _rx;
@@ -265,7 +261,7 @@ protected:
     float _hitTest(const Point2d& pt, float tol, Point2d& nearpt, int& segment) const;
     bool _hitTestBox(const Box2d& rect) const;
     bool _save(MgStorage* s) const;
-    bool _load(MgStorage* s);
+    bool _load(MgShapeFactory* factory, MgStorage* s);
 
 protected:
     Point2d*    _points;
@@ -312,9 +308,9 @@ protected:
 //! 平行四边形图形基类
 /*! \ingroup CORE_SHAPE
 */
-class MgParallelogram : public MgBaseShape
+class MgParallel : public MgBaseShape
 {
-    MG_DECLARE_CREATE(MgParallelogram, MgBaseShape, 17)
+    MG_DECLARE_CREATE(MgParallel, MgBaseShape, 17)
 public:
     //! 返回中心点
     Point2d getCenter() const { return (_points[0] + _points[2]) / 2; }
@@ -347,8 +343,7 @@ protected:
     bool _rotateHandlePoint(int index, const Point2d& pt);
     bool _hitTestBox(const Box2d& rect) const;
     bool _save(MgStorage* s) const;
-    bool _load(MgStorage* s);
-    int _getDimensions(const Matrix2d& m2w, float* vars, char* types, int count) const;
+    bool _load(MgShapeFactory* factory, MgStorage* s);
 
 protected:
     Point2d     _points[4]; // 从左上角起顺时针的四个角点
@@ -371,7 +366,7 @@ protected:
     bool _equals(const MgImageShape& src) const;
     void _clear();
     bool _save(MgStorage* s) const;
-    bool _load(MgStorage* s);
+    bool _load(MgShapeFactory* factory, MgStorage* s);
     
 protected:
     char    _name[64];
@@ -406,12 +401,11 @@ protected:
     bool _isClosed() const;
     bool _hitTestBox(const Box2d& rect) const;
     bool _save(MgStorage* s) const;
-    bool _load(MgStorage* s);
+    bool _load(MgShapeFactory* factory, MgStorage* s);
     int _getHandleCount() const;
     Point2d _getHandlePoint(int index) const;
     int _getHandleType(int index) const;
     bool _setHandlePoint2(int index, const Point2d& pt, float tol, int& data);
-    int _getDimensions(const Matrix2d& m2w, float* vars, char* types, int count) const;
     bool _reverse();
     bool setCSE(const Point2d& center, const Point2d& start, const Point2d& end, float lastSweepAngle);
 
@@ -419,4 +413,4 @@ private:
     Point2d _points[4]; // center,start,end, mid
 };
 
-#endif // __GEOMETRY_BASICSHAPE_H_
+#endif // TOUCHVG_BASICSHAPE_H_

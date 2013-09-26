@@ -1,10 +1,10 @@
 //! \file mgvec.h
 //! \brief 定义二维矢量类 Vector2d
-// Copyright (c) 2004-2012, Zhang Yungui
+// Copyright (c) 2004-2013, Zhang Yungui
 // License: LGPL, https://github.com/rhcad/touchvg
 
-#ifndef __GEOMETRY_VECTOR_H_
-#define __GEOMETRY_VECTOR_H_
+#ifndef TOUCHVG_VECTOR_H_
+#define TOUCHVG_VECTOR_H_
 
 #include "mgtol.h"
 
@@ -465,4 +465,4 @@ public:
     bool resolveVector(const Vector2d& uAxis, const Vector2d& vAxis);
 };
 
-#endif // __GEOMETRY_VECTOR_H_
+#endif // TOUCHVG_VECTOR_H_

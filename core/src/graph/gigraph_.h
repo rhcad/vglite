@@ -1,6 +1,6 @@
 //! \file gigraph_.h
 //! \brief 定义GiGraphics类的内部成员
-// Copyright (c) 2004-2012, Zhang Yungui
+// Copyright (c) 2004-2013, Zhang Yungui
 // License: LGPL, https://github.com/rhcad/touchvg
 
 #include "gigraph.h"

@@ -1,9 +1,10 @@
 // mgshapes.cpp: 实现图形列表类 MgShapes
-// Copyright (c) 2004-2012, Zhang Yungui
+// Copyright (c) 2004-2013, Zhang Yungui
 // License: LGPL, https://github.com/rhcad/touchvg
 
 #include "mgshapes.h"
 #include "mgstorage.h"
+#include <mgspfactory.h>
 #include <list>
 
 struct MgShapes::I
@@ -108,9 +109,9 @@ MgShape* MgShapes::addShape(const MgShape& src)
     return p;
 }
 
-MgShape* MgShapes::addShapeByType(int type)
+MgShape* MgShapes::addShapeByType(MgShapeFactory* factory, int type)
 {
-    MgShape* p = MgShape::createShape(type);
+    MgShape* p = factory->createShape(type);
     if (p) {
         p->setParent(this, im->getNewID(0));
         im->shapes.push_back(p);
@@ -347,7 +348,7 @@ bool MgShapes::save(MgStorage* s, int startIndex) const
     return ret;
 }
 
-bool MgShapes::load(MgStorage* s, bool addOnly)
+bool MgShapes::load(MgShapeFactory* factory, MgStorage* s, bool addOnly)
 {
     bool ret = false;
     Box2d rect;
@@ -364,12 +365,12 @@ bool MgShapes::load(MgStorage* s, bool addOnly)
         while (ret && s->readNode("shape", index, false)) {
             int type = s->readUInt32("type", 0);
             int id = s->readUInt32("id", 0);
-            MgShape* shape = MgShape::createShape(type);
+            MgShape* shape = factory->createShape(type);
             
             s->readFloatArray("extent", &rect.xmin, 4);
             if (shape) {
                 shape->setParent(this, id);
-                ret = shape->load(s);
+                ret = shape->load(factory, s);
                 if (ret) {
                     im->shapes.push_back(shape);
                 }

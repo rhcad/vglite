@@ -201,8 +201,11 @@ class touchvgcsPINVOKE {
   [DllImport("touchvgcs", EntryPoint="CSharp_Ints_get")]
   public static extern int Ints_get(HandleRef jarg1, int jarg2);
 
-  [DllImport("touchvgcs", EntryPoint="CSharp_Ints_set")]
-  public static extern void Ints_set(HandleRef jarg1, int jarg2, int jarg3);
+  [DllImport("touchvgcs", EntryPoint="CSharp_Ints_set__SWIG_0")]
+  public static extern void Ints_set__SWIG_0(HandleRef jarg1, int jarg2, int jarg3);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_Ints_set__SWIG_1")]
+  public static extern void Ints_set__SWIG_1(HandleRef jarg1, int jarg2, int jarg3, int jarg4);
 
   [DllImport("touchvgcs", EntryPoint="CSharp_delete_Floats")]
   public static extern void delete_Floats(HandleRef jarg1);
@@ -216,8 +219,11 @@ class touchvgcsPINVOKE {
   [DllImport("touchvgcs", EntryPoint="CSharp_Floats_get")]
   public static extern float Floats_get(HandleRef jarg1, int jarg2);
 
-  [DllImport("touchvgcs", EntryPoint="CSharp_Floats_set")]
-  public static extern void Floats_set(HandleRef jarg1, int jarg2, float jarg3);
+  [DllImport("touchvgcs", EntryPoint="CSharp_Floats_set__SWIG_0")]
+  public static extern void Floats_set__SWIG_0(HandleRef jarg1, int jarg2, float jarg3);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_Floats_set__SWIG_1")]
+  public static extern void Floats_set__SWIG_1(HandleRef jarg1, int jarg2, float jarg3, float jarg4);
 
   [DllImport("touchvgcs", EntryPoint="CSharp_delete_Chars")]
   public static extern void delete_Chars(HandleRef jarg1);
@@ -231,8 +237,11 @@ class touchvgcsPINVOKE {
   [DllImport("touchvgcs", EntryPoint="CSharp_Chars_get")]
   public static extern char Chars_get(HandleRef jarg1, int jarg2);
 
-  [DllImport("touchvgcs", EntryPoint="CSharp_Chars_set")]
-  public static extern void Chars_set(HandleRef jarg1, int jarg2, char jarg3);
+  [DllImport("touchvgcs", EntryPoint="CSharp_Chars_set__SWIG_0")]
+  public static extern void Chars_set__SWIG_0(HandleRef jarg1, int jarg2, char jarg3);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_Chars_set__SWIG_1")]
+  public static extern void Chars_set__SWIG_1(HandleRef jarg1, int jarg2, char jarg3, char jarg4);
 
   [DllImport("touchvgcs", EntryPoint="CSharp_delete_GiCanvas")]
   public static extern void delete_GiCanvas(HandleRef jarg1);
@@ -328,10 +337,10 @@ class touchvgcsPINVOKE {
   public static extern bool GiView_isContextActionsVisibleSwigExplicitGiView(HandleRef jarg1);
 
   [DllImport("touchvgcs", EntryPoint="CSharp_GiView_showContextActions")]
-  public static extern bool GiView_showContextActions(HandleRef jarg1, HandleRef jarg2, float jarg3, float jarg4, float jarg5, float jarg6);
+  public static extern bool GiView_showContextActions(HandleRef jarg1, HandleRef jarg2, HandleRef jarg3, float jarg4, float jarg5, float jarg6, float jarg7);
 
   [DllImport("touchvgcs", EntryPoint="CSharp_GiView_showContextActionsSwigExplicitGiView")]
-  public static extern bool GiView_showContextActionsSwigExplicitGiView(HandleRef jarg1, HandleRef jarg2, float jarg3, float jarg4, float jarg5, float jarg6);
+  public static extern bool GiView_showContextActionsSwigExplicitGiView(HandleRef jarg1, HandleRef jarg2, HandleRef jarg3, float jarg4, float jarg5, float jarg6, float jarg7);
 
   [DllImport("touchvgcs", EntryPoint="CSharp_GiView_commandChanged")]
   public static extern void GiView_commandChanged(HandleRef jarg1);
@@ -624,11 +633,17 @@ class touchvgcsPINVOKE {
   [DllImport("touchvgcs", EntryPoint="CSharp_GiCoreView_getShapeCount")]
   public static extern int GiCoreView_getShapeCount(HandleRef jarg1);
 
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiCoreView_getChangeCount")]
+  public static extern int GiCoreView_getChangeCount(HandleRef jarg1);
+
   [DllImport("touchvgcs", EntryPoint="CSharp_GiCoreView_getSelectedShapeCount")]
   public static extern int GiCoreView_getSelectedShapeCount(HandleRef jarg1);
 
   [DllImport("touchvgcs", EntryPoint="CSharp_GiCoreView_getSelectedShapeType")]
   public static extern int GiCoreView_getSelectedShapeType(HandleRef jarg1);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiCoreView_clear")]
+  public static extern void GiCoreView_clear(HandleRef jarg1);
 
   [DllImport("touchvgcs", EntryPoint="CSharp_GiCoreView_loadFromFile")]
   public static extern bool GiCoreView_loadFromFile(HandleRef jarg1, string jarg2);
@@ -671,6 +686,9 @@ class touchvgcsPINVOKE {
 
   [DllImport("touchvgcs", EntryPoint="CSharp_GiCoreView_addImageShape")]
   public static extern bool GiCoreView_addImageShape(HandleRef jarg1, string jarg2, float jarg3, float jarg4);
+
+  [DllImport("touchvgcs", EntryPoint="CSharp_GiCoreView_getBoundingBox")]
+  public static extern bool GiCoreView_getBoundingBox(HandleRef jarg1, HandleRef jarg2);
 
   [DllImport("touchvgcs", EntryPoint="CSharp_TestCanvas_initRand")]
   public static extern void TestCanvas_initRand();
@@ -750,17 +768,17 @@ class touchvgcsPINVOKE {
   [DllImport("touchvgcs", EntryPoint="CSharp_delete_GiMouseHelper")]
   public static extern void delete_GiMouseHelper(HandleRef jarg1);
 
-  [DllImport("touchvgcs", EntryPoint="CSharp_DemoTrade_registerCmds")]
-  public static extern void DemoTrade_registerCmds();
+  [DllImport("touchvgcs", EntryPoint="CSharp_EduCmds_registerCmds")]
+  public static extern void EduCmds_registerCmds(HandleRef jarg1);
 
-  [DllImport("touchvgcs", EntryPoint="CSharp_DemoTrade_getDimensions")]
-  public static extern int DemoTrade_getDimensions(HandleRef jarg1, HandleRef jarg2, HandleRef jarg3);
+  [DllImport("touchvgcs", EntryPoint="CSharp_EduCmds_getDimensions")]
+  public static extern int EduCmds_getDimensions(HandleRef jarg1, HandleRef jarg2, HandleRef jarg3);
 
-  [DllImport("touchvgcs", EntryPoint="CSharp_new_DemoTrade")]
-  public static extern IntPtr new_DemoTrade();
+  [DllImport("touchvgcs", EntryPoint="CSharp_new_EduCmds")]
+  public static extern IntPtr new_EduCmds();
 
-  [DllImport("touchvgcs", EntryPoint="CSharp_delete_DemoTrade")]
-  public static extern void delete_DemoTrade(HandleRef jarg1);
+  [DllImport("touchvgcs", EntryPoint="CSharp_delete_EduCmds")]
+  public static extern void delete_EduCmds(HandleRef jarg1);
 }
 
 }

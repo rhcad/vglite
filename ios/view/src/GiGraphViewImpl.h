@@ -29,8 +29,8 @@ private:
     GiCoreView  *_coreView;     //!< 内核视图分发器
     UIImage     *_tmpshot;      //!< 用于增量绘图的临时快照
     long        _drawCount;     //!< 用于增量绘图的计数
-    NSMutableArray *_buttons;
-    NSMutableDictionary *_buttonImages;
+    NSMutableArray *_buttons;           //!< 上下文按钮的数组
+    NSMutableDictionary *_buttonImages; //!< 按钮图像缓存
     
 public:
     std::vector<id> delegates;  //!< GiGraphViewDelegate 观察者数组
@@ -53,6 +53,7 @@ public:
     virtual void redraw();
     virtual bool isContextActionsVisible();
     virtual bool showContextActions(const mgvector<int>& actions,
+                                    const mgvector<float>& buttonXY,
                                     float x, float y, float w, float h);
     void hideContextActions();
     
@@ -66,8 +67,6 @@ public:
     
 private:
     void setContextButton(UIButton *btn, NSString *caption, NSString *imageName);
-    void setContextButtonPosition(UIButton *btn, int n, int index, CGRect selbox);
-    void moveActionsInView();
 };
 
 /*! \category GiGraphView()

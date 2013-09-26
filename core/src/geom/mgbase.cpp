@@ -1,5 +1,5 @@
 // mgbase.cpp: 实现基本计算功能函数
-// Copyright (c) 2004-2012, Zhang Yungui
+// Copyright (c) 2004-2013, Zhang Yungui
 // License: LGPL, https://github.com/rhcad/touchvg
 
 #include "mgbase.h"

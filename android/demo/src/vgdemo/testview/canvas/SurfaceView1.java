@@ -4,17 +4,15 @@
 
 package vgdemo.testview.canvas;
 
+import touchvg.jni.TestCanvas;
 import touchvg.view.CanvasAdapter;
 import vgdemo.app.R;
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff.Mode;
-import android.graphics.drawable.BitmapDrawable;
-import touchvg.jni.TestCanvas;
 import android.os.SystemClock;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -45,19 +43,9 @@ public class SurfaceView1 extends SurfaceView {
         });
     }
 
-    private Bitmap getHandleBitmap(int id) {
-        return ((BitmapDrawable) this.getResources().getDrawable(id)).getBitmap();
-    }
-
     private void initCanvas() {
-        if (mCanvas.getHandleBitmap(0) == null) {
-            mCanvas.setHandleBitmaps(new Bitmap[] { 
-                    getHandleBitmap(R.drawable.vgdot1), 
-                    getHandleBitmap(R.drawable.vgdot2), 
-                    getHandleBitmap(R.drawable.vgdot1), 
-                    getHandleBitmap(R.drawable.vgdot1), 
-                    getHandleBitmap(R.drawable.ic_launcher) });
-        }
+        mCanvas.setHandleImageIDs(new int[] { R.drawable.vgdot1, R.drawable.vgdot2,
+                R.drawable.vgdot3, R.drawable.vg_lock, R.drawable.vg_unlock });
     }
 
     @Override

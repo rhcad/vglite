@@ -1,0 +1,21 @@
+ROOTDIR  =../../..
+PKGNAME  =touchvg
+PROJNAME =cmdmgr
+
+INCLUDES += -I$(ROOTDIR)/core/include/geom \
+            -I$(ROOTDIR)/core/include/graph \
+            -I$(ROOTDIR)/core/include/shape \
+            -I$(ROOTDIR)/core/include/storage \
+            -I$(ROOTDIR)/core/include/cmd \
+            -I$(ROOTDIR)/core/include/cmdmgr \
+            -I$(ROOTDIR)/core/include/cmdobserver \
+            -I$(ROOTDIR)/core/include/canvas
+
+SOURCES   =$(wildcard *.cpp) \
+           $(wildcard ../geom/*.cpp) \
+           $(wildcard ../graph/*.cpp) \
+           $(wildcard ../shape/*.cpp) \
+           ../cmdbase/mgsplock.cpp
+
+include $(ROOTDIR)/core/mk/config.mk
+include $(ROOTDIR)/core/mk/Makefile.swig

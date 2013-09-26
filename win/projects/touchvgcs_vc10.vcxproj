@@ -87,7 +87,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\core\include\canvas;..\..\core\include\tradecmd;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\storage;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\core\include\canvas;..\..\core\include\cmdobserver;..\..\core\include\cmd;..\..\core\include\cmdbase;..\..\core\include\cmdbasic;..\..\core\include\cmdmgr;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\shapedoc;..\..\core\include\storage;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;TOUCHVG_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -119,7 +119,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\core\include\canvas;..\..\core\include\tradecmd;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\storage;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\core\include\canvas;..\..\core\include\cmdobserver;..\..\core\include\cmd;..\..\core\include\cmdbase;..\..\core\include\cmdbasic;..\..\core\include\cmdmgr;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\shapedoc;..\..\core\include\storage;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_WIN32;_WIN64;NDEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level4</WarningLevel>
@@ -142,7 +142,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>..\..\core\include\canvas;..\..\core\include\tradecmd;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\storage;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\core\include\canvas;..\..\core\include\cmdobserver;..\..\core\include\cmd;..\..\core\include\cmdbase;..\..\core\include\cmdbasic;..\..\core\include\cmdmgr;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\shapedoc;..\..\core\include\storage;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;TOUCHVG_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -177,7 +177,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>..\..\core\include\canvas;..\..\core\include\tradecmd;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\storage;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\core\include\canvas;..\..\core\include\cmdobserver;..\..\core\include\cmd;..\..\core\include\cmdbase;..\..\core\include\cmdbasic;..\..\core\include\cmdmgr;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\shapedoc;..\..\core\include\storage;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_WIN32;_WIN64;_DEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level4</WarningLevel>
@@ -223,7 +223,47 @@ swig.exe -c++ -csharp -namespace "touchvg.core" -module touchvgcs -I"$(ProjectDi
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\core\src\view\demotrade.cpp" />
+    <ClCompile Include="..\..\core\src\cmdbase\mgcmddraw.cpp" />
+    <ClCompile Include="..\..\core\src\cmdbase\mgdrawarc.cpp" />
+    <ClCompile Include="..\..\core\src\cmdbase\mgdrawrect.cpp" />
+    <ClCompile Include="..\..\core\src\cmdbase\mgsplock.cpp" />
+    <ClCompile Include="..\..\core\src\cmdbasic\cmdbasic.cpp" />
+    <ClCompile Include="..\..\core\src\cmdbasic\mgcmderase.cpp" />
+    <ClCompile Include="..\..\core\src\cmdbasic\mgdrawcircle.cpp" />
+    <ClCompile Include="..\..\core\src\cmdbasic\mgdrawdiamond.cpp" />
+    <ClCompile Include="..\..\core\src\cmdbasic\mgdrawellipse.cpp" />
+    <ClCompile Include="..\..\core\src\cmdbasic\mgdrawfreelines.cpp" />
+    <ClCompile Include="..\..\core\src\cmdbasic\mgdrawgrid.cpp" />
+    <ClCompile Include="..\..\core\src\cmdbasic\mgdrawline.cpp" />
+    <ClCompile Include="..\..\core\src\cmdbasic\mgdrawlines.cpp" />
+    <ClCompile Include="..\..\core\src\cmdbasic\mgdrawparallel.cpp" />
+    <ClCompile Include="..\..\core\src\cmdbasic\mgdrawpolygon.cpp" />
+    <ClCompile Include="..\..\core\src\cmdbasic\mgdrawsplines.cpp" />
+    <ClCompile Include="..\..\core\src\cmdbasic\mgdrawsquare.cpp" />
+    <ClCompile Include="..\..\core\src\cmdbasic\mgdrawtriang.cpp" />
+    <ClCompile Include="..\..\core\src\cmdmgr\cmdsubject.cpp" />
+    <ClCompile Include="..\..\core\src\cmdmgr\mgactions.cpp" />
+    <ClCompile Include="..\..\core\src\cmdmgr\mgcmdmgr2.cpp" />
+    <ClCompile Include="..\..\core\src\cmdmgr\mgcmdmgr_.cpp" />
+    <ClCompile Include="..\..\core\src\cmdmgr\mgcmdselect.cpp" />
+    <ClCompile Include="..\..\core\src\cmdmgr\mgsnapimpl.cpp" />
+    <ClCompile Include="..\..\core\src\cmdtest\TransformCmd.cpp" />
+    <ClCompile Include="..\..\core\src\educmds\eduobserver.cpp" />
+    <ClCompile Include="..\..\core\src\shapedoc\mglayer.cpp" />
+    <ClCompile Include="..\..\core\src\shapedoc\mglockrw.cpp" />
+    <ClCompile Include="..\..\core\src\shapedoc\mgshapedoc.cpp" />
+    <ClCompile Include="..\..\core\src\shape\mgcomposite.cpp" />
+    <ClCompile Include="..\..\core\src\shape\mgellipse.cpp" />
+    <ClCompile Include="..\..\core\src\shape\mggrid.cpp" />
+    <ClCompile Include="..\..\core\src\shape\mgline.cpp" />
+    <ClCompile Include="..\..\core\src\shape\mglines.cpp" />
+    <ClCompile Include="..\..\core\src\shape\mgrdrect.cpp" />
+    <ClCompile Include="..\..\core\src\shape\mgrect.cpp" />
+    <ClCompile Include="..\..\core\src\shape\mgshape.cpp" />
+    <ClCompile Include="..\..\core\src\shape\mgshapes.cpp" />
+    <ClCompile Include="..\..\core\src\shape\mgbasicspreg.cpp" />
+    <ClCompile Include="..\..\core\src\shape\mgsplines.cpp" />
+    <ClCompile Include="..\..\core\src\view\educmds.cpp" />
     <ClCompile Include="..\..\core\src\view\GcGraphView.cpp" />
     <ClCompile Include="..\..\core\src\view\GcMagnifierView.cpp" />
     <ClCompile Include="..\..\core\src\view\GcShapeDoc.cpp" />
@@ -232,34 +272,7 @@ swig.exe -c++ -csharp -namespace "touchvg.core" -module touchvgcs -I"$(ProjectDi
     <ClCompile Include="..\src\swig\touchvg_csharp_wrap.cpp" />
     <ClCompile Include="..\..\core\src\test\RandomShape.cpp" />
     <ClCompile Include="..\..\core\src\test\testcanvas.cpp" />
-    <ClCompile Include="..\..\core\src\command\mgactions.cpp" />
-    <ClCompile Include="..\..\core\src\command\mgcmddraw.cpp" />
-    <ClCompile Include="..\..\core\src\command\mgcmderase.cpp" />
-    <ClCompile Include="..\..\core\src\command\mgcmdmgr.cpp" />
-    <ClCompile Include="..\..\core\src\command\mgcmds.cpp" />
-    <ClCompile Include="..\..\core\src\command\mgcmdselect.cpp" />
-    <ClCompile Include="..\..\core\src\command\mgdrawarc.cpp" />
-    <ClCompile Include="..\..\core\src\command\mgdrawline.cpp" />
-    <ClCompile Include="..\..\core\src\command\mgdrawlines.cpp" />
-    <ClCompile Include="..\..\core\src\command\mgdrawrect.cpp" />
-    <ClCompile Include="..\..\core\src\command\mgdrawsplines.cpp" />
-    <ClCompile Include="..\..\core\src\command\mgdrawtriang.cpp" />
-    <ClCompile Include="..\..\core\src\command\TransformCmd.cpp" />
-    <ClCompile Include="..\..\core\src\shape\mgcomposite.cpp" />
-    <ClCompile Include="..\..\core\src\shape\mgellipse.cpp" />
-    <ClCompile Include="..\..\core\src\shape\mggrid.cpp" />
     <ClCompile Include="..\..\core\src\json\mgjsonstorage.cpp" />
-    <ClCompile Include="..\..\core\src\shape\mglayer.cpp" />
-    <ClCompile Include="..\..\core\src\shape\mgline.cpp" />
-    <ClCompile Include="..\..\core\src\shape\mglines.cpp" />
-    <ClCompile Include="..\..\core\src\shape\mgrdrect.cpp" />
-    <ClCompile Include="..\..\core\src\shape\mgrect.cpp" />
-    <ClCompile Include="..\..\core\src\shape\mgshape.cpp" />
-    <ClCompile Include="..\..\core\src\shape\mgshapedoc.cpp" />
-    <ClCompile Include="..\..\core\src\shape\mgshapes.cpp" />
-    <ClCompile Include="..\..\core\src\shape\mgspfactory.cpp" />
-    <ClCompile Include="..\..\core\src\shape\mgsplines.cpp" />
-    <ClCompile Include="..\..\core\src\shape\mgsplock.cpp" />
     <ClCompile Include="..\..\core\src\graph\gigraph.cpp" />
     <ClCompile Include="..\..\core\src\graph\gipath.cpp" />
     <ClCompile Include="..\..\core\src\graph\gixform.cpp" />
@@ -272,17 +285,35 @@ swig.exe -c++ -csharp -namespace "touchvg.core" -module touchvgcs -I"$(ProjectDi
     <ClCompile Include="..\..\core\src\geom\mgnear.cpp" />
     <ClCompile Include="..\..\core\src\geom\mgnearbz.cpp" />
     <ClCompile Include="..\..\core\src\geom\mgvec.cpp" />
-    <ClCompile Include="..\..\core\src\tradecmd\tradecmd.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\core\include\command\mgaction.h" />
-    <ClInclude Include="..\..\core\include\command\mgcmd.h" />
-    <ClInclude Include="..\..\core\include\command\mgcmddraw.h" />
-    <ClInclude Include="..\..\core\include\command\mgdrawarc.h" />
-    <ClInclude Include="..\..\core\include\command\mgdrawrect.h" />
-    <ClInclude Include="..\..\core\include\command\mgselect.h" />
-    <ClInclude Include="..\..\core\include\command\mgsnap.h" />
-    <ClInclude Include="..\..\core\include\command\mgview.h" />
+    <ClInclude Include="..\..\core\include\cmdbase\mgcmddraw.h" />
+    <ClInclude Include="..\..\core\include\cmdbase\mgdrawarc.h" />
+    <ClInclude Include="..\..\core\include\cmdbase\mgdrawrect.h" />
+    <ClInclude Include="..\..\core\include\cmdbasic\cmdbasic.h" />
+    <ClInclude Include="..\..\core\include\cmdbasic\mgdrawcircle.h" />
+    <ClInclude Include="..\..\core\include\cmdbasic\mgdrawdiamond.h" />
+    <ClInclude Include="..\..\core\include\cmdbasic\mgdrawellipse.h" />
+    <ClInclude Include="..\..\core\include\cmdbasic\mgdrawfreelines.h" />
+    <ClInclude Include="..\..\core\include\cmdbasic\mgdrawgrid.h" />
+    <ClInclude Include="..\..\core\include\cmdbasic\mgdrawline.h" />
+    <ClInclude Include="..\..\core\include\cmdbasic\mgdrawlines.h" />
+    <ClInclude Include="..\..\core\include\cmdbasic\mgdrawparallel.h" />
+    <ClInclude Include="..\..\core\include\cmdbasic\mgdrawpolygon.h" />
+    <ClInclude Include="..\..\core\include\cmdbasic\mgdrawquadrangle.h" />
+    <ClInclude Include="..\..\core\include\cmdbasic\mgdrawsplines.h" />
+    <ClInclude Include="..\..\core\include\cmdbasic\mgdrawsquare.h" />
+    <ClInclude Include="..\..\core\include\cmdbasic\mgdrawtriang.h" />
+    <ClInclude Include="..\..\core\include\cmdmgr\mgcmdmgr.h" />
+    <ClInclude Include="..\..\core\include\cmdmgr\mgcmdmgrfactory.h" />
+    <ClInclude Include="..\..\core\include\cmdmgr\mgselect.h" />
+    <ClInclude Include="..\..\core\include\cmdobserver\cmdobserver.h" />
+    <ClInclude Include="..\..\core\include\cmdobserver\cmdsubject.h" />
+    <ClInclude Include="..\..\core\include\cmd\mgaction.h" />
+    <ClInclude Include="..\..\core\include\cmd\mgcmd.h" />
+    <ClInclude Include="..\..\core\include\cmd\mglockdata.h" />
+    <ClInclude Include="..\..\core\include\cmd\mgsnap.h" />
+    <ClInclude Include="..\..\core\include\cmd\mgview.h" />
     <ClInclude Include="..\..\core\include\geom\mgbase.h" />
     <ClInclude Include="..\..\core\include\geom\mgbnd.h" />
     <ClInclude Include="..\..\core\include\geom\mgbox.h" />
@@ -300,27 +331,31 @@ swig.exe -c++ -csharp -namespace "touchvg.core" -module touchvgcs -I"$(ProjectDi
     <ClInclude Include="..\..\core\include\graph\gilock.h" />
     <ClInclude Include="..\..\core\include\graph\gipath.h" />
     <ClInclude Include="..\..\core\include\graph\gixform.h" />
+    <ClInclude Include="..\..\core\include\shapedoc\mglayer.h" />
+    <ClInclude Include="..\..\core\include\shapedoc\mgshapedoc.h" />
     <ClInclude Include="..\..\core\include\shape\mgbasicsp.h" />
+    <ClInclude Include="..\..\core\include\shape\mgbasicspreg.h" />
     <ClInclude Include="..\..\core\include\shape\mgcomposite.h" />
     <ClInclude Include="..\..\core\include\shape\mggrid.h" />
-    <ClInclude Include="..\..\core\include\shape\mglayer.h" />
     <ClInclude Include="..\..\core\include\shape\mglog.h" />
     <ClInclude Include="..\..\core\include\shape\mgobject.h" />
     <ClInclude Include="..\..\core\include\shape\mgshape.h" />
-    <ClInclude Include="..\..\core\include\shape\mgshapedoc.h" />
     <ClInclude Include="..\..\core\include\shape\mgshapes.h" />
     <ClInclude Include="..\..\core\include\shape\mgshapet.h" />
     <ClInclude Include="..\..\core\include\shape\mgshapetype.h" />
     <ClInclude Include="..\..\core\include\shape\mgshape_.h" />
+    <ClInclude Include="..\..\core\include\shape\mgspfactory.h" />
     <ClInclude Include="..\..\core\include\storage\mgjsonstorage.h" />
     <ClInclude Include="..\..\core\include\storage\mgstorage.h" />
     <ClInclude Include="..\..\core\include\storage\mgstoragebs.h" />
     <ClInclude Include="..\..\core\include\test\RandomShape.h" />
-    <ClInclude Include="..\..\core\include\tradecmd\demotrade_.h" />
-    <ClInclude Include="..\..\core\include\view\demotrade.h" />
-    <ClInclude Include="..\..\core\include\tradecmd\tradecmd.h" />
+    <ClInclude Include="..\..\core\include\cmdobserver\educmds_.h" />
+    <ClInclude Include="..\..\core\include\view\educmds.h" />
     <ClInclude Include="..\..\core\include\view\gicoreview.h" />
     <ClInclude Include="..\..\core\include\view\gigesture.h" />
+    <ClInclude Include="..\..\core\src\cmdbasic\mgcmderase.h" />
+    <ClInclude Include="..\..\core\src\cmdmgr\mgcmdmgr_.h" />
+    <ClInclude Include="..\..\core\src\cmdmgr\mgcmdselect.h" />
     <ClInclude Include="..\..\core\src\view\GcBaseView.h" />
     <ClInclude Include="..\..\core\src\view\GcGraphView.h" />
     <ClInclude Include="..\..\core\src\view\GcMagnifierView.h" />
@@ -329,14 +364,6 @@ swig.exe -c++ -csharp -namespace "touchvg.core" -module touchvgcs -I"$(ProjectDi
     <ClInclude Include="..\..\core\include\canvas\gicanvas.h" />
     <ClInclude Include="..\..\core\include\view\giview.h" />
     <ClInclude Include="..\..\core\include\test\testcanvas.h" />
-    <ClInclude Include="..\..\core\src\command\mgcmderase.h" />
-    <ClInclude Include="..\..\core\src\command\mgcmdmgr.h" />
-    <ClInclude Include="..\..\core\src\command\mgcmdselect.h" />
-    <ClInclude Include="..\..\core\src\command\mgdrawline.h" />
-    <ClInclude Include="..\..\core\src\command\mgdrawlines.h" />
-    <ClInclude Include="..\..\core\src\command\mgdrawrect.h" />
-    <ClInclude Include="..\..\core\src\command\mgdrawsplines.h" />
-    <ClInclude Include="..\..\core\src\command\mgdrawtriang.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

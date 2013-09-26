@@ -1,5 +1,5 @@
 // mgdblpt.h: 定义双精度点和辅助函数
-// Copyright (c) 2004-2012, Zhang Yungui
+// Copyright (c) 2004-2013, Zhang Yungui
 // License: LGPL, https://github.com/rhcad/touchvg
 
 #ifndef TOUCHVG_MGDBLPT_H

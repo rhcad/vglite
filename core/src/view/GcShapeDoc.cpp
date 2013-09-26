@@ -5,7 +5,7 @@
 #include "GcShapeDoc.h"
 #include "GcBaseView.h"
 
-GcShapeDoc::GcShapeDoc() : _doc(MgShapeDoc::create())
+GcShapeDoc::GcShapeDoc() : _doc(MgShapeDoc::createDoc())
 {
 }
 

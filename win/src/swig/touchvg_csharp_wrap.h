@@ -93,7 +93,7 @@ public:
     virtual void redraw();
     virtual bool useFinger();
     virtual bool isContextActionsVisible();
-    virtual bool showContextActions(mgvector< int > const &actions, float x, float y, float w, float h);
+    virtual bool showContextActions(mgvector< int > const &actions, mgvector< float > const &buttonXY, float x, float y, float w, float h);
     virtual void commandChanged();
     virtual void selectionChanged();
     virtual void contentChanged();
@@ -103,7 +103,7 @@ public:
     typedef void (SWIGSTDCALL* SWIG_Callback2_t)();
     typedef unsigned int (SWIGSTDCALL* SWIG_Callback3_t)();
     typedef unsigned int (SWIGSTDCALL* SWIG_Callback4_t)();
-    typedef unsigned int (SWIGSTDCALL* SWIG_Callback5_t)(void *, float, float, float, float);
+    typedef unsigned int (SWIGSTDCALL* SWIG_Callback5_t)(void *, void *, float, float, float, float);
     typedef void (SWIGSTDCALL* SWIG_Callback6_t)();
     typedef void (SWIGSTDCALL* SWIG_Callback7_t)();
     typedef void (SWIGSTDCALL* SWIG_Callback8_t)();

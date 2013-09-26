@@ -33,8 +33,9 @@ public:
 
     //! 显示上下文操作菜单
     virtual bool showContextActions(const mgvector<int>& actions,
-        float x, float y, float w, float h) {
-            return actions.count() && x == y && w == h;
+                                    const mgvector<float>& buttonXY,
+                                    float x, float y, float w, float h) {
+        return actions.count() && buttonXY.count() && x == y && w == h;
     }
 
     virtual void commandChanged() {}        //!< 当前命令已改变

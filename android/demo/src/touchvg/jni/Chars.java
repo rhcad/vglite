@@ -48,7 +48,11 @@ public class Chars {
   }
 
   public void set(int index, char value) {
-    touchvgJNI.Chars_set(swigCPtr, this, index, value);
+    touchvgJNI.Chars_set__SWIG_0(swigCPtr, this, index, value);
+  }
+
+  public void set(int index, char v1, char v2) {
+    touchvgJNI.Chars_set__SWIG_1(swigCPtr, this, index, v1, v2);
   }
 
 }

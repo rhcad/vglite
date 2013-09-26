@@ -1,5 +1,5 @@
 // mglines.cpp: 实现折线图形类 MgLines
-// Copyright (c) 2004-2012, Zhang Yungui
+// Copyright (c) 2004-2013, Zhang Yungui
 // License: LGPL, https://github.com/rhcad/touchvg
 
 #include "mgbasicsp.h"
@@ -196,9 +196,9 @@ bool MgBaseLines::_save(MgStorage* s) const
     return ret;
 }
 
-bool MgBaseLines::_load(MgStorage* s)
+bool MgBaseLines::_load(MgShapeFactory* factory, MgStorage* s)
 {
-    bool ret = __super::_load(s);
+    bool ret = __super::_load(factory, s);
     
     int n = s->readUInt32("count", 0);
     if (n < 1 || n > 9999)

@@ -428,7 +428,7 @@ namespace Swig {
 #include "gicoreview.h"
 #include "gimousehelper.h"
 #include "testcanvas.h"
-#include "demotrade.h"
+#include "educmds.h"
 
 
 struct TmpJOBJ {
@@ -1180,29 +1180,31 @@ bool SwigDirector_GiView::isContextActionsVisible() {
   return c_result;
 }
 
-bool SwigDirector_GiView::showContextActions(mgvector< int > const &actions, float x, float y, float w, float h) {
+bool SwigDirector_GiView::showContextActions(mgvector< int > const &actions, mgvector< float > const &buttonXY, float x, float y, float w, float h) {
   bool c_result = SwigValueInit< bool >() ;
   jboolean jresult = 0 ;
   JNIEnvWrapper swigjnienv(this) ;
   JNIEnv * jenv = swigjnienv.getJNIEnv() ;
   jobject swigjobj = (jobject) NULL ;
   jlong jactions = 0 ;
+  jlong jbuttonXY = 0 ;
   jfloat jx  ;
   jfloat jy  ;
   jfloat jw  ;
   jfloat jh  ;
   
   if (!swig_override[5]) {
-    return GiView::showContextActions(actions,x,y,w,h);
+    return GiView::showContextActions(actions,buttonXY,x,y,w,h);
   }
   swigjobj = swig_get_self(jenv);
   if (swigjobj && jenv->IsSameObject(swigjobj, NULL) == JNI_FALSE) {
     *(mgvector< int > **)&jactions = (mgvector< int > *) &actions; 
+    *(mgvector< float > **)&jbuttonXY = (mgvector< float > *) &buttonXY; 
     jx = (jfloat) x;
     jy = (jfloat) y;
     jw = (jfloat) w;
     jh = (jfloat) h;
-    jresult = (jboolean) jenv->CallStaticBooleanMethod(Swig::jclass_touchvgJNI, Swig::director_methids[25], swigjobj, jactions, jx, jy, jw, jh);
+    jresult = (jboolean) jenv->CallStaticBooleanMethod(Swig::jclass_touchvgJNI, Swig::director_methids[25], swigjobj, jactions, jbuttonXY, jx, jy, jw, jh);
     if (jenv->ExceptionCheck() == JNI_TRUE) return c_result;
     c_result = jresult ? true : false; 
   } else {
@@ -1291,7 +1293,7 @@ void SwigDirector_GiView::swig_connect_director(JNIEnv *jenv, jobject jself, jcl
       "isContextActionsVisible", "()Z", NULL 
     },
     {
-      "showContextActions", "(Ltouchvg/jni/Ints;FFFF)Z", NULL 
+      "showContextActions", "(Ltouchvg/jni/Ints;Ltouchvg/jni/Floats;FFFF)Z", NULL 
     },
     {
       "commandChanged", "()V", NULL 
@@ -1390,7 +1392,7 @@ SWIGEXPORT jint JNICALL Java_touchvg_jni_touchvgJNI_Ints_1get(JNIEnv *jenv, jcla
 }
 
 
-SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_Ints_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jint jarg3) {
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_Ints_1set_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jint jarg3) {
   mgvector< int > *arg1 = (mgvector< int > *) 0 ;
   int arg2 ;
   int arg3 ;
@@ -1402,6 +1404,23 @@ SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_Ints_1set(JNIEnv *jenv, jcla
   arg2 = (int)jarg2; 
   arg3 = (int)jarg3; 
   (arg1)->set(arg2,arg3);
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_Ints_1set_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jint jarg3, jint jarg4) {
+  mgvector< int > *arg1 = (mgvector< int > *) 0 ;
+  int arg2 ;
+  int arg3 ;
+  int arg4 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(mgvector< int > **)&jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  arg4 = (int)jarg4; 
+  (arg1)->set(arg2,arg3,arg4);
 }
 
 
@@ -1461,7 +1480,7 @@ SWIGEXPORT jfloat JNICALL Java_touchvg_jni_touchvgJNI_Floats_1get(JNIEnv *jenv, 
 }
 
 
-SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_Floats_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jfloat jarg3) {
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_Floats_1set_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jfloat jarg3) {
   mgvector< float > *arg1 = (mgvector< float > *) 0 ;
   int arg2 ;
   float arg3 ;
@@ -1473,6 +1492,23 @@ SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_Floats_1set(JNIEnv *jenv, jc
   arg2 = (int)jarg2; 
   arg3 = (float)jarg3; 
   (arg1)->set(arg2,arg3);
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_Floats_1set_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jfloat jarg3, jfloat jarg4) {
+  mgvector< float > *arg1 = (mgvector< float > *) 0 ;
+  int arg2 ;
+  float arg3 ;
+  float arg4 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(mgvector< float > **)&jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (float)jarg3; 
+  arg4 = (float)jarg4; 
+  (arg1)->set(arg2,arg3,arg4);
 }
 
 
@@ -1532,7 +1568,7 @@ SWIGEXPORT jchar JNICALL Java_touchvg_jni_touchvgJNI_Chars_1get(JNIEnv *jenv, jc
 }
 
 
-SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_Chars_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jchar jarg3) {
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_Chars_1set_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jchar jarg3) {
   mgvector< char > *arg1 = (mgvector< char > *) 0 ;
   int arg2 ;
   char arg3 ;
@@ -1544,6 +1580,23 @@ SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_Chars_1set(JNIEnv *jenv, jcl
   arg2 = (int)jarg2; 
   arg3 = (char)jarg3; 
   (arg1)->set(arg2,arg3);
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_Chars_1set_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jchar jarg3, jchar jarg4) {
+  mgvector< char > *arg1 = (mgvector< char > *) 0 ;
+  int arg2 ;
+  char arg3 ;
+  char arg4 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(mgvector< char > **)&jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (char)jarg3; 
+  arg4 = (char)jarg4; 
+  (arg1)->set(arg2,arg3,arg4);
 }
 
 
@@ -2054,61 +2107,75 @@ SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiView_1isContextActions
 }
 
 
-SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiView_1showContextActions(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jfloat jarg3, jfloat jarg4, jfloat jarg5, jfloat jarg6) {
+SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiView_1showContextActions(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_, jfloat jarg4, jfloat jarg5, jfloat jarg6, jfloat jarg7) {
   jboolean jresult = 0 ;
   GiView *arg1 = (GiView *) 0 ;
   mgvector< int > *arg2 = 0 ;
-  float arg3 ;
+  mgvector< float > *arg3 = 0 ;
   float arg4 ;
   float arg5 ;
   float arg6 ;
+  float arg7 ;
   bool result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
+  (void)jarg3_;
   arg1 = *(GiView **)&jarg1; 
   arg2 = *(mgvector< int > **)&jarg2;
   if (!arg2) {
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "mgvector< int > const & reference is null");
     return 0;
   } 
-  arg3 = (float)jarg3; 
+  arg3 = *(mgvector< float > **)&jarg3;
+  if (!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "mgvector< float > const & reference is null");
+    return 0;
+  } 
   arg4 = (float)jarg4; 
   arg5 = (float)jarg5; 
   arg6 = (float)jarg6; 
-  result = (bool)(arg1)->showContextActions((mgvector< int > const &)*arg2,arg3,arg4,arg5,arg6);
+  arg7 = (float)jarg7; 
+  result = (bool)(arg1)->showContextActions((mgvector< int > const &)*arg2,(mgvector< float > const &)*arg3,arg4,arg5,arg6,arg7);
   jresult = (jboolean)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiView_1showContextActionsSwigExplicitGiView(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jfloat jarg3, jfloat jarg4, jfloat jarg5, jfloat jarg6) {
+SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiView_1showContextActionsSwigExplicitGiView(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_, jfloat jarg4, jfloat jarg5, jfloat jarg6, jfloat jarg7) {
   jboolean jresult = 0 ;
   GiView *arg1 = (GiView *) 0 ;
   mgvector< int > *arg2 = 0 ;
-  float arg3 ;
+  mgvector< float > *arg3 = 0 ;
   float arg4 ;
   float arg5 ;
   float arg6 ;
+  float arg7 ;
   bool result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
+  (void)jarg3_;
   arg1 = *(GiView **)&jarg1; 
   arg2 = *(mgvector< int > **)&jarg2;
   if (!arg2) {
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "mgvector< int > const & reference is null");
     return 0;
   } 
-  arg3 = (float)jarg3; 
+  arg3 = *(mgvector< float > **)&jarg3;
+  if (!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "mgvector< float > const & reference is null");
+    return 0;
+  } 
   arg4 = (float)jarg4; 
   arg5 = (float)jarg5; 
   arg6 = (float)jarg6; 
-  result = (bool)(arg1)->GiView::showContextActions((mgvector< int > const &)*arg2,arg3,arg4,arg5,arg6);
+  arg7 = (float)jarg7; 
+  result = (bool)(arg1)->GiView::showContextActions((mgvector< int > const &)*arg2,(mgvector< float > const &)*arg3,arg4,arg5,arg6,arg7);
   jresult = (jboolean)result; 
   return jresult;
 }
@@ -3817,6 +3884,21 @@ SWIGEXPORT jint JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1getShapeCount(JN
 }
 
 
+SWIGEXPORT jint JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1getChangeCount(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  GiCoreView *arg1 = (GiCoreView *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiCoreView **)&jarg1; 
+  result = (int)(arg1)->getChangeCount();
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
 SWIGEXPORT jint JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1getSelectedShapeCount(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jint jresult = 0 ;
   GiCoreView *arg1 = (GiCoreView *) 0 ;
@@ -3844,6 +3926,17 @@ SWIGEXPORT jint JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1getSelectedShape
   result = (int)(arg1)->getSelectedShapeType();
   jresult = (jint)result; 
   return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1clear(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  GiCoreView *arg1 = (GiCoreView *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(GiCoreView **)&jarg1; 
+  (arg1)->clear();
 }
 
 
@@ -4109,6 +4202,28 @@ SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1addImageShap
 }
 
 
+SWIGEXPORT jboolean JNICALL Java_touchvg_jni_touchvgJNI_GiCoreView_1getBoundingBox(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  jboolean jresult = 0 ;
+  GiCoreView *arg1 = (GiCoreView *) 0 ;
+  mgvector< float > *arg2 = 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(GiCoreView **)&jarg1; 
+  arg2 = *(mgvector< float > **)&jarg2;
+  if (!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "mgvector< float > & reference is null");
+    return 0;
+  } 
+  result = (bool)(arg1)->getBoundingBox(*arg2);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
 SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_TestCanvas_1initRand(JNIEnv *jenv, jclass jcls) {
   (void)jenv;
   (void)jcls;
@@ -4343,14 +4458,18 @@ SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_delete_1TestCanvas(JNIEnv *j
 }
 
 
-SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_DemoTrade_1registerCmds(JNIEnv *jenv, jclass jcls) {
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_EduCmds_1registerCmds(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  GiCoreView *arg1 = (GiCoreView *) 0 ;
+  
   (void)jenv;
   (void)jcls;
-  DemoTrade::registerCmds();
+  (void)jarg1_;
+  arg1 = *(GiCoreView **)&jarg1; 
+  EduCmds::registerCmds(arg1);
 }
 
 
-SWIGEXPORT jint JNICALL Java_touchvg_jni_touchvgJNI_DemoTrade_1getDimensions(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_) {
+SWIGEXPORT jint JNICALL Java_touchvg_jni_touchvgJNI_EduCmds_1getDimensions(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_) {
   jint jresult = 0 ;
   GiCoreView *arg1 = (GiCoreView *) 0 ;
   mgvector< float > *arg2 = 0 ;
@@ -4373,30 +4492,30 @@ SWIGEXPORT jint JNICALL Java_touchvg_jni_touchvgJNI_DemoTrade_1getDimensions(JNI
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "mgvector< char > & reference is null");
     return 0;
   } 
-  result = (int)DemoTrade::getDimensions(arg1,*arg2,*arg3);
+  result = (int)EduCmds::getDimensions(arg1,*arg2,*arg3);
   jresult = (jint)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_touchvg_jni_touchvgJNI_new_1DemoTrade(JNIEnv *jenv, jclass jcls) {
+SWIGEXPORT jlong JNICALL Java_touchvg_jni_touchvgJNI_new_1EduCmds(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
-  DemoTrade *result = 0 ;
+  EduCmds *result = 0 ;
   
   (void)jenv;
   (void)jcls;
-  result = (DemoTrade *)new DemoTrade();
-  *(DemoTrade **)&jresult = result; 
+  result = (EduCmds *)new EduCmds();
+  *(EduCmds **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_delete_1DemoTrade(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  DemoTrade *arg1 = (DemoTrade *) 0 ;
+SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_delete_1EduCmds(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  EduCmds *arg1 = (EduCmds *) 0 ;
   
   (void)jenv;
   (void)jcls;
-  arg1 = *(DemoTrade **)&jarg1; 
+  arg1 = *(EduCmds **)&jarg1; 
   delete arg1;
 }
 
@@ -4484,7 +4603,7 @@ SWIGEXPORT void JNICALL Java_touchvg_jni_touchvgJNI_swig_1module_1init(JNIEnv *j
       "SwigDirector_GiView_isContextActionsVisible", "(Ltouchvg/jni/GiView;)Z" 
     },
     {
-      "SwigDirector_GiView_showContextActions", "(Ltouchvg/jni/GiView;JFFFF)Z" 
+      "SwigDirector_GiView_showContextActions", "(Ltouchvg/jni/GiView;JJFFFF)Z" 
     },
     {
       "SwigDirector_GiView_commandChanged", "(Ltouchvg/jni/GiView;)V" 

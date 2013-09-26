@@ -55,7 +55,11 @@ public class Chars : IDisposable {
   }
 
   public void set(int index, char value) {
-    touchvgcsPINVOKE.Chars_set(swigCPtr, index, value);
+    touchvgcsPINVOKE.Chars_set__SWIG_0(swigCPtr, index, value);
+  }
+
+  public void set(int index, char v1, char v2) {
+    touchvgcsPINVOKE.Chars_set__SWIG_1(swigCPtr, index, v1, v2);
   }
 
 }

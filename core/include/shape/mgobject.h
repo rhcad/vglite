@@ -1,10 +1,10 @@
 //! \file mgobject.h
 //! \brief 定义图形对象基类 MgObject
-// Copyright (c) 2004-2012, Zhang Yungui
+// Copyright (c) 2004-2013, Zhang Yungui
 // License: LGPL, https://github.com/rhcad/touchvg
 
-#ifndef __GEOMETRY_MGOBJECT_H_
-#define __GEOMETRY_MGOBJECT_H_
+#ifndef TOUCHVG_MGOBJECT_H_
+#define TOUCHVG_MGOBJECT_H_
 
 //! 图形对象基类
 /*! \ingroup CORE_SHAPE
@@ -40,4 +40,4 @@ protected:
     virtual ~MgObject() {}
 };
 
-#endif // __GEOMETRY_MGOBJECT_H_
+#endif // TOUCHVG_MGOBJECT_H_

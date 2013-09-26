@@ -1,10 +1,10 @@
 //! \file gilock.h
 //! \brief 定义原子锁函数 giInterlockedIncrement, giInterlockedDecrement
-// Copyright (c) 2004-2012, Zhang Yungui
+// Copyright (c) 2004-2013, Zhang Yungui
 // License: LGPL, https://github.com/rhcad/touchvg
 
-#ifndef __GEOMETRY_GILOCK_H_
-#define __GEOMETRY_GILOCK_H_
+#ifndef TOUCHVG_GILOCK_H_
+#define TOUCHVG_GILOCK_H_
 
 #ifndef SWIG
 #if defined(_MACOSX) || defined(__APPLE__) || defined(__DARWIN__)
@@ -32,4 +32,4 @@
 #endif
 #endif // SWIG
 
-#endif // __GEOMETRY_GILOCK_H_
+#endif // TOUCHVG_GILOCK_H_

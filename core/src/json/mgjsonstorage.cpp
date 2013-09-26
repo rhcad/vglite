@@ -15,7 +15,7 @@ class MgJsonStorage::Impl : public MgStorage
 {
 public:
     Impl() : _fs(NULL), _err(NULL) {}
-    ~Impl() { if (_fs) delete(_fs); }
+    virtual ~Impl() { if (_fs) delete(_fs); }
     
     void clear();
     const char* stringify(bool pretty);

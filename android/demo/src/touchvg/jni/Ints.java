@@ -48,7 +48,11 @@ public class Ints {
   }
 
   public void set(int index, int value) {
-    touchvgJNI.Ints_set(swigCPtr, this, index, value);
+    touchvgJNI.Ints_set__SWIG_0(swigCPtr, this, index, value);
+  }
+
+  public void set(int index, int v1, int v2) {
+    touchvgJNI.Ints_set__SWIG_1(swigCPtr, this, index, v1, v2);
   }
 
 }

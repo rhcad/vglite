@@ -159,6 +159,14 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\android\demo\src\touchvg\view\ContextAction.java"
+					>
+				</File>
+				<File
+					RelativePath="..\..\android\demo\src\touchvg\view\GestureListener.java"
+					>
+				</File>
+				<File
 					RelativePath="..\..\android\demo\src\touchvg\view\GraphView.java"
 					>
 				</File>
@@ -166,12 +174,96 @@
 					RelativePath="..\..\android\demo\src\touchvg\view\ViewHelper.java"
 					>
 				</File>
+			</Filter>
+			<Filter
+				Name="jni"
+				>
 				<File
-					RelativePath="..\..\android\demo\src\touchvg\view\GestureListener.java"
+					RelativePath="..\..\android\demo\src\touchvg\jni\Chars.java"
+					>
+				</File>
+				<File
+					RelativePath="..\..\android\demo\src\touchvg\jni\EduCmds.java"
+					>
+				</File>
+				<File
+					RelativePath="..\..\android\demo\src\touchvg\jni\Floats.java"
+					>
+				</File>
+				<File
+					RelativePath="..\..\android\demo\src\touchvg\jni\GiCanvas.java"
+					>
+				</File>
+				<File
+					RelativePath="..\..\android\demo\src\touchvg\jni\GiColor.java"
+					>
+				</File>
+				<File
+					RelativePath="..\..\android\demo\src\touchvg\jni\GiContext.java"
+					>
+				</File>
+				<File
+					RelativePath="..\..\android\demo\src\touchvg\jni\GiContextBits.java"
+					>
+				</File>
+				<File
+					RelativePath="..\..\android\demo\src\touchvg\jni\GiCoreView.java"
+					>
+				</File>
+				<File
+					RelativePath="..\..\android\demo\src\touchvg\jni\GiGestureState.java"
+					>
+				</File>
+				<File
+					RelativePath="..\..\android\demo\src\touchvg\jni\GiGestureType.java"
+					>
+				</File>
+				<File
+					RelativePath="..\..\android\demo\src\touchvg\jni\GiLineStyle.java"
+					>
+				</File>
+				<File
+					RelativePath="..\..\android\demo\src\touchvg\jni\GiView.java"
+					>
+				</File>
+				<File
+					RelativePath="..\..\android\demo\src\touchvg\jni\Ints.java"
+					>
+				</File>
+				<File
+					RelativePath="..\..\android\demo\src\touchvg\jni\TestCanvas.java"
+					>
+				</File>
+				<File
+					RelativePath="..\..\android\demo\src\touchvg\jni\touchvg.java"
+					>
+				</File>
+				<File
+					RelativePath="..\..\android\demo\src\touchvg\jni\touchvgJNI.java"
 					>
 				</File>
 			</Filter>
 		</Filter>
+		<File
+			RelativePath="..\..\android\demo\jni\Android.mk"
+			>
+			<FileConfiguration
+				Name="Debug|Win32"
+				ExcludedFromBuild="true"
+				>
+				<Tool
+					Name="VCCustomBuildTool"
+				/>
+			</FileConfiguration>
+			<FileConfiguration
+				Name="Release|Win32"
+				ExcludedFromBuild="true"
+				>
+				<Tool
+					Name="VCCustomBuildTool"
+				/>
+			</FileConfiguration>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

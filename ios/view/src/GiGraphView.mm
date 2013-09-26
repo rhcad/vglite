@@ -159,6 +159,10 @@ GiColor CGColorToGiColor(CGColorRef color);
     }
 }
 
+- (void)redraw {
+    _adapter->redraw();
+}
+
 - (void)clearCachedData {
     _adapter->clearCachedData();
 }

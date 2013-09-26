@@ -9,8 +9,6 @@ import touchvg.view.CanvasAdapter;
 import vgdemo.app.R;
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.os.SystemClock;
@@ -42,20 +40,10 @@ public class GraphView1 extends View {
             }
         });
     }
-    
-    private Bitmap getHandleBitmap(int id) {
-        return BitmapFactory.decodeResource(getResources(), id);
-    }
 
     private void initCanvas() {
-        if (mCanvas.getHandleBitmap(0) == null) {
-            mCanvas.setHandleBitmaps(new Bitmap[] { 
-                    getHandleBitmap(R.drawable.vgdot1), 
-                    getHandleBitmap(R.drawable.vgdot2), 
-                    getHandleBitmap(R.drawable.vgdot1), 
-                    getHandleBitmap(R.drawable.vgdot1), 
-                    getHandleBitmap(R.drawable.ic_launcher) });
-        }
+        mCanvas.setHandleImageIDs(new int[] { R.drawable.vgdot1, R.drawable.vgdot2,
+                R.drawable.vgdot3, R.drawable.vg_lock, R.drawable.vg_unlock });
     }
 
     @Override

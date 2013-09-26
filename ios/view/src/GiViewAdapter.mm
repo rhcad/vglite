@@ -4,7 +4,18 @@
 
 #import "GiGraphViewImpl.h"
 #import <QuartzCore/CALayer.h>
-#include "demotrade.h"
+#include "educmds.h"
+
+static NSString* const CAPTIONS[] = { nil, @"全选", @"重选", @"绘图", @"取消",
+    @"删除", @"克隆", @"定长", @"不定长", @"锁定", @"解锁", @"编辑", @"返回",
+    @"闭合", @"不闭合", @"加点", @"删点", @"成组", @"解组", @"翻转",
+};
+static NSString* const IMAGENAMES[] = { nil, @"vg_selall.png", nil, @"vg_draw.png",
+    @"vg_back.png", @"vg_delete.png", @"vg_clone.png", @"vg_fixlen.png",
+    @"vg_freelen.png", @"vg_lock.png", @"vg_unlock.png", @"vg_edit.png",
+    @"vg_back.png", nil, nil, @"vg_addvertex.png", @"vg_delvertex.png",
+    @"vg_group.png", @"vg_ungroup.png", @"vg_overturn.png",
+};
 
 //! Button class for showContextActions().
 @interface UIButtonAutoHide : UIButton
@@ -31,10 +42,12 @@ GiViewAdapter::GiViewAdapter(UIView *mainView, GiCoreView *coreView)
 , _buttons(nil), _buttonImages(nil) {
     _coreView = new GiCoreView(coreView);
     memset(&respondsTo, 0, sizeof(respondsTo));
-    DemoTrade::registerCmds();
+    EduCmds::registerCmds(_coreView);
 }
 
 GiViewAdapter::~GiViewAdapter() {
+    [_buttons release];
+    [_buttonImages release];
     _coreView->destoryView(this);
     delete _coreView;
     [_tmpshot release];
@@ -80,6 +93,9 @@ void GiViewAdapter::clearCachedData() {
         [_tmpshot release];
         _tmpshot = nil;
     }
+    if (_buttonImages) {
+        [_buttonImages removeAllObjects];
+    }
     _coreView->clearCachedData();
 }
 
@@ -99,13 +115,18 @@ void GiViewAdapter::regenAppend() {
 }
 
 void GiViewAdapter::redraw() {
-    if (!_dynview && _view && _view.superview) {    // 自动创建动态图形视图
+    if (!_dynview && _view && _view.window) {    // 自动创建动态图形视图
         _dynview = [[IosTempView alloc]initView:_view.frame :this];
         _dynview.autoresizingMask = _view.autoresizingMask;
         [_view.superview addSubview:_dynview];
         [_dynview release];
     }
-    [_dynview setNeedsDisplay];
+    if (_dynview) {
+        [_dynview setNeedsDisplay];
+    }
+    else {
+        [_view performSelector:@selector(redraw) withObject:nil afterDelay:0.2];
+    }
 }
 
 bool GiViewAdapter::dispatchGesture(GiGestureType gestureType, GiGestureState gestureState, CGPoint pt) {
@@ -147,8 +168,10 @@ bool GiViewAdapter::isContextActionsVisible() {
 }
 
 bool GiViewAdapter::showContextActions(const mgvector<int>& actions,
+                                       const mgvector<float>& buttonXY,
                                        float x, float y, float w, float h) {
     int n = actions.count();
+    UIView *btnParent = _view;
     
     if (n == 0) {
         hideContextActions();
@@ -163,48 +186,32 @@ bool GiViewAdapter::showContextActions(const mgvector<int>& actions,
     }
     hideContextActions();
     
-    NSString* captions[] = { nil, @"全选", @"重选", @"绘图", @"取消",
-        @"删除", @"克隆", @"定长", @"不定长", @"锁定", @"解锁", @"编辑", @"返回",
-        @"闭合", @"不闭合", @"加点", @"删点", @"成组", @"解组", @"翻转",
-    };
-    NSString* imageNames[] = { nil, @"vg_selall.png", nil, @"vg_draw.png",
-        @"vg_back.png", @"vg_delete.png", @"vg_clone.png", @"vg_fixlen.png",
-        @"vg_freelen.png", @"vg_lock.png", @"vg_unlock.png", @"vg_edit.png",
-        @"vg_back.png", nil, nil, @"vg_addvertex.png", @"vg_delvertex.png",
-        @"vg_group.png", @"vg_ungroup.png", @"vg_overturn.png",
-    };
-    
-    UIView *btnParent = _view;
-    CGRect selbox = CGRectInset(CGRectMake(x, y, w, h), -12, -18);
-    
-    if (h < (n < 7 ? 40 : 80)) {
-        selbox = CGRectInset(selbox, 0, (h - (n < 7 ? 40 : 80)) / 2);
-    }
-    if (w < (n == 3 || n > 4 ? 120 : 40)) {
-        selbox = CGRectInset(selbox, (w - (n==3||n>4 ? 120 : 40)) / 2, 0);
-    }
-    
     for (int i = 0; i < n; i++) {
         const int action = actions.get(i);
+        NSString *caption, *imageName;
         
-        if (action > 0 && action < sizeof(captions)/sizeof(captions[0])) {
-            CGRect rect = CGRectMake(x, y, 60, 36);
-            UIButtonAutoHide *btn = [[UIButtonAutoHide alloc]initWithFrame:rect];
-            
-            btn.delegate = _view;
-            btn.tag = action;
-            btn.showsTouchWhenHighlighted = YES;
-            setContextButton(btn, captions[action], imageNames[action]);
-            setContextButtonPosition(btn, n, i, selbox);
-            
-            [btn addTarget:_view action:@selector(onContextAction:) forControlEvents:UIControlEventTouchUpInside];
-            btn.frame = [btnParent convertRect:btn.frame fromView:_view];
-            [btnParent addSubview:btn];
-            [_buttons addObject:btn];
-            [btn release];
+        if (action > 0 && action < sizeof(CAPTIONS)/sizeof(CAPTIONS[0])) {
+            caption = CAPTIONS[action];
+            imageName = IMAGENAMES[action];
         }
+        else {
+            continue;
+        }
+        
+        UIButtonAutoHide *btn = [[UIButtonAutoHide alloc]initWithFrame:CGRectNull];
+        
+        btn.delegate = _view;
+        btn.tag = action;
+        btn.showsTouchWhenHighlighted = YES;
+        setContextButton(btn, caption, imageName);
+        btn.center = CGPointMake(buttonXY.get(2 * i), buttonXY.get(2 * i + 1));
+        
+        [btn addTarget:_view action:@selector(onContextAction:) forControlEvents:UIControlEventTouchUpInside];
+        btn.frame = [btnParent convertRect:btn.frame fromView:_view];
+        [btnParent addSubview:btn];
+        [_buttons addObject:btn];
+        [btn release];
     }
-    moveActionsInView();
     [_view performSelector:@selector(onContextActionsDisplay:) withObject:_buttons];
     
     return [_buttons count] > 0;
@@ -214,11 +221,14 @@ void GiViewAdapter::setContextButton(UIButton *btn, NSString *caption, NSString 
     UIImage *image = nil;
     
     if (imageName) {
+        if (!_buttonImages) {
+            _buttonImages = [[NSMutableDictionary alloc]init];
+        }
+        imageName = [@"TouchVG.bundle/" stringByAppendingString:imageName];
         image = [_buttonImages objectForKey:imageName];
         if (!image) {
             image = [UIImage imageNamed:imageName];
             if (image) {
-                [image retain];
                 [_buttonImages setObject:image forKey:imageName];
             }
         }
@@ -227,98 +237,14 @@ void GiViewAdapter::setContextButton(UIButton *btn, NSString *caption, NSString 
         [btn setImage:image forState: UIControlStateNormal];
         [btn setTitle:nil forState: UIControlStateNormal];
         btn.backgroundColor = [UIColor clearColor];
+        btn.frame = CGRectMake(0, 0, 32, 32);
     }
     else if (caption) {
         [btn setTitle:caption forState: UIControlStateNormal];
         [btn setTitle:caption forState: UIControlStateHighlighted];
         [btn setTitleColor:[UIColor blackColor] forState: UIControlStateHighlighted];
         btn.backgroundColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.8];
-    }
-}
-
-void GiViewAdapter::setContextButtonPosition(UIButton *btn, int n, int index, CGRect selbox)
-{
-    CGPoint pt;
-    
-    switch (index) {
-        case 0:
-            if (n == 1) {
-                pt = CGPointMake(CGRectGetMidX(selbox), CGRectGetMinY(selbox)); // MT
-            } else {
-                pt = CGPointMake(CGRectGetMinX(selbox), CGRectGetMinY(selbox)); // LT
-            }
-            break;
-        case 1:
-            if (n == 3) {
-                pt = CGPointMake(CGRectGetMidX(selbox), CGRectGetMinY(selbox)); // MT
-            } else {
-                pt = CGPointMake(CGRectGetMaxX(selbox), CGRectGetMinY(selbox)); // RT
-            }
-            break;
-        case 2:
-            if (n == 3) {
-                pt = CGPointMake(CGRectGetMaxX(selbox), CGRectGetMinY(selbox)); // RT
-            } else {
-                pt = CGPointMake(CGRectGetMaxX(selbox), CGRectGetMaxY(selbox)); // RB
-            }
-            break;
-        case 3:
-            pt = CGPointMake(CGRectGetMinX(selbox), CGRectGetMaxY(selbox)); // LB
-            break;
-        case 4:
-            pt = CGPointMake(CGRectGetMidX(selbox), CGRectGetMinY(selbox)); // MT
-            break;
-        case 5:
-            pt = CGPointMake(CGRectGetMidX(selbox), CGRectGetMaxY(selbox)); // MB
-            break;
-        case 6:
-            pt = CGPointMake(CGRectGetMaxX(selbox), CGRectGetMidY(selbox)); // RM
-            break;
-        case 7:
-            pt = CGPointMake(CGRectGetMinX(selbox), CGRectGetMidY(selbox)); // LM
-            break;
-        default:
-            return;
-    }
-    
-    btn.frame = CGRectMake(pt.x - btn.frame.size.width / 2,
-                           pt.y - btn.frame.size.height / 2,
-                           btn.frame.size.width, btn.frame.size.height);
-}
-
-void GiViewAdapter::moveActionsInView()
-{
-    CGRect rect = CGRectNull;
-    
-    for (UIView *button in _buttons) {
-        if (CGRectIsEmpty(rect)) {
-            rect = [button.superview convertRect:button.frame toView:_view];
-        }
-        else {
-            rect = CGRectUnion(rect, [button.superview convertRect:button.frame toView:_view]);
-        }
-    }
-    
-    if (!CGRectIsEmpty(rect) && !CGRectContainsRect(_view.bounds, rect)) {
-        CGPoint off = CGPointZero;
-        
-        if (rect.origin.x < 0) {
-            off.x = -rect.origin.x;
-        }
-        else if (CGRectGetMaxX(rect) > CGRectGetMaxX(_view.bounds)) {
-            off.x = CGRectGetMaxX(_view.bounds) - CGRectGetMaxX(rect);
-        }
-        
-        if (rect.origin.y < 0) {
-            off.y = -rect.origin.y;
-        }
-        else if (CGRectGetMaxY(rect) > CGRectGetMaxY(_view.bounds)) {
-            off.y = CGRectGetMaxY(_view.bounds) - CGRectGetMaxY(rect);
-        }
-        
-        for (UIView *button in _buttons) {
-            button.frame = CGRectOffset(button.frame, off.x, off.y);
-        }
+        btn.frame = CGRectMake(0, 0, 60, 36);
     }
 }
 

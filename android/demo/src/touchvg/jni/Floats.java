@@ -48,7 +48,11 @@ public class Floats {
   }
 
   public void set(int index, float value) {
-    touchvgJNI.Floats_set(swigCPtr, this, index, value);
+    touchvgJNI.Floats_set__SWIG_0(swigCPtr, this, index, value);
+  }
+
+  public void set(int index, float v1, float v2) {
+    touchvgJNI.Floats_set__SWIG_1(swigCPtr, this, index, v1, v2);
   }
 
 }

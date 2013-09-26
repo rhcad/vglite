@@ -4,6 +4,7 @@ package vgdemo.app;
 
 import java.lang.reflect.Constructor;
 
+import touchvg.view.ViewHelper;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -12,7 +13,8 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.FrameLayout;
 
 public class DummyActivity extends Activity {
-
+    private static final String FILEPATH = "mnt/sdcard/TouchVG";
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,5 +52,30 @@ public class DummyActivity extends Activity {
     @Override
     public void onDestroy() {
         super.onDestroy();
+    }
+    
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        
+        ViewHelper helper = new ViewHelper();
+        String filename = FILEPATH + "/resume.vg";
+        
+        if (helper.getView() != null && helper.saveToFile(filename)) {
+            outState.putString("file", filename);
+            outState.putString("cmd", helper.getCommand());
+        }
+    }
+    
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        
+        ViewHelper helper = new ViewHelper();
+        String filename = savedInstanceState.getString("file");
+        
+        if (helper.getView() != null && helper.loadFromFile(filename)) {
+            helper.setCommand(savedInstanceState.getString("cmd"));
+        }
     }
 }

@@ -1,5 +1,5 @@
 // mgrdrect.cpp: 实现圆角矩形类 MgRoundRect
-// Copyright (c) 2004-2012, Zhang Yungui
+// Copyright (c) 2004-2013, Zhang Yungui
 // License: LGPL, https://github.com/rhcad/touchvg
 
 #include "mgbasicsp.h"
@@ -96,9 +96,9 @@ bool MgRoundRect::_save(MgStorage* s) const
     return ret;
 }
 
-bool MgRoundRect::_load(MgStorage* s)
+bool MgRoundRect::_load(MgShapeFactory* factory, MgStorage* s)
 {
-    bool ret = __super::_load(s);
+    bool ret = __super::_load(factory, s);
     _rx = s->readFloat("rx", 0);
     _ry = s->readFloat("ry", 0);
     return ret;

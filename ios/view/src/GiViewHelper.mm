@@ -5,7 +5,7 @@
 #import "GiViewHelper.h"
 #import "GiGraphView.h"
 #include "gicoreview.h"
-#include "demotrade.h"
+#include "educmds.h"
 
 GiColor CGColorToGiColor(CGColorRef color) {
     int num = CGColorGetNumberOfComponents(color);
@@ -222,17 +222,6 @@ GiColor CGColorToGiColor(CGColorRef color) {
 
 - (int)addShapesForTest {
     return [_view coreView]->addShapesForTest();
-}
-
-- (NSString *)getDimensions:(int)maxsize :(float*)vars {
-    mgvector<float> v(maxsize);
-    mgvector<char> types(maxsize);
-    int n = DemoTrade::getDimensions([_view coreView], v, types);
-    
-    for (int i = 0; i < n; i++) {
-        vars[i] = v.get(i);
-    }
-    return n ? [NSString stringWithUTF8String:types.address()] : @"";
 }
 
 @end

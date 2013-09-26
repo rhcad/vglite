@@ -1,10 +1,10 @@
 //! \file mgshapetype.h
 //! \brief 定义图形类型号 MgShapeType
-// Copyright (c) 2004-2012, Zhang Yungui
+// Copyright (c) 2004-2013, Zhang Yungui
 // License: LGPL, https://github.com/rhcad/touchvg
 
-#ifndef __GEOMETRY_SHAPETYPE_H_
-#define __GEOMETRY_SHAPETYPE_H_
+#ifndef TOUCHVG_SHAPETYPE_H_
+#define TOUCHVG_SHAPETYPE_H_
 
 //! 基本图形的类型号
 /*! \ingroup CORE_SHAPE
@@ -30,10 +30,10 @@ typedef enum {
     kMgShapeDiamond = 14,       //!< 菱形
     kMgShapeLines = 15,         //!< 折线、多边形
     kMgShapeSplines = 16,       //!< 样条曲线
-    kMgShapeParallelogram = 17, //!< 平行四边形
+    kMgShapeParallel = 17, //!< 平行四边形
     kMgShapeImage = 18,         //!< 图像矩形
     kMgShapeArc = 19,           //!< 圆弧
     kMgShapeGrid = 20,          //!< 网格
 } MgShapeType;
 
-#endif // __GEOMETRY_SHAPETYPE_H_
+#endif // TOUCHVG_SHAPETYPE_H_

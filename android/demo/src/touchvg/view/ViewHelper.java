@@ -1,4 +1,4 @@
-﻿//! \file ViewHelper.java
+//! \file ViewHelper.java
 //! \brief Android绘图视图辅助类
 // Copyright (c) 2012-2013, https://github.com/rhcad/touchvg
 
@@ -8,9 +8,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import touchvg.jni.Chars;
-import touchvg.jni.DemoTrade;
-import touchvg.jni.Floats;
 import touchvg.jni.GiContextBits;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -26,6 +23,21 @@ public class ViewHelper {
     //! 指定视图的构造函数
     public ViewHelper(GraphView view) {
         mView = view;
+    }
+    
+    //! 获取当前活动视图的默认构造函数
+    public ViewHelper() {
+        mView = GraphView.activeView();
+    }
+    
+    //! 返回当前激活视图
+    public static GraphView activeView() {
+        return GraphView.activeView();
+    }
+    
+    //! 得到要操作的视图
+    public GraphView getView() {
+        return mView;
     }
     
     //! 自动创建FrameLayout布局，在其中创建普通绘图视图，并记下此视图
@@ -51,9 +63,25 @@ public class ViewHelper {
         return layout;
     }
     
-    //! 返回当前激活视图
-    public static GraphView activeView() {
-        return GraphView.activeView();
+    /**
+     * @brief 设置上下文按钮的图像ID数组
+     * @param imageIDs 基本操作的图像ID数组, 32x32
+     * @param extraImageIDs 行业特定操作的图像ID数组, 32x32
+     * @param handleImageIDs 控制点的图像ID数组
+     * 使用示例:
+     * @code
+     * private static final int[] IMAGEIDS = { 0, R.drawable.vg_selall, 0, R.drawable.vg_draw,
+     *     R.drawable.vg_back, R.drawable.vg_delete, R.drawable.vg_clone, R.drawable.vg_fixlen,
+     *     R.drawable.vg_freelen, R.drawable.vg_lock, R.drawable.vg_unlock, R.drawable.vg_edit,
+     *     R.drawable.vg_back, 0, 0, R.drawable.vg_addvertex, R.drawable.vg_delvertex,
+     *     R.drawable.vg_group, R.drawable.vg_ungroup, R.drawable.vg_overturn };
+     * private static final int[] HANDLEIDS = { R.drawable.vgdot1, R.drawable.vgdot2,
+     *     R.drawable.vgdot3, R.drawable.vg_lock, R.drawable.vg_unlock, R.drawable.vg_back };
+     * helper.setContextButtonImages(IMAGEIDS, null, HANDLEIDS);
+     * @endcode
+     */
+    public void setContextButtonImages(int[] imageIDs, int[] extraImageIDs, int[] handleImageIDs) {
+        mView.setContextButtonImages(imageIDs, extraImageIDs, handleImageIDs);
     }
     
     //! 得到当前命令名称
@@ -110,7 +138,7 @@ public class ViewHelper {
     public void setLineColor(int argb) {
         mView.coreView().getContext(true).setLineARGB(argb);
         mView.coreView().setContext(argb == 0 ? GiContextBits.kContextLineARGB.swigValue()
-                : GiContextBits.kContextLineRGB.swigValue());
+                                    : GiContextBits.kContextLineRGB.swigValue());
     }
     
     //! 返回线条透明度, 0-255
@@ -123,7 +151,7 @@ public class ViewHelper {
         mView.coreView().getContext(true).setLineAlpha(alpha);
         mView.coreView().setContext(GiContextBits.kContextLineAlpha.swigValue());
     }
-
+    
     //! 返回填充颜色，忽略透明度分量，0 表示不填充
     public int getFillColor() {
         return mView.coreView().getContext(false).getFillColor().getARGB();
@@ -133,7 +161,7 @@ public class ViewHelper {
     public void setFillColor(int argb) {
         mView.coreView().getContext(true).setFillARGB(argb);
         mView.coreView().setContext(argb == 0 ? GiContextBits.kContextFillARGB.swigValue()
-                : GiContextBits.kContextFillRGB.swigValue());
+                                    : GiContextBits.kContextFillRGB.swigValue());
     }
     
     //! 返回填充透明度, 0-255
@@ -225,7 +253,7 @@ public class ViewHelper {
             ret = new File(vgfile).delete();
         } else {
             ret = createFile(vgfile)
-                    && mView.coreView().saveToFile(vgfile);
+            && mView.coreView().saveToFile(vgfile);
         }
         return ret;
     }
@@ -246,22 +274,5 @@ public class ViewHelper {
             }
         }
         return true;
-    }
-    
-    //! 得到当前图形的各种度量尺寸
-    public String getDimensions(float[] vars) {
-        Floats v = new Floats(vars.length);
-        Chars types = new Chars(vars.length);
-        int n = DemoTrade.getDimensions(mView.coreView(), v, types);
-        
-        if (n > 0) {
-            StringBuffer buf = new StringBuffer(n);
-            for (int i = 0; i < n; i++) {
-                buf.setCharAt(i, types.get(i));
-                vars[i] = v.get(i);
-            }
-            return buf.toString();
-        }
-        return "";
     }
 }

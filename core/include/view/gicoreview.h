@@ -7,11 +7,11 @@
 
 #include "gigesture.h"
 #include "giview.h"
-#include "gicontxt.h"
 
 class GiCanvas;
 class GiCoreViewImpl;
 class MgView;
+class GiContext;
 
 //! 内核视图分发器类
 /*! 本对象拥有图形文档对象，负责显示和手势动作的分发。
@@ -83,11 +83,17 @@ public:
     //! 返回图形总数
     int getShapeCount();
 
+	//! 返回图形改变次数，可用于检查是否需要保存
+    int getChangeCount();
+
 	//! 返回选中的图形个数
     int getSelectedShapeCount();
 
 	//! 返回选中的图形的类型, MgShapeType
     int getSelectedShapeType();
+
+	//! 删除所有图形，包括锁定的图形
+	void clear();
 
     //! 从JSON文件中加载图形
     bool loadFromFile(const char* vgfile);
@@ -139,6 +145,9 @@ public:
      */
     bool addImageShape(const char* name, float width, float height);
 
+	//! 返回选择包络框，四个点坐标(left, top, right, bottom)
+	bool getBoundingBox(mgvector<float>& box);
+
 #ifndef SWIG
     MgView* viewAdapter();
 #endif
@@ -146,5 +155,9 @@ public:
 private:
     GiCoreViewImpl* impl;
 };
+
+#ifndef DOXYGEN
+#include "gicontxt.h"
+#endif
 
 #endif // TOUCHVG_CORE_VIEWDISPATCHER_H

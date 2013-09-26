@@ -135,12 +135,20 @@ public class GiCoreView {
     return touchvgJNI.GiCoreView_getShapeCount(swigCPtr, this);
   }
 
+  public int getChangeCount() {
+    return touchvgJNI.GiCoreView_getChangeCount(swigCPtr, this);
+  }
+
   public int getSelectedShapeCount() {
     return touchvgJNI.GiCoreView_getSelectedShapeCount(swigCPtr, this);
   }
 
   public int getSelectedShapeType() {
     return touchvgJNI.GiCoreView_getSelectedShapeType(swigCPtr, this);
+  }
+
+  public void clear() {
+    touchvgJNI.GiCoreView_clear(swigCPtr, this);
   }
 
   public boolean loadFromFile(String vgfile) {
@@ -197,6 +205,10 @@ public class GiCoreView {
 
   public boolean addImageShape(String name, float width, float height) {
     return touchvgJNI.GiCoreView_addImageShape(swigCPtr, this, name, width, height);
+  }
+
+  public boolean getBoundingBox(Floats box) {
+    return touchvgJNI.GiCoreView_getBoundingBox(swigCPtr, this, Floats.getCPtr(box), box);
   }
 
 }

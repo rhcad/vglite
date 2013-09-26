@@ -82,18 +82,6 @@ void MgComposite::_update()
     _shapes->freeIterator(it);
 }
 
-void MgComposite::updateExtent()
-{
-    void* it;
-    _extent.empty();
-
-    for (MgShape* sp = _shapes->getFirstShape(it); sp;
-        sp = _shapes->getNextShape(it)) {
-        _extent.unionWith(sp->shapec()->getExtent());
-    }
-    _shapes->freeIterator(it);
-}
-
 void MgComposite::_transform(const Matrix2d& mat)
 {
     void* it;
@@ -214,9 +202,9 @@ bool MgGroup::_save(MgStorage* s) const
     return __super::_save(s) && _shapes->save(s);
 }
 
-bool MgGroup::_load(MgStorage* s)
+bool MgGroup::_load(MgShapeFactory* factory, MgStorage* s)
 {
-    return __super::_load(s) && _shapes->load(s);
+    return __super::_load(factory, s) && _shapes->load(factory, s);
 }
 
 bool MgGroup::addShape(MgShape* shape)

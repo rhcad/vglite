@@ -1,5 +1,5 @@
 // gipath.cpp: 实现路径类 GiPath
-// Copyright (c) 2004-2012, Zhang Yungui
+// Copyright (c) 2004-2013, Zhang Yungui
 // License: LGPL, https://github.com/rhcad/touchvg
 
 #include "gipath.h"
@@ -62,11 +62,6 @@ GiPath::GiPath(int count, const Point2d* points, const char* types)
 GiPath::~GiPath()
 {
     delete m_data;
-}
-
-GiPath& GiPath::operator=(const GiPath& src)
-{
-    return copy(src);
 }
 
 GiPath& GiPath::copy(const GiPath& src)

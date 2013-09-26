@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\core\include\canvas;..\..\core\include\tradecmd;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\storage;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test;..\include\canvas"
+				AdditionalIncludeDirectories="..\..\core\include\canvas;..\..\core\include\cmdobserver;..\..\core\include\cmd;..\..\core\include\cmdbase;..\..\core\include\cmdbasic;..\..\core\include\cmdmgr;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\shapedoc;..\..\core\include\storage;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test;..\include\canvas"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -105,7 +105,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="..\..\core\include\canvas;..\..\core\include\tradecmd;..\..\core\include\command;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\storage;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test;..\include\canvas"
+				AdditionalIncludeDirectories="..\..\core\include\canvas;..\..\core\include\cmdobserver;..\..\core\include\cmd;..\..\core\include\cmdbase;..\..\core\include\cmdbasic;..\..\core\include\cmdmgr;..\..\core\include\view;..\..\core\include\shape;..\..\core\include\shapedoc;..\..\core\include\storage;..\..\core\include\graph;..\..\core\include\geom;..\..\core\include\test;..\include\canvas"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -153,92 +153,140 @@
 			<Filter
 				Name="command"
 				>
-				<File
-					RelativePath="..\..\core\src\command\mgactions.cpp"
+				<Filter
+					Name="cmdbase"
 					>
-				</File>
-				<File
-					RelativePath="..\..\core\src\command\mgcmddraw.cpp"
+					<File
+						RelativePath="..\..\core\src\cmdbase\mgcmddraw.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\src\cmdbase\mgdrawarc.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\src\cmdbase\mgdrawrect.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\src\cmdbase\mgsplock.cpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="cmdbasic"
 					>
-				</File>
-				<File
-					RelativePath="..\..\core\src\command\mgcmderase.cpp"
+					<File
+						RelativePath="..\..\core\src\cmdbasic\cmdbasic.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\src\cmdbasic\mgcmderase.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\src\cmdbasic\mgcmderase.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\src\cmdbasic\mgdrawcircle.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\src\cmdbasic\mgdrawdiamond.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\src\cmdbasic\mgdrawellipse.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\src\cmdbasic\mgdrawfreelines.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\src\cmdbasic\mgdrawgrid.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\src\cmdbasic\mgdrawline.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\src\cmdbasic\mgdrawlines.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\src\cmdbasic\mgdrawparallel.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\src\cmdbasic\mgdrawpolygon.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\src\cmdbasic\mgdrawsplines.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\src\cmdbasic\mgdrawsquare.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\src\cmdbasic\mgdrawtriang.cpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="cmdmgr"
 					>
-				</File>
-				<File
-					RelativePath="..\..\core\src\command\mgcmderase.h"
+					<File
+						RelativePath="..\..\core\src\cmdmgr\cmdsubject.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\src\cmdmgr\mgactions.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\src\cmdmgr\mgcmdmgr2.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\src\cmdmgr\mgcmdmgr_.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\src\cmdmgr\mgcmdmgr_.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\src\cmdmgr\mgcmdselect.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\src\cmdmgr\mgcmdselect.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\src\cmdmgr\mgsnapimpl.cpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="cmdtest"
 					>
-				</File>
-				<File
-					RelativePath="..\..\core\src\command\mgcmdmgr.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\core\src\command\mgcmdmgr.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\core\src\command\mgcmds.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\core\src\command\mgcmdselect.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\core\src\command\mgcmdselect.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\core\src\command\mgdrawarc.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\core\src\command\mgdrawline.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\core\src\command\mgdrawline.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\core\src\command\mgdrawlines.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\core\src\command\mgdrawlines.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\core\src\command\mgdrawrect.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\core\src\command\mgdrawsplines.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\core\src\command\mgdrawsplines.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\core\src\command\mgdrawtriang.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\core\src\command\mgdrawtriang.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\core\src\command\TransformCmd.cpp"
-					>
-				</File>
+					<File
+						RelativePath="..\..\core\src\cmdtest\TransformCmd.cpp"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="view"
 				>
 				<File
-					RelativePath="..\..\core\src\view\demotrade.cpp"
+					RelativePath="..\..\core\src\view\educmds.cpp"
 					>
 				</File>
 				<File
@@ -282,6 +330,10 @@
 				Name="shape"
 				>
 				<File
+					RelativePath="..\..\core\src\shape\mgbasicspreg.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\core\src\shape\mgcomposite.cpp"
 					>
 				</File>
@@ -291,10 +343,6 @@
 				</File>
 				<File
 					RelativePath="..\..\core\src\shape\mggrid.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\core\src\shape\mglayer.cpp"
 					>
 				</File>
 				<File
@@ -318,23 +366,11 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\core\src\shape\mgshapedoc.cpp"
-					>
-				</File>
-				<File
 					RelativePath="..\..\core\src\shape\mgshapes.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\core\src\shape\mgspfactory.cpp"
-					>
-				</File>
-				<File
 					RelativePath="..\..\core\src\shape\mgsplines.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\core\src\shape\mgsplock.cpp"
 					>
 				</File>
 			</Filter>
@@ -459,10 +495,10 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="tradecmd"
+				Name="educmds"
 				>
 				<File
-					RelativePath="..\..\core\src\tradecmd\tradecmd.cpp"
+					RelativePath="..\..\core\src\educmds\eduobserver.cpp"
 					>
 				</File>
 			</Filter>
@@ -471,6 +507,22 @@
 				>
 				<File
 					RelativePath="..\src\canvas\GiGdipCanvas.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="shapedoc"
+				>
+				<File
+					RelativePath="..\..\core\src\shapedoc\mglayer.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\shapedoc\mglockrw.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\src\shapedoc\mgshapedoc.cpp"
 					>
 				</File>
 			</Filter>
@@ -491,44 +543,128 @@
 			<Filter
 				Name="command"
 				>
-				<File
-					RelativePath="..\..\core\include\command\mgaction.h"
+				<Filter
+					Name="cmd"
 					>
-				</File>
-				<File
-					RelativePath="..\..\core\include\command\mgcmd.h"
+					<File
+						RelativePath="..\..\core\include\cmd\mgaction.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\include\cmd\mgcmd.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\include\cmd\mglockdata.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\include\cmd\mgsnap.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\include\cmd\mgview.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="cmdbase"
 					>
-				</File>
-				<File
-					RelativePath="..\..\core\include\command\mgcmddraw.h"
+					<File
+						RelativePath="..\..\core\include\cmdbase\mgcmddraw.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\include\cmdbase\mgdrawarc.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\include\cmdbase\mgdrawrect.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="cmdmgr"
 					>
-				</File>
-				<File
-					RelativePath="..\..\core\include\command\mgdrawarc.h"
+					<File
+						RelativePath="..\..\core\include\cmdmgr\mgcmdmgr.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\include\cmdmgr\mgcmdmgrfactory.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\include\cmdmgr\mgselect.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="cmdbasic"
 					>
-				</File>
-				<File
-					RelativePath="..\..\core\include\command\mgdrawrect.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\core\include\command\mgselect.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\core\include\command\mgsnap.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\core\include\command\mgview.h"
-					>
-				</File>
+					<File
+						RelativePath="..\..\core\include\cmdbasic\cmdbasic.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\include\cmdbasic\mgdrawcircle.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\include\cmdbasic\mgdrawdiamond.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\include\cmdbasic\mgdrawellipse.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\include\cmdbasic\mgdrawfreelines.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\include\cmdbasic\mgdrawgrid.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\include\cmdbasic\mgdrawline.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\include\cmdbasic\mgdrawlines.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\include\cmdbasic\mgdrawparallel.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\include\cmdbasic\mgdrawpolygon.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\include\cmdbasic\mgdrawquadrangle.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\include\cmdbasic\mgdrawsplines.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\include\cmdbasic\mgdrawsquare.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\include\cmdbasic\mgdrawtriang.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="view"
 				>
 				<File
-					RelativePath="..\..\core\include\view\demotrade.h"
+					RelativePath="..\..\core\include\view\educmds.h"
 					>
 				</File>
 				<File
@@ -560,15 +696,15 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\core\include\shape\mgbasicspreg.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\core\include\shape\mgcomposite.h"
 					>
 				</File>
 				<File
 					RelativePath="..\..\core\include\shape\mggrid.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\core\include\shape\mglayer.h"
 					>
 				</File>
 				<File
@@ -588,10 +724,6 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\core\include\shape\mgshapedoc.h"
-					>
-				</File>
-				<File
 					RelativePath="..\..\core\include\shape\mgshapes.h"
 					>
 				</File>
@@ -601,6 +733,10 @@
 				</File>
 				<File
 					RelativePath="..\..\core\include\shape\mgshapetype.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\include\shape\mgspfactory.h"
 					>
 				</File>
 			</Filter>
@@ -693,14 +829,18 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="tradecmd"
+				Name="cmdobserver"
 				>
 				<File
-					RelativePath="..\..\core\include\tradecmd\demotrade_.h"
+					RelativePath="..\..\core\include\cmdobserver\cmdobserver.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\core\include\tradecmd\tradecmd.h"
+					RelativePath="..\..\core\include\cmdobserver\cmdsubject.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\include\cmdobserver\educmds_.h"
 					>
 				</File>
 			</Filter>
@@ -725,6 +865,18 @@
 				>
 				<File
 					RelativePath="..\include\canvas\GiGdipCanvas.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="shapedoc"
+				>
+				<File
+					RelativePath="..\..\core\include\shapedoc\mglayer.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\core\include\shapedoc\mgshapedoc.h"
 					>
 				</File>
 			</Filter>

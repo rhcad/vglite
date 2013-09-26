@@ -57,17 +57,26 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 #include "ViewAdapter.h"
 #include <windowsx.h>
 
-static ViewAdapter _adapter;
+static ViewAdapter* _adapter = NULL;
 
 // 主窗口的消息处理函数
 LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam)
 {
     bool handled = false;
 
-    _adapter.setWnd(hwnd);
-
     switch (message)
     {
+    case WM_CREATE:
+        _adapter = new ViewAdapter();
+        _adapter->setWnd(hwnd);
+        _adapter->setCommand("splines");
+        break;
+    case WM_DESTROY:            // 退出
+        PostQuitMessage(0);
+        handled = true;
+        delete _adapter;
+        _adapter = NULL;
+        break;
     case WM_ERASEBKGND:         // 不清除背景，避免闪烁
         handled = true;
         break;
@@ -77,17 +86,13 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam)
             HDC hdc = BeginPaint(hwnd, &ps);
 
             SetBkColor(hdc, GetSysColor(COLOR_WINDOW));
-            _adapter.onDraw(hdc);
+            _adapter->onDraw(hdc);
             EndPaint(hwnd, &ps);
             handled = true;
         }
         break;
     case WM_SIZE:               // 改变窗口大小
-        _adapter.onSize(LOWORD(lparam), HIWORD(lparam));
-        handled = true;
-        break;
-    case WM_DESTROY:            // 退出
-        PostQuitMessage(0);
+        _adapter->onSize(LOWORD(lparam), HIWORD(lparam));
         handled = true;
         break;
     case WM_LBUTTONDBLCLK:      // 双击切换测试图形
@@ -95,23 +100,23 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam)
             LPCSTR names[] = { "splines", "line", "select", "triangle" };
             static int index = -1;
             index = (index + 1) % (sizeof(names) / sizeof(names[0]));
-            handled = _adapter.setCommand(names[index]);
+            handled = _adapter->setCommand(names[index]);
         }
         break;
     case WM_LBUTTONDOWN:        // 鼠标按下
-        handled = _adapter.onLButtonDown(GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam), wparam);
+        handled = _adapter->onLButtonDown(GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam), wparam);
         break;
     case WM_LBUTTONUP:          // 鼠标抬起
-        handled = _adapter.onLButtonUp(GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam));
+        handled = _adapter->onLButtonUp(GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam));
         break;
     case WM_MOUSEMOVE:          // 鼠标移动
-        handled = _adapter.onMouseMove(GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam), wparam);
+        handled = _adapter->onMouseMove(GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam), wparam);
         break;
     case WM_RBUTTONDOWN:            // 右键按下
-        handled = _adapter.onRButtonDown(GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam));
+        handled = _adapter->onRButtonDown(GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam));
         break;
     case WM_RBUTTONUP:          // 右键抬起
-        handled = _adapter.onRButtonUp(GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam));
+        handled = _adapter->onRButtonUp(GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam));
         break;
     }
 

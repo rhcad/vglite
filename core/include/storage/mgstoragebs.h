@@ -1,10 +1,10 @@
 //! \file mgstoragebs.h
 //! \brief 定义供SWIG输出给其他语言用的序列化基类 MgStorageBase
-// Copyright (c) 2004-2012, Zhang Yungui
+// Copyright (c) 2004-2013, Zhang Yungui
 // License: LGPL, https://github.com/rhcad/touchvg
 
-#if !defined(__GEOMETRY_MGSTORAGEBASE_H_) && defined(SWIG_MGVECTOR_H)
-#define __GEOMETRY_MGSTORAGEBASE_H_
+#if !defined(TOUCHVG_MGSTORAGEBASE_H_) && defined(SWIG_MGVECTOR_H)
+#define TOUCHVG_MGSTORAGEBASE_H_
 
 #include "mgstorage.h"
 
@@ -48,4 +48,4 @@ private:
     }
 };
 
-#endif // __GEOMETRY_MGSTORAGEBASE_H_
+#endif // TOUCHVG_MGSTORAGEBASE_H_

@@ -6,14 +6,20 @@ import android.app.Activity;
 import android.content.Context;
 import touchvg.view.GraphView;
 import touchvg.view.ViewHelper;
+import vgdemo.app.R;
 
 public class GraphView1 extends GraphView {
+    private static final int[] HANDLEIDS = {
+        R.drawable.vgdot1, R.drawable.vgdot2, R.drawable.vgdot3,
+        R.drawable.vg_lock, R.drawable.vg_unlock, 0 };
     
     public GraphView1(Context context) {
         super(context);
         
         int flags = ((Activity) context).getIntent().getExtras().getInt("flags");
         final ViewHelper helper = new ViewHelper(this);
+        
+        helper.setContextButtonImages(null, null, HANDLEIDS);
         
         if ((flags & 32) != 0) {
             helper.addShapesForTest();

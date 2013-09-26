@@ -3,8 +3,8 @@
 // Copyright (c) 2004-2013, Zhang Yungui
 // License: LGPL, https://github.com/rhcad/touchvg
 
-#ifndef __GEOMETRY_COMPOSITE_SHAPE_H_
-#define __GEOMETRY_COMPOSITE_SHAPE_H_
+#ifndef TOUCHVG_COMPOSITE_SHAPE_H_
+#define TOUCHVG_COMPOSITE_SHAPE_H_
 
 #include "mgshapes.h"
 
@@ -26,9 +26,6 @@ public:
 
     //! 返回是否可以单独移动一个子图形，在 offset() 中调用
     virtual bool canOffsetShapeAlone(MgShape*) { return true; }
-
-    //! 更新图形范围
-    void updateExtent();
     
 protected:
     MgComposite();
@@ -71,7 +68,7 @@ public:
 protected:
     bool _offset(const Vector2d& vec, int segment);
     bool _save(MgStorage* s) const;
-    bool _load(MgStorage* s);
+    bool _load(MgShapeFactory* factory, MgStorage* s);
 };
 
-#endif // __GEOMETRY_COMPOSITE_SHAPE_H_
+#endif // TOUCHVG_COMPOSITE_SHAPE_H_

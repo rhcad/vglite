@@ -32,6 +32,7 @@ namespace WpfDemo
             "多边形",    "polygon",
             "四边形",    "quadrangle",
             "折线",      "lines",
+            "曲线",      "spline_mouse",
             "平行四边形", "parallelogram",
             "网格",      "grid",
             "三点圆弧",  "arc3p",

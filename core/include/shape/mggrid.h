@@ -1,10 +1,10 @@
 //! \file mggrid.h
 //! \brief 定义网格图形类
-// Copyright (c) 2004-2012, Zhang Yungui
+// Copyright (c) 2004-2013, Zhang Yungui
 // License: LGPL, https://github.com/rhcad/touchvg
 
-#ifndef __GEOMETRY_GRIDSHAPE_H_
-#define __GEOMETRY_GRIDSHAPE_H_
+#ifndef TOUCHVG_GRIDSHAPE_H_
+#define TOUCHVG_GRIDSHAPE_H_
 
 #include "mgbasicsp.h"
 
@@ -15,7 +15,7 @@ class MgGrid : public MgBaseRect
 {
     MG_INHERIT_CREATE(MgGrid, MgBaseRect, 20)
 public:
-    virtual int snap(Point2d& pnt, float& distx, float& disty) const;
+    virtual int snap(Point2d& pnt, Point2d& dist) const;
     bool valid(float tol) const;
 
 protected:
@@ -24,7 +24,7 @@ protected:
     bool _equals(const MgGrid& src) const;
     void _clear();
     bool _save(MgStorage* s) const;
-    bool _load(MgStorage* s);
+    bool _load(MgShapeFactory* factory, MgStorage* s);
     int _getHandleCount() const;
     Point2d _getHandlePoint(int index) const;
     bool _setHandlePoint(int index, const Point2d& pt, float tol);
@@ -34,4 +34,4 @@ protected:
     Vector2d    m_cell;
 };
 
-#endif // __GEOMETRY_GRIDSHAPE_H_
+#endif // TOUCHVG_GRIDSHAPE_H_

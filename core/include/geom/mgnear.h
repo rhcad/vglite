@@ -1,10 +1,10 @@
 //! \file mgnear.h
 //! \brief 定义求曲线上最近点的函数
-// Copyright (c) 2004-2012, Zhang Yungui
+// Copyright (c) 2004-2013, Zhang Yungui
 // License: LGPL, https://github.com/rhcad/touchvg
 
-#ifndef __GEOMETRY_CURVENEAR_H_
-#define __GEOMETRY_CURVENEAR_H_
+#ifndef TOUCHVG_CURVENEAR_H_
+#define TOUCHVG_CURVENEAR_H_
 
 #include "mgbox.h"
 
@@ -144,4 +144,4 @@ static void moveRectHandle(Box2d& rect, int index,
                               const Point2d& pt, bool lockCornerScale = true);
 };
 
-#endif // __GEOMETRY_CURVENEAR_H_
+#endif // TOUCHVG_CURVENEAR_H_

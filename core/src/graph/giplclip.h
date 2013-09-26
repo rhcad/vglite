@@ -1,10 +1,10 @@
 //! \file giplclip.h
 //! \brief 定义多边形剪裁类 PolygonClip
-// Copyright (c) 2004-2012, Zhang Yungui
+// Copyright (c) 2004-2013, Zhang Yungui
 // License: LGPL, https://github.com/rhcad/touchvg
 
-#ifndef __GEOMETRY_POLYGONCLIP_H_
-#define __GEOMETRY_POLYGONCLIP_H_
+#ifndef TOUCHVG_POLYGONCLIP_H_
+#define TOUCHVG_POLYGONCLIP_H_
 
 #include <vector>
 using std::vector;
@@ -213,4 +213,4 @@ private:
     }
 };
 
-#endif // __GEOMETRY_POLYGONCLIP_H_
+#endif // TOUCHVG_POLYGONCLIP_H_

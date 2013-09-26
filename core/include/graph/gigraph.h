@@ -1,10 +1,10 @@
 //! \file gigraph.h
 //! \brief 定义图形系统类 GiGraphics
-// Copyright (c) 2004-2012, Zhang Yungui
+// Copyright (c) 2004-2013, Zhang Yungui
 // License: LGPL, https://github.com/rhcad/touchvg
 
-#ifndef __GEOMETRY_GRAPHSYS_H_
-#define __GEOMETRY_GRAPHSYS_H_
+#ifndef TOUCHVG_GRAPHSYS_H_
+#define TOUCHVG_GRAPHSYS_H_
 
 #include "gixform.h"
 #include "gicontxt.h"
@@ -304,7 +304,7 @@ public:
     //! 在给定中心位置显示特殊符号
     /*!
         \param pnt 符号中心位置
-        \param type 符号类型，0-顶点或控制点，1-活动点，2-左旋，3-右旋
+        \param type 符号类型，0-顶点或控制点，1-活动点，2-旋转，3-锁定，4-解锁，5-放弃
         \param modelUnit 指定的坐标尺寸是模型坐标(true)还是世界坐标(false)
         \return 是否显示成功
      */
@@ -398,4 +398,4 @@ private:
     bool        m_clip;
 };
 
-#endif // __GEOMETRY_GRAPHSYS_H_
+#endif // TOUCHVG_GRAPHSYS_H_

@@ -9,27 +9,27 @@ import java.util.List;
 
 //! 测试视图的构造列表类
 public class ViewFactory {
-
+    
     public static class DummyItem {
-
+        
         public String id;
         public int flags;
         public String title;
-
+        
         public DummyItem(String id, int flags, String title) {
             this.id = id;
             this.flags = flags;
             this.title = title;
         }
-
+        
         @Override
         public String toString() {
             return title;
         }
     }
-
+    
     public static List<DummyItem> ITEMS = new ArrayList<DummyItem>();
-
+    
     static {
         addItem("vgdemo.testview.view.GraphView1", 1<<1, "GraphView splines");
         addItem("vgdemo.testview.view.GraphView1", 32|(1<<1), "GraphView draw");
@@ -38,6 +38,9 @@ public class ViewFactory {
         addItem("vgdemo.testview.view.GraphView1", 32|1, "GraphView select");
         addItem("vgdemo.testview.view.TestMagnifier1", 1, "TestMagnifier");
         addItem("vgdemo.testview.view.TestMagnifier1", 16|1, "TestMagnifier, 2 views");
+        addItem("vgdemo.testview.view.LargeView1", 1<<1, "Scroll GraphView splines");
+        addItem("vgdemo.testview.view.LargeView1", 2<<1, "Scroll GraphView line");
+        addItem("vgdemo.testview.view.LargeView1", 32|1, "Scroll GraphView select");
         
         addItem("vgdemo.testview.view.GraphView", 0, "TestOneView");
         addItem("vgdemo.testview.view.TestDoubleViews", 1|0, "TestOneSurfaceView");

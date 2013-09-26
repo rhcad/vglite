@@ -1,10 +1,10 @@
 //! \file gicontxt.h
 //! \brief 定义绘图环境类 GiContext
-// Copyright (c) 2004-2012, Zhang Yungui
+// Copyright (c) 2004-2013, Zhang Yungui
 // License: LGPL, https://github.com/rhcad/touchvg
 
-#ifndef __GEOMETRY_DRAWCONTEXT_H_
-#define __GEOMETRY_DRAWCONTEXT_H_
+#ifndef TOUCHVG_DRAWCONTEXT_H_
+#define TOUCHVG_DRAWCONTEXT_H_
 
 #include "gicolor.h"
 
@@ -367,4 +367,4 @@ private:
     bool        m_autoScale;        //!< 像素单位线宽是否自动缩放
 };
 
-#endif // __GEOMETRY_DRAWCONTEXT_H_
+#endif // TOUCHVG_DRAWCONTEXT_H_

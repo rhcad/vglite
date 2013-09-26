@@ -1,10 +1,10 @@
 //! \file mgpnt.h
 //! \brief 定义二维点类 Point2d
-// Copyright (c) 2004-2012, Zhang Yungui
+// Copyright (c) 2004-2013, Zhang Yungui
 // License: LGPL, https://github.com/rhcad/touchvg
 
-#ifndef __GEOMETRY_POINT_H_
-#define __GEOMETRY_POINT_H_
+#ifndef TOUCHVG_POINT_H_
+#define TOUCHVG_POINT_H_
 
 #include "mgvec.h"
 
@@ -264,4 +264,4 @@ public:
     Point2d rulerPoint(const Point2d& dir, float xoff, float yoff) const;
 };
 
-#endif // __GEOMETRY_POINT_H_
+#endif // TOUCHVG_POINT_H_

@@ -17,7 +17,6 @@ static void addView(NSMutableArray *arr, NSString* title, UIView* view)
         _tmpController = [[UIViewController alloc] init];
         _tmpController.title = title;
         _tmpController.view = view;
-        [view release];
     }
 }
 
@@ -30,6 +29,7 @@ static void addLargeView1(NSMutableArray *arr, NSUInteger &i, NSUInteger index,
         view = [[LargeView1 alloc]initWithFrame:frame withType:type];
     }
     addView(arr, title, view);
+    [view release];
 }
 
 static bool fireGesture(GiGraphView *v, int type, int state, float x, float y)
@@ -47,6 +47,8 @@ static UIView* addGraphView(NSMutableArray *arr, NSUInteger &i, NSUInteger index
         wrapview.opaque = NO;
     }
     addView(arr, title, wrapview);
+    [wrapview release];
+    
     if (wrapview) {
         if (type == 0) {
             v = [[GiGraphView1 alloc]initWithFrame:wrapview.bounds];

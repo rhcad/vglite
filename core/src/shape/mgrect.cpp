@@ -1,5 +1,5 @@
 // mgrect.cpp: 实现矩形图形类 MgRect
-// Copyright (c) 2004-2012, Zhang Yungui
+// Copyright (c) 2004-2013, Zhang Yungui
 // License: LGPL, https://github.com/rhcad/touchvg
 
 #include "mgbasicsp.h"
@@ -245,9 +245,9 @@ bool MgBaseRect::_save(MgStorage* s) const
     return ret;
 }
 
-bool MgBaseRect::_load(MgStorage* s)
+bool MgBaseRect::_load(MgShapeFactory* factory, MgStorage* s)
 {
-    return __super::_load(s) && s->readFloatArray("points", &(_points[0].x), 8) == 8;
+    return __super::_load(factory, s) && s->readFloatArray("points", &(_points[0].x), 8) == 8;
 }
 
 // MgRect
@@ -267,22 +267,6 @@ bool MgRect::_draw(int mode, GiGraphics& gs, const GiContext& ctx, int segment) 
 {
     bool ret = gs.drawPolygon(&ctx, 4, _points);
     return __super::_draw(mode, gs, ctx, segment) || ret;
-}
-
-int MgRect::_getDimensions(const Matrix2d& m2w, float* vars, char* types, int count) const
-{
-    int ret = 0;
-    
-    if (count > ret) {
-        types[ret] = 'w';
-        vars[ret++] = fabsf(getWidth() * m2w.m11);
-    }
-    if (count > ret) {
-        types[ret] = 'h';
-        vars[ret++] = fabsf(getHeight() * m2w.m22);
-    }
-    
-    return ret;
 }
 
 // MgImageShape
@@ -354,13 +338,13 @@ bool MgImageShape::_save(MgStorage* s) const
     return __super::_save(s);
 }
 
-bool MgImageShape::_load(MgStorage* s)
+bool MgImageShape::_load(MgShapeFactory* factory, MgStorage* s)
 {
     int len = sizeof(_name) - 1;
     len = s->readString("name", _name, len);
     _name[len] = 0;
     
-    return __super::_load(s);
+    return __super::_load(factory, s);
 }
 
 MgShape* MgImageShape::findShapeByImageID(MgShapes* shapes, const char* name)

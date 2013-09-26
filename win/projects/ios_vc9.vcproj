@@ -88,6 +88,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\ios\view\src\GiViewAdapter.mm"
+				>
+			</File>
+			<File
 				RelativePath="..\..\ios\view\include\GiViewHelper.h"
 				>
 			</File>

@@ -13,9 +13,6 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Source Files\command">
-      <UniqueIdentifier>{14e52a85-dc9b-4132-84e0-ce73d71f372d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\shape">
       <UniqueIdentifier>{72779ea7-5fa1-4577-90a1-9640c9bcf688}</UniqueIdentifier>
     </Filter>
@@ -24,9 +21,6 @@
     </Filter>
     <Filter Include="Source Files\geom">
       <UniqueIdentifier>{33588329-2ea3-4fb7-8bc5-cebdd9f91850}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\tradecmd">
-      <UniqueIdentifier>{6b71b589-fc54-4038-9141-04e809909365}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\view">
       <UniqueIdentifier>{733a7606-d30b-468f-8a94-1c26769a2c36}</UniqueIdentifier>
@@ -37,91 +31,49 @@
     <Filter Include="Source Files\storage">
       <UniqueIdentifier>{f724ce28-93df-4bd3-8862-ade5880574a1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\command">
+      <UniqueIdentifier>{c64abef1-4de8-4c92-978b-d2010e4e5180}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\command_src">
+      <UniqueIdentifier>{703cb60f-15e0-41ba-8f31-ac66ec5ecfe0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\command\cmd">
+      <UniqueIdentifier>{9aea7f78-eb4c-4cd0-be24-1a3c07346ff4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\command\cmdbase">
+      <UniqueIdentifier>{ea72f58c-87a4-4d7e-b973-ceb5717da42e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\command_src\cmdbase">
+      <UniqueIdentifier>{3ceeda5b-d597-4360-911d-d6e7f999c727}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\command\cmdbasic">
+      <UniqueIdentifier>{21e05b13-182e-40fe-bbcb-7dd7ad5e91fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\command_src\cmdbasic">
+      <UniqueIdentifier>{0a2915b7-45d1-4761-861f-4c767dd44043}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\command\cmdmgr">
+      <UniqueIdentifier>{6a51aaee-970a-4617-92fd-ec8e8c7f48c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\command_src\cmdmgr">
+      <UniqueIdentifier>{8ae1a667-8746-403e-8636-5582ad6b3b29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\command_src\cmdtest">
+      <UniqueIdentifier>{b48a6f65-a21b-4b47-b04c-5c042c1edc8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\shapedoc">
+      <UniqueIdentifier>{632b1d05-4acd-47e1-a780-0fea88969973}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\educmds">
+      <UniqueIdentifier>{6b71b589-fc54-4038-9141-04e809909365}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\command\cmdobserver">
+      <UniqueIdentifier>{99771380-91be-4b08-9e71-1942fc99b361}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\swig\touchvg_csharp_wrap.cpp">
       <Filter>Swig Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\core\src\command\mgactions.cpp">
-      <Filter>Source Files\command</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\core\src\command\mgcmddraw.cpp">
-      <Filter>Source Files\command</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\core\src\command\mgcmderase.cpp">
-      <Filter>Source Files\command</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\core\src\command\mgcmdmgr.cpp">
-      <Filter>Source Files\command</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\core\src\command\mgcmds.cpp">
-      <Filter>Source Files\command</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\core\src\command\mgcmdselect.cpp">
-      <Filter>Source Files\command</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\core\src\command\mgdrawarc.cpp">
-      <Filter>Source Files\command</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\core\src\command\mgdrawline.cpp">
-      <Filter>Source Files\command</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\core\src\command\mgdrawlines.cpp">
-      <Filter>Source Files\command</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\core\src\command\mgdrawrect.cpp">
-      <Filter>Source Files\command</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\core\src\command\mgdrawsplines.cpp">
-      <Filter>Source Files\command</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\core\src\command\mgdrawtriang.cpp">
-      <Filter>Source Files\command</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\core\src\command\TransformCmd.cpp">
-      <Filter>Source Files\command</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\core\src\shape\mgcomposite.cpp">
-      <Filter>Source Files\shape</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\core\src\shape\mgellipse.cpp">
-      <Filter>Source Files\shape</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\core\src\shape\mggrid.cpp">
-      <Filter>Source Files\shape</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\core\src\shape\mglayer.cpp">
-      <Filter>Source Files\shape</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\core\src\shape\mgline.cpp">
-      <Filter>Source Files\shape</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\core\src\shape\mglines.cpp">
-      <Filter>Source Files\shape</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\core\src\shape\mgrdrect.cpp">
-      <Filter>Source Files\shape</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\core\src\shape\mgrect.cpp">
-      <Filter>Source Files\shape</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\core\src\shape\mgshape.cpp">
-      <Filter>Source Files\shape</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\core\src\shape\mgshapedoc.cpp">
-      <Filter>Source Files\shape</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\core\src\shape\mgshapes.cpp">
-      <Filter>Source Files\shape</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\core\src\shape\mgspfactory.cpp">
-      <Filter>Source Files\shape</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\core\src\shape\mgsplines.cpp">
-      <Filter>Source Files\shape</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\core\src\shape\mgsplock.cpp">
-      <Filter>Source Files\shape</Filter>
     </ClCompile>
     <ClCompile Include="..\..\core\src\graph\gigraph.cpp">
       <Filter>Source Files\graph</Filter>
@@ -159,9 +111,6 @@
     <ClCompile Include="..\..\core\src\geom\mgvec.cpp">
       <Filter>Source Files\geom</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\core\src\tradecmd\tradecmd.cpp">
-      <Filter>Source Files\tradecmd</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\core\src\view\GcGraphView.cpp">
       <Filter>Source Files\view</Filter>
     </ClCompile>
@@ -186,8 +135,128 @@
     <ClCompile Include="..\..\core\src\json\mgjsonstorage.cpp">
       <Filter>Source Files\storage</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\core\src\view\demotrade.cpp">
+    <ClCompile Include="..\..\core\src\view\educmds.cpp">
       <Filter>Source Files\view</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\core\src\cmdtest\TransformCmd.cpp">
+      <Filter>Source Files\command_src\cmdtest</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\core\src\cmdbasic\mgdrawcircle.cpp">
+      <Filter>Source Files\command_src\cmdbasic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\core\src\cmdbasic\mgdrawdiamond.cpp">
+      <Filter>Source Files\command_src\cmdbasic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\core\src\cmdbasic\mgdrawellipse.cpp">
+      <Filter>Source Files\command_src\cmdbasic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\core\src\cmdbasic\mgdrawfreelines.cpp">
+      <Filter>Source Files\command_src\cmdbasic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\core\src\cmdbasic\mgdrawgrid.cpp">
+      <Filter>Source Files\command_src\cmdbasic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\core\src\cmdbasic\mgdrawline.cpp">
+      <Filter>Source Files\command_src\cmdbasic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\core\src\cmdbasic\mgdrawlines.cpp">
+      <Filter>Source Files\command_src\cmdbasic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\core\src\cmdbasic\mgdrawparallel.cpp">
+      <Filter>Source Files\command_src\cmdbasic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\core\src\cmdbasic\mgdrawpolygon.cpp">
+      <Filter>Source Files\command_src\cmdbasic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\core\src\cmdbasic\mgdrawsplines.cpp">
+      <Filter>Source Files\command_src\cmdbasic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\core\src\cmdbasic\mgdrawsquare.cpp">
+      <Filter>Source Files\command_src\cmdbasic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\core\src\cmdbasic\mgdrawtriang.cpp">
+      <Filter>Source Files\command_src\cmdbasic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\core\src\cmdbase\mgcmddraw.cpp">
+      <Filter>Source Files\command_src\cmdbase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\core\src\cmdbase\mgdrawarc.cpp">
+      <Filter>Source Files\command_src\cmdbase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\core\src\cmdbase\mgdrawrect.cpp">
+      <Filter>Source Files\command_src\cmdbase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\core\src\cmdbasic\cmdbasic.cpp">
+      <Filter>Source Files\command_src\cmdbasic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\core\src\cmdmgr\mgcmdmgr_.cpp">
+      <Filter>Source Files\command_src\cmdmgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\core\src\cmdmgr\mgcmdmgr2.cpp">
+      <Filter>Source Files\command_src\cmdmgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\core\src\cmdmgr\mgsnapimpl.cpp">
+      <Filter>Source Files\command_src\cmdmgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\core\src\cmdmgr\mgcmdselect.cpp">
+      <Filter>Source Files\command_src\cmdmgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\core\src\cmdmgr\mgactions.cpp">
+      <Filter>Source Files\command_src\cmdmgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\core\src\cmdbasic\mgcmderase.cpp">
+      <Filter>Source Files\command_src\cmdbasic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\core\src\cmdbase\mgsplock.cpp">
+      <Filter>Source Files\command_src\cmdbase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\core\src\shape\mgcomposite.cpp">
+      <Filter>Source Files\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\core\src\shape\mgellipse.cpp">
+      <Filter>Source Files\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\core\src\shape\mggrid.cpp">
+      <Filter>Source Files\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\core\src\shape\mgline.cpp">
+      <Filter>Source Files\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\core\src\shape\mglines.cpp">
+      <Filter>Source Files\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\core\src\shape\mgrdrect.cpp">
+      <Filter>Source Files\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\core\src\shape\mgrect.cpp">
+      <Filter>Source Files\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\core\src\shape\mgshape.cpp">
+      <Filter>Source Files\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\core\src\shape\mgshapes.cpp">
+      <Filter>Source Files\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\core\src\shape\mgbasicspreg.cpp">
+      <Filter>Source Files\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\core\src\shape\mgsplines.cpp">
+      <Filter>Source Files\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\core\src\shapedoc\mglayer.cpp">
+      <Filter>Source Files\shapedoc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\core\src\shapedoc\mglockrw.cpp">
+      <Filter>Source Files\shapedoc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\core\src\shapedoc\mgshapedoc.cpp">
+      <Filter>Source Files\shapedoc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\core\src\educmds\eduobserver.cpp">
+      <Filter>Source Files\educmds</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\core\src\cmdmgr\cmdsubject.cpp">
+      <Filter>Source Files\command_src\cmdmgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -202,30 +271,6 @@
     </ClInclude>
     <ClInclude Include="..\..\core\include\test\testcanvas.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\core\src\command\mgcmderase.h">
-      <Filter>Source Files\command</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\core\src\command\mgcmdmgr.h">
-      <Filter>Source Files\command</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\core\src\command\mgcmdselect.h">
-      <Filter>Source Files\command</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\core\src\command\mgdrawline.h">
-      <Filter>Source Files\command</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\core\src\command\mgdrawlines.h">
-      <Filter>Source Files\command</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\core\src\command\mgdrawrect.h">
-      <Filter>Source Files\command</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\core\src\command\mgdrawsplines.h">
-      <Filter>Source Files\command</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\core\src\command\mgdrawtriang.h">
-      <Filter>Source Files\command</Filter>
     </ClInclude>
     <ClInclude Include="..\..\core\include\view\gicoreview.h">
       <Filter>Header Files</Filter>
@@ -253,30 +298,6 @@
     </ClInclude>
     <ClInclude Include="..\..\core\include\test\RandomShape.h">
       <Filter>Source Files\test</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\core\include\command\mgaction.h">
-      <Filter>Source Files\command</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\core\include\command\mgcmd.h">
-      <Filter>Source Files\command</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\core\include\command\mgcmddraw.h">
-      <Filter>Source Files\command</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\core\include\command\mgdrawarc.h">
-      <Filter>Source Files\command</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\core\include\command\mgdrawrect.h">
-      <Filter>Source Files\command</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\core\include\command\mgselect.h">
-      <Filter>Source Files\command</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\core\include\command\mgsnap.h">
-      <Filter>Source Files\command</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\core\include\command\mgview.h">
-      <Filter>Source Files\command</Filter>
     </ClInclude>
     <ClInclude Include="..\..\core\include\geom\mgbase.h">
       <Filter>Source Files\geom</Filter>
@@ -332,6 +353,96 @@
     <ClInclude Include="..\..\core\include\storage\mgstoragebs.h">
       <Filter>Source Files\storage</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\core\include\view\educmds.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\core\include\cmdobserver\educmds_.h">
+      <Filter>Source Files\educmds</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\core\include\cmd\mgcmd.h">
+      <Filter>Source Files\command\cmd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\core\include\cmd\mgview.h">
+      <Filter>Source Files\command\cmd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\core\include\cmdbase\mgcmddraw.h">
+      <Filter>Source Files\command\cmdbase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\core\include\cmdbase\mgdrawarc.h">
+      <Filter>Source Files\command\cmdbase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\core\include\cmdbase\mgdrawrect.h">
+      <Filter>Source Files\command\cmdbase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\core\include\cmdbasic\mgdrawcircle.h">
+      <Filter>Source Files\command\cmdbasic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\core\include\cmdbasic\mgdrawdiamond.h">
+      <Filter>Source Files\command\cmdbasic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\core\include\cmdbasic\mgdrawellipse.h">
+      <Filter>Source Files\command\cmdbasic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\core\include\cmdbasic\mgdrawfreelines.h">
+      <Filter>Source Files\command\cmdbasic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\core\include\cmdbasic\mgdrawgrid.h">
+      <Filter>Source Files\command\cmdbasic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\core\include\cmdbasic\mgdrawline.h">
+      <Filter>Source Files\command\cmdbasic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\core\include\cmdbasic\mgdrawlines.h">
+      <Filter>Source Files\command\cmdbasic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\core\include\cmdbasic\mgdrawparallel.h">
+      <Filter>Source Files\command\cmdbasic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\core\include\cmdbasic\mgdrawpolygon.h">
+      <Filter>Source Files\command\cmdbasic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\core\include\cmdbasic\mgdrawquadrangle.h">
+      <Filter>Source Files\command\cmdbasic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\core\include\cmdbasic\mgdrawsplines.h">
+      <Filter>Source Files\command\cmdbasic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\core\include\cmdbasic\mgdrawsquare.h">
+      <Filter>Source Files\command\cmdbasic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\core\include\cmdbasic\mgdrawtriang.h">
+      <Filter>Source Files\command\cmdbasic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\core\include\cmdbasic\cmdbasic.h">
+      <Filter>Source Files\command\cmdbasic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\core\include\cmd\mgaction.h">
+      <Filter>Source Files\command\cmd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\core\include\cmd\mgsnap.h">
+      <Filter>Source Files\command\cmd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\core\include\cmdmgr\mgcmdmgr.h">
+      <Filter>Source Files\command\cmdmgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\core\include\cmdmgr\mgselect.h">
+      <Filter>Source Files\command\cmdmgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\core\include\cmdmgr\mgcmdmgrfactory.h">
+      <Filter>Source Files\command\cmdmgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\core\src\cmdmgr\mgcmdmgr_.h">
+      <Filter>Source Files\command_src\cmdmgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\core\src\cmdmgr\mgcmdselect.h">
+      <Filter>Source Files\command_src\cmdmgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\core\src\cmdbasic\mgcmderase.h">
+      <Filter>Source Files\command_src\cmdbasic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\core\include\cmd\mglockdata.h">
+      <Filter>Source Files\command\cmd</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\core\include\shape\mgbasicsp.h">
       <Filter>Source Files\shape</Filter>
     </ClInclude>
@@ -339,9 +450,6 @@
       <Filter>Source Files\shape</Filter>
     </ClInclude>
     <ClInclude Include="..\..\core\include\shape\mggrid.h">
-      <Filter>Source Files\shape</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\core\include\shape\mglayer.h">
       <Filter>Source Files\shape</Filter>
     </ClInclude>
     <ClInclude Include="..\..\core\include\shape\mglog.h">
@@ -356,9 +464,6 @@
     <ClInclude Include="..\..\core\include\shape\mgshape_.h">
       <Filter>Source Files\shape</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\core\include\shape\mgshapedoc.h">
-      <Filter>Source Files\shape</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\core\include\shape\mgshapes.h">
       <Filter>Source Files\shape</Filter>
     </ClInclude>
@@ -368,14 +473,23 @@
     <ClInclude Include="..\..\core\include\shape\mgshapetype.h">
       <Filter>Source Files\shape</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\core\include\tradecmd\tradecmd.h">
-      <Filter>Source Files\tradecmd</Filter>
+    <ClInclude Include="..\..\core\include\shape\mgspfactory.h">
+      <Filter>Source Files\shape</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\core\include\view\demotrade.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\..\core\include\shapedoc\mglayer.h">
+      <Filter>Source Files\shapedoc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\core\include\tradecmd\demotrade_.h">
-      <Filter>Source Files\tradecmd</Filter>
+    <ClInclude Include="..\..\core\include\shapedoc\mgshapedoc.h">
+      <Filter>Source Files\shapedoc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\core\include\shape\mgbasicspreg.h">
+      <Filter>Source Files\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\core\include\cmdobserver\cmdobserver.h">
+      <Filter>Source Files\command\cmdobserver</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\core\include\cmdobserver\cmdsubject.h">
+      <Filter>Source Files\command\cmdobserver</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

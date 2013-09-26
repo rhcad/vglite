@@ -1,10 +1,10 @@
 //! \file gixform.h
 //! \brief 定义坐标系管理类 GiTransform
-// Copyright (c) 2004-2012, Zhang Yungui
+// Copyright (c) 2004-2013, Zhang Yungui
 // License: LGPL, https://github.com/rhcad/touchvg
 
-#ifndef __GEOMETRY_TRANSFORMSYS_H_
-#define __GEOMETRY_TRANSFORMSYS_H_
+#ifndef TOUCHVG_TRANSFORMSYS_H_
+#define TOUCHVG_TRANSFORMSYS_H_
 
 #include "mgbox.h"
 #include "mgmat.h"
@@ -290,4 +290,4 @@ private:
     Matrix2d        m_mat;
 };
 
-#endif // __GEOMETRY_TRANSFORMSYS_H_
+#endif // TOUCHVG_TRANSFORMSYS_H_

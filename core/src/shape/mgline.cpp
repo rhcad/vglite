@@ -1,5 +1,5 @@
 // mgline.cpp: 实现线段图形类 MgLine
-// Copyright (c) 2004-2012, Zhang Yungui
+// Copyright (c) 2004-2013, Zhang Yungui
 // License: LGPL, https://github.com/rhcad/touchvg
 
 #include "mgbasicsp.h"
@@ -115,64 +115,48 @@ bool MgLine::_save(MgStorage* s) const
     return ret;
 }
 
-bool MgLine::_load(MgStorage* s)
+bool MgLine::_load(MgShapeFactory* factory, MgStorage* s)
 {
-    bool ret = __super::_load(s);
+    bool ret = __super::_load(factory, s);
     return s->readFloatArray("points", &(_points[0].x), 4) == 4 && ret;
 }
 
-int MgLine::_getDimensions(const Matrix2d& m2w, float* vars, char* types, int count) const
-{
-    int ret = 0;
-    
-    if (count > ret) {
-        types[ret] = 'l';
-        vars[ret++] = fabsf(length() * m2w.m11);
-    }
-    if (count > ret) {
-        types[ret] = 'a';
-        vars[ret++] = mgbase::rad2Deg(mgbase::to0_2PI(angle() * (m2w.m22 < 0 ? -1.f : 1.f)));
-    }
-    
-    return ret;
-}
-
-// MgParallelogram
+// MgParallel
 //
 
-MG_IMPLEMENT_CREATE(MgParallelogram)
+MG_IMPLEMENT_CREATE(MgParallel)
 
-MgParallelogram::MgParallelogram()
+MgParallel::MgParallel()
 {
 }
 
-MgParallelogram::~MgParallelogram()
+MgParallel::~MgParallel()
 {
 }
 
-int MgParallelogram::_getPointCount() const
+int MgParallel::_getPointCount() const
 {
     return 4;
 }
 
-Point2d MgParallelogram::_getPoint(int index) const
+Point2d MgParallel::_getPoint(int index) const
 {
     return _points[index];
 }
 
-void MgParallelogram::_setPoint(int index, const Point2d& pt)
+void MgParallel::_setPoint(int index, const Point2d& pt)
 {
     _points[index] = pt;
 }
 
-void MgParallelogram::_copy(const MgParallelogram& src)
+void MgParallel::_copy(const MgParallel& src)
 {
     for (int i = 0; i < 4; i++)
         _points[i] = src._points[i];
     __super::_copy(src);
 }
 
-bool MgParallelogram::_equals(const MgParallelogram& src) const
+bool MgParallel::_equals(const MgParallel& src) const
 {
     for (int i = 0; i < 4; i++) {
         if (_points[i] != src._points[i])
@@ -181,7 +165,7 @@ bool MgParallelogram::_equals(const MgParallelogram& src) const
     return __super::_equals(src);
 }
 
-void MgParallelogram::_update()
+void MgParallel::_update()
 {
     _points[3] = _points[0] + _points[2] + (- _points[1]);
     _extent.set(4, _points);
@@ -190,42 +174,42 @@ void MgParallelogram::_update()
     __super::_update();
 }
 
-void MgParallelogram::_transform(const Matrix2d& mat)
+void MgParallel::_transform(const Matrix2d& mat)
 {
     for (int i = 0; i < 4; i++)
         _points[i] *= mat;
     __super::_transform(mat);
 }
 
-void MgParallelogram::_clear()
+void MgParallel::_clear()
 {
     for (int i = 1; i < 4; i++)
         _points[i] = _points[0];
     __super::_clear();
 }
 
-int MgParallelogram::_getHandleCount() const
+int MgParallel::_getHandleCount() const
 {
     return 8;
 }
 
-Point2d MgParallelogram::_getHandlePoint(int index) const
+Point2d MgParallel::_getHandlePoint(int index) const
 {
     return (index < 4 ? __super::_getHandlePoint(index) :
             (_points[index % 4] + _points[(index + 1) % 4]) / 2);
 }
 
-int MgParallelogram::_getHandleType(int index) const
+int MgParallel::_getHandleType(int index) const
 {
     return index < 4 ? __super::_getHandleType(index) : kMgHandleMidPoint;
 }
 
-bool MgParallelogram::_isHandleFixed(int index) const
+bool MgParallel::_isHandleFixed(int index) const
 {
     return index >= 4;
 }
 
-bool MgParallelogram::_setHandlePoint(int index, const Point2d& pt, float)
+bool MgParallel::_setHandlePoint(int index, const Point2d& pt, float)
 {
     index = index % 4;
     if (getFlag(kMgFixedLength)) {
@@ -241,25 +225,25 @@ bool MgParallelogram::_setHandlePoint(int index, const Point2d& pt, float)
     return true;
 }
 
-bool MgParallelogram::_offset(const Vector2d& vec, int segment)
+bool MgParallel::_offset(const Vector2d& vec, int segment)
 {
     if (segment < 0 || getFlag(kMgFixedSize))
         return __super::_offset(vec, segment);
     return _setHandlePoint(segment, _points[segment] + vec, 0);
 }
 
-bool MgParallelogram::_rotateHandlePoint(int index, const Point2d& pt)
+bool MgParallel::_rotateHandlePoint(int index, const Point2d& pt)
 {
     return getFlag(kMgFixedSize) && __super::_rotateHandlePoint(index, pt);
 }
 
-float MgParallelogram::_hitTest(const Point2d& pt, float tol, 
+float MgParallel::_hitTest(const Point2d& pt, float tol, 
                                 Point2d& nearpt, int& segment) const
 {
     return mgnear::linesHit(4, _points, true, pt, tol, nearpt, segment);
 }
 
-bool MgParallelogram::_hitTestBox(const Box2d& rect) const
+bool MgParallel::_hitTestBox(const Box2d& rect) const
 {
     if (!__super::_hitTestBox(rect))
         return false;
@@ -272,41 +256,21 @@ bool MgParallelogram::_hitTestBox(const Box2d& rect) const
     return false;
 }
 
-bool MgParallelogram::_draw(int mode, GiGraphics& gs, const GiContext& ctx, int segment) const
+bool MgParallel::_draw(int mode, GiGraphics& gs, const GiContext& ctx, int segment) const
 {
     bool ret = gs.drawPolygon(&ctx, 4, _points);
     return __super::_draw(mode, gs, ctx, segment) || ret;
 }
 
-bool MgParallelogram::_save(MgStorage* s) const
+bool MgParallel::_save(MgStorage* s) const
 {
     bool ret = __super::_save(s);
     s->writeFloatArray("points", &(_points[0].x), 8);
     return ret;
 }
 
-bool MgParallelogram::_load(MgStorage* s)
+bool MgParallel::_load(MgShapeFactory* factory, MgStorage* s)
 {
-    bool ret = __super::_load(s);
+    bool ret = __super::_load(factory, s);
     return s->readFloatArray("points", &(_points[0].x), 8) == 8 && ret;
-}
-
-int MgParallelogram::_getDimensions(const Matrix2d& m2w, float* vars, char* types, int count) const
-{
-    int ret = 0;
-    
-    if (count > ret) {
-        types[ret] = 'l';
-        vars[ret++] = fabsf(getHeight() * m2w.m22);
-    }
-    if (count > ret) {
-        types[ret] = 'w';
-        vars[ret++] = fabsf(getWidth() * m2w.m11);
-    }
-    if (count > ret) {
-        types[ret] = 'a';
-        vars[ret++] = mgbase::rad2Deg(mgbase::to0_2PI(angle() * (m2w.m22 < 0 ? -1.f : 1.f)));
-    }
-    
-    return ret;
 }

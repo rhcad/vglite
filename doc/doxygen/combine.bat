@@ -2,22 +2,18 @@ set destpath=..\all.tmp\touchvg
 
 del /Q/S  %destpath%
 
-xcopy ..\..\core\include\geom\*.* %destpath%\geom\ /Y
-xcopy ..\..\core\include\graph\*.* %destpath%\graph\ /Y
-xcopy ..\..\core\include\shape\*.* %destpath%\shape\ /Y
-xcopy ..\..\core\include\storage\*.* %destpath%\storage\ /Y
-xcopy ..\..\core\include\command\*.* %destpath%\command\ /Y
-xcopy ..\..\core\include\canvas\*.* %destpath%\canvas\ /Y
-xcopy ..\..\core\include\view\*.* %destpath%\view\ /Y
-xcopy ..\..\core\include\tradecmd\*.* %destpath%\tradecmd\ /Y
+xcopy ..\..\core\include\*.* %destpath%\ /Y/S
 
 xcopy ..\..\core\src\geom\*.* %destpath%\geom_src\ /Y
 xcopy ..\..\core\src\graph\*.* %destpath%\graph_src\ /Y
 xcopy ..\..\core\src\shape\*.* %destpath%\shape_src\ /Y
-xcopy ..\..\core\src\command\*.* %destpath%\command_src\ /Y
+xcopy ..\..\core\src\shapedoc\*.* %destpath%\shapedoc_src\ /Y
+xcopy ..\..\core\src\cmdbase\*.* %destpath%\cmdbase_src\ /Y
+xcopy ..\..\core\src\cmdbasic\*.* %destpath%\cmdbasic_src\ /Y
+xcopy ..\..\core\src\cmdmgr\*.* %destpath%\cmdmgr_src\ /Y
 xcopy ..\..\core\src\json\*.* %destpath%\json\ /Y
 xcopy ..\..\core\src\view\*.* %destpath%\view_src\ /Y
-xcopy ..\..\core\src\tradecmd\*.* %destpath%\demotrade\ /Y
+xcopy ..\..\core\src\educmds\*.* %destpath%\educmds\ /Y
 move /Y %destpath%\storage\mgjsonstorage.h %destpath%\json\
 
 rem xcopy ..\..\win\include\canvas\*.* %destpath%\winview\ /Y

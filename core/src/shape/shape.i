@@ -4,10 +4,11 @@
 #include <mgshapes.h>
 #include <mgbasicsp.h>
 #include <mgcomposite.h>
-#include <mglayer.h>
-#include <mgshapedoc.h>
+#include <mggrid.h>
 #include <mgshapetype.h>
 #include <mgstorage.h>
+#include <mgspfactory.h>
+#include <mgbasicspreg.h>
 %}
 
 %include <mgtol.h>
@@ -24,10 +25,12 @@
 
 %include <mgobject.h>
 %include <mgshape.h>
+%include <mgspfactory.h>
 %include <mgshapes.h>
 %include <mgbasicsp.h>
 %include <mgcomposite.h>
-%include <mglayer.h>
-%include <mgshapedoc.h>
+%include <mggrid.h>
 %include <mgshapetype.h>
 %include <mgstorage.h>
+%include <mgspfactory.h>
+%include <mgbasicspreg.h>

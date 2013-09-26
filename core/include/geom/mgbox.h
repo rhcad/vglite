@@ -1,10 +1,10 @@
 //! \file mgbox.h
 //! \brief 定义矩形框类 Box2d
-// Copyright (c) 2004-2012, Zhang Yungui
+// Copyright (c) 2004-2013, Zhang Yungui
 // License: LGPL, https://github.com/rhcad/touchvg
 
-#ifndef __GEOMETRY_RECT_H_
-#define __GEOMETRY_RECT_H_
+#ifndef TOUCHVG_RECT_H_
+#define TOUCHVG_RECT_H_
 
 #include "mgpnt.h"
 
@@ -724,4 +724,4 @@ public:
     }
 };
 
-#endif // __GEOMETRY_RECT_H_
+#endif // TOUCHVG_RECT_H_

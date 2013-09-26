@@ -1,5 +1,5 @@
 // mgshape.cpp: 实现矢量图形基类 MgBaseShape
-// Copyright (c) 2004-2012, Zhang Yungui
+// Copyright (c) 2004-2013, Zhang Yungui
 // License: LGPL, https://github.com/rhcad/touchvg
 
 #include "mgshape.h"
@@ -117,7 +117,7 @@ bool MgBaseShape::_save(MgStorage* s) const
     return true;
 }
 
-bool MgBaseShape::_load(MgStorage* s)
+bool MgBaseShape::_load(MgShapeFactory*, MgStorage* s)
 {
     _flags = s->readUInt32("flags", _flags);
     setFlag(kMgClosed, isClosed());
@@ -153,7 +153,7 @@ bool MgShape::save(MgStorage* s) const {
     return shapec()->save(s);
 }
 
-bool MgShape::load(MgStorage* s) {
+bool MgShape::load(MgShapeFactory* factory, MgStorage* s) {
     setParent(getParent(), s->readUInt32("tag", getTag()));
 
     context()->setLineStyle((GiLineStyle)s->readUInt8("lineStyle", 0));
@@ -163,7 +163,7 @@ bool MgShape::load(MgStorage* s) {
     context()->setFillColor(GiColor(s->readUInt32("fillColor", 0), true));
     context()->setAutoFillColor(s->readBool("autoFillColor", context()->isAutoFillColor()));
 
-    bool ret = shape()->load(s);
+    bool ret = shape()->load(factory, s);
     if (ret) {
         shape()->update();
     }

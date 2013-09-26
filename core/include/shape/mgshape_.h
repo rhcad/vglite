@@ -1,10 +1,10 @@
 //! \file mgshape_.h
 //! \brief 定义图形类实现用的辅助宏
-// Copyright (c) 2004-2012, Zhang Yungui
+// Copyright (c) 2004-2013, Zhang Yungui
 // License: LGPL, https://github.com/rhcad/touchvg
 
-#ifndef __GEOMETRY_MGSHAPEIMPL_H_
-#define __GEOMETRY_MGSHAPEIMPL_H_
+#ifndef TOUCHVG_MGSHAPEIMPL_H_
+#define TOUCHVG_MGSHAPEIMPL_H_
 
 #include "mgstorage.h"
 
@@ -39,7 +39,8 @@
     bool Cls::draw(int mode, GiGraphics& gs, const GiContext& ctx, int segment) const  \
         { return _draw(mode, gs, ctx, segment); }               \
     bool Cls::save(MgStorage* s) const { return _save(s); }     \
-    bool Cls::load(MgStorage* s)       { return _load(s); }     \
+    bool Cls::load(MgShapeFactory* factory, MgStorage* s) {     \
+        return _load(factory, s); }                             \
     int Cls::getHandleCount() const { return _getHandleCount(); }    \
     Point2d Cls::getHandlePoint(int index) const                \
         { return _getHandlePoint(index); }                      \
@@ -50,8 +51,6 @@
     bool Cls::isHandleFixed(int index) const { return _isHandleFixed(index); } \
     int Cls::getHandleType(int index) const { return _getHandleType(index); } \
     bool Cls::offset(const Vector2d& vec, int segment)          \
-        { return _offset(vec, segment); }                       \
-    int Cls::getDimensions(const Matrix2d& m2w, float* vars, char* types, int count) const \
-        { return _getDimensions(m2w, vars, types, count); }
+        { return _offset(vec, segment); }
 
-#endif // __GEOMETRY_MGSHAPEIMPL_H_
+#endif // TOUCHVG_MGSHAPEIMPL_H_

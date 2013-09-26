@@ -332,7 +332,7 @@ namespace Swig {
 #include "gicoreview.h"
 #include "gimousehelper.h"
 #include "testcanvas.h"
-#include "demotrade.h"
+#include "educmds.h"
 
 
 
@@ -764,24 +764,26 @@ bool SwigDirector_GiView::isContextActionsVisible() {
   return c_result;
 }
 
-bool SwigDirector_GiView::showContextActions(mgvector< int > const &actions, float x, float y, float w, float h) {
+bool SwigDirector_GiView::showContextActions(mgvector< int > const &actions, mgvector< float > const &buttonXY, float x, float y, float w, float h) {
   bool c_result = SwigValueInit< bool >() ;
   unsigned int jresult = 0 ;
   void * jactions = 0 ;
+  void * jbuttonXY = 0 ;
   float jx  ;
   float jy  ;
   float jw  ;
   float jh  ;
   
   if (!swig_callbackshowContextActions) {
-    return GiView::showContextActions(actions,x,y,w,h);
+    return GiView::showContextActions(actions,buttonXY,x,y,w,h);
   } else {
     jactions = (mgvector< int > *) &actions; 
+    jbuttonXY = (mgvector< float > *) &buttonXY; 
     jx = x;
     jy = y;
     jw = w;
     jh = h;
-    jresult = (unsigned int) swig_callbackshowContextActions(jactions, jx, jy, jw, jh);
+    jresult = (unsigned int) swig_callbackshowContextActions(jactions, jbuttonXY, jx, jy, jw, jh);
     c_result = jresult ? true : false; 
   }
   return c_result;
@@ -889,7 +891,7 @@ SWIGEXPORT int SWIGSTDCALL CSharp_Ints_get(void * jarg1, int jarg2) {
 }
 
 
-SWIGEXPORT void SWIGSTDCALL CSharp_Ints_set(void * jarg1, int jarg2, int jarg3) {
+SWIGEXPORT void SWIGSTDCALL CSharp_Ints_set__SWIG_0(void * jarg1, int jarg2, int jarg3) {
   mgvector< int > *arg1 = (mgvector< int > *) 0 ;
   int arg2 ;
   int arg3 ;
@@ -898,6 +900,20 @@ SWIGEXPORT void SWIGSTDCALL CSharp_Ints_set(void * jarg1, int jarg2, int jarg3) 
   arg2 = (int)jarg2; 
   arg3 = (int)jarg3; 
   (arg1)->set(arg2,arg3);
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_Ints_set__SWIG_1(void * jarg1, int jarg2, int jarg3, int jarg4) {
+  mgvector< int > *arg1 = (mgvector< int > *) 0 ;
+  int arg2 ;
+  int arg3 ;
+  int arg4 ;
+  
+  arg1 = (mgvector< int > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  arg4 = (int)jarg4; 
+  (arg1)->set(arg2,arg3,arg4);
 }
 
 
@@ -947,7 +963,7 @@ SWIGEXPORT float SWIGSTDCALL CSharp_Floats_get(void * jarg1, int jarg2) {
 }
 
 
-SWIGEXPORT void SWIGSTDCALL CSharp_Floats_set(void * jarg1, int jarg2, float jarg3) {
+SWIGEXPORT void SWIGSTDCALL CSharp_Floats_set__SWIG_0(void * jarg1, int jarg2, float jarg3) {
   mgvector< float > *arg1 = (mgvector< float > *) 0 ;
   int arg2 ;
   float arg3 ;
@@ -956,6 +972,20 @@ SWIGEXPORT void SWIGSTDCALL CSharp_Floats_set(void * jarg1, int jarg2, float jar
   arg2 = (int)jarg2; 
   arg3 = (float)jarg3; 
   (arg1)->set(arg2,arg3);
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_Floats_set__SWIG_1(void * jarg1, int jarg2, float jarg3, float jarg4) {
+  mgvector< float > *arg1 = (mgvector< float > *) 0 ;
+  int arg2 ;
+  float arg3 ;
+  float arg4 ;
+  
+  arg1 = (mgvector< float > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (float)jarg3; 
+  arg4 = (float)jarg4; 
+  (arg1)->set(arg2,arg3,arg4);
 }
 
 
@@ -1005,7 +1035,7 @@ SWIGEXPORT char SWIGSTDCALL CSharp_Chars_get(void * jarg1, int jarg2) {
 }
 
 
-SWIGEXPORT void SWIGSTDCALL CSharp_Chars_set(void * jarg1, int jarg2, char jarg3) {
+SWIGEXPORT void SWIGSTDCALL CSharp_Chars_set__SWIG_0(void * jarg1, int jarg2, char jarg3) {
   mgvector< char > *arg1 = (mgvector< char > *) 0 ;
   int arg2 ;
   char arg3 ;
@@ -1014,6 +1044,20 @@ SWIGEXPORT void SWIGSTDCALL CSharp_Chars_set(void * jarg1, int jarg2, char jarg3
   arg2 = (int)jarg2; 
   arg3 = (char)jarg3; 
   (arg1)->set(arg2,arg3);
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_Chars_set__SWIG_1(void * jarg1, int jarg2, char jarg3, char jarg4) {
+  mgvector< char > *arg1 = (mgvector< char > *) 0 ;
+  int arg2 ;
+  char arg3 ;
+  char arg4 ;
+  
+  arg1 = (mgvector< char > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (char)jarg3; 
+  arg4 = (char)jarg4; 
+  (arg1)->set(arg2,arg3,arg4);
 }
 
 
@@ -1416,14 +1460,15 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_GiView_isContextActionsVisibleSwigExp
 }
 
 
-SWIGEXPORT unsigned int SWIGSTDCALL CSharp_GiView_showContextActions(void * jarg1, void * jarg2, float jarg3, float jarg4, float jarg5, float jarg6) {
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_GiView_showContextActions(void * jarg1, void * jarg2, void * jarg3, float jarg4, float jarg5, float jarg6, float jarg7) {
   unsigned int jresult ;
   GiView *arg1 = (GiView *) 0 ;
   mgvector< int > *arg2 = 0 ;
-  float arg3 ;
+  mgvector< float > *arg3 = 0 ;
   float arg4 ;
   float arg5 ;
   float arg6 ;
+  float arg7 ;
   bool result;
   
   arg1 = (GiView *)jarg1; 
@@ -1432,24 +1477,30 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_GiView_showContextActions(void * jarg
     SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "mgvector< int > const & type is null", 0);
     return 0;
   } 
-  arg3 = (float)jarg3; 
+  arg3 = (mgvector< float > *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "mgvector< float > const & type is null", 0);
+    return 0;
+  } 
   arg4 = (float)jarg4; 
   arg5 = (float)jarg5; 
   arg6 = (float)jarg6; 
-  result = (bool)(arg1)->showContextActions((mgvector< int > const &)*arg2,arg3,arg4,arg5,arg6);
+  arg7 = (float)jarg7; 
+  result = (bool)(arg1)->showContextActions((mgvector< int > const &)*arg2,(mgvector< float > const &)*arg3,arg4,arg5,arg6,arg7);
   jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT unsigned int SWIGSTDCALL CSharp_GiView_showContextActionsSwigExplicitGiView(void * jarg1, void * jarg2, float jarg3, float jarg4, float jarg5, float jarg6) {
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_GiView_showContextActionsSwigExplicitGiView(void * jarg1, void * jarg2, void * jarg3, float jarg4, float jarg5, float jarg6, float jarg7) {
   unsigned int jresult ;
   GiView *arg1 = (GiView *) 0 ;
   mgvector< int > *arg2 = 0 ;
-  float arg3 ;
+  mgvector< float > *arg3 = 0 ;
   float arg4 ;
   float arg5 ;
   float arg6 ;
+  float arg7 ;
   bool result;
   
   arg1 = (GiView *)jarg1; 
@@ -1458,11 +1509,16 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_GiView_showContextActionsSwigExplicit
     SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "mgvector< int > const & type is null", 0);
     return 0;
   } 
-  arg3 = (float)jarg3; 
+  arg3 = (mgvector< float > *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "mgvector< float > const & type is null", 0);
+    return 0;
+  } 
   arg4 = (float)jarg4; 
   arg5 = (float)jarg5; 
   arg6 = (float)jarg6; 
-  result = (bool)(arg1)->GiView::showContextActions((mgvector< int > const &)*arg2,arg3,arg4,arg5,arg6);
+  arg7 = (float)jarg7; 
+  result = (bool)(arg1)->GiView::showContextActions((mgvector< int > const &)*arg2,(mgvector< float > const &)*arg3,arg4,arg5,arg6,arg7);
   jresult = result; 
   return jresult;
 }
@@ -2725,6 +2781,18 @@ SWIGEXPORT int SWIGSTDCALL CSharp_GiCoreView_getShapeCount(void * jarg1) {
 }
 
 
+SWIGEXPORT int SWIGSTDCALL CSharp_GiCoreView_getChangeCount(void * jarg1) {
+  int jresult ;
+  GiCoreView *arg1 = (GiCoreView *) 0 ;
+  int result;
+  
+  arg1 = (GiCoreView *)jarg1; 
+  result = (int)(arg1)->getChangeCount();
+  jresult = result; 
+  return jresult;
+}
+
+
 SWIGEXPORT int SWIGSTDCALL CSharp_GiCoreView_getSelectedShapeCount(void * jarg1) {
   int jresult ;
   GiCoreView *arg1 = (GiCoreView *) 0 ;
@@ -2746,6 +2814,14 @@ SWIGEXPORT int SWIGSTDCALL CSharp_GiCoreView_getSelectedShapeType(void * jarg1) 
   result = (int)(arg1)->getSelectedShapeType();
   jresult = result; 
   return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_GiCoreView_clear(void * jarg1) {
+  GiCoreView *arg1 = (GiCoreView *) 0 ;
+  
+  arg1 = (GiCoreView *)jarg1; 
+  (arg1)->clear();
 }
 
 
@@ -2938,6 +3014,24 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_GiCoreView_addImageShape(void * jarg1
   arg3 = (float)jarg3; 
   arg4 = (float)jarg4; 
   result = (bool)(arg1)->addImageShape((char const *)arg2,arg3,arg4);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_GiCoreView_getBoundingBox(void * jarg1, void * jarg2) {
+  unsigned int jresult ;
+  GiCoreView *arg1 = (GiCoreView *) 0 ;
+  mgvector< float > *arg2 = 0 ;
+  bool result;
+  
+  arg1 = (GiCoreView *)jarg1; 
+  arg2 = (mgvector< float > *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "mgvector< float > & type is null", 0);
+    return 0;
+  } 
+  result = (bool)(arg1)->getBoundingBox(*arg2);
   jresult = result; 
   return jresult;
 }
@@ -3252,12 +3346,15 @@ SWIGEXPORT void SWIGSTDCALL CSharp_delete_GiMouseHelper(void * jarg1) {
 }
 
 
-SWIGEXPORT void SWIGSTDCALL CSharp_DemoTrade_registerCmds() {
-  DemoTrade::registerCmds();
+SWIGEXPORT void SWIGSTDCALL CSharp_EduCmds_registerCmds(void * jarg1) {
+  GiCoreView *arg1 = (GiCoreView *) 0 ;
+  
+  arg1 = (GiCoreView *)jarg1; 
+  EduCmds::registerCmds(arg1);
 }
 
 
-SWIGEXPORT int SWIGSTDCALL CSharp_DemoTrade_getDimensions(void * jarg1, void * jarg2, void * jarg3) {
+SWIGEXPORT int SWIGSTDCALL CSharp_EduCmds_getDimensions(void * jarg1, void * jarg2, void * jarg3) {
   int jresult ;
   GiCoreView *arg1 = (GiCoreView *) 0 ;
   mgvector< float > *arg2 = 0 ;
@@ -3275,26 +3372,26 @@ SWIGEXPORT int SWIGSTDCALL CSharp_DemoTrade_getDimensions(void * jarg1, void * j
     SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "mgvector< char > & type is null", 0);
     return 0;
   } 
-  result = (int)DemoTrade::getDimensions(arg1,*arg2,*arg3);
+  result = (int)EduCmds::getDimensions(arg1,*arg2,*arg3);
   jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_new_DemoTrade() {
+SWIGEXPORT void * SWIGSTDCALL CSharp_new_EduCmds() {
   void * jresult ;
-  DemoTrade *result = 0 ;
+  EduCmds *result = 0 ;
   
-  result = (DemoTrade *)new DemoTrade();
+  result = (EduCmds *)new EduCmds();
   jresult = (void *)result; 
   return jresult;
 }
 
 
-SWIGEXPORT void SWIGSTDCALL CSharp_delete_DemoTrade(void * jarg1) {
-  DemoTrade *arg1 = (DemoTrade *) 0 ;
+SWIGEXPORT void SWIGSTDCALL CSharp_delete_EduCmds(void * jarg1) {
+  EduCmds *arg1 = (EduCmds *) 0 ;
   
-  arg1 = (DemoTrade *)jarg1; 
+  arg1 = (EduCmds *)jarg1; 
   delete arg1;
 }
 

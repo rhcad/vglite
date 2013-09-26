@@ -1,4 +1,4 @@
-﻿//! \file GraphView.java
+//! \file GraphView.java
 //! \brief Android绘图视图类
 // Copyright (c) 2012-2013, https://github.com/rhcad/touchvg
 
@@ -6,7 +6,8 @@ package touchvg.view;
 
 import java.util.ArrayList;
 
-import touchvg.jni.DemoTrade;
+import touchvg.jni.EduCmds;
+import touchvg.jni.Floats;
 import touchvg.jni.GiCoreView;
 import touchvg.jni.GiView;
 import touchvg.jni.Ints;
@@ -36,7 +37,7 @@ public class GraphView extends View {
     private Bitmap mCachedBitmap;           // 缓存快照
     private Bitmap mRegenBitmap;            // regen用的缓存位图
     private int mBkColor = Color.TRANSPARENT;
-
+    
     //! 普通绘图视图的构造函数
     public GraphView(Context context) {
         super(context);
@@ -44,8 +45,11 @@ public class GraphView extends View {
         mCoreView = new GiCoreView(null);
         mCoreView.createView(mViewAdapter);
         initView(context);
+        if (mActiveView == null) {
+            mActiveView = this;
+        }
     }
-
+    
     //! 放大镜视图的构造函数
     public GraphView(Context context, GraphView mainView) {
         super(context);
@@ -54,31 +58,32 @@ public class GraphView extends View {
         mCoreView.createMagnifierView(mViewAdapter, mainView.viewAdapter());
         initView(context);
     }
-
+    
     private void createAdapter(Context context) {
         mCanvasAdapter = new CanvasAdapter(this);
         mCanvasRegen = new CanvasAdapter(this);
         mViewAdapter = new ViewAdapter();
-        DemoTrade.registerCmds();
     }
-
+    
     private void initView(Context context) {
         mGestureListener = new GestureListener(mCoreView, mViewAdapter);
         mGestureDetector = new GestureDetector(context, mGestureListener);
-
+        
         final DisplayMetrics dm = context.getApplicationContext().getResources().getDisplayMetrics();
         GiCoreView.setScreenDpi(dm.densityDpi);         // 应用API
         setLayerType(View.LAYER_TYPE_SOFTWARE, null);   // 避免路径太大不能渲染
-
+        
         this.setOnTouchListener(new OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
                     activateView();
                 }
                 return mGestureEnable && (mGestureListener.onTouch(v, event)
-                        || mGestureDetector.onTouchEvent(event));
+                                          || mGestureDetector.onTouchEvent(event));
             }
         });
+        
+        EduCmds.registerCmds(mCoreView);
     }
     
     private void activateView() {
@@ -87,22 +92,22 @@ public class GraphView extends View {
             mActiveView = this;
         }
     }
-
+    
     //! 返回当前激活视图
     public static GraphView activeView() {
         return mActiveView;
     }
-
+    
     //! 返回内核视图分发器对象
     public GiCoreView coreView() {
         return mCoreView;
     }
-
+    
     //! 返回视图回调适配器对象
     public GiView viewAdapter() {
         return mViewAdapter;
     }
-
+    
     //! 释放临时缓存
     public void clearCachedData() {
         mCoreView.clearCachedData();
@@ -111,20 +116,27 @@ public class GraphView extends View {
             mCachedBitmap = null;
         }
     }
-
+    
     //! 设置背景色
     public void setBackgroundColor(int color) {
         mBkColor = color;
         mCoreView.setBkColor(mViewAdapter, color);
         regen(false);
     }
-
+    
+    //! 设置上下文按钮的图像ID数组
+    public void setContextButtonImages(int[] imageIDs, int[] extraImageIDs, int[] handleImageIDs) {
+        mViewAdapter.setContextButtonImages(imageIDs, extraImageIDs);
+        mCanvasAdapter.setHandleImageIDs(handleImageIDs);
+        mCanvasRegen.setHandleImageIDs(handleImageIDs);
+    }
+    
     //! 设置是否允许触摸交互
     public void setGestureEnable(boolean enabled) {
         mGestureEnable = enabled;
         mGestureListener.setGestureEnable(enabled);
     }
-
+    
     //! 得到静态图形的快照
     public Bitmap snapshot() {
         if (mCachedBitmap == null) {
@@ -137,7 +149,7 @@ public class GraphView extends View {
         }
         return mCachedBitmap;
     }
-
+    
     @Override
     protected void onDraw(Canvas canvas) {
         mCoreView.onSize(mViewAdapter, getWidth(), getHeight());
@@ -149,45 +161,50 @@ public class GraphView extends View {
             drawShapes(canvas, mCanvasAdapter, true);
         }
     }
-
-    private void drawShapes(Canvas canvas, CanvasAdapter adapter, boolean dyndraw) {
+    
+    private int drawShapes(Canvas canvas, CanvasAdapter adapter, boolean dyndraw) {
+        int n = 0;
+        
         if (adapter.beginPaint(canvas)) {
             if (mCachedBitmap == null || !dyndraw) {
                 if (this.getBackground() != null) {
                     this.getBackground().draw(canvas);
                 }
-                mCoreView.drawAll(mViewAdapter, adapter);
+                n = mCoreView.drawAll(mViewAdapter, adapter);
             }
             else if (mCachedBitmap != null) {
                 synchronized(mCachedBitmap) {
                     canvas.drawBitmap(mCachedBitmap, 0, 0, null);
+                    n++;
                 }
             }
-
+            
             if (dyndraw) {
                 mCoreView.dynDraw(mViewAdapter, adapter);
             }
             adapter.endPaint();
         }
+        
+        return n;
     }
-
+    
     private boolean regen(boolean fromRegenAll) {
-        if (getWidth() < 1 || getHeight() < 1 || mRegenning) {
+        if (getWidth() < 2 || getHeight() < 2 || mRegenning) {
             return true;
         }
         try {
             if (mCachedBitmap == null) {
-                mCachedBitmap = Bitmap.createBitmap(getWidth(),
-                        getHeight(), Bitmap.Config.ARGB_8888);
+                mCachedBitmap = Bitmap.createBitmap(getWidth(), getHeight(),
+                                                    Bitmap.Config.ARGB_8888);
             }
             else if (mRegenBitmap == null) {
-                mRegenBitmap = Bitmap.createBitmap(getWidth(),
-                        getHeight(), Bitmap.Config.ARGB_8888);
+                mRegenBitmap = Bitmap.createBitmap(getWidth(), getHeight(),
+                                                   Bitmap.Config.ARGB_8888);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        
         if (mCachedBitmap != null) {
             mRegenning = true;
             new Thread(new Runnable() {
@@ -196,14 +213,15 @@ public class GraphView extends View {
                     synchronized(bmp) {
                         bmp.eraseColor(mBkColor);
                         drawShapes(new Canvas(bmp), mCanvasRegen, false);
-                    }
-                    if (mRegenBitmap != null) {
-                        if (mCachedBitmap != null) {
-                            mCachedBitmap.recycle();
+                        
+                        if (bmp == mRegenBitmap) {
+                            if (mCachedBitmap != null) {
+                                mCachedBitmap.recycle();
+                            }
+                            mCachedBitmap = mRegenBitmap;
                         }
-                        mCachedBitmap = mRegenBitmap;
-                        mRegenBitmap = null;
                     }
+                    mRegenBitmap = null;
                     mRegenning = false;
                     postInvalidate();
                 }
@@ -212,10 +230,10 @@ public class GraphView extends View {
         else if (fromRegenAll) {    // 视图太大，无法后台绘制，将直接在onDraw中显示
             invalidate();
         }
-
+        
         return mCachedBitmap != null;
     }
-
+    
     @Override
     protected void onDetachedFromWindow() {
         if (mActiveView == this) {
@@ -247,7 +265,7 @@ public class GraphView extends View {
             mCachedBitmap = null;
         }
         mGestureDetector = null;
-
+        
         super.onDetachedFromWindow();
     }
     
@@ -290,7 +308,7 @@ public class GraphView extends View {
             this.contentChangedListeners = new ArrayList<ContentChangedListener>();
         this.contentChangedListeners.add(listener);
     }
-
+    
     //! 视图回调适配器
     private class ViewAdapter extends GiView {
         private ContextAction mContextAction;
@@ -309,17 +327,24 @@ public class GraphView extends View {
             }
         }
         
+        public void setContextButtonImages(int[] imageIDs, int[] extraImageIDs) {
+            if (mContextAction == null) {
+                mContextAction = new ContextAction(getContext(), mCoreView, GraphView.this);
+            }
+            mContextAction.setContextButtonImages(imageIDs, extraImageIDs);
+        }
+        
         @Override
         public void regenAll() {
-            if (mCachedBitmap != null &&
-                    (mCachedBitmap.getWidth() != getWidth()
-                    || mCachedBitmap.getHeight() != getHeight())) {
-                mCachedBitmap.recycle();
-                mCachedBitmap = null;
-            }
+            if (mCachedBitmap != null && !mRegenning &&
+                (mCachedBitmap.getWidth() != getWidth()
+                 || mCachedBitmap.getHeight() != getHeight())) {
+                    mCachedBitmap.recycle();
+                    mCachedBitmap = null;
+                }
             regen(true);
         }
-
+        
         @Override
         public void regenAppend() {
             if (mCachedBitmap != null && !mRegenning) {
@@ -332,7 +357,7 @@ public class GraphView extends View {
             }
             invalidate();
         }
-
+        
         @Override
         public void redraw() {
             invalidate();
@@ -344,14 +369,15 @@ public class GraphView extends View {
         }
         
         @Override
-        public boolean showContextActions(Ints actions, float x, float y, float w, float h) {
+        public boolean showContextActions(Ints actions, Floats buttonXY,
+                                          float x, float y, float w, float h) {
             if (actions.count() == 0 && mContextAction == null) {
                 return true;
             }
             if (mContextAction == null) {
                 mContextAction = new ContextAction(getContext(), mCoreView, GraphView.this);
             }
-            return mContextAction.showActions(actions, x, y, w, h);
+            return mContextAction.showActions(actions, buttonXY);
         }
         
         @Override

@@ -55,7 +55,11 @@ public class Ints : IDisposable {
   }
 
   public void set(int index, int value) {
-    touchvgcsPINVOKE.Ints_set(swigCPtr, index, value);
+    touchvgcsPINVOKE.Ints_set__SWIG_0(swigCPtr, index, value);
+  }
+
+  public void set(int index, int v1, int v2) {
+    touchvgcsPINVOKE.Ints_set__SWIG_1(swigCPtr, index, v1, v2);
   }
 
 }

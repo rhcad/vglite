@@ -55,7 +55,11 @@ public class Floats : IDisposable {
   }
 
   public void set(int index, float value) {
-    touchvgcsPINVOKE.Floats_set(swigCPtr, index, value);
+    touchvgcsPINVOKE.Floats_set__SWIG_0(swigCPtr, index, value);
+  }
+
+  public void set(int index, float v1, float v2) {
+    touchvgcsPINVOKE.Floats_set__SWIG_1(swigCPtr, index, v1, v2);
   }
 
 }

@@ -63,8 +63,8 @@ public class GiView : IDisposable {
     return ret;
   }
 
-  public virtual bool showContextActions(Ints actions, float x, float y, float w, float h) {
-    bool ret = (SwigDerivedClassHasMethod("showContextActions", swigMethodTypes5) ? touchvgcsPINVOKE.GiView_showContextActionsSwigExplicitGiView(swigCPtr, Ints.getCPtr(actions), x, y, w, h) : touchvgcsPINVOKE.GiView_showContextActions(swigCPtr, Ints.getCPtr(actions), x, y, w, h));
+  public virtual bool showContextActions(Ints actions, Floats buttonXY, float x, float y, float w, float h) {
+    bool ret = (SwigDerivedClassHasMethod("showContextActions", swigMethodTypes5) ? touchvgcsPINVOKE.GiView_showContextActionsSwigExplicitGiView(swigCPtr, Ints.getCPtr(actions), Floats.getCPtr(buttonXY), x, y, w, h) : touchvgcsPINVOKE.GiView_showContextActions(swigCPtr, Ints.getCPtr(actions), Floats.getCPtr(buttonXY), x, y, w, h));
     if (touchvgcsPINVOKE.SWIGPendingException.Pending) throw touchvgcsPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
@@ -133,8 +133,8 @@ public class GiView : IDisposable {
     return isContextActionsVisible();
   }
 
-  private bool SwigDirectorshowContextActions(IntPtr actions, float x, float y, float w, float h) {
-    return showContextActions(new Ints(actions, false), x, y, w, h);
+  private bool SwigDirectorshowContextActions(IntPtr actions, IntPtr buttonXY, float x, float y, float w, float h) {
+    return showContextActions(new Ints(actions, false), new Floats(buttonXY, false), x, y, w, h);
   }
 
   private void SwigDirectorcommandChanged() {
@@ -154,7 +154,7 @@ public class GiView : IDisposable {
   public delegate void SwigDelegateGiView_2();
   public delegate bool SwigDelegateGiView_3();
   public delegate bool SwigDelegateGiView_4();
-  public delegate bool SwigDelegateGiView_5(IntPtr actions, float x, float y, float w, float h);
+  public delegate bool SwigDelegateGiView_5(IntPtr actions, IntPtr buttonXY, float x, float y, float w, float h);
   public delegate void SwigDelegateGiView_6();
   public delegate void SwigDelegateGiView_7();
   public delegate void SwigDelegateGiView_8();
@@ -174,7 +174,7 @@ public class GiView : IDisposable {
   private static Type[] swigMethodTypes2 = new Type[] {  };
   private static Type[] swigMethodTypes3 = new Type[] {  };
   private static Type[] swigMethodTypes4 = new Type[] {  };
-  private static Type[] swigMethodTypes5 = new Type[] { typeof(Ints), typeof(float), typeof(float), typeof(float), typeof(float) };
+  private static Type[] swigMethodTypes5 = new Type[] { typeof(Ints), typeof(Floats), typeof(float), typeof(float), typeof(float), typeof(float) };
   private static Type[] swigMethodTypes6 = new Type[] {  };
   private static Type[] swigMethodTypes7 = new Type[] {  };
   private static Type[] swigMethodTypes8 = new Type[] {  };

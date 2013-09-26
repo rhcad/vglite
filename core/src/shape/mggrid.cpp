@@ -1,5 +1,5 @@
 // mggrid.cpp: 实现网格图形类 MgGrid
-// Copyright (c) 2004-2012, Zhang Yungui
+// Copyright (c) 2004-2013, Zhang Yungui
 // License: LGPL, https://github.com/rhcad/touchvg
 
 #include "mggrid.h"
@@ -140,14 +140,14 @@ bool MgGrid::_save(MgStorage* s) const
     return ret;
 }
 
-bool MgGrid::_load(MgStorage* s)
+bool MgGrid::_load(MgShapeFactory* factory, MgStorage* s)
 {
-    bool ret = __super::_load(s);
+    bool ret = __super::_load(factory, s);
     m_cell.set(s->readFloat("cellw", m_cell.x), s->readFloat("celly", m_cell.y));
     return ret;
 }
 
-int MgGrid::snap(Point2d& pnt, float& distx, float& disty) const
+int MgGrid::snap(Point2d& pnt, Point2d& dist) const
 {
     int ret = 0;
     Point2d newpt(pnt);
@@ -157,29 +157,29 @@ int MgGrid::snap(Point2d& pnt, float& distx, float& disty) const
     if (cell.x < _MGZERO || cell.y < _MGZERO)
         return ret;
     
-    distx *= 3;
-    disty *= 3;
+    dist.x *= 3;
+    dist.y *= 3;
     
     for (float x = cell.x; x < getWidth() - _MGZERO; x += cell.x) {        
-        if (distx > fabsf(pnt.x - (org.x + x))) {
+        if (dist.x > fabsf(pnt.x - (org.x + x))) {
             newpt.x = org.x + x;
-            distx = fabsf(pnt.x - newpt.x);
+            dist.x = fabsf(pnt.x - newpt.x);
             ret |= 1;
         }
     }
     for (float y = cell.y; y < getHeight() - _MGZERO; y += cell.y) {
-        if (disty > fabsf(pnt.y - (org.y + y))) {
+        if (dist.y > fabsf(pnt.y - (org.y + y))) {
             newpt.y = org.y + y;
-            disty = fabsf(pnt.y - newpt.y);
+            dist.y = fabsf(pnt.y - newpt.y);
             ret |= 2;
         }
     }
     
     pnt = newpt;
     if ((ret & 1) == 0)
-        distx /= 3;
+        dist.x /= 3;
     if ((ret & 2) == 0)
-        disty /= 3;
+        dist.y /= 3;
     
     return ret;
 }

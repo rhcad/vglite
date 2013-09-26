@@ -1,10 +1,10 @@
 //! \file mgtol.h
 //! \brief 定义容差类 Tol
-// Copyright (c) 2004-2012, Zhang Yungui
+// Copyright (c) 2004-2013, Zhang Yungui
 // License: LGPL, https://github.com/rhcad/touchvg
 
-#ifndef __GEOMETRY_MGTOL_H_
-#define __GEOMETRY_MGTOL_H_
+#ifndef TOUCHVG_MGTOL_H_
+#define TOUCHVG_MGTOL_H_
 
 #include "mgdef.h"
 
@@ -95,4 +95,4 @@ private:
     float  mTolVector;     //!< 矢量容差
 };
 
-#endif // __GEOMETRY_MGTOL_H_
+#endif // TOUCHVG_MGTOL_H_

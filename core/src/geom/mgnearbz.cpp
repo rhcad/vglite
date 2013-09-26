@@ -1,5 +1,5 @@
 // mgnearbz.cpp: 实现贝塞尔曲线段最近点计算函数 mgNearestOnBezier
-// Copyright (c) 2004-2012, Zhang Yungui
+// Copyright (c) 2004-2013, Zhang Yungui
 // License: LGPL, https://github.com/rhcad/touchvg
 
 #include "mgnear.h"

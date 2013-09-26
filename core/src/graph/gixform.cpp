@@ -1,5 +1,5 @@
 // gixform.cpp: 实现坐标系管理类 GiTransform
-// Copyright (c) 2004-2012, Zhang Yungui
+// Copyright (c) 2004-2013, Zhang Yungui
 // License: LGPL, https://github.com/rhcad/touchvg
 
 #include "gixform.h"

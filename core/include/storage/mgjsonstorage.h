@@ -1,10 +1,10 @@
 //! \file mgjsonstorage.h
 //! \brief 定义JSON序列化类 MgJsonStorage
-// Copyright (c) 2004-2012, Zhang Yungui
+// Copyright (c) 2004-2013, Zhang Yungui
 // License: LGPL, https://github.com/rhcad/touchvg
 
-#ifndef __GEOMETRY_CORE_JSONSTORAGE_H_
-#define __GEOMETRY_CORE_JSONSTORAGE_H_
+#ifndef TOUCHVG_CORE_JSONSTORAGE_H_
+#define TOUCHVG_CORE_JSONSTORAGE_H_
 
 #ifndef SWIG
 #include <cstdio>
@@ -48,4 +48,4 @@ private:
     Impl* _impl;
 };
 
-#endif // __GEOMETRY_CORE_JSONSTORAGE_H_
+#endif // TOUCHVG_CORE_JSONSTORAGE_H_

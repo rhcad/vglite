@@ -1,10 +1,10 @@
 //! \file mgbnd.h
 //! \brief 定义绑定框类 BoundBox
-// Copyright (c) 2004-2012, Zhang Yungui
+// Copyright (c) 2004-2013, Zhang Yungui
 // License: LGPL, https://github.com/rhcad/touchvg
 
-#ifndef __GEOMETRY_BOUNDBOX_H_
-#define __GEOMETRY_BOUNDBOX_H_
+#ifndef TOUCHVG_BOUNDBOX_H_
+#define TOUCHVG_BOUNDBOX_H_
 
 #include "mgpnt.h"
 
@@ -111,4 +111,4 @@ private:
     Vector2d    m_dir2;
 };
 
-#endif // __GEOMETRY_BOUNDBOX_H_
+#endif // TOUCHVG_BOUNDBOX_H_

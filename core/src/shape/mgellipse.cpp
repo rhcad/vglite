@@ -1,5 +1,5 @@
 // mgellipse.cpp: 实现椭圆图形类 MgEllipse
-// Copyright (c) 2004-2012, Zhang Yungui
+// Copyright (c) 2004-2013, Zhang Yungui
 // License: LGPL, https://github.com/rhcad/touchvg
 
 #include "mgbasicsp.h"
@@ -419,9 +419,9 @@ bool MgArc::_save(MgStorage* s) const
     return ret;
 }
 
-bool MgArc::_load(MgStorage* s)
+bool MgArc::_load(MgShapeFactory* factory, MgStorage* s)
 {
-    return __super::_load(s) && s->readFloatArray("points", &(_points[0].x), 8) == 8;
+    return __super::_load(factory, s) && s->readFloatArray("points", &(_points[0].x), 8) == 8;
 }
 
 int MgArc::_getHandleCount() const
@@ -507,20 +507,4 @@ bool MgArc::_setHandlePoint2(int index, const Point2d& pt, float, int& data)
             && _reverse());
     }
     return setCenterStartEnd(pt, getStartPoint(), getEndPoint());
-}
-
-int MgArc::_getDimensions(const Matrix2d& m2w, float* vars, char* types, int count) const
-{
-    int ret = 0;
-    
-    if (count > ret) {
-        types[ret] = 'r';
-        vars[ret++] = fabsf(getRadius() * m2w.m11);
-    }
-    if (count > ret) {
-        types[ret] = 'a';
-        vars[ret++] = mgbase::rad2Deg(mgbase::to0_2PI(getSweepAngle() * (m2w.m22 < 0 ? -1.f : 1.f)));
-    }
-    
-    return ret;
 }

@@ -18,7 +18,7 @@
 #include "gicoreview.h"
 #include "gimousehelper.h"
 #include "testcanvas.h"
-#include "demotrade.h"
+#include "educmds.h"
 %}
 
 %include "mgvector.h"
@@ -43,7 +43,7 @@
 %include "gimousehelper.h"
 #endif
 
-%include "demotrade.h"
+%include "educmds.h"
 
 #ifdef SWIGJAVA
 %{

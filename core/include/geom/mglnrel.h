@@ -1,10 +1,10 @@
 //! \file mglnrel.h
 //! \brief 定义图形位置关系函数
-// Copyright (c) 2004-2012, Zhang Yungui
+// Copyright (c) 2004-2013, Zhang Yungui
 // License: LGPL, https://github.com/rhcad/touchvg
 
-#ifndef __GEOMETRY_LINEREL_H_
-#define __GEOMETRY_LINEREL_H_
+#ifndef TOUCHVG_LINEREL_H_
+#define TOUCHVG_LINEREL_H_
 
 #include "mgbox.h"
 
@@ -268,4 +268,4 @@ static bool isConvex(int count, const Point2d* vertexs, bool* pACW = NULL);
 #endif
 };
 
-#endif // __GEOMETRY_LINEREL_H_
+#endif // TOUCHVG_LINEREL_H_

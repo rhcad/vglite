@@ -6,7 +6,8 @@
 #define TOUCHVG_CORE_BASEVIEW_H
 
 #include "gigesture.h"
-#include "mgview.h"
+#include "mgcmd.h"
+#include "mgshapedoc.h"
 
 class GiView;
 

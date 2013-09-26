@@ -1,10 +1,10 @@
 //! \file gicolor.h
 //! \brief 定义RGB颜色类: GiColor
-// Copyright (c) 2004-2012, Zhang Yungui
+// Copyright (c) 2004-2013, Zhang Yungui
 // License: LGPL, https://github.com/rhcad/touchvg
 
-#ifndef __GEOMETRY_GICOLOR_H_
-#define __GEOMETRY_GICOLOR_H_
+#ifndef TOUCHVG_GICOLOR_H_
+#define TOUCHVG_GICOLOR_H_
 
 //! RGB颜色
 /*!
@@ -101,4 +101,4 @@ struct GiColor
 #endif // SWIG
 };
 
-#endif // __GEOMETRY_GICOLOR_H_
+#endif // TOUCHVG_GICOLOR_H_

@@ -70,8 +70,8 @@ public class GiView {
     return (getClass() == GiView.class) ? touchvgJNI.GiView_isContextActionsVisible(swigCPtr, this) : touchvgJNI.GiView_isContextActionsVisibleSwigExplicitGiView(swigCPtr, this);
   }
 
-  public boolean showContextActions(Ints actions, float x, float y, float w, float h) {
-    return (getClass() == GiView.class) ? touchvgJNI.GiView_showContextActions(swigCPtr, this, Ints.getCPtr(actions), actions, x, y, w, h) : touchvgJNI.GiView_showContextActionsSwigExplicitGiView(swigCPtr, this, Ints.getCPtr(actions), actions, x, y, w, h);
+  public boolean showContextActions(Ints actions, Floats buttonXY, float x, float y, float w, float h) {
+    return (getClass() == GiView.class) ? touchvgJNI.GiView_showContextActions(swigCPtr, this, Ints.getCPtr(actions), actions, Floats.getCPtr(buttonXY), buttonXY, x, y, w, h) : touchvgJNI.GiView_showContextActionsSwigExplicitGiView(swigCPtr, this, Ints.getCPtr(actions), actions, Floats.getCPtr(buttonXY), buttonXY, x, y, w, h);
   }
 
   public void commandChanged() {

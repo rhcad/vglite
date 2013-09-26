@@ -1,10 +1,10 @@
 //! \file gipath.h
 //! \brief 定义矢量路径类 GiPath
-// Copyright (c) 2004-2012, Zhang Yungui
+// Copyright (c) 2004-2013, Zhang Yungui
 // License: LGPL, https://github.com/rhcad/touchvg
 
-#ifndef __GEOMETRY_PATH_H_
-#define __GEOMETRY_PATH_H_
+#ifndef TOUCHVG_PATH_H_
+#define TOUCHVG_PATH_H_
 
 #include "mgpnt.h"
 
@@ -44,9 +44,6 @@ public:
 
     //! 析构函数
     virtual ~GiPath();
-
-    //! 赋值操作符函数
-    GiPath& operator=(const GiPath& src);
 
     //! 赋值函数
     GiPath& copy(const GiPath& src);
@@ -140,4 +137,4 @@ private:
     GiPathImpl*   m_data;
 };
 
-#endif // __GEOMETRY_PATH_H_
+#endif // TOUCHVG_PATH_H_

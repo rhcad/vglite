@@ -56,7 +56,7 @@ public:
     virtual void redraw();
     virtual bool useFinger();
     virtual bool isContextActionsVisible();
-    virtual bool showContextActions(mgvector< int > const &actions, float x, float y, float w, float h);
+    virtual bool showContextActions(mgvector< int > const &actions, mgvector< float > const &buttonXY, float x, float y, float w, float h);
     virtual void commandChanged();
     virtual void selectionChanged();
     virtual void contentChanged();

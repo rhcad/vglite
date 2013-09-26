@@ -1,10 +1,10 @@
 //! \file mgcurv.h
 //! \brief 定义曲线计算函数
-// Copyright (c) 2004-2012, Zhang Yungui
+// Copyright (c) 2004-2013, Zhang Yungui
 // License: LGPL, https://github.com/rhcad/touchvg
 
-#ifndef __GEOMETRY_FITCURVE_H_
-#define __GEOMETRY_FITCURVE_H_
+#ifndef TOUCHVG_FITCURVE_H_
+#define TOUCHVG_FITCURVE_H_
 
 #include "mgbox.h"
 
@@ -300,4 +300,4 @@ static void fitClampedSpline(
 #endif
 };
 
-#endif // __GEOMETRY_FITCURVE_H_
+#endif // TOUCHVG_FITCURVE_H_

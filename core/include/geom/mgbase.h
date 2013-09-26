@@ -1,10 +1,10 @@
 //! \file mgbase.h
 //! \brief 定义基本计算功能函数
-// Copyright (c) 2004-2012, Zhang Yungui
+// Copyright (c) 2004-2013, Zhang Yungui
 // License: LGPL, https://github.com/rhcad/touchvg
 
-#ifndef __GEOMETRY_BASIC_H_
-#define __GEOMETRY_BASIC_H_
+#ifndef TOUCHVG_BASIC_H_
+#define TOUCHVG_BASIC_H_
 
 #include "mgdef.h"
 
@@ -108,4 +108,4 @@ static int getGcd(int x, int y);
 static float roundReal(float value, int decimal);
 };
 
-#endif // __GEOMETRY_BASIC_H_
+#endif // TOUCHVG_BASIC_H_

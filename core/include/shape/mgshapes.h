@@ -1,10 +1,10 @@
 //! \file mgshapes.h
 //! \brief 定义图形列表类 MgShapes
-// Copyright (c) 2004-2012, Zhang Yungui
+// Copyright (c) 2004-2013, Zhang Yungui
 // License: LGPL, https://github.com/rhcad/touchvg
 
-#ifndef __GEOMETRY_MGSHAPES_H_
-#define __GEOMETRY_MGSHAPES_H_
+#ifndef TOUCHVG_MGSHAPES_H_
+#define TOUCHVG_MGSHAPES_H_
 
 #include "mgshape.h"
 
@@ -23,6 +23,9 @@ public:
     
     //! 创建图形列表
     static MgShapes* create(MgObject* owner = NULL, int index = -1);
+
+    //! 添加一个指定类型的新图形
+    MgShape* addShapeByType(MgShapeFactory* factory, int type);
 
 #ifndef SWIG
     MgShape* getFirstShape(void*& it) const;
@@ -50,7 +53,7 @@ public:
     int dyndraw(int mode, GiGraphics& gs, const GiContext *ctx, int segment) const;
 
     bool save(MgStorage* s, int startIndex = 0) const;
-    bool load(MgStorage* s, bool addOnly = false);
+    bool load(MgShapeFactory* factory, MgStorage* s, bool addOnly = false);
     
     //! 删除所有图形
     void clear();
@@ -63,9 +66,6 @@ public:
     
     //! 复制出新图形并添加到图形列表中
     MgShape* addShape(const MgShape& src);
-
-    //! 添加一个指定类型的新图形
-    MgShape* addShapeByType(int type);
     
     //! 移除一个图形，由调用者删除图形对象
     MgShape* removeShape(int sid, bool skipLockedShape = true);
@@ -120,4 +120,4 @@ private:
     void* _it;
 };
 
-#endif // __GEOMETRY_MGSHAPES_H_
+#endif // TOUCHVG_MGSHAPES_H_

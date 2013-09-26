@@ -13,17 +13,20 @@ public class touchvgJNI {
   public final static native long new_Ints(int jarg1);
   public final static native int Ints_count(long jarg1, Ints jarg1_);
   public final static native int Ints_get(long jarg1, Ints jarg1_, int jarg2);
-  public final static native void Ints_set(long jarg1, Ints jarg1_, int jarg2, int jarg3);
+  public final static native void Ints_set__SWIG_0(long jarg1, Ints jarg1_, int jarg2, int jarg3);
+  public final static native void Ints_set__SWIG_1(long jarg1, Ints jarg1_, int jarg2, int jarg3, int jarg4);
   public final static native void delete_Floats(long jarg1);
   public final static native long new_Floats(int jarg1);
   public final static native int Floats_count(long jarg1, Floats jarg1_);
   public final static native float Floats_get(long jarg1, Floats jarg1_, int jarg2);
-  public final static native void Floats_set(long jarg1, Floats jarg1_, int jarg2, float jarg3);
+  public final static native void Floats_set__SWIG_0(long jarg1, Floats jarg1_, int jarg2, float jarg3);
+  public final static native void Floats_set__SWIG_1(long jarg1, Floats jarg1_, int jarg2, float jarg3, float jarg4);
   public final static native void delete_Chars(long jarg1);
   public final static native long new_Chars(int jarg1);
   public final static native int Chars_count(long jarg1, Chars jarg1_);
   public final static native char Chars_get(long jarg1, Chars jarg1_, int jarg2);
-  public final static native void Chars_set(long jarg1, Chars jarg1_, int jarg2, char jarg3);
+  public final static native void Chars_set__SWIG_0(long jarg1, Chars jarg1_, int jarg2, char jarg3);
+  public final static native void Chars_set__SWIG_1(long jarg1, Chars jarg1_, int jarg2, char jarg3, char jarg4);
   public final static native void delete_GiCanvas(long jarg1);
   public final static native void GiCanvas_setPen(long jarg1, GiCanvas jarg1_, int jarg2, float jarg3, int jarg4, float jarg5);
   public final static native void GiCanvas_setBrush(long jarg1, GiCanvas jarg1_, int jarg2, int jarg3);
@@ -56,8 +59,8 @@ public class touchvgJNI {
   public final static native boolean GiView_useFingerSwigExplicitGiView(long jarg1, GiView jarg1_);
   public final static native boolean GiView_isContextActionsVisible(long jarg1, GiView jarg1_);
   public final static native boolean GiView_isContextActionsVisibleSwigExplicitGiView(long jarg1, GiView jarg1_);
-  public final static native boolean GiView_showContextActions(long jarg1, GiView jarg1_, long jarg2, Ints jarg2_, float jarg3, float jarg4, float jarg5, float jarg6);
-  public final static native boolean GiView_showContextActionsSwigExplicitGiView(long jarg1, GiView jarg1_, long jarg2, Ints jarg2_, float jarg3, float jarg4, float jarg5, float jarg6);
+  public final static native boolean GiView_showContextActions(long jarg1, GiView jarg1_, long jarg2, Ints jarg2_, long jarg3, Floats jarg3_, float jarg4, float jarg5, float jarg6, float jarg7);
+  public final static native boolean GiView_showContextActionsSwigExplicitGiView(long jarg1, GiView jarg1_, long jarg2, Ints jarg2_, long jarg3, Floats jarg3_, float jarg4, float jarg5, float jarg6, float jarg7);
   public final static native void GiView_commandChanged(long jarg1, GiView jarg1_);
   public final static native void GiView_commandChangedSwigExplicitGiView(long jarg1, GiView jarg1_);
   public final static native void GiView_selectionChanged(long jarg1, GiView jarg1_);
@@ -167,8 +170,10 @@ public class touchvgJNI {
   public final static native void GiCoreView_clearCachedData(long jarg1, GiCoreView jarg1_);
   public final static native int GiCoreView_addShapesForTest(long jarg1, GiCoreView jarg1_);
   public final static native int GiCoreView_getShapeCount(long jarg1, GiCoreView jarg1_);
+  public final static native int GiCoreView_getChangeCount(long jarg1, GiCoreView jarg1_);
   public final static native int GiCoreView_getSelectedShapeCount(long jarg1, GiCoreView jarg1_);
   public final static native int GiCoreView_getSelectedShapeType(long jarg1, GiCoreView jarg1_);
+  public final static native void GiCoreView_clear(long jarg1, GiCoreView jarg1_);
   public final static native boolean GiCoreView_loadFromFile(long jarg1, GiCoreView jarg1_, String jarg2);
   public final static native boolean GiCoreView_saveToFile__SWIG_0(long jarg1, GiCoreView jarg1_, String jarg2, boolean jarg3);
   public final static native boolean GiCoreView_saveToFile__SWIG_1(long jarg1, GiCoreView jarg1_, String jarg2);
@@ -183,6 +188,7 @@ public class touchvgJNI {
   public final static native void GiCoreView_setContext__SWIG_1(long jarg1, GiCoreView jarg1_, int jarg2);
   public final static native void GiCoreView_setContextEditing(long jarg1, GiCoreView jarg1_, boolean jarg2);
   public final static native boolean GiCoreView_addImageShape(long jarg1, GiCoreView jarg1_, String jarg2, float jarg3, float jarg4);
+  public final static native boolean GiCoreView_getBoundingBox(long jarg1, GiCoreView jarg1_, long jarg2, Floats jarg2_);
   public final static native void TestCanvas_initRand();
   public final static native int TestCanvas_randInt(int jarg1, int jarg2);
   public final static native float TestCanvas_randFloat(float jarg1, float jarg2);
@@ -201,10 +207,10 @@ public class touchvgJNI {
   public final static native void TestCanvas_testTextAt(long jarg1, GiCanvas jarg1_, int jarg2);
   public final static native long new_TestCanvas();
   public final static native void delete_TestCanvas(long jarg1);
-  public final static native void DemoTrade_registerCmds();
-  public final static native int DemoTrade_getDimensions(long jarg1, GiCoreView jarg1_, long jarg2, Floats jarg2_, long jarg3, Chars jarg3_);
-  public final static native long new_DemoTrade();
-  public final static native void delete_DemoTrade(long jarg1);
+  public final static native void EduCmds_registerCmds(long jarg1, GiCoreView jarg1_);
+  public final static native int EduCmds_getDimensions(long jarg1, GiCoreView jarg1_, long jarg2, Floats jarg2_, long jarg3, Chars jarg3_);
+  public final static native long new_EduCmds();
+  public final static native void delete_EduCmds(long jarg1);
 
   public static void SwigDirector_GiCanvas_setPen(GiCanvas self, int argb, float width, int style, float phase) {
     self.setPen(argb, width, style, phase);
@@ -281,8 +287,8 @@ public class touchvgJNI {
   public static boolean SwigDirector_GiView_isContextActionsVisible(GiView self) {
     return self.isContextActionsVisible();
   }
-  public static boolean SwigDirector_GiView_showContextActions(GiView self, long actions, float x, float y, float w, float h) {
-    return self.showContextActions(new Ints(actions, false), x, y, w, h);
+  public static boolean SwigDirector_GiView_showContextActions(GiView self, long actions, long buttonXY, float x, float y, float w, float h) {
+    return self.showContextActions(new Ints(actions, false), new Floats(buttonXY, false), x, y, w, h);
   }
   public static void SwigDirector_GiView_commandChanged(GiView self) {
     self.commandChanged();

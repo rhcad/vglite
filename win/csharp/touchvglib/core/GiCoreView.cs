@@ -154,6 +154,11 @@ public class GiCoreView : IDisposable {
     return ret;
   }
 
+  public int getChangeCount() {
+    int ret = touchvgcsPINVOKE.GiCoreView_getChangeCount(swigCPtr);
+    return ret;
+  }
+
   public int getSelectedShapeCount() {
     int ret = touchvgcsPINVOKE.GiCoreView_getSelectedShapeCount(swigCPtr);
     return ret;
@@ -162,6 +167,10 @@ public class GiCoreView : IDisposable {
   public int getSelectedShapeType() {
     int ret = touchvgcsPINVOKE.GiCoreView_getSelectedShapeType(swigCPtr);
     return ret;
+  }
+
+  public void clear() {
+    touchvgcsPINVOKE.GiCoreView_clear(swigCPtr);
   }
 
   public bool loadFromFile(string vgfile) {
@@ -228,6 +237,12 @@ public class GiCoreView : IDisposable {
 
   public bool addImageShape(string name, float width, float height) {
     bool ret = touchvgcsPINVOKE.GiCoreView_addImageShape(swigCPtr, name, width, height);
+    return ret;
+  }
+
+  public bool getBoundingBox(Floats box) {
+    bool ret = touchvgcsPINVOKE.GiCoreView_getBoundingBox(swigCPtr, Floats.getCPtr(box));
+    if (touchvgcsPINVOKE.SWIGPendingException.Pending) throw touchvgcsPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

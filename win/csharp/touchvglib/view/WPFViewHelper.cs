@@ -196,7 +196,7 @@ namespace touchvg.view
         {
             Floats v = new Floats(vars.Length);
             Chars types = new Chars(vars.Length);
-            int n = DemoTrade.getDimensions(CoreView, v, types);
+            int n = EduCmds.getDimensions(CoreView, v, types);
 
             if (n > 0)
             {

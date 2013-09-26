@@ -16,7 +16,6 @@ static void addView(NSMutableArray *arr, NSString* title, UIView* view)
         _tmpController = [[UIViewController alloc] init];
         _tmpController.title = title;
         _tmpController.view = view;
-        [view release];
     }
 }
 
@@ -29,6 +28,7 @@ static void addView1(NSMutableArray *arr, NSUInteger &i, NSUInteger index,
         view = [[GraphView1 alloc]initWithFrame:frame withFlags:flags];
     }
     addView(arr, title, view);
+    [view release];
 }
 
 static void addView2(NSMutableArray *arr, NSUInteger &i, NSUInteger index, 
@@ -40,6 +40,7 @@ static void addView2(NSMutableArray *arr, NSUInteger &i, NSUInteger index,
         view = [[GraphView2 alloc]initWithFrame:frame withFlags:flags];
     }
     addView(arr, title, view);
+    [view release];
 }
 
 static void addLargeView1(NSMutableArray *arr, NSUInteger &i, NSUInteger index, 
@@ -51,6 +52,7 @@ static void addLargeView1(NSMutableArray *arr, NSUInteger &i, NSUInteger index,
         view = [[LargeView1 alloc]initWithFrame:frame withFlags:flags];
     }
     addView(arr, title, view);
+    [view release];
 }
 /*
 static void addGraphView(NSMutableArray *arr, NSUInteger &i, NSUInteger index,
@@ -63,6 +65,7 @@ static void addGraphView(NSMutableArray *arr, NSUInteger &i, NSUInteger index,
         wrapview.opaque = NO;
     }
     addView(arr, title, wrapview);
+    [wrapview release];
     if (wrapview) {
         GiGraphView1 *v = [[GiGraphView1 alloc]initWithFrame:wrapview.bounds];
         [wrapview addSubview:v];
@@ -103,6 +106,7 @@ static void gatherTestView(NSMutableArray *arr, NSUInteger index, CGRect frame)
         baview = [[BasicAnimationView alloc]initWithFrame:frame];
     }
     addView(arr, @"CABasicAnimation", baview);
+    [baview release];
 }
 
 void getTestViewTitles(NSMutableArray *arr)

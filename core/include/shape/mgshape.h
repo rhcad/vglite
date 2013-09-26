@@ -1,10 +1,10 @@
 //! \file mgshape.h
 //! \brief 定义矢量图形基类 MgBaseShape 和 MgShape
-// Copyright (c) 2004-2012, Zhang Yungui
+// Copyright (c) 2004-2013, Zhang Yungui
 // License: LGPL, https://github.com/rhcad/touchvg
 
-#ifndef __GEOMETRY_MGSHAPE_H_
-#define __GEOMETRY_MGSHAPE_H_
+#ifndef TOUCHVG_MGSHAPE_H_
+#define TOUCHVG_MGSHAPE_H_
 
 #include "gigraph.h"
 #include "gilock.h"
@@ -14,6 +14,7 @@ class MgBaseShape;
 class MgShape;
 class MgShapes;
 struct MgStorage;
+struct MgShapeFactory;
 
 //! 矢量图形接口
 /*! \ingroup CORE_SHAPE
@@ -25,14 +26,6 @@ class MgShape : public MgObject
 public:
     //! 返回本对象的类型
     static int Type() { return 2; }
-
-    //! 根据类型号创建图形对象
-    static MgShape* createShape(int type);
-
-#ifndef SWIG
-    //! 登记类型号对应的图形创建函数，factory为NULL则取消登记
-    static void registerCreator(int type, MgShape* (*factory)());
-#endif // SWIG
 
     //! 复制出一个新图形对象
     MgShape* cloneShape() const { return (MgShape*)clone(); }
@@ -63,7 +56,7 @@ public:
     virtual bool save(MgStorage* s) const;
 
     //! 从指定的序列化对象加载图形
-    virtual bool load(MgStorage* s);
+    virtual bool load(MgShapeFactory* factory, MgStorage* s);
 
     //! 返回图形编号
     virtual int getID() const = 0;
@@ -190,7 +183,7 @@ public:
     virtual bool save(MgStorage* s) const = 0;
     
     //! 恢复图形
-    virtual bool load(MgStorage* s) = 0;
+    virtual bool load(MgShapeFactory* factory, MgStorage* s) = 0;
     
     //! 返回控制点个数
     virtual int getHandleCount() const = 0;
@@ -219,11 +212,6 @@ public:
     //! 返回图形类名称
     virtual const char* getTypeName() const = 0;
     
-#ifndef SWIG
-    //! 得到当前图形的各种度量尺寸
-    virtual int getDimensions(const Matrix2d& m2w, float* vars, char* types, int count) const = 0;
-#endif
-    
 protected:
     Box2d   _extent;
     int     _flags;
@@ -249,8 +237,7 @@ protected:
     bool _offset(const Vector2d& vec, int segment);
     bool _rotateHandlePoint(int index, const Point2d& pt);
     bool _save(MgStorage* s) const;
-    bool _load(MgStorage* s);
-    int _getDimensions(const Matrix2d&, float*, char*, int) const { return 0; }
+    bool _load(MgShapeFactory* factory, MgStorage* s);
 };
 
 #if !defined(_MSC_VER) || _MSC_VER <= 1200
@@ -290,7 +277,7 @@ public:                                                      \
     virtual bool hitTestBox(const Box2d& rect) const;           \
     virtual bool draw(int mode, GiGraphics& gs, const GiContext& ctx, int segment = -1) const;  \
     virtual bool save(MgStorage* s) const;                      \
-    virtual bool load(MgStorage* s);                            \
+    virtual bool load(MgShapeFactory* factory, MgStorage* s);   \
     virtual int getHandleCount() const;                         \
     virtual Point2d getHandlePoint(int index) const;            \
     virtual bool setHandlePoint(int index, const Point2d& pt, float tol);   \
@@ -300,8 +287,7 @@ public:                                                      \
 protected:                                                      \
     virtual float hitTest(const Point2d& pt, float tol,         \
         Point2d& nearpt, int& segment) const;                   \
-    virtual bool setHandlePoint2(int index, const Point2d& pt, float tol, int& data);   \
-    virtual int getDimensions(const Matrix2d&, float*, char*, int) const;
+    virtual bool setHandlePoint2(int index, const Point2d& pt, float tol, int& data);
 
 #define MG_DECLARE_CREATE(Cls, Base, TypeNum)                   \
     MG_INHERIT_CREATE(Cls, Base, TypeNum)                       \
@@ -317,4 +303,4 @@ protected:                                                      \
     Point2d _getPoint(int index) const;                         \
     void _setPoint(int index, const Point2d& pt);
 
-#endif // __GEOMETRY_MGSHAPE_H_
+#endif // TOUCHVG_MGSHAPE_H_

@@ -31,7 +31,7 @@ namespace touchvg.view
             this.CoreView = new GiCoreView();
             this._view = new WPFViewAdapter(this);
             this.CoreView.createView(this._view);
-            DemoTrade.registerCmds();
+            EduCmds.registerCmds(this.CoreView);
 
             MainCanvas = new WPFMainCanvas(this.CoreView, _view) { Width = container.ActualWidth, Height = container.ActualHeight };
             TempCanvas = new WPFTempCanvas(this.CoreView, _view) { Width = container.ActualWidth, Height = container.ActualHeight };
@@ -53,7 +53,7 @@ namespace touchvg.view
             MainCanvas.Width = container.ActualWidth;
             MainCanvas.Height = container.ActualHeight;
             this.CoreView.onSize(_view, (int)container.ActualWidth, (int)container.ActualHeight);
-            _view.showContextActions(new Ints(0), 0, 0, 0, 0);
+            _view.ClearActions();
         }
 
         public void Dispose()
@@ -151,15 +151,16 @@ namespace touchvg.view
                     || (ActionButtons != null && ActionButtons.Count > 0);
             }
 
-            public override bool showContextActions(Ints actions, float x, float y, float w, float h)
+            public override bool showContextActions(Ints actions, Floats buttonXY,
+                float x, float y, float w, float h)
             {
                 ClearActions();
-                if (!createActionImages(actions, x, y, w, h))
-                    createActionButtons(actions, x, y);
+                if (!createActionImages(actions, buttonXY))
+                    createActionButtons(actions, buttonXY);
                 return isContextActionsVisible();
             }
 
-            private bool createActionImages(Ints actions, float x, float y, float w, float h)
+            private bool createActionImages(Ints actions, Floats buttonXY)
             {
                 int actionCount = actions.count();
                 for (int i = 0; i < actionCount; i++)
@@ -185,16 +186,16 @@ namespace touchvg.view
                     };
                     image.MouseDown += new MouseButtonEventHandler(image_MouseDown);
                     _owner.TempCanvas.Children.Add(image);
-                    double[] pos = ActionPosition(x, y, w, h, image.Width, image.Height, i);
-                    Canvas.SetLeft(image, pos[0]);
-                    Canvas.SetTop(image, pos[1]);
+                    Canvas.SetLeft(image, buttonXY.get(2 * i) - image.Width / 2);
+                        Canvas.SetTop(image, buttonXY.get(2 * i + 1) - image.Height / 2);
+                        ActionImages.Add(image);
                     ActionImages.Add(image);
                 }
 
                 return actionCount == 0 || ActionImages.Count > 0;
             }
 
-            private void createActionButtons(Ints actions, float x, float y)
+            private void createActionButtons(Ints actions, Floats buttonXY)
             {
                 if (ActionButtons == null)
                     ActionButtons = new List<Button>();
@@ -217,9 +218,8 @@ namespace touchvg.view
                     };
                     button.Click += new RoutedEventHandler(button_Click);
                     _owner.TempCanvas.Children.Add(button);
-                    Canvas.SetLeft(button, x);
-                    Canvas.SetTop(button, y - button.Height);
-                    x += (float)button.Width;
+                    Canvas.SetLeft(button, buttonXY.get(2 * i) - button.Width / 2);
+                    Canvas.SetTop(button, buttonXY.get(2 * i + 1) - button.Height / 2);
                     ActionButtons.Add(button);
                 }
             }
@@ -240,7 +240,7 @@ namespace touchvg.view
                 e.Handled = true;
             }
 
-            private void ClearActions()
+            public void ClearActions()
             {
                 for (int i = 0; i < ActionImages.Count; i++)
                 {
@@ -256,48 +256,6 @@ namespace touchvg.view
                     }
                     ActionButtons.Clear();
                 }
-            }
-
-            private double[] ActionPosition(float x, float y, float w, float h,
-                double imageWidth, double imageHeight, int index)
-            {
-                double[] pos = new double[2] { x, y };
-                switch (index)
-                {
-                    case 0:
-                        pos[0] = pos[0] - imageWidth;
-                        pos[1] = pos[1] - imageHeight;
-                        break;
-                    case 1:
-                        pos[0] = pos[0] + w;
-                        pos[1] = pos[1] - imageHeight;
-                        break;
-                    case 2:
-                        pos[0] = pos[0] + w;
-                        pos[1] = pos[1] + h;
-                        break;
-                    case 3:
-                        pos[0] = pos[0] - imageWidth;
-                        pos[1] = pos[1] + h;
-                        break;
-                    case 4:
-                        pos[0] = pos[0] + w / 2 - imageWidth / 2;
-                        pos[1] = pos[1] - imageHeight;
-                        break;
-                    case 5:
-                        pos[0] = pos[0] + w;
-                        pos[1] = pos[1] + h / 2 - imageHeight / 2;
-                        break;
-                    case 6:
-                        pos[0] = pos[0] + w / 2 - imageWidth / 2;
-                        pos[1] = pos[1] + h;
-                        break;
-                    case 7:
-                        pos[0] = pos[0] - imageWidth;
-                        pos[1] = pos[1] + h / 2 - imageHeight / 2;
-                        break;
-                }
-                return pos;
             }
         }
     }

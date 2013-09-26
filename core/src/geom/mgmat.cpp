@@ -1,5 +1,5 @@
 // mgmat.cpp: 实现二维齐次变换矩阵类Matrix2d
-// Copyright (c) 2004-2012, Zhang Yungui
+// Copyright (c) 2004-2013, Zhang Yungui
 // License: LGPL, https://github.com/rhcad/touchvg
 
 #include "mgmat.h"

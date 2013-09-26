@@ -7,9 +7,13 @@ INSTALL_DIR ?=$(ROOTDIR)/build
 CPPFLAGS    += -Wall -I$(ROOTDIR)/core/include/geom \
                -I$(ROOTDIR)/core/include/graph \
                -I$(ROOTDIR)/core/include/shape \
+               -I$(ROOTDIR)/core/include/shapedoc \
                -I$(ROOTDIR)/core/include/storage \
-               -I$(ROOTDIR)/core/include/command \
-               -I$(ROOTDIR)/core/include/tradecmd \
+               -I$(ROOTDIR)/core/include/cmd \
+               -I$(ROOTDIR)/core/include/cmdbase \
+               -I$(ROOTDIR)/core/include/cmdbasic \
+               -I$(ROOTDIR)/core/include/cmdmgr \
+               -I$(ROOTDIR)/core/include/cmdobserver \
                -I$(ROOTDIR)/core/include/view \
                -I$(ROOTDIR)/core/include/canvas \
                -I$(ROOTDIR)/core/include/test

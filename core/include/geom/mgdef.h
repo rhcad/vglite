@@ -8,8 +8,6 @@
 
 #include <math.h>
 
-#define GEOMAPI         extern "C"
-
 #ifndef NULL
 #define NULL  0
 #endif

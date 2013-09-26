@@ -207,8 +207,10 @@ void GiCanvasAdapter::drawHandle(float x, float y, int type)
 {
     if (type >= 0 && type < 5) {
         NSString *names[] = { @"vgdot1.png", @"vgdot2.png", @"vgdot3.png", 
-            @"vg_lock.png", @"vg_unlock.png" };
-        UIImage *image = [UIImage imageNamed:names[type]];
+            @"vg_lock.png", @"vg_unlock.png", @"vg_back.png" };
+        NSString *name = [@"TouchVG.bundle/" stringByAppendingString:names[type]];
+        UIImage *image = [UIImage imageNamed:name];
+        
         if (image) {
             CGImageRef img = [image CGImage];
             float w = CGImageGetWidth(img) / image.scale;

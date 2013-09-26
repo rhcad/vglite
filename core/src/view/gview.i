@@ -8,6 +8,7 @@
 
 %include <mgvector.h>
 %template(Ints) mgvector<int>;
+%template(Floats) mgvector<float>;
 
 %include <gicanvas.h>
 %include <giview.h>

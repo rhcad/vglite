@@ -1,4 +1,4 @@
-﻿//! \file GestureListener.java
+//! \file GestureListener.java
 //! \brief Android绘图手势识别类
 // Copyright (c) 2012-2013, https://github.com/rhcad/touchvg
 
@@ -55,8 +55,8 @@ public class GestureListener extends SimpleOnGestureListener {
         }
         else if (mMoving == PRESS_MOVING) {
             mMoving = STOPPED;
-            mCoreView.onGesture(mAdapter, GiGestureType.kGiGesturePress, 
-                    GiGestureState.kGiGestureCancel, 0, 0);
+            mCoreView.onGesture(mAdapter, GiGestureType.kGiGesturePress,
+                                GiGestureState.kGiGestureCancel, 0, 0);
         }
     }
     
@@ -119,7 +119,7 @@ public class GestureListener extends SimpleOnGestureListener {
             return;
         }
         if (fingerCount == 2 && Math.abs(mLastX - x1) < 1 && Math.abs(mLastY - y1) < 1
-                && Math.abs(mLastX2 - x2) < 1 && Math.abs(mLastY2 - y2) < 1) {
+            && Math.abs(mLastX2 - x2) < 1 && Math.abs(mLastY2 - y2) < 1) {
             return;
         }
         if (mMoving == READY_MOVE || (mMoving == STOPPED && fingerCount == 2)) {
@@ -137,18 +137,18 @@ public class GestureListener extends SimpleOnGestureListener {
             }
             else {
                 mMoving = onMoved(GiGestureState.kGiGestureBegan, mFingerCount,
-                        x1, y1, x2, y2, false) ? MOVING : END_MOVE;
+                                  x1, y1, x2, y2, false) ? MOVING : END_MOVE;
             }
             mPointCount = 0;
         }
         else if (mMoving == STOPPED && fingerCount == 1
-                && mPointCount > 0 && mPointCount + 1 < XY_COUNT) {
+                 && mPointCount > 0 && mPointCount + 1 < XY_COUNT) {
             mPoints[mPointCount++] = x1;
             mPoints[mPointCount++] = y1;
         }
         else if (mMoving == PRESS_MOVING) {
-            mCoreView.onGesture(mAdapter, GiGestureType.kGiGesturePress, 
-                    GiGestureState.kGiGestureMoved, x1, y1);
+            mCoreView.onGesture(mAdapter, GiGestureType.kGiGesturePress,
+                                GiGestureState.kGiGestureMoved, x1, y1);
         }
         if (mMoving != MOVING) {
             return;
@@ -182,33 +182,33 @@ public class GestureListener extends SimpleOnGestureListener {
                     : GiGestureState.kGiGestureCancel, mFingerCount, x1, y1, x2, y2, false);
         }
         else if (mMoving == PRESS_MOVING) {
-            mCoreView.onGesture(mAdapter, GiGestureType.kGiGesturePress, 
-                    submit ? GiGestureState.kGiGestureEnded : GiGestureState.kGiGestureCancel, 0, 0);
+            mCoreView.onGesture(mAdapter, GiGestureType.kGiGesturePress,
+                                submit ? GiGestureState.kGiGestureEnded : GiGestureState.kGiGestureCancel, 0, 0);
         }
         mMoving = STOPPED;
         mFingerCount = 0;
     }
     
     private boolean applyPendingPoints() {
-        boolean ret = onMoved(GiGestureState.kGiGestureBegan, mFingerCount, 
-                mPoints[0], mPoints[1], 0, 0, false);
+        boolean ret = onMoved(GiGestureState.kGiGestureBegan, mFingerCount,
+                              mPoints[0], mPoints[1], 0, 0, false);
         for (int i = 2; i + 1 < mPointCount && ret; i += 2) {
-            onMoved(GiGestureState.kGiGestureMoved, mFingerCount, 
-                   mPoints[i], mPoints[i + 1], 0, 0, false);
+            onMoved(GiGestureState.kGiGestureMoved, mFingerCount,
+                    mPoints[i], mPoints[i + 1], 0, 0, false);
         }
         return ret;
     }
     
-    private boolean onMoved(GiGestureState state, int fingerCount, 
-            float x1, float y1, float x2, float y2, boolean s) {
+    private boolean onMoved(GiGestureState state, int fingerCount,
+                            float x1, float y1, float x2, float y2, boolean s) {
         return fingerCount > 1 ? mCoreView.twoFingersMove(mAdapter, state, x1, y1, x2, y2, s)
-                : mCoreView.onGesture(mAdapter, GiGestureType.kGiGesturePan, state, x1, y1, s);
+        : mCoreView.onGesture(mAdapter, GiGestureType.kGiGesturePan, state, x1, y1, s);
     }
     
     @Override
     public void onLongPress(MotionEvent e) {
-        if (mPointCount > 1 && mCoreView.onGesture(mAdapter, 
-                GiGestureType.kGiGesturePress, GiGestureState.kGiGestureBegan, e.getX(), e.getY())) {
+        if (mPointCount > 1 && mCoreView.onGesture(mAdapter,
+            GiGestureType.kGiGesturePress, GiGestureState.kGiGestureBegan, e.getX(), e.getY())) {
             mPointCount = 0;
             mMoving = PRESS_MOVING;
         }
@@ -222,9 +222,9 @@ public class GestureListener extends SimpleOnGestureListener {
         boolean ret = mPointCount > 1;
         if (ret) {
             ret = mCoreView.onGesture(mAdapter, GiGestureType.kGiGestureTap,
-                    GiGestureState.kGiGesturePossible, mPoints[0], mPoints[1])
-                    && mCoreView.onGesture(mAdapter, GiGestureType.kGiGestureTap,
-                            GiGestureState.kGiGestureEnded, e.getX(), e.getY());
+                                      GiGestureState.kGiGesturePossible, mPoints[0], mPoints[1])
+            && mCoreView.onGesture(mAdapter, GiGestureType.kGiGestureTap,
+                                   GiGestureState.kGiGestureEnded, e.getX(), e.getY());
             mPointCount = 0;
         }
         return ret;
@@ -235,9 +235,9 @@ public class GestureListener extends SimpleOnGestureListener {
         boolean ret = mPointCount > 1;
         if (ret) {
             ret = mCoreView.onGesture(mAdapter, GiGestureType.kGiGestureDblTap,
-                    GiGestureState.kGiGesturePossible, mPoints[0], mPoints[1])
-                    && mCoreView.onGesture(mAdapter, GiGestureType.kGiGestureDblTap,
-                            GiGestureState.kGiGestureEnded, e.getX(), e.getY());
+                                      GiGestureState.kGiGesturePossible, mPoints[0], mPoints[1])
+            && mCoreView.onGesture(mAdapter, GiGestureType.kGiGestureDblTap,
+                                   GiGestureState.kGiGestureEnded, e.getX(), e.getY());
             mPointCount = 0;
         }
         return ret;
