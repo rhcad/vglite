@@ -425,9 +425,6 @@
     <ClInclude Include="..\..\core\include\cmdmgr\mgcmdmgr.h">
       <Filter>Source Files\command\cmdmgr</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\core\include\cmdmgr\mgselect.h">
-      <Filter>Source Files\command\cmdmgr</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\core\include\cmdmgr\mgcmdmgrfactory.h">
       <Filter>Source Files\command\cmdmgr</Filter>
     </ClInclude>
@@ -490,6 +487,9 @@
     </ClInclude>
     <ClInclude Include="..\..\core\include\cmdobserver\cmdsubject.h">
       <Filter>Source Files\command\cmdobserver</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\core\include\cmd\mgselect.h">
+      <Filter>Source Files\command\cmd</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -42,6 +42,9 @@ public:
     //! 返回几何图形对象(const)
     virtual const MgBaseShape* shapec() const = 0;
 
+    //! 返回是否为闭合填充图形
+    virtual bool hasFillColor() const = 0;
+
     //! 显示图形
     /*!
         \param mode 绘图方式，0-正常显示，1-选中显示，2-拖动显示
@@ -159,17 +162,19 @@ public:
         \param[in] tol 距离公差，正数，超出则不计算最近点
         \param[out] nearpt 图形上的最近点
         \param[out] segment 最近点所在部分的序号，其含义由派生图形类决定
+        \param[out] inside 是否在闭合图形内部
         \return 给定的外部点到最近点的距离，失败时为极大数
     */
     virtual float hitTest(const Point2d& pt, float tol, 
-       Point2d& nearpt, int& segment) const = 0;
+       Point2d& nearpt, int& segment, bool& inside) const = 0;
     
     //! 设置指定序号的控制点坐标，可以处理拖动状态
     virtual bool setHandlePoint2(int index, const Point2d& pt, float tol, int& data) = 0;
 #endif
     //! 选中点击测试
     float hitTest2(const Point2d& pt, float tol, Point2d& nearpt) const {
-        int segment; return hitTest(pt, tol, nearpt, segment);
+        bool inside = false;
+        int segment; return hitTest(pt, tol, nearpt, segment, inside);
     }
     
     //! 框选检查
@@ -286,7 +291,7 @@ public:                                                      \
     virtual bool offset(const Vector2d& vec, int segment);      \
 protected:                                                      \
     virtual float hitTest(const Point2d& pt, float tol,         \
-        Point2d& nearpt, int& segment) const;                   \
+        Point2d& nearpt, int& segment, bool& inside) const;     \
     virtual bool setHandlePoint2(int index, const Point2d& pt, float tol, int& data);
 
 #define MG_DECLARE_CREATE(Cls, Base, TypeNum)                   \
@@ -298,7 +303,7 @@ protected:                                                      \
     void _transform(const Matrix2d& mat);                       \
     void _clear();                                              \
     float _hitTest(const Point2d& pt, float tol,                \
-       Point2d& nearpt, int& segment) const;                    \
+       Point2d& nearpt, int& segment, bool& inside) const;      \
     int _getPointCount() const;                                 \
     Point2d _getPoint(int index) const;                         \
     void _setPoint(int index, const Point2d& pt);

@@ -392,6 +392,7 @@
 				AEC0B50317F12E220045FD69 /* mgsnap.h */,
 				AED5BBE017F04B4C00BED397 /* mgcmd.h */,
 				AED5BBE117F04B4C00BED397 /* mgview.h */,
+				AED5BBF717F04B4C00BED397 /* mgselect.h */,
 			);
 			path = cmd;
 			sourceTree = "<group>";
@@ -432,7 +433,6 @@
 			children = (
 				AEA5837517F140B8005518B2 /* mgcmdmgrfactory.h */,
 				AED5BBF617F04B4C00BED397 /* mgcmdmgr.h */,
-				AED5BBF717F04B4C00BED397 /* mgselect.h */,
 			);
 			path = cmdmgr;
 			sourceTree = "<group>";

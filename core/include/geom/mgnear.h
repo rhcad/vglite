@@ -100,11 +100,12 @@ static float cubicSplinesHit(
     \param[in] tol 距离公差，正数，超出则不计算最近点
     \param[out] nearpt 图形上的最近点
     \param[out] segment 最近点所在线段的序号，[0,n-2]，闭合时为[0,n-1]，负数表示失败
+    \param[out] inside 是否点中多边形内部
     \return 给定的点到最近点的距离，失败时为极大数
 */
 static float linesHit(
     int n, const Point2d* points, bool closed, 
-    const Point2d& pt, float tol, Point2d& nearpt, int& segment);
+    const Point2d& pt, float tol, Point2d& nearpt, int& segment, bool* inside = NULL);
 
 //! 计算点到圆角矩形的最近距离
 /*!

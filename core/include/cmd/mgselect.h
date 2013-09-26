@@ -9,6 +9,7 @@
 class MgView;
 class MgMotion;
 class MgShape;
+class Point2d;
 
 //! 选择状态
 typedef enum {

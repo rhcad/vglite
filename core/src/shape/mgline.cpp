@@ -89,7 +89,7 @@ void MgLine::_clear()
 }
 
 float MgLine::_hitTest(const Point2d& pt, float tol, 
-                       Point2d& nearpt, int& segment) const
+                       Point2d& nearpt, int& segment, bool&) const
 {
     return mgnear::linesHit(2, _points, false, pt, tol, nearpt, segment);
 }
@@ -237,10 +237,10 @@ bool MgParallel::_rotateHandlePoint(int index, const Point2d& pt)
     return getFlag(kMgFixedSize) && __super::_rotateHandlePoint(index, pt);
 }
 
-float MgParallel::_hitTest(const Point2d& pt, float tol, 
-                                Point2d& nearpt, int& segment) const
+float MgParallel::_hitTest(const Point2d& pt, float tol, Point2d& nearpt,
+                           int& segment, bool& inside) const
 {
-    return mgnear::linesHit(4, _points, true, pt, tol, nearpt, segment);
+    return mgnear::linesHit(4, _points, true, pt, tol, nearpt, segment, &inside);
 }
 
 bool MgParallel::_hitTestBox(const Box2d& rect) const

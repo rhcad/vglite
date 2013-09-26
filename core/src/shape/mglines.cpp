@@ -169,10 +169,11 @@ bool MgBaseLines::_setHandlePoint(int index, const Point2d& pt, float tol)
     return true;
 }
 
-float MgBaseLines::_hitTest(const Point2d& pt, float tol, 
-                            Point2d& nearpt, int& segment) const
+float MgBaseLines::_hitTest(const Point2d& pt, float tol, Point2d& nearpt,
+                            int& segment, bool& inside) const
 {
-    return mgnear::linesHit(_count, _points, isClosed(), pt, tol, nearpt, segment);
+    return mgnear::linesHit(_count, _points, isClosed(), 
+                            pt, tol, nearpt, segment, &inside);
 }
 
 bool MgBaseLines::_hitTestBox(const Box2d& rect) const

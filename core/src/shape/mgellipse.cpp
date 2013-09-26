@@ -77,8 +77,8 @@ bool MgEllipse::_setHandlePoint(int index, const Point2d& pt, float tol)
             : offset(pt - getCenter(), -1));
 }
 
-float MgEllipse::_hitTest(const Point2d& pt, float tol, 
-                          Point2d& nearpt, int& segment) const
+float MgEllipse::_hitTest(const Point2d& pt, float tol,
+                          Point2d& nearpt, int& segment, bool&) const
 {
     float distMin = _FLT_MAX;
     const Box2d rect (pt, 2 * tol, 2 * tol);
@@ -381,7 +381,7 @@ void MgArc::_clear()
 }
 
 float MgArc::_hitTest(const Point2d& pt, float tol, 
-                      Point2d& nearpt, int&) const
+                      Point2d& nearpt, int&, bool&) const
 {
     Point2d points[16];
     int n = mgcurv::arcToBezier(points, getCenter(), getRadius(), 0, getStartAngle(), getSweepAngle());

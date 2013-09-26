@@ -19,7 +19,6 @@ struct MgShapes::I
     
     MgShape* findShape(int sid) const;
     int getNewID(int sid);
-    bool hasFillColor(const MgShape* shape) const;
 };
 
 MgShapes* MgShapes::create(MgObject* owner, int index)
@@ -271,9 +270,11 @@ MgShape* MgShapes::hitTest(const Box2d& limits, Point2d& nearpt,
             && (!filter || filter(*it))) {
             Point2d tmpNear;
             int    tmpSegment;
-            float  tol = (!im->hasFillColor(*it) ? limits.width() / 2
+            bool   tmpInside = false;
+            float  tol = (!(*it)->hasFillColor() ? limits.width() / 2
                           : mgMax(extent.width(), extent.height()));
-            float  dist = shape->hitTest(limits.center(), tol, tmpNear, tmpSegment);
+            float  dist = shape->hitTest(limits.center(), tol, tmpNear,
+                                         tmpSegment, tmpInside);
             
             if (distMin > dist - _MGZERO) {     // 让末尾图形优先选中
                 distMin = dist;
@@ -285,7 +286,7 @@ MgShape* MgShapes::hitTest(const Box2d& limits, Point2d& nearpt,
             }
         }
     }
-    if (retshape && distMin > limits.width() && !im->hasFillColor(retshape)) {
+    if (retshape && distMin > limits.width() && !retshape->hasFillColor()) {
         retshape = NULL;
     }
     
@@ -410,9 +411,4 @@ int MgShapes::I::getNewID(int sid)
             sid++;
     }
     return sid;
-}
-
-bool MgShapes::I::hasFillColor(const MgShape* shape) const
-{
-    return shape->contextc()->hasFillColor() && shape->shapec()->isClosed();
 }

@@ -306,12 +306,12 @@ swig.exe -c++ -csharp -namespace "touchvg.core" -module touchvgcs -I"$(ProjectDi
     <ClInclude Include="..\..\core\include\cmdbasic\mgdrawtriang.h" />
     <ClInclude Include="..\..\core\include\cmdmgr\mgcmdmgr.h" />
     <ClInclude Include="..\..\core\include\cmdmgr\mgcmdmgrfactory.h" />
-    <ClInclude Include="..\..\core\include\cmdmgr\mgselect.h" />
     <ClInclude Include="..\..\core\include\cmdobserver\cmdobserver.h" />
     <ClInclude Include="..\..\core\include\cmdobserver\cmdsubject.h" />
     <ClInclude Include="..\..\core\include\cmd\mgaction.h" />
     <ClInclude Include="..\..\core\include\cmd\mgcmd.h" />
     <ClInclude Include="..\..\core\include\cmd\mglockdata.h" />
+    <ClInclude Include="..\..\core\include\cmd\mgselect.h" />
     <ClInclude Include="..\..\core\include\cmd\mgsnap.h" />
     <ClInclude Include="..\..\core\include\cmd\mgview.h" />
     <ClInclude Include="..\..\core\include\geom\mgbase.h" />

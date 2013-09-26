@@ -54,7 +54,7 @@ struct MgCmdManager {
     //! 结束动态修改，提交或放弃所改的临时图形
     virtual bool dynamicChangeEnded(MgView* view, bool apply) = 0;
     
-    //! 返回选择集对象
+    //! 返回选择集对象，可能为NULL
     virtual MgSelection* getSelection() = 0;
     
     //! 返回上下文动作分发对象

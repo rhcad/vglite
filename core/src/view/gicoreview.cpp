@@ -63,6 +63,7 @@ public:
     void setNewShapeID(int sid) { _cmds->setNewShapeID(sid); }
     MgLockData* getLockData() { return this; }
     CmdSubject* getCmdSubject() { return cmds()->getCmdSubject(); }
+    MgSelection* getSelection() { return cmds()->getSelection(); }
     MgShapeFactory* getShapeFactory() { return doc()->shapeFactory(); }
     MgSnap* getSnap() { return _cmds->getSnap(); }
     MgActionDispatcher* getAction() {

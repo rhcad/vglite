@@ -622,18 +622,6 @@
 				Name="command"
 				>
 				<Filter
-					Name="cmdmgr"
-					>
-					<File
-						RelativePath="..\..\core\include\cmdmgr\mgcmdmgr.h"
-						>
-					</File>
-					<File
-						RelativePath="..\..\core\include\cmdmgr\mgselect.h"
-						>
-					</File>
-				</Filter>
-				<Filter
 					Name="cmdbase"
 					>
 					<File
@@ -662,6 +650,10 @@
 					</File>
 					<File
 						RelativePath="..\..\core\include\cmd\mglockdata.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\core\include\cmd\mgselect.h"
 						>
 					</File>
 					<File

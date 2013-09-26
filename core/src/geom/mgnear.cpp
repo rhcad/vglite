@@ -146,7 +146,7 @@ int mgcurv::bsplinesToBeziers(
 
 float mgnear::linesHit(
     int n, const Point2d* points, bool closed, 
-    const Point2d& pt, float tol, Point2d& nearpt, int& segment)
+    const Point2d& pt, float tol, Point2d& nearpt, int& segment, bool* inside)
 {
     Point2d ptTemp;
     float dist, distMin = _FLT_MAX;
@@ -156,6 +156,9 @@ float mgnear::linesHit(
     int inArea = (closed ? mglnrel::ptInArea(
         pt, n, points, segment, Tol(tol/5, 0)) : mglnrel::kPtInArea);
     
+    if (inside) {
+        *inside = (closed && inArea == mglnrel::kPtInArea);
+    }
     if (closed) {
         if (inArea == mglnrel::kPtOutArea) {
             return distMin;

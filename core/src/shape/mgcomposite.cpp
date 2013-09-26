@@ -109,13 +109,14 @@ bool MgComposite::_equals(const MgComposite& src) const
     return _shapes->equals(*(src._shapes)) && __super::_equals(src);
 }
 
-float MgComposite::_hitTest(const Point2d& pt, float tol, 
-                            Point2d& nearpt, int& segment) const
+float MgComposite::_hitTest(const Point2d& pt, float tol, Point2d& nearpt,
+                            int& segment, bool& inside) const
 {
     void* it;
     float mindist = 1e10f;
     Point2d tmpNear;
     int tmpseg;
+    bool tmpIn;
     Box2d limits(pt, 2 * tol, 0);
 
     segment = 0;
@@ -123,12 +124,13 @@ float MgComposite::_hitTest(const Point2d& pt, float tol,
         sp = _shapes->getNextShape(it))
     {
         if (limits.isIntersect(sp->shapec()->getExtent())) {
-            float dist = sp->shapec()->hitTest(pt, tol, tmpNear, tmpseg);
+            float d = sp->shapec()->hitTest(pt, tol, tmpNear, tmpseg, tmpIn);
 
-            if (mindist > dist - _MGZERO) {
-                mindist = dist;
+            if (mindist > d - _MGZERO) {
+                mindist = d;
                 nearpt = tmpNear;
                 segment = sp->getID();
+                inside = tmpIn;
             }
         }
     }

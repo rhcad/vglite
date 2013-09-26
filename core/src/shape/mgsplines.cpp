@@ -44,7 +44,7 @@ void MgSplines::_update()
 }
 
 float MgSplines::_hitTest(const Point2d& pt, float tol, 
-                          Point2d& nearpt, int& segment) const
+                          Point2d& nearpt, int& segment, bool&) const
 {
     return mgnear::cubicSplinesHit(_count, _points, _knotvs, isClosed(), 
         pt, tol, nearpt, segment);

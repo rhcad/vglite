@@ -559,6 +559,10 @@
 						>
 					</File>
 					<File
+						RelativePath="..\..\core\include\cmd\mgselect.h"
+						>
+					</File>
+					<File
 						RelativePath="..\..\core\include\cmd\mgsnap.h"
 						>
 					</File>
@@ -592,10 +596,6 @@
 					</File>
 					<File
 						RelativePath="..\..\core\include\cmdmgr\mgcmdmgrfactory.h"
-						>
-					</File>
-					<File
-						RelativePath="..\..\core\include\cmdmgr\mgselect.h"
 						>
 					</File>
 				</Filter>

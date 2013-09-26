@@ -162,10 +162,10 @@ void MgBaseRect::setCenter(const Point2d& pt)
         _points[i].offset(pt.x - old.x, pt.y - old.y);
 }
 
-float MgBaseRect::_hitTest(const Point2d& pt, float tol, 
-                           Point2d& nearpt, int& segment) const
+float MgBaseRect::_hitTest(const Point2d& pt, float tol, Point2d& nearpt,
+                           int& segment, bool& inside) const
 {
-    return mgnear::linesHit(4, _points, true, pt, tol, nearpt, segment);
+    return mgnear::linesHit(4, _points, true, pt, tol, nearpt, segment, &inside);
 }
 
 bool MgBaseRect::_hitTestBox(const Box2d& rect) const
@@ -305,9 +305,9 @@ bool MgImageShape::_draw(int mode, GiGraphics& gs, const GiContext& ctx, int seg
     GiContext tmpctx(ctx);
     tmpctx.setNoFillColor();
     
-    bool ret = (gs.drawPolygon(&tmpctx, 4, _points) ||
-                gs.rawImage(_name, rect.center().x, rect.center().y,
-                            rect.width(), rect.height(), vec.angle2()));
+    bool ret = gs.drawPolygon(&tmpctx, 4, _points);
+    ret = gs.rawImage(_name, rect.center().x, rect.center().y,
+        rect.width(), rect.height(), vec.angle2()) || ret;
     return __super::_draw(mode, gs, ctx, segment) || ret;
 }
 
@@ -441,12 +441,12 @@ void MgDiamond::_update()
         _extent.set(pts[0], 2 * Tol::gTol().equalPoint(), 0);
 }
 
-float MgDiamond::_hitTest(const Point2d& pt, float tol, 
-                          Point2d& nearpt, int& segment) const
+float MgDiamond::_hitTest(const Point2d& pt, float tol, Point2d& nearpt,
+                          int& segment, bool& inside) const
 {
     Point2d pts[] = { _getHandlePoint(0), _getHandlePoint(1),
         _getHandlePoint(2), _getHandlePoint(3) };
-    return mgnear::linesHit(4, pts, true, pt, tol, nearpt, segment);
+    return mgnear::linesHit(4, pts, true, pt, tol, nearpt, segment, &inside);
 }
 
 bool MgDiamond::_hitTestBox(const Box2d& rect) const

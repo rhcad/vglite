@@ -355,10 +355,15 @@ bool MgCmdSelect::canSelect(MgShape* shape, const MgMotion* sender)
 {
     Box2d limits(sender->startPtM, sender->displayMmToModel(10, sender), 0);
     float d = _FLT_MAX;
+    bool inside = false;
     
     m_segment = -1;
     if (shape) {
-        d = shape->shape()->hitTest(limits.center(), limits.width() / 2, m_ptNear, m_segment);
+        d = shape->shape()->hitTest(limits.center(), limits.width() / 2,
+                                    m_ptNear, m_segment, inside);
+        if (inside && shape->hasFillColor()) {
+            return true;
+        }
         if (d > limits.width() / 2) {
             int n = m_editMode ? shape->shapec()->getHandleCount() : 0;
             while (--n >= 0 && d > limits.width() / 2) {

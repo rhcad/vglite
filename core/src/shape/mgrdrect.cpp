@@ -49,13 +49,14 @@ void MgRoundRect::_clear()
 }
 
 float MgRoundRect::_hitTest(const Point2d& pt, float tol, 
-                            Point2d& nearpt, int& segment) const
+                            Point2d& nearpt, int& segment, bool&) const
 {
     float dist;
 
     if (isOrtho())
     {
-        dist = mgnear::roundRectHit(Box2d(_points[0], _points[2]), _rx, _ry, pt, tol, nearpt, segment);
+        dist = mgnear::roundRectHit(Box2d(_points[0], _points[2]),
+            _rx, _ry, pt, tol, nearpt, segment);
     }
     else
     {

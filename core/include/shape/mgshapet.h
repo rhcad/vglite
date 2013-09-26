@@ -48,6 +48,11 @@ public:
     const MgBaseShape* shapec() const {
         return &_shape;
     }
+
+    bool hasFillColor() const
+    {
+        return _context.hasFillColor() && _shape.isClosed();
+    }
     
     bool draw(int mode, GiGraphics& gs, const GiContext *ctx = NULL, int segment = -1) const {
         if (shapec()->isKindOf(6)) { // MgComposite

@@ -14,6 +14,7 @@ struct MgSnap;
 struct MgActionDispatcher;
 struct MgLockData;
 struct CmdSubject;
+struct MgSelection;
 class GcShapeDoc;
 class MgShapeDoc;
 class GiTransform;
@@ -52,6 +53,7 @@ public:
     virtual MgActionDispatcher* getAction() = 0;    //!< 返回上下文动作分发对象
     virtual MgLockData* getLockData() = 0;          //!< 返回图形文档锁定对象
     virtual CmdSubject* getCmdSubject() = 0;        //!< 返回命令扩展目标对象
+    virtual MgSelection* getSelection() = 0;        //!< 返回选择集对象，可能为NULL
 
     virtual bool setCurrentShapes(MgShapes* shapes) = 0; //!< 设置当前图形列表
 	virtual void cancel(const MgMotion* sender) = 0; //!< 取消当前命令
