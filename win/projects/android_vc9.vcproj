@@ -106,7 +106,15 @@
 						>
 					</File>
 					<File
+						RelativePath="..\..\android\demo\src\vgdemo\testview\view\GraphView1.java"
+						>
+					</File>
+					<File
 						RelativePath="..\..\android\demo\src\vgdemo\testview\view\GraphViewCached.java"
+						>
+					</File>
+					<File
+						RelativePath="..\..\android\demo\src\vgdemo\testview\view\LargeView1.java"
 						>
 					</File>
 					<File
@@ -115,6 +123,10 @@
 					</File>
 					<File
 						RelativePath="..\..\android\demo\src\vgdemo\testview\view\TestDoubleViews.java"
+						>
+					</File>
+					<File
+						RelativePath="..\..\android\demo\src\vgdemo\testview\view\TestMagnifier1.java"
 						>
 					</File>
 				</Filter>

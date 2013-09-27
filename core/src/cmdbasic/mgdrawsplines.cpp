@@ -98,10 +98,10 @@ bool MgCmdDrawSplines::touchEnded(const MgMotion* sender)
         dynshape()->shape()->setPoint(m_step, sender->pointM);
         dynshape()->shape()->update();
         
-        Tol tol(sender->displayMmToModel(1.f, sender));
+        Tol tol(sender->displayMmToModel(1.f));
         if (m_step > 0 && !dynshape()->shape()->getExtent().isEmpty(tol, false)) {
             //MgSplines* splines = (MgSplines*)dynshape()->shape();
-            //splines->smooth(sender->cmds()->lineHalfWidth(m_shape, sender) + sender->displayMmToModel(1, sender));
+            //splines->smooth(sender->cmds()->lineHalfWidth(m_shape, sender) + sender->displayMmToModel(1.f));
             _addshape(sender);
         }
         else {
@@ -113,7 +113,7 @@ bool MgCmdDrawSplines::touchEnded(const MgMotion* sender)
         MgBaseLines* lines = (MgBaseLines*)dynshape()->shape();
         float dist = lines->endPoint().distanceTo(dynshape()->shape()->getPoint(0));
 
-        while (m_step > 1 && dist < sender->displayMmToModel(1.f, sender)) {
+        while (m_step > 1 && dist < sender->displayMmToModel(1.f)) {
             lines->setClosed(true);
             lines->removePoint(m_step--);
             dist = lines->endPoint().distanceTo(dynshape()->shape()->getPoint(0));
@@ -123,7 +123,7 @@ bool MgCmdDrawSplines::touchEnded(const MgMotion* sender)
             _delayClear();
         }
         else if (sender->startPtM.distanceTo(sender->pointM) >
-                sender->displayMmToModel(5.f, sender)) {
+                sender->displayMmToModel(5.f)) {
             m_step++;
             if (m_step >= dynshape()->shape()->getPointCount()) {
                 lines->addPoint(lines->endPoint());
@@ -142,7 +142,7 @@ bool MgCmdDrawSplines::doubleClick(const MgMotion* sender)
             MgBaseLines* lines = (MgBaseLines*)dynshape()->shape();
             float dist = lines->endPoint().distanceTo(dynshape()->shape()->getPoint(m_step - 1));
 
-            if (dist < sender->displayMmToModel(2.f, sender)) {   // 最后两点重合
+            if (dist < sender->displayMmToModel(2.f)) {   // 最后两点重合
                 lines->removePoint(m_step--);               // 去掉最末点
             }
         }

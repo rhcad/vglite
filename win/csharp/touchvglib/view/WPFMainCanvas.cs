@@ -56,7 +56,6 @@ namespace touchvg.view
             this._adapter = new WPFCanvasAdapter();
             _helper = new GiMouseHelper(this._view, this._coreView);
             this.MouseDown += new MouseButtonEventHandler(TempCanvas_MouseDown);
-            this.MouseMove += new MouseEventHandler(TempCanvas_MouseMove);
             this.MouseUp += new MouseButtonEventHandler(TempCanvas_MouseUp);
         }
 
@@ -80,20 +79,27 @@ namespace touchvg.view
         {
             Point pt = e.GetPosition(this);
             _helper.onMouseUp((float)pt.X, (float)pt.Y);
+
             this.ReleaseMouseCapture();
+            this.MouseMove -= new MouseEventHandler(TempCanvas_MouseMove);
         }
 
         void TempCanvas_MouseMove(object sender, MouseEventArgs e)
         {
-            Point pt = e.GetPosition(this);
-            _helper.onMouseMove((float)pt.X, (float)pt.Y,
-                e.LeftButton == MouseButtonState.Pressed,
-                e.RightButton == MouseButtonState.Pressed);
+            if (pt.X >= 0 && pt.X <= this.Width
+                && pt.Y >= 0 && pt.Y <= this.Height)
+            {
+                Point pt = e.GetPosition(this);
+                _helper.onMouseMove((float)pt.X, (float)pt.Y,
+                    e.LeftButton == MouseButtonState.Pressed,
+                    e.RightButton == MouseButtonState.Pressed);
+            }
         }
 
         void TempCanvas_MouseDown(object sender, MouseButtonEventArgs e)
         {
             this.CaptureMouse();
+            this.MouseMove += new MouseEventHandler(TempCanvas_MouseMove);
 
             if (e.LeftButton == MouseButtonState.Pressed)
             {

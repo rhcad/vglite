@@ -205,9 +205,9 @@ bool GiCanvasAdapter::clipPath()
 
 void GiCanvasAdapter::drawHandle(float x, float y, int type)
 {
-    if (type >= 0 && type < 5) {
+    if (type >= 0 && type < 6) {
         NSString *names[] = { @"vgdot1.png", @"vgdot2.png", @"vgdot3.png", 
-            @"vg_lock.png", @"vg_unlock.png", @"vg_back.png" };
+            @"vg_lock.png", @"vg_unlock.png", @"vg_back.png", @"vg_endedit.png" };
         NSString *name = [@"TouchVG.bundle/" stringByAppendingString:names[type]];
         UIImage *image = [UIImage imageNamed:name];
         

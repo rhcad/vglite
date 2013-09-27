@@ -31,11 +31,20 @@ private:
     
     virtual bool initialize(const MgMotion* sender);
     virtual bool undo(const MgMotion* sender);
+    virtual bool draw(const MgMotion* sender, GiGraphics* gs);
     virtual bool touchBegan(const MgMotion* sender);
     virtual bool touchMoved(const MgMotion* sender);
     virtual bool touchEnded(const MgMotion* sender);
+    virtual bool click(const MgMotion* sender);
     virtual bool doubleClick(const MgMotion* sender);
     virtual bool cancel(const MgMotion* sender);
+
+private:
+    bool checkClosed(const MgMotion* sender, const Point2d& pnt);
+    bool canAddPoint(const MgMotion* sender, const Point2d& pnt);
+
+private:
+    int     m_index;
 };
 
 #endif // TOUCHVG_CMD_DRAW_LINES_H_

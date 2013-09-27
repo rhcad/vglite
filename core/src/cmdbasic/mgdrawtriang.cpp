@@ -51,7 +51,7 @@ bool MgCmdDrawTriangle::touchMoved(const MgMotion* sender)
 bool MgCmdDrawTriangle::touchEnded(const MgMotion* sender)
 {
     Point2d pnt(snapPoint(sender));
-    float distmin = sender->displayMmToModel(2.f, sender);
+    float distmin = sender->displayMmToModel(2.f);
     
     dynshape()->shape()->setPoint(m_step, pnt);
     dynshape()->shape()->update();

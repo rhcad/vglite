@@ -108,6 +108,11 @@ bool MgBaseLines::resize(int count)
     return true;
 }
 
+int MgBaseLines::maxEdgeIndex() const
+{
+    return _count - (isClosed() ? 1 : 2);
+}
+
 bool MgBaseLines::addPoint(const Point2d& pt)
 {
     resize(_count + 1);
@@ -119,7 +124,7 @@ bool MgBaseLines::insertPoint(int segment, const Point2d& pt)
 {
     bool ret = false;
     
-    if (segment >= 0 && segment < (int)(_count - (isClosed() ? 0 : 1))) {
+    if (segment >= 0 && segment <= maxEdgeIndex()) {
         resize(_count + 1);
         for (int i = (int)_count - 1; i > segment + 1; i--)
             _points[i] = _points[i - 1];

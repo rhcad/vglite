@@ -80,7 +80,7 @@ int MgCmdErase::gatherShapes(const MgMotion* sender, MgShapes* shapes)
 
 MgShape* MgCmdErase::hitTest(const MgMotion* sender)
 {
-    Box2d limits(sender->startPtM, sender->displayMmToModel(6, sender), 0);
+    Box2d limits(sender->startPtM, sender->displayMmToModel(6.f), 0);
     Point2d nearpt;
     
     return sender->view->shapes()->hitTest(limits, nearpt);

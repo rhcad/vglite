@@ -245,9 +245,18 @@ public:
     //! 删除一个顶点
     bool removePoint(int index);
 
+    //! 返回边的最大序号
+    int maxEdgeIndex() const;
+    
+#ifndef SWIG
+    //! 返回坐标数组
+    Point2d* getPoints() { return _points; }
+#endif
+
 protected:
     MgBaseLines();
     virtual ~MgBaseLines();
+    bool _isClosed() const { return _count > 2 && __super::_isClosed(); }
     int _getPointCount() const;
     Point2d _getPoint(int index) const;
     void _setPoint(int index, const Point2d& pt);

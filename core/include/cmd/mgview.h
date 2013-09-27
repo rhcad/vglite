@@ -131,7 +131,7 @@ public:
 	//! 返回屏幕毫米长度对应的模型长度，在命令显示函数中使用
 	float displayMmToModel(float mm, GiGraphics*) const { return d2mgs * mm; }
     //! 返回屏幕毫米长度对应的模型长度
-	float displayMmToModel(float mm, const MgMotion*) const { return d2m * mm; }
+	float displayMmToModel(float mm) const { return d2m * mm; }
 };
 
 #ifndef SWIG

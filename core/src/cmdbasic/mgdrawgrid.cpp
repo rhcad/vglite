@@ -46,7 +46,7 @@ bool MgCmdDrawGrid::touchEnded(const MgMotion* sender)
         return MgCmdDrawRect::touchEnded(sender);
     }
     
-    if ( ((MgGrid*)dynshape()->shape())->valid(sender->displayMmToModel(1, sender)) ) {
+    if ( ((MgGrid*)dynshape()->shape())->valid(sender->displayMmToModel(1.f)) ) {
         dynshape()->context()->setNoFillColor();
         _addshape(sender);
         _delayClear();

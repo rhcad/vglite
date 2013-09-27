@@ -251,11 +251,12 @@ typedef enum {
     \param[out] order 返回 kPtAtVertex 时，输出顶点号[0, count-1]；\n
         返回 kPtOnEdge 时，输出边号[0, count-1]；\n为NULL则忽略该参数
     \param[in] tol 容差
+    \param[in] closed 是否闭合，false表示折线
     \return 为枚举定义 PtInAreaRet 的各种值
 */
 static int ptInArea(
     const Point2d& pt, int count, const Point2d* vertexs, 
-    int& order, const Tol& tol = Tol::gTol());
+    int& order, const Tol& tol = Tol::gTol(), bool closed = true);
 
 //! 判断多边形是否为凸多边形
 /*!

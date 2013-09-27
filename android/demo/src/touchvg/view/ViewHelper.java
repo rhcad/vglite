@@ -76,7 +76,7 @@ public class ViewHelper {
      *     R.drawable.vg_back, 0, 0, R.drawable.vg_addvertex, R.drawable.vg_delvertex,
      *     R.drawable.vg_group, R.drawable.vg_ungroup, R.drawable.vg_overturn };
      * private static final int[] HANDLEIDS = { R.drawable.vgdot1, R.drawable.vgdot2,
-     *     R.drawable.vgdot3, R.drawable.vg_lock, R.drawable.vg_unlock, R.drawable.vg_back };
+     *     R.drawable.vgdot3, R.drawable.vg_lock, R.drawable.vg_unlock, R.drawable.vg_back, R.drawable.vg_endedit };
      * helper.setContextButtonImages(IMAGEIDS, null, HANDLEIDS);
      * @endcode
      */

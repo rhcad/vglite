@@ -55,7 +55,7 @@ bool MgCmdDrawRect::touchEnded(const MgMotion* sender)
     shape->setRect2P(pt1, pt2);
     dynshape()->shape()->update();
 
-    float minDist = sender->displayMmToModel(5, sender);
+    float minDist = sender->displayMmToModel(5.f);
 
     if (shape->getWidth() > minDist && shape->getHeight() > minDist) {
         addRectShape(sender);

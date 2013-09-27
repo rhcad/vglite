@@ -4,13 +4,11 @@
 
 #include "mglnrel.h"
 
-// 判断点pt是否在有向直线a->b的左边 (开区间)
 bool mglnrel::isLeft(const Point2d& a, const Point2d& b, const Point2d& pt)
 {
     return (b-a).crossProduct(pt-a) > 0.f;
 }
 
-// 判断点pt是否在有向直线a->b的左边
 bool mglnrel::isLeft2(
     const Point2d& a, const Point2d& b, const Point2d& pt, const Tol& tol)
 {
@@ -18,13 +16,11 @@ bool mglnrel::isLeft2(
     return dist > tol.equalPoint();
 }
 
-// 判断点pt是否在有向直线a->b的左边或线上 (闭区间)
 bool mglnrel::isLeftOn(const Point2d& a, const Point2d& b, const Point2d& pt)
 {
     return (b-a).crossProduct(pt-a) >= 0.f;
 }
 
-// 判断点pt是否在有向直线a->b的左边或线上
 bool mglnrel::isLeftOn2(
     const Point2d& a, const Point2d& b, const Point2d& pt, const Tol& tol)
 {
@@ -32,13 +28,11 @@ bool mglnrel::isLeftOn2(
     return dist > -tol.equalPoint();
 }
 
-// 判断点pt是否在直线a->b的线上
 bool mglnrel::isColinear(const Point2d& a, const Point2d& b, const Point2d& pt)
 {
     return mgIsZero((b-a).crossProduct(pt-a));
 }
 
-// 判断点pt是否在直线a->b的线上
 bool mglnrel::isColinear2(
     const Point2d& a, const Point2d& b, const Point2d& pt, const Tol& tol)
 {
@@ -46,7 +40,6 @@ bool mglnrel::isColinear2(
     return fabsf(dist) < tol.equalPoint();
 }
 
-// 判断两个线段ab和cd是否相交于线段内部
 bool mglnrel::isIntersectProp(
     const Point2d& a, const Point2d& b, const Point2d& c, const Point2d& d)
 {
@@ -59,7 +52,6 @@ bool mglnrel::isIntersectProp(
         && (mglnrel::isLeft(c,d,a) ^ mglnrel::isLeft(c,d,b));
 }
 
-// 判断点pt是否在线段ab上(闭区间)
 bool mglnrel::isBetweenLine(const Point2d& a, const Point2d& b, const Point2d& pt)
 {
     if (!mglnrel::isColinear(a, b, pt))
@@ -72,7 +64,6 @@ bool mglnrel::isBetweenLine(const Point2d& a, const Point2d& b, const Point2d& p
         return  (a.y <= pt.y && pt.y <= b.y) || (a.y >= pt.y && pt.y >= b.y);
 }
 
-// 判断点pt是否在线段ab上
 bool mglnrel::isBetweenLine2(
     const Point2d& a, const Point2d& b, const Point2d& pt, const Tol& tol)
 {
@@ -96,7 +87,6 @@ bool mglnrel::isBetweenLine2(
     }
 }
 
-// 已知点pt在直线ab上, 判断点pt是否在线段ab上(闭区间)
 bool mglnrel::isBetweenLine3(
     const Point2d& a, const Point2d& b, const Point2d& pt, Point2d* nearpt)
 {
@@ -116,7 +106,6 @@ bool mglnrel::isBetweenLine3(
     return ret;
 }
 
-// 判断两个线段ab和cd是否相交(交点在线段闭区间内)
 bool mglnrel::isIntersect(
     const Point2d& a, const Point2d& b, const Point2d& c, const Point2d& d)
 {
@@ -129,14 +118,12 @@ bool mglnrel::isIntersect(
         return false;
 }
 
-// 计算点pt到无穷直线ab的距离
 float mglnrel::ptToBeeline(const Point2d& a, const Point2d& b, const Point2d& pt)
 {
     float dist = (b-a).crossProduct(pt-a);
     return dist;
 }
 
-// 计算点pt到无穷直线ab的距离
 float mglnrel::ptToBeeline2(
     const Point2d& a, const Point2d& b, const Point2d& pt, Point2d& ptPerp)
 {
@@ -168,7 +155,6 @@ float mglnrel::ptToBeeline2(
     }
 }
 
-// 计算点pt到线段ab的最近距离
 float mglnrel::ptToLine(
     const Point2d& a, const Point2d& b, const Point2d& pt, Point2d& nearpt)
 {
@@ -182,7 +168,6 @@ float mglnrel::ptToLine(
     return dist;
 }
 
-// 求两条直线(ax+by+c=0)的交点
 bool mglnrel::crossLineAbc(
     float a1, float b1, float c1, float a2, float b2, float c2,
     Point2d& ptCross, const Tol& tolVec)
@@ -202,7 +187,6 @@ bool mglnrel::crossLineAbc(
     return true;
 }
 
-// 求两条无穷直线的交点
 bool mglnrel::cross2Beeline(
     const Point2d& a, const Point2d& b, const Point2d& c, const Point2d& d, 
     Point2d& ptCross, float* pu, float* pv, const Tol& tolVec)
@@ -229,11 +213,6 @@ bool mglnrel::cross2Beeline(
     return true;
 }
 
-// 求两条线段的交点
-// 输入: (a.x,a.y),(b.x,b.y) 第一条线段上的两个点
-//         (c.x,c.y),(d.x,d.y) 第二条线段上的两个点
-// 输出: (px, py) 交点坐标
-// 返回: 有无交点
 bool mglnrel::cross2Line(
     const Point2d& a, const Point2d& b, const Point2d& c, const Point2d& d,
     Point2d& ptCross, const Tol& tolVec)
@@ -268,7 +247,6 @@ bool mglnrel::cross2Line(
     return true;
 }
 
-// 求线段和直线的交点
 bool mglnrel::crossLineBeeline(
     const Point2d& a, const Point2d& b, const Point2d& c, const Point2d& d,
     Point2d& ptCross, float* pv, const Tol& tolVec)
@@ -314,11 +292,6 @@ static inline unsigned ClipCode(Point2d& pt, const Box2d& box)
     return code;
 }
 
-// 功能: 用矩形剪裁线段
-// 参数: [in, out] pt1 线段起点坐标
-//       [in, out] pt2 线段终点坐标
-//       [in] box 剪裁矩形
-// 返回: 剪裁后是否有处于剪裁矩形内的线段部分
 bool mglnrel::clipLine(Point2d& pt1, Point2d& pt2, const Box2d& _box)
 {
     Box2d box (_box);
@@ -406,40 +379,50 @@ static bool PtInArea_Edge(int &odd, const Point2d& pt, const Point2d& p1,
     return true;
 }
 
-// 功能: 判断一点是否在一多边形范围内
 int mglnrel::ptInArea(
-    const Point2d& pt, int count, const Point2d* vertexs, 
-    int& order, const Tol& tol)
+    const Point2d& pt, int count, const Point2d* pts, 
+    int& order, const Tol& tol, bool closed)
 {
     int i;
     int odd = 1;    // 1: 交点数为偶数, 0: 交点数为奇数
+    float minDist = tol.equalPoint();
+    Point2d nearpt;
     
     order = -1;
-    for (i = 0; i < count; i++)
+    for (i = 0; i < count && tol.equalPoint() < 1.e5f; i++)
     {
         // P与某顶点重合. 返回 kPtAtVertex, order = 顶点号 [0, count-1]
-        if (pt.isEqualTo(vertexs[i], tol))
-        {
+        float d = pt.distanceTo(pts[i]);
+        if (minDist > d) {
+            minDist = d;
             order = i;
-            return kPtAtVertex;
         }
     }
+    if (order >= 0) {
+        return kPtAtVertex;
+    }
     
-    for (i = 0; i < count; i++)
+    order = -1;
+    minDist = tol.equalPoint();
+    
+    for (i = 0; i < (closed ? count : count - 1); i++)
     {
-        const Point2d& p1 = vertexs[i];
-        const Point2d& p2 = (i+1 < count) ? vertexs[i+1] : vertexs[0];
+        const Point2d& p1 = pts[i];
+        const Point2d& p2 = (i+1 < count) ? pts[i+1] : pts[0];
         
         // P在某条边上. 返回 kPtOnEdge, order = 边号 [0, count-1]
-        if (mglnrel::isBetweenLine2(p1, p2, pt, tol))
-        {
+        float d = mglnrel::ptToBeeline2(p1, p2, pt, nearpt);
+        if (minDist > d) {
+            minDist = d;
             order = i;
-            return kPtOnEdge;
         }
-
-        if (!PtInArea_Edge(odd, pt, p1, p2, 
-            i > 0 ? vertexs[i-1] : vertexs[count-1]))
+        else if (!PtInArea_Edge(odd, pt, p1, p2, 
+                                i > 0 ? pts[i-1] : pts[count-1])) {
             continue;
+        }
+    }
+    if (order >= 0) {
+        return kPtOnEdge;
     }
 
     // 如果射线和多边形的交点数为偶数, 则 p==1, P在区外, 返回 kPtOutArea
@@ -447,7 +430,6 @@ int mglnrel::ptInArea(
     return 0 == odd ? kPtInArea : kPtOutArea;
 }
 
-// 判断多边形是否为凸多边形
 bool mglnrel::isConvex(int count, const Point2d* vs, bool* pACW)
 {
     if (count < 3 || vs == NULL)

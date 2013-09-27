@@ -171,10 +171,17 @@ public:
     //! 设置指定序号的控制点坐标，可以处理拖动状态
     virtual bool setHandlePoint2(int index, const Point2d& pt, float tol, int& data) = 0;
 #endif
+
+    //! 选中点击测试，可输出段号
+    float hitTest2(const Point2d& pt, float tol, Point2d& nearpt, int& segment) const {
+        bool inside = false;
+        return hitTest(pt, tol, nearpt, segment, inside);
+    }
     //! 选中点击测试
     float hitTest2(const Point2d& pt, float tol, Point2d& nearpt) const {
         bool inside = false;
-        int segment; return hitTest(pt, tol, nearpt, segment, inside);
+        int segment;
+        return hitTest(pt, tol, nearpt, segment, inside);
     }
     
     //! 框选检查

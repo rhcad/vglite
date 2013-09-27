@@ -186,7 +186,7 @@ bool MgCmdSelect::draw(const MgMotion* sender, GiGraphics* gs)
     if (sender->view->shapes()->getOwner()->isKindOf(kMgShapeComposite)) {
         GiContext ctxshap(0, GiColor(0, 0, 255, 64), kGiLineDot);
         Box2d rect(sender->view->shapes()->getExtent());
-        rect.inflate(sender->displayMmToModel(2, sender));
+        rect.inflate(sender->displayMmToModel(2.f));
         gs->drawRect(&ctxshap, rect);
     }
     
@@ -220,7 +220,7 @@ bool MgCmdSelect::draw(const MgMotion* sender, GiGraphics* gs)
                 j >= 0; j--) {
                 mgnear::getRectHandle(selbox, j == 0 ? 7 : 5, pnt);
                 pnt = pnt.rulerPoint(selbox.center(),
-                                     -sender->displayMmToModel(10, sender), 0);
+                                     -sender->displayMmToModel(10.f), 0);
                 
                 float w = -1.f * gs->xf().getWorldToDisplayY(false);
                 float r = pnt.distanceTo(selbox.center());
@@ -340,7 +340,7 @@ bool MgCmdSelect::isSelected(MgShape* shape)
 MgShape* MgCmdSelect::hitTestAll(const MgMotion* sender, 
                                  Point2d &nearpt, int &segment)
 {
-    Box2d limits(sender->pointM, sender->displayMmToModel(8, sender), 0);
+    Box2d limits(sender->pointM, sender->displayMmToModel(8.f), 0);
     segment = -1;
     return sender->view->shapes()->hitTest(limits, nearpt, &segment);
 }
@@ -353,7 +353,7 @@ MgShape* MgCmdSelect::getSelectedShape(const MgMotion* sender)
 
 bool MgCmdSelect::canSelect(MgShape* shape, const MgMotion* sender)
 {
-    Box2d limits(sender->startPtM, sender->displayMmToModel(10, sender), 0);
+    Box2d limits(sender->startPtM, sender->displayMmToModel(10.f), 0);
     float d = _FLT_MAX;
     bool inside = false;
     
@@ -383,7 +383,7 @@ int MgCmdSelect::hitTestHandles(MgShape* shape, const Point2d& pointM,
     }
     
     int handleIndex = 0;
-    float minDist = sender->displayMmToModel(tolmm, sender);
+    float minDist = sender->displayMmToModel(tolmm);
     float nearDist = m_ptNear.distanceTo(pointM);
     int n = shape->shapec()->getHandleCount();
     
@@ -396,7 +396,7 @@ int MgCmdSelect::hitTestHandles(MgShape* shape, const Point2d& pointM,
     }
     
     if (sender->pressDrag && nearDist < minDist / 3
-        && minDist > sender->displayMmToModel(8, sender)
+        && minDist > sender->displayMmToModel(8.f)
         && shape->shape()->isKindOf(MgBaseLines::Type()))
     {
         m_insertPt = true;
@@ -457,8 +457,8 @@ bool MgCmdSelect::click(const MgMotion* sender)
             sender->view->selectionChanged();
         }
         else if (shape && m_selIds.size() == 1 && !shape->shape()->isKindOf(MgSplines::Type())) {
-            bool issmall = (shape->shape()->getExtent().width() < sender->displayMmToModel(5, sender)
-                            && shape->shape()->getExtent().height() < sender->displayMmToModel(5, sender));
+            bool issmall = (shape->shape()->getExtent().width() < sender->displayMmToModel(5.f)
+                            && shape->shape()->getExtent().height() < sender->displayMmToModel(5.f));
             m_handleIndex = (m_editMode || !issmall ?
                              hitTestHandles(shape, sender->pointM, sender) : 0);
         }
@@ -577,7 +577,7 @@ bool MgCmdSelect::touchBegan(const MgMotion* sender)
     
     int tmpindex = hitTestHandles(shape, sender->startPtM, sender, 5);
     if (tmpindex < 1) {
-        if (sender->startPtM.distanceTo(m_ptNear) < sender->displayMmToModel(3, sender)) {
+        if (sender->startPtM.distanceTo(m_ptNear) < sender->displayMmToModel(3.f)) {
             m_ptStart = m_ptNear;
         }
         else {
@@ -620,14 +620,14 @@ Box2d MgCmdSelect::getBoundingBox(const MgMotion* sender)
         selbox.inflate(minDist / 8, minDist / 8);
     
     Box2d rcview(sender->view->xform()->getWndRectM());
-    rcview.deflate(sender->displayMmToModel(1, sender));
+    rcview.deflate(sender->displayMmToModel(1.f));
     selbox.intersectWith(rcview);
     
     Box2d selbox2(selbox);
-    rcview.deflate(sender->displayMmToModel(12, sender));
+    rcview.deflate(sender->displayMmToModel(12.f));
     selbox2.intersectWith(rcview);
     
-    return selbox2.isEmpty(sender->displayMmToModel(5, sender)) ? selbox : selbox2;
+    return selbox2.isEmpty(sender->displayMmToModel(5.f)) ? selbox : selbox2;
 }
 
 bool MgCmdSelect::isSelectedByType(MgView* view, int type)
@@ -666,11 +666,11 @@ bool MgCmdSelect::isDragRectCorner(const MgMotion* sender, Matrix2d& mat)
     
     Point2d pnt;
     int i;
-    float mindist = sender->displayMmToModel(5, sender);
+    float mindist = sender->displayMmToModel(5.f);
     
     for (i = canTransform(getShape(m_selIds[0], sender), sender) ? 7 : -1; i >= 0; i--) {
         mgnear::getRectHandle(selbox, i, pnt);
-        float addlen = i < 4 ? 0.f : sender->displayMmToModel(1, sender); // 边中点优先1毫米
+        float addlen = i < 4 ? 0.f : sender->displayMmToModel(1.f); // 边中点优先1毫米
         if (mindist > sender->startPtM.distanceTo(pnt) - addlen) {
             mindist = sender->startPtM.distanceTo(pnt) - addlen;
             m_boxHandle = i;
@@ -680,7 +680,7 @@ bool MgCmdSelect::isDragRectCorner(const MgMotion* sender, Matrix2d& mat)
     for (i = canRotate(getShape(m_selIds[0], sender), sender) ? 1 : -1;
         i >= 0; i--) {
         mgnear::getRectHandle(selbox, i == 0 ? 7 : 5, pnt);
-        pnt = pnt.rulerPoint(selbox.center(), -sender->displayMmToModel(10, sender), 0);
+        pnt = pnt.rulerPoint(selbox.center(), -sender->displayMmToModel(10.f), 0);
         if (mindist > sender->startPtM.distanceTo(pnt)) {
             mindist = sender->startPtM.distanceTo(pnt);
             m_boxHandle = 8 + i;
@@ -699,7 +699,7 @@ bool MgCmdSelect::isDragRectCorner(const MgMotion* sender, Matrix2d& mat)
     }
     else if (m_boxHandle < 10) {
         mgnear::getRectHandle(selbox, m_boxHandle == 8 ? 7 : 5, pnt);
-        pnt = pnt.rulerPoint(selbox.center(), -sender->displayMmToModel(10, sender), 0);
+        pnt = pnt.rulerPoint(selbox.center(), -sender->displayMmToModel(10.f), 0);
         float angle = (pnt - selbox.center()).angleTo2(sender->pointM - selbox.center());
         
         if (m_boxHandle == 8) {
@@ -753,7 +753,7 @@ bool MgCmdSelect::touchMoved(const MgMotion* sender)
     Matrix2d mat;
     bool dragCorner = isDragRectCorner(sender, mat);
     
-    if (m_insertPt && pointM.distanceTo(m_ptNear) < sender->displayMmToModel(5, sender)) {
+    if (m_insertPt && pointM.distanceTo(m_ptNear) < sender->displayMmToModel(5.f)) {
         pointM = m_ptNear;  // 拖动刚新加的点到起始点时取消新增
     }
     
@@ -803,7 +803,7 @@ bool MgCmdSelect::touchMoved(const MgMotion* sender)
                 m_rotateHandle = oldRotateHandle;
             }
             else if (m_handleIndex > 0 && isEditMode(sender->view)) { // 拖动顶点
-                float tol = sender->displayMmToModel(3, sender);
+                float tol = sender->displayMmToModel(3.f);
                 shape->setHandlePoint2(m_handleIndex - 1, 
                     snapPoint(sender, m_clones[i]), tol, _dragData);
             }
@@ -875,14 +875,14 @@ bool MgCmdSelect::isCloneDrag(const MgMotion* sender)
     float dist = sender->pointM.distanceTo(sender->startPtM);
     return (!isEditMode(sender->view)
             && m_boxHandle > 16 && sender->pressDrag
-            && dist > sender->displayMmToModel(5, sender));
+            && dist > sender->displayMmToModel(5.f));
 }
 
 bool MgCmdSelect::touchEnded(const MgMotion* sender)
 {
     // 拖动刚新加的点到起始点时取消新增
     if (m_insertPt && m_clones.size() == 1
-        && sender->pointM.distanceTo(m_ptNear) < sender->displayMmToModel(5, sender)) {
+        && sender->pointM.distanceTo(m_ptNear) < sender->displayMmToModel(5.f)) {
         m_clones[0]->release();
         m_clones.clear();
     }
@@ -1264,7 +1264,7 @@ bool MgCmdSelect::insertVertext(const MgMotion* sender)
         MgBaseLines *lines = (MgBaseLines *)shape->shape();
         float dist = m_ptNear.distanceTo(shape->shape()->getPoint(m_segment));
         
-        ret = (dist > sender->displayMmToModel(1, sender)
+        ret = (dist > sender->displayMmToModel(1.f)
                && lines->insertPoint(m_segment, m_ptNear));
         if (ret) {
             shape->shape()->update();

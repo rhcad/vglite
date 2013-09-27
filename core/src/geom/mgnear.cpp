@@ -146,33 +146,33 @@ int mgcurv::bsplinesToBeziers(
 
 float mgnear::linesHit(
     int n, const Point2d* points, bool closed, 
-    const Point2d& pt, float tol, Point2d& nearpt, int& segment, bool* inside)
+    const Point2d& pt, float tol, Point2d& nearpt, int& segment,
+    bool* inside, int* hitType)
 {
     Point2d ptTemp;
     float dist, distMin = _FLT_MAX;
     const Box2d rect (pt, 2 * tol, 2 * tol);
     int n2 = (closed && n > 1) ? n + 1 : n;
     
-    int inArea = (closed ? mglnrel::ptInArea(
-        pt, n, points, segment, Tol(tol/5, 0)) : mglnrel::kPtInArea);
+    int type = mglnrel::ptInArea(pt, n, points, segment, Tol(tol), closed);
     
     if (inside) {
-        *inside = (closed && inArea == mglnrel::kPtInArea);
+        *inside = (closed && type == mglnrel::kPtInArea);
     }
-    if (closed) {
-        if (inArea == mglnrel::kPtOutArea) {
-            return distMin;
-        }
-        if (inArea == mglnrel::kPtAtVertex) {
-            nearpt = points[segment];
-            distMin = nearpt.distanceTo(pt);
-            return distMin;
-        }
-        if (inArea == mglnrel::kPtOnEdge) {
-            distMin = mglnrel::ptToLine(points[segment], 
-                points[(segment+1)%n], pt, nearpt);
-            return distMin;
-        }
+    if (hitType) {
+        *hitType = type;
+    }
+    if (type == mglnrel::kPtAtVertex) {
+        nearpt = points[segment];
+        distMin = nearpt.distanceTo(pt);
+        return distMin;
+    }
+    if (type == mglnrel::kPtOnEdge) {
+        distMin = mglnrel::ptToLine(points[segment], points[(segment+1)%n], pt, nearpt);
+        return distMin;
+    }
+    if (!closed || type != mglnrel::kPtInArea) {
+        return distMin;
     }
     
     for (int i = 0; i + 1 < n2; i++)

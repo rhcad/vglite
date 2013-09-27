@@ -85,13 +85,14 @@ namespace touchvg.view
             AddActionImage(19, Resource1.vg_overturn);
             //AddActionImage(40, Resource1.vg_break);
 
-            _handleImages = new ImageSource[6];
+            _handleImages = new ImageSource[7];
             _handleImages[0] = WPFImageSourceHelper.BitmapToImageSource(Resource1.vgdot1);
             _handleImages[1] = WPFImageSourceHelper.BitmapToImageSource(Resource1.vgdot2);
             _handleImages[2] = WPFImageSourceHelper.BitmapToImageSource(Resource1.vgdot3);
             _handleImages[3] = WPFImageSourceHelper.BitmapToImageSource(Resource1.vg_lock);
             _handleImages[4] = WPFImageSourceHelper.BitmapToImageSource(Resource1.vg_unlock);
             _handleImages[5] = WPFImageSourceHelper.BitmapToImageSource(Resource1.vg_back);
+            _handleImages[6] = WPFImageSourceHelper.BitmapToImageSource(Resource1.vg_endedit);
         }
 
         private void AddActionImage(int key, Bitmap bitmap)
